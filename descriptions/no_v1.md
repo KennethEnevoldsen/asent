@@ -1,0 +1,3 @@
+The lexicons contain a list of rated words for Norwegian. The words are rated in context by Finn A. Nielsen as a part of his package [AFINN](https://github.com/olavski/afinn/blob/master/afinn/data/AFINN-no-165.txt). The contrastive conjugations, negations and intensifiers have been added by [Center for Humanities Computing Aarhus](https://chcaa.io).
+
+The lexicon includes a total of 3214 rated words along with intensifier, contrastive conjugations and negations.
