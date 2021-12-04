@@ -5,7 +5,7 @@ from inspect import getsourcefile
 
 from spacy.language import Language
 
-from ..util import lexicons
+from ..utils import lexicons
 from ..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
@@ -138,10 +138,10 @@ INTENSIFIERS = {
     "No og da": -0.293,
 }
 
-lexicons.register("no_lexicon_v1", func=LEXICON)
-lexicons.register("no_negations_v1", func=NEGATIONS)
-lexicons.register("no_contrastive_conj_v1", func=CONTRASTIVE_CONJ)
-lexicons.register("no_intensifiers_v1", func=INTENSIFIERS)
+lexicons.register("lexicon_no_v1", func=LEXICON)
+lexicons.register("negations_no_v1", func=NEGATIONS)
+lexicons.register("contrastive_conj_no_v1", func=CONTRASTIVE_CONJ)
+lexicons.register("intensifiers_no_v1", func=INTENSIFIERS)
 
 @Language.factory("asent_no_v1")
 def create_no_sentiment_component(nlp: Language, name: str) -> Language:

@@ -81,7 +81,7 @@ which will run all the test in the `asent/tests` folder.
 Specific tests can be run using:
 
 ```
-python -m pytest augmenty/tests/test_docs.py
+python -m pytest augmenty/tests/desired_test.py
 ```
 
 **Code Coverage**

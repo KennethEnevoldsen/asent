@@ -10,6 +10,7 @@ from asent.getters import (
     make_token_polarity_getter,
     make_span_polarity_getter,
     make_is_negation_getter,
+    make_is_negated_getter,
     make_valance_getter,
     make_intensifier_getter,
     make_is_contrastive_conj_getter,
@@ -26,35 +27,50 @@ class Asent:
     def __init__(
         self,
         nlp: Language,
+        name: str,
         lexicon: Dict[str, float],
         intensifiers: Dict[str, float] = {},
         negations: Iterable[str] = set(),
         contrastive_conjugations: Iterable[str] = set(),
         lowercase: bool = True,
         lemmatize: bool = True,
-        force: bool=False,
+        force: bool = False,
     ):
         """Initialise components"""
+        self.name = name
 
         if (not Token.has_extension("valence")) or (force is True):
             Token.set_extension(
                 "valence",
-                getter=make_valance_getter(lexicon=lexicon, lowercase=lowercase, lemmatize=lemmatize),
-                force=force
+                getter=make_valance_getter(
+                    lexicon=lexicon, lowercase=lowercase, lemmatize=lemmatize
+                ),
+                force=force,
             )
 
         if (not Token.has_extension("intensifier")) or (force is True):
             Token.set_extension(
                 "intensifier",
-                getter=make_intensifier_getter(intensifiers=intensifiers, lemmatize=lemmatize, lowercase=lowercase),
-                force=force
+                getter=make_intensifier_getter(
+                    intensifiers=intensifiers, lemmatize=lemmatize, lowercase=lowercase
+                ),
+                force=force,
             )
-
+        
         if (not Token.has_extension("is_negation")) or (force is True):
             Token.set_extension(
                 "is_negation",
-                getter=make_is_negation_getter(negations=negations, lemmatize=lemmatize, lowercase=lowercase),
-                force=force
+                getter=make_is_negation_getter(
+                    negations=negations, lemmatize=lemmatize, lowercase=lowercase
+                ),
+                force=force,
+            )
+
+        if (not Token.has_extension("is_negated")) or (force is True):
+            Token.set_extension(
+                "is_negated",
+                getter=make_is_negated_getter(),
+                force=force,
             )
 
         if (not Token.has_extension("is_contrastive_conj")) or (force is True):
@@ -62,39 +78,68 @@ class Asent:
                 "is_contrastive_conj",
                 getter=make_is_contrastive_conj_getter(
                     contrastive_conjugations=contrastive_conjugations,
-                    lemmatize=lemmatize, lowercase=lowercase
+                    lemmatize=lemmatize,
+                    lowercase=lowercase,
                 ),
-                force=force
+                force=force,
             )
 
         if (not Token.has_extension("polarity")) or (force is True):
             Token.set_extension(
                 "polarity",
                 getter=make_token_polarity_getter(
-                    valence_getter=None, is_negation_getter=None, intensifier_getter=None,
+                    valence_getter=None,
+                    is_negation_getter=None,
+                    intensifier_getter=None,
                 ),
-                force=force
+                force=force,
             )
 
         if (not Span.has_extension("polarity")) or (force is True):
             Span.set_extension(
                 "polarity",
                 getter=make_span_polarity_getter(
-                    polarity_getter=None, contrastive_conj_getter=None,
-
+                    polarity_getter=None,
+                    contrastive_conj_getter=None,
                 ),
-                force=force
+                force=force,
             )
 
         if (not Doc.has_extension("polarity")) or (force is True):
             Doc.set_extension(
                 "polarity",
                 getter=make_doc_polarity_getter(span_polarity_getter=None),
-                force=force
+                force=force,
             )
-
 
     def __call__(self, doc: Doc):
         """Run the pipeline component"""
         return doc
 
+
+@Language.factory("asent_v1", default_config={"lowercase": True, "lemmatize": False, "force": False})
+def create_da_sentiment_component(
+    nlp: Language,
+    name: str, 
+    lexicon: Dict[str, float],
+    intensifier: Dict[str, float],
+    negations: Iterable[str],
+    contrastive_conj: Iterable[str],
+    lowercase: bool,
+    lemmatize: bool,
+    force: bool,
+) -> Language:
+    """
+    Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_da_v1").
+    """
+
+    return Asent(
+        nlp,
+        lexicon=lexicon,
+        intensifiers=intensifier,
+        negations=negations,
+        contrastive_conjugations=contrastive_conj,
+        lowercase=lowercase,
+        lemmatize=lemmatize,
+        force=force,
+    )

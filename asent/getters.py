@@ -4,7 +4,6 @@ from typing import (
     Iterable,
     List,
     Optional,
-    Set,
     Tuple,
 )
 from spacy.tokens import Token, Doc, Span
@@ -200,21 +199,26 @@ def make_is_contrastive_conj_getter(
 
 
 def make_is_negated_getter(
-    lookback: int = 3, is_negation_getter: Optional[Callable[[Token], bool]]=None
+    lookback: int = 3, is_negation_getter: Optional[Callable[[Token], bool]] = None
 ) -> Callable[[Token], bool]:
     """Creates a getter which checks if a token is negated by checked whether the n previous workds are negations.
 
     Args:
         lookback (int, optional): How many token should it look backwards for negations? Defaults to 3
             which is emperically derived by Hutto and Gilbert (2014).
-        is_negation_getter (Optional[Callable[[Token], bool]], optional): A function
-            which given a token return if the token is a negation or not.
-            If None it assumes that the the token extention "is_negation" is set.
+        is_negation_getter (Optional[Callable[[Token], bool]], optional): A function which given a
+            token return if the token is a negation or not. If None it assumes that the the token
+            extention "is_negation" is set. If specified overwrites teh extension. Defualts to None.
     Returns:
         Callable[[Token], bool]: The getter function
     """
+    if is_negation_getter:
+        Token.set_extension("is_negation", getter=is_negation_getter, force=True)
     if not Token.has_extension("is_negation"):
-        Token.set_extension("is_negation", getter=is_negation_getter)
+        raise ValueError(
+            "Token class has no extension 'is_negation', either set the extension"
+            + " or provide the is_negation_getter."
+        )
 
     def contains_negatation(span: Span) -> bool:
         """
@@ -252,48 +256,57 @@ def make_token_polarity_getter(
 
 
     Args:
-        valence_getter (Optional[Callable[[Token], float]]): a function which given a token return the valence (sentiment) of the token.
-            If None it assumes that the the token extention "valence" is set.
-        is_negation_getter (Optional[Callable[[Token], bool]], optional): A function
-            which given a token return if the token is a negation or not.
-            If None it assumes that the the token extention "is_negation" is set.
-        intensifier_getter (Optional[Callable[[Token], float]], optional): A getter which for a token return 0 if it is not an intensifier
-            or its intensifcation value if it is an intensifier. E.g. the token 'especially' might have an value of 0.293 which increases or decreases
-            the valence of the following word by the specified amount. Defaults to None, intensifiers aren't included in the analysis of token valence.
-        negation_scalar (float, optional): [description]. Defaults to N_SCALAR.
-        lookback_intensities (List[float], optional): How long to look back for negations and intensifiers (length).
-            Intensities indicate the how much to weight each intensifier. Defaults to [1.0, 0.95, 0.90] which is
-            emperically derived (Hutto and Gilbert, 2014).
+        valence_getter (Optional[Callable[[Token], float]]): a function which given a token return the
+            valence (sentiment) of the token. If None it assumes that the the token extention "valence"
+            is set. If specified it overwrites the extension. Defualts to None.
+        is_negation_getter (Optional[Callable[[Token], bool]], optional): A function which given a
+            token return if the token is a negation or not. If None it assumes that the the token
+            extention "is_negation" is set. If specified it overwrites the extension. Defualts to None.
+        intensifier_getter (Optional[Callable[[Token], float]], optional): A getter which for a token
+            return 0 if it is not an intensifier or its intensifcation value if it is an intensifier.
+            E.g. the token 'especially' might have an value of 0.293 which increases or decreases the
+            valence of the following word by the specified amount. Defaults to None,
+            intensifiers aren't included in the analysis of token valence.
+        negation_scalar (float, optional): [description]. Defaults to the emperically derived constant
+            -0.74 (Hutto and Gilbert, 2014).
+        lookback_intensities (List[float], optional): How long to look back for negations and intensifiers
+            (length). Intensities indicate the how much to weight each intensifier. Defaults to
+            [1.0, 0.95, 0.90] which is emperically derived (Hutto and Gilbert, 2014).
 
     Returns:
         Callable[[Token], float]: The getter function
     """
     lookback = len(lookback_intensities)
 
+    if valence_getter:
+        Token.set_extension("valence", getter=valence_getter, force=True)
+
     if not Token.has_extension("valence"):
-        Token.set_extension(
-            "valence",
-            getter=valence_getter,
+        raise ValueError(
+            "Token class has no extension 'valence', either set the extension"
+            + " or provide the valence_getter."
         )
-    if not Token.has_extension("is_negated"):
+    if is_negation_getter:
         Token.set_extension(
             "is_negated",
             getter=make_is_negated_getter(
                 lookback=lookback, is_negation_getter=is_negation_getter
             ),
+            force=True,
+        )
+    if not Token.has_extension("is_negated"):
+        raise ValueError(
+            "Token class has no extension 'is_negated', either set the extension"
+            + " or provide the is_negation_getter."
         )
 
+    if intensifier_getter:
+        Token.set_extension("intensifier", getter=intensifier_getter, force=True)
     if not Token.has_extension("intensifier"):
-        if intensifier_getter is None:
-            Token.set_extension(
-                "intensifier",
-                getter=make_intensifier_getter(False, False, {}),
-            )
-        else:
-            Token.set_extension(
-                "intensifier",
-                getter=intensifier_getter,
-            )
+        Token.set_extension(
+            "intensifier",
+            getter=make_intensifier_getter(False, False, {}),
+        )
 
     def token_polarity_getter(
         token: Token,
@@ -317,10 +330,10 @@ def make_token_polarity_getter(
                         valence = valence + b
                     else:
                         valence = valence - b
-                if not negated and prev_token._.is_negation:
-                    valence = valence * negation_scalar
-                    negated = True  # prevent double negations
-                    start_tok = prev_token.i
+                    if not negated and prev_token._.is_negation:
+                        valence = valence * negation_scalar
+                        negated = True  # prevent double negations
+                        start_tok = prev_token.i
 
         return TokenPolarityOutput(
             polarity=valence, token=token, span=token.doc[start_tok : token.i + 1]
@@ -421,23 +434,35 @@ def make_span_polarity_getter(
     Assumed the Token extention "polarity" is set and returns a TokenPolarityOutput.
 
     Args:
-        polarity_getter (Optional[Callable[[Token], float]]):  a function which given a token return the polarity (sentiment) of the token.
-            If None it assumes that the the token extention "polarity" is already set.
-        contrastive_conj (Set[str], optional): List or set of constrastive conjugations (e.g. 'but'), these typically diminishes the sentiment
-            before it and magnified the following statement (e.g. "The food was good, but the service was horrible")
+        polarity_getter (Optional[Callable[[Token], float]]): A function which given a token return
+            the polarity (sentiment) of the token. If None it assumes that the token extension
+            "polarity" is already set. If given it overwrites the "polarity" extension.
+            Defaults to None.
+        contrastive_conj (Set[str], optional): List or set of constrastive conjugations (e.g. 'but'),
+            these typically diminishes the sentiment before it and magnified the following statement
+            (e.g. "The food was good, but the service was horrible"). If None it assumes that the
+            token extension "is_contrastive_conj" is already set. If given it overwrites the extension.
+            Defaults to None.
 
     Returns:
-        PolarityOutput: An output object containing the aggregated polarity estimates along with the polarities.
+        PolarityOutput: An output object containing the aggregated polarity estimates along with the
+            polarities.
     """
-    if not Token.has_extension("polarity") and polarity_getter:
-        Token.set_extension(
-            "polarity",
-            getter=polarity_getter,
+    if polarity_getter:
+        Token.set_extension("polarity", getter=polarity_getter, force=True)
+    if not Token.has_extension("polarity"):
+        raise ValueError(
+            "Token class has no extension 'polarity', either set the extension"
+            + " or provide the polarity_getter."
         )
-    if not Token.has_extension("contrastive_conj") and contrastive_conj_getter:
+    if contrastive_conj_getter:
         Token.set_extension(
-            "contrastive_conj",
-            getter=contrastive_conj_getter,
+            "is_contrastive_conj", getter=contrastive_conj_getter, force=True
+        )
+    if not Token.has_extension("is_contrastive_conj"):
+        raise ValueError(
+            "Token class has no extension 'is_contrastive_conj', either set the extension"
+            + " or provide the contrastive_conj_getter."
         )
 
     def __extract(polarity: TokenPolarityOutput) -> Tuple[float, Span]:
@@ -500,18 +525,20 @@ def make_doc_polarity_getter(
     contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.
 
     Args:
-        span_polarity_getter (Optional[Callable[[Span], float]]):  a function which given a span return the
-            polarity (sentiment) of the span. If None it assumes that the the span extention "polarity" is
-            already set.
+        span_polarity_getter (Optional[Callable[[Span], float]]):  a function which given a span return
+            the polarity (sentiment) of the span. If None it assumes that the the span extention
+            "polarity" is already set. If specified it overwrites the extension. Defaults to None.
 
     Returns:
         PolarityOutput: An output object containing the aggregated polarity estimates along with the polarities.
     """
 
+    if span_polarity_getter:
+        Span.set_extension("polarity", getter=span_polarity_getter, force=True)
     if not Span.has_extension("polarity"):
-        Token.set_extension(
-            "polarity",
-            getter=span_polarity_getter,
+        raise ValueError(
+            "Span class has no extension 'polarity', either set the extension"
+            + " or provide the span_polarity_getter."
         )
 
     def polarity_getter(
@@ -530,6 +557,7 @@ def make_doc_polarity_getter(
             neutral=neutral,
             compound=compound,
             polarities=polarities,
+            doc=doc
         )
 
     return polarity_getter

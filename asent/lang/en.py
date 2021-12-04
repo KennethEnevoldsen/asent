@@ -5,7 +5,7 @@ from inspect import getsourcefile
 from spacy.language import Language
 
 from ..constants import B_DECR, B_INCR
-from ..util import lexicons
+from ..utils import lexicons
 from..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
@@ -179,10 +179,10 @@ INTENSIFIERS = {
     "sort-of": B_DECR,
 }
 
-lexicons.register("en_lexicon_v1", func=LEXICON)
-lexicons.register("en_negations_v1", func=NEGATIONS)
-lexicons.register("en_contrastive_conj_v1", func=CONTRASTIVE_CONJ)
-lexicons.register("en_intensifiers_v1", func=INTENSIFIERS)
+lexicons.register("lexicon_en_v1", func=LEXICON)
+lexicons.register("negations_en_v1", func=NEGATIONS)
+lexicons.register("contrastive_conj_en_v1", func=CONTRASTIVE_CONJ)
+lexicons.register("intensifiers_en_v1", func=INTENSIFIERS)
 
 @Language.factory("asent_en_v1")
 def create_en_sentiment_component(nlp: Language, name: str) -> Language:

@@ -5,7 +5,7 @@ from inspect import getsourcefile
 from spacy.language import Language
 
 from ..constants import B_DECR, B_INCR
-from ..util import lexicons
+from ..utils import lexicons
 from ..component import Asent
 
 def read_lexicon():
@@ -112,9 +112,9 @@ INTENSIFIERS = {
     "viss": B_DECR,
 }
 
-lexicons.register("se_lexicon_v1", func=LEXICON)
-lexicons.register("se_negations_v1", func=NEGATIONS)
-lexicons.register("se_intensifiers_v1", func=INTENSIFIERS)
+lexicons.register("lexicon_se_v1", func=LEXICON)
+lexicons.register("negations_se_v1", func=NEGATIONS)
+lexicons.register("intensifiers_se_v1", func=INTENSIFIERS)
 
 
 @Language.factory("asent_se_v1")

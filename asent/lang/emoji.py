@@ -1,7 +1,7 @@
 import os
 import json
 
-from ..util import lexicons
+from ..utils import lexicons
 
 def read_emoji():
     path = os.path.join(

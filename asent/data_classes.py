@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Union
 from pydantic import BaseModel
 
-from spacy.tokens import Span, Token
+from spacy.tokens import Span, Token, Doc
 
 
 class TokenPolarityOutput(BaseModel):
@@ -91,7 +91,7 @@ class DocPolarityOutput(BaseModel):
     neutral: float
     positive: float
     compound: float
-    Doc: Doc
+    doc: Doc
     polarities: List[SpanPolarityOutput]
 
     def __repr_str__(self, join_str: str) -> str:

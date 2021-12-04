@@ -5,7 +5,7 @@ from spacy.language import Language
 
 from ..constants import B_INCR
 from ..component import Asent
-from ..util import lexicons
+from ..utils import lexicons
 
 from .emoji import LEXICON as E_LEXICON
 
@@ -76,14 +76,14 @@ INTENSIFIERS = {
     "seriøs": 0.3,
 }
 
-lexicons.register("da_lexicon_v1", func=LEXICON)
-lexicons.register("da_negations_v1", func=NEGATIONS)
-lexicons.register("da_contrastive_conj_v1", func=CONTRASTIVE_CONJ)
-lexicons.register("da_intensifiers_v1", func=INTENSIFIERS)
+lexicons.register("lexicon_da_v1", func=LEXICON)
+lexicons.register("negations_da_v1", func=NEGATIONS)
+lexicons.register("contrastive_conj_da_v1", func=CONTRASTIVE_CONJ)
+lexicons.register("intensifiers_da_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_da_v1")
-def create_da_sentiment_component(nlp: Language, name: str) -> Language:
+@Language.factory("asent_da_v1", default_config={"force": False})
+def create_da_sentiment_component(nlp: Language, name: str,  force: bool) -> Language:
     """
     Allows the Danish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_da_v1").
     """
@@ -92,10 +92,12 @@ def create_da_sentiment_component(nlp: Language, name: str) -> Language:
 
     return Asent(
         nlp,
+        name=name, 
         lexicon=LEXICON,
         intensifiers=INTENSIFIERS,
         negations=NEGATIONS,
         contrastive_conjugations=CONTRASTIVE_CONJ,
         lowercase=True,
         lemmatize=True,
+        force=force
     )
