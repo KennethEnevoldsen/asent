@@ -1,0 +1,535 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta property="og:title" content="Getters" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="asent.getters.html" />
+  <meta property="og:description" content="asent.getters:" />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Components" href="asent.component.html" /><link rel="prev" title="Visualizers" href="asent.visualize.html" />
+
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.1, furo 2021.11.23"/>
+        <title>Getters - asent 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">asent 0.0.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Using Asent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing.html">Customizing your sentiment pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_workings.html">How does the model work?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Languages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lang.danish.html">Danish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang.english.html">English</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang.norwegian.html">Norwegian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang.swedish.html">Swedish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang.emoji.html">Emoji</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API references</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="asent.visualize.html">Visualizers</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Getters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asent.component.html">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asent.utils.html">Registries and Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asent.data_classes.html">Data Classes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/kennethenevoldsen/asent">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="getters">
+<h1>Getters<a class="headerlink" href="#getters" title="Permalink to this headline">¶</a></h1>
+<section id="module-asent.getters">
+<span id="asent-getters"></span><h2>asent.getters<a class="headerlink" href="#module-asent.getters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.allcap_differential_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">allcap_differential_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spacy.tokens.span.Span</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/asent/getters.html#allcap_differential_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.allcap_differential_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether just some words in the span are ALL CAPS</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>span</strong> (<em>Span</em>) – A spaCy span</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if some but not all items in <cite>words</cite> are ALL CAPS</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.but_check">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">but_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spacy.tokens.span.Span</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentiment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before_but_scalar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after_but_scalar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asent/getters.html#but_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.but_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.exclamation_amplification">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">exclamation_amplification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/asent/getters.html#exclamation_amplification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.exclamation_amplification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_doc_polarity_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_doc_polarity_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span_polarity_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.span.Span</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="asent.data_classes.html#asent.data_classes.DocPolarityOutput" title="asent.data_classes.DocPolarityOutput"><span class="pre">asent.data_classes.DocPolarityOutput</span></a></span></span><a class="reference internal" href="_modules/asent/getters.html#make_doc_polarity_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_doc_polarity_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a function (getter) which for a doc return the aggrated polarities. Including accounting for
+contrastive conjugations (e.g. ‘but’), exclamationsmarks and questionmarks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>span_polarity_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Span</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a function which given a span return
+the polarity (sentiment) of the span. If None it assumes that the the span extention
+“polarity” is already set. If specified it overwrites the extension. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An output object containing the aggregated polarity estimates along with the polarities.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PolarityOutput</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_intensifier_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_intensifier_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intensifiers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowercase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_intensifier_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_intensifier_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a token getter which checks it token is an intensifier and return it intensification factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>intensifiers</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – A dictionary of intensifiers and multiplication factor.</p></li>
+<li><p><strong>lemmatize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it look up in the intensifiers using the lemma? Defaults to True.</p></li>
+<li><p><strong>lowercase</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it look up in the intensifiers using the lowercased word? Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The getter function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Token], float]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_is_contrastive_conj_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_is_contrastive_conj_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contrastive_conjugations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowercase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_is_contrastive_conj_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_is_contrastive_conj_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>…</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_is_negated_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_is_negated_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_negation_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_is_negated_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_is_negated_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a getter which checks if a token is negated by checked whether the n previous workds are negations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lookback</strong> (<em>int</em><em>, </em><em>optional</em>) – How many token should it look backwards for negations? Defaults to 3
+which is emperically derived by Hutto and Gilbert (2014).</p></li>
+<li><p><strong>is_negation_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A function which given a
+token return if the token is a negation or not. If None it assumes that the the token
+extention “is_negation” is set. If specified overwrites teh extension. Defualts to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The getter function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Token], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_is_negation_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_is_negation_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">negations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowercase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_is_negation_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_is_negation_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a token getter which return whether a token is a negation or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>negations</strong> (<em>Iterable</em><em>[</em><em>str</em><em>]</em>) – An list of negations</p></li>
+<li><p><strong>lemmatize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it look up in negations using the lemma? Defaults to True.</p></li>
+<li><p><strong>lowercase</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it look up in negations using the lowercased word? Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_span_polarity_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_span_polarity_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polarity_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrastive_conj_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="asent.data_classes.html#asent.data_classes.SpanPolarityOutput" title="asent.data_classes.SpanPolarityOutput"><span class="pre">asent.data_classes.SpanPolarityOutput</span></a></span></span><a class="reference internal" href="_modules/asent/getters.html#make_span_polarity_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_span_polarity_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a function (getter) which for a span return the aggrated polarities. Including accounting for
+contrastive conjugations (e.g. ‘but’), exclamationsmarks and questionmarks.</p>
+<p>Assumed the Token extention “polarity” is set and returns a TokenPolarityOutput.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>polarity_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em>) – A function which given a token return
+the polarity (sentiment) of the token. If None it assumes that the token extension
+“polarity” is already set. If given it overwrites the “polarity” extension.
+Defaults to None.</p></li>
+<li><p><strong>contrastive_conj</strong> (<em>Set</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – List or set of constrastive conjugations (e.g. ‘but’),
+these typically diminishes the sentiment before it and magnified the following statement
+(e.g. “The food was good, but the service was horrible”). If None it assumes that the
+token extension “is_contrastive_conj” is already set. If given it overwrites the extension.
+Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An output object containing the aggregated polarity estimates along with the</dt><dd><p>polarities.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PolarityOutput</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_token_polarity_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_token_polarity_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valence_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_negation_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensifier_getter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negation_scalar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">0.74</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookback_intensities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[1.0,</span> <span class="pre">0.95,</span> <span class="pre">0.9]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_token_polarity_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_token_polarity_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a function (getter) which takes a token and return the polarity of the token based upon whether the token valence (sentiment)
+including whether is negated and whether it is intensified using an intensifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>valence_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a function which given a token return the
+valence (sentiment) of the token. If None it assumes that the the token extention “valence”
+is set. If specified it overwrites the extension. Defualts to None.</p></li>
+<li><p><strong>is_negation_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A function which given a
+token return if the token is a negation or not. If None it assumes that the the token
+extention “is_negation” is set. If specified it overwrites the extension. Defualts to None.</p></li>
+<li><p><strong>intensifier_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A getter which for a token
+return 0 if it is not an intensifier or its intensifcation value if it is an intensifier.
+E.g. the token ‘especially’ might have an value of 0.293 which increases or decreases the
+valence of the following word by the specified amount. Defaults to None,
+intensifiers aren’t included in the analysis of token valence.</p></li>
+<li><p><strong>negation_scalar</strong> (<em>float</em><em>, </em><em>optional</em>) – [description]. Defaults to the emperically derived constant
+-0.74 (Hutto and Gilbert, 2014).</p></li>
+<li><p><strong>lookback_intensities</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – How long to look back for negations and intensifiers
+(length). Intensities indicate the how much to weight each intensifier. Defaults to
+[1.0, 0.95, 0.90] which is emperically derived (Hutto and Gilbert, 2014).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The getter function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Token], float]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_txt_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_txt_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lemmatize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowercase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_txt_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_txt_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a token getter which return the string of a text string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lemmatize</strong> (<em>bool</em>) – Should the token be lemmatized?</p></li>
+<li><p><strong>lowercase</strong> (<em>bool</em>) – Should the token be lowercased?</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The getter function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Token], str]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.make_valance_getter">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">make_valance_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lexicon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowercase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cap_differential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.733</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.token.Token</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asent/getters.html#make_valance_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.make_valance_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a token getter which return the valence (sentiment) of a token including the capitalization of the token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lexicon</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – The valence scores of the tokens.</p></li>
+<li><p><strong>lemmatize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it look up in the lexicon (and intensifiers) using the lemma? Defaults to True.</p></li>
+<li><p><strong>lowercase</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it look up in the lexicon (and intensifiers) using the lowercased word? Defaults to True.</p></li>
+<li><p><strong>cap_differential</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Capitalization differential, which is added to the valence of the score it is emphasized using all caps.
+Defaults to 0.733, an emperically derived constant (Hutto and Gilbert, 2014). If None it will not be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The getter function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[[Token], float]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.normalize">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asent/getters.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize the score to be between -1 and 1 using an alpha that
+approximates the max expected value</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.questionmark_amplification">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">questionmark_amplification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/asent/getters.html#questionmark_amplification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.questionmark_amplification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Amplified the questions</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.getters.sift_sentiment_scores">
+<span class="sig-prename descclassname"><span class="pre">asent.getters.</span></span><span class="sig-name descname"><span class="pre">sift_sentiment_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentiments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asent/getters.html#sift_sentiment_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.getters.sift_sentiment_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>separate positive and negative sentiment scores</p>
+</dd></dl>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="asent.component.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Components</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="asent.visualize.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Visualizers</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169;  |
+          Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            | <a class="muted-link" href="_sources/asent.getters.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Getters</a><ul>
+<li><a class="reference internal" href="#module-asent.getters">asent.getters</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    </body>
+</html>
