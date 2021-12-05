@@ -39,7 +39,7 @@ The documentation consist of three parts:
 
 .. toctree::
    :maxdepth: 3
-   :caption: Languages
+   :caption: Lexicon Resources
 
    lang.danish
    lang.english
