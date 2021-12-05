@@ -22,7 +22,6 @@ setuptools.setup(
     url="https://github.com/KennethEnevoldsen/asent",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    package_data = {"sentida":['emoji_utf8_lexicon.txt', 'sentidav2_lemmas.csv'],},
     # external packages as dependencies
     install_requires=["spacy>=3.0.0,<3.2.0"],
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
