@@ -46,7 +46,8 @@ asent.visualize(doc)
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
 | 🎛 **[Documentations]**     | The detailed reference for augmenty's API. Including function documentation |
 
-
+[Documentations]: https://kennethenevoldsen.github.io/asent/index.html
+[Installation]: https://kennethenevoldsen.github.io/asent/installation.html
 [usage guides]: https://kennethenevoldsen.github.io/asent/introduction.html
 [api references]: https://kennethenevoldsen.github.io/asent/
 [Demo]: https://share.streamlit.io/kennethenevoldsen/augmenty/dev/streamlit.py
