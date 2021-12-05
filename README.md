@@ -51,43 +51,18 @@ asent.visualize(doc)
 [Demo]: https://share.streamlit.io/kennethenevoldsen/augmenty/dev/streamlit.py
 [News and changelog]: https://kennethenevoldsen.github.io/augmenty/news.html
 
-# Tutorial
+## 💬 Where to ask questions
 
-simple usage on texts
-
-```
-nlp = spacy.load("en_core_web_lg")
-nlp.add_pipe("asent_en_v1") 
-
-text = "I am angry 😄"
-doc = nlp(text)
-doc._.polarity
-```
-
-visualize results
-```
-asent.visaulize(doc)
-```
-
-or if you have a long text it might be ideal to split it up into sentences.
-
-```
-text = "The plot was good, but the characters are uncompelling. The dialog on the other hand is great."
-
-doc = nlp(text)
-sentences = [sentence for sentence in doc.sents]
-
-asent.visualize(sentences[0]) # visualize only the first sentence
-```
-
-# Correcting a model or building a new
-- colab tutorial
+| Type                           |                        |
+| ------------------------------ | ---------------------- |
+| 🚨 **Bug Reports**              | [GitHub Issue Tracker] |
+| 🎁 **Feature Requests & Ideas** | [GitHub Issue Tracker] |
+| 👩‍💻 **Usage Questions**          | [GitHub Discussions]   |
+| 🗯 **General Discussion**       | [GitHub Discussions]   |
 
 
-# Available attributes
-
-# Available Models
-reference to Lexicons
+[github issue tracker]: https://github.com/kennethenevoldsen/asent/issues
+[github discussions]: https://github.com/kennethenevoldsen/asent/discussions
 
 
 # How does the model work?
