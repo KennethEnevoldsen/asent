@@ -1,3 +1,17 @@
+# coverage report
+.coverage
+dev/pytest-coverage/pytest-coverage.txt
+dev/fast_cosine_sim.py
+
+# python
 *.pyc
-__pycache__/*
-.vscode
+__pycache__
+
+# vs code
+.vscode/*
+
+# docs
+docs/_build/*
+
+# mac
+.DS_Store
