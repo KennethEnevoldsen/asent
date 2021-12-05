@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.1, furo 2021.11.23"/>
-        <title>asent.visualize - asent 0.0.3 documentation</title>
+        <title>asent.visualize - asent 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.0.3 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.0.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,8 +183,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../asent.visualize.html">Visualizers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../asent.getters.html">Getters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../asent.component.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asent.utils.html">Registries and Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asent.data_classes.html">Data Classes</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/kennethenevoldsen/asent">GitHub Repository</a></li>
@@ -219,7 +217,17 @@
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span>
 <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 
-<div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">):</span>
+<div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">"""Render displaCy visualisation of sentiment</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        span (Union[Span, Doc]): The span or document you wish to apply the visualizer to.</span>
+<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Rendered HTML markup.</span>
+<span class="sd">    """</span>
+
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
         <span class="n">span</span> <span class="o">=</span> <span class="n">span</span><span class="p">[:]</span>
     <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">)]</span>
@@ -250,7 +258,8 @@
     <span class="k">return</span> <span class="n">html</span></div>
 
 
-<div class="viewcode-block" id="make_colors"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.make_colors">[docs]</a><span class="k">def</span> <span class="nf">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">):</span>
+    <span class="sd">"""A utility function for creating a stepped color gradient"""</span>
     <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>
 
     <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG</span>
@@ -258,14 +267,15 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
         <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="c1"># rgb2hex accepts rgb or rgba</span>
-        <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span></div>
+        <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="print_colors"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.print_colors">[docs]</a><span class="k">def</span> <span class="nf">print_colors</span><span class="p">(</span><span class="n">HEX</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">print_colors</span><span class="p">(</span><span class="n">HEX</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""An utility function for visualizing a color map"""</span>
     <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
 
     <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">HEX</span><span class="p">:</span>
-        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="sa">f</span><span class="s1">'&lt;p style="color:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&lt;/p&gt;'</span><span class="p">))</span></div>
+        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="sa">f</span><span class="s1">'&lt;p style="color:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&lt;/p&gt;'</span><span class="p">))</span>
 </pre></div>
         </article>
       </div>

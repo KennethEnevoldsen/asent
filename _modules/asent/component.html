@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.1, furo 2021.11.23"/>
-        <title>asent.component - asent 0.0.3 documentation</title>
+        <title>asent.component - asent 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.0.3 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.0.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,8 +183,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../asent.visualize.html">Visualizers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../asent.getters.html">Getters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../asent.component.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asent.utils.html">Registries and Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asent.data_classes.html">Data Classes</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/kennethenevoldsen/asent">GitHub Repository</a></li>
@@ -237,8 +235,8 @@
 
 <div class="viewcode-block" id="Asent"><a class="viewcode-back" href="../../asent.component.html#asent.component.Asent">[docs]</a><span class="k">class</span> <span class="nc">Asent</span><span class="p">:</span>
     <span class="sd">"""spaCy v.3.0 component for adding an asent sentiment models to `Doc` objects.</span>
-<span class="sd">    Ading the Token extentions valence, intensifier, is_negation, is_contrastive_conj,</span>
-<span class="sd">    and polarity as well as the Span and Doc extensions polarity.</span>
+<span class="sd">    Ading the Token extentions 'valence', 'intensifier', 'is_negation', 'is_negated',</span>
+<span class="sd">    'is_contrastive_conj' and 'polarity' as well as the Span and Doc extension 'polarity'.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -250,10 +248,22 @@
         <span class="n">negations</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span>
         <span class="n">contrastive_conjugations</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span>
         <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""Initialise components"""</span>
+        <span class="sd">"""Initialize component</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nlp (Language): A spaCy language pipeline for which to add the component to</span>
+<span class="sd">            name (str): The name of the component</span>
+<span class="sd">            lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a word.</span>
+<span class="sd">            intensifiers (Dict[str, float], optional): A dictionary of intensifiers (e.g. {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.</span>
+<span class="sd">            negations (Iterable[str], optional): A list of negations (e..g "not"). Defaults to an empty set indicatin no negations will be used.</span>
+<span class="sd">            contrastive_conjugations (Iterable[str], optional): A list of contrastive conjugations (e.g. "but"). Defaults to empty set indicating no contrastive conjugations will be used.</span>
+<span class="sd">            lowercase (bool, optional): Should be text be lowercases before looking up in the lexicons? Defaults to True.</span>
+<span class="sd">            lemmatize (bool, optional): Should be text be lemmatized before looking up in the lexicons? Defaults to False.</span>
+<span class="sd">            force (bool, optional): Should existing extensions be overwritten? Defaults to False.</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"valence"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
@@ -329,13 +339,21 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">"""Run the pipeline component"""</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Doc</span><span class="p">:</span>
+        <span class="sd">"""Run the pipeline component</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            doc (Doc): A spaCy document the component should be applied to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Doc: A processed spacy Document.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">doc</span></div>
 
 
-<div class="viewcode-block" id="create_da_sentiment_component"><a class="viewcode-back" href="../../asent.component.html#asent.component.create_da_sentiment_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">"asent_v1"</span><span class="p">,</span> <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">"lowercase"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"lemmatize"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"force"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
-<span class="k">def</span> <span class="nf">create_da_sentiment_component</span><span class="p">(</span>
+
+<span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">"asent_v1"</span><span class="p">,</span> <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">"lowercase"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"lemmatize"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"force"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">create_asent_component</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
     <span class="n">lexicon</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
@@ -346,12 +364,13 @@
     <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_da_v1").</span>
+    <span class="sd">"""Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_v1").</span>
 <span class="sd">    """</span>
+
 
     <span class="k">return</span> <span class="n">Asent</span><span class="p">(</span>
         <span class="n">nlp</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="n">lexicon</span><span class="o">=</span><span class="n">lexicon</span><span class="p">,</span>
         <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifier</span><span class="p">,</span>
         <span class="n">negations</span><span class="o">=</span><span class="n">negations</span><span class="p">,</span>
@@ -359,7 +378,7 @@
         <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span><span class="p">,</span>
         <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
         <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="p">)</span>
 </pre></div>
         </article>
       </div>

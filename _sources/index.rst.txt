@@ -54,8 +54,6 @@ The documentation consist of three parts:
    asent.visualize
    asent.getters
    asent.component
-   asent.utils
-   asent.data_classes
    
 
 
