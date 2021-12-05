@@ -1,4 +1,5 @@
 spacy>=3.0.0,<3.3.0
+matplotlib>=3.5.0,<4.0.0
 
 # large danish spacy pipeline
 https://huggingface.co/spacy/da_core_news_lg/resolve/main/da_core_news_lg-any-py3-none-any.whl

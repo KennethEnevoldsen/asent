@@ -23,7 +23,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     # external packages as dependencies
-    install_requires=["spacy>=3.0.0,<3.3.0"],
+    install_requires=["spacy>=3.0.0,<3.3.0", "matplotlib>=3.5.0,<4.0.0"],
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
