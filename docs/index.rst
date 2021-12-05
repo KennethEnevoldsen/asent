@@ -4,18 +4,21 @@ Asent
 .. image:: https://img.shields.io/github/stars/kennethenevoldsen/asent.svg?style=social&label=Star&maxAge=2592000
    :target: https://github.com/kennethenevoldsen/asent
 
-Augmenty is an augmentation library based on spaCy for augmenting texts. Augmenty differs from other augmentation libraries in that it corrects (as far as possible) the token, 
-sentence and document labels under the augmentation.
+Asent is a rule-based sentiment model, building on `spaCy <https://spacy.io>`__, allowing the user
+to take advantage of rules based on part-of-speech tags, names and much more. The
+goal with asent is to have a fast and transparent sentiment pipeline, which is easily
+customizable.
+
 
 
 Contents
 ---------------------------------
   
-The documentation is organized into three parts:
+The documentation consist of three parts:
 
-- **Getting started** contains the installation instructions, guides, and tutorials on how to use augmenty.
-- **Augmenters** contains the documentation for each augmenter implemented in augmenty.
-- **API references** contains the documentation of each function and public class other than augmenters.
+- **Getting started** contains the installation instructions, guides, and tutorials on how to use asent.
+- **Languages** contains the documentation on the resources used for each specific language.
+- **API references** contains the documentation of each function and public class.
 
 .. toctree::
    :maxdepth: 3
@@ -23,32 +26,43 @@ The documentation is organized into three parts:
 
    installation
    introduction
-   news
-   adding_an_augmenter
-   
+   customizing
+   model_workings
+
+.. toctree::
+   :caption: News
+   news 
+
+.. toctree::
+   :caption: FAQ
+   faq
+
 .. toctree::
    :maxdepth: 3
-   :caption: Augmenters
+   :caption: Languages
 
-   augmenters_overview
-   augmenty.character
-   augmenty.token
-   augmenty.span
-   augmenty.doc
-   augmenty.lang
-   augmenty.augment_utilities
-
+   lang.danish
+   lang.english
+   lang.norwegian
+   lang.swedish
+   lang.emoji
 
 .. toctree::
    :maxdepth: 3
    :caption: API references
 
-   augmenty.util
-   augmenty.keyboard
+   asent.visualize
+   asent.getters
+   asent.component
+   asent.utils
+   asent.data_classes
+   
+
 
 
 .. toctree::
-  GitHub Repository <https://github.com/kennethenevoldsen/augmenty>
+   :caption: GitHub
+  GitHub Repository <https://github.com/kennethenevoldsen/asent>
 
 
 Indices and search
