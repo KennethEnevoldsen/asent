@@ -1,0 +1,3 @@
+[run]
+omit = 
+        asent/tests/*
