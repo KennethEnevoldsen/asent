@@ -295,8 +295,7 @@
             <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_upper</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_cap_diff</span><span class="p">:</span>
                 <span class="n">scalar</span> <span class="o">+=</span> <span class="n">C_INCR</span>
             <span class="k">return</span> <span class="n">scalar</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
 
     <span class="k">return</span> <span class="n">intensifier_scalar_getter</span></div>
 
@@ -366,8 +365,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">):</span>
             <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cap_diff_valence_getter</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">lemma_valence_getter</span></div>
+    <span class="k">return</span> <span class="n">lemma_valence_getter</span></div>
 
 
 <div class="viewcode-block" id="make_is_negation_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_is_negation_getter">[docs]</a><span class="k">def</span> <span class="nf">make_is_negation_getter</span><span class="p">(</span>
@@ -576,10 +574,9 @@
     <span class="n">norm_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">score</span> <span class="o">*</span> <span class="n">score</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">norm_score</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span>
-    <span class="k">elif</span> <span class="n">norm_score</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">norm_score</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="mf">1.0</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">norm_score</span>
+    <span class="k">return</span> <span class="n">norm_score</span>
 
 
 <span class="k">def</span> <span class="nf">questionmark_amplification</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
