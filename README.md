@@ -37,10 +37,11 @@ doc = nlp(text)
 asent.visualize(doc)
 ```
 
-## 📖 Documentation
+# 📖 Documentation
 
 | Documentation              |                                                                             |
 | -------------------------- | --------------------------------------------------------------------------- |
+| 🔧 **[Installation]**       | Guides and instructions on how to use asent and its features.               |
 | 📚 **[Usage Guides]**       | Guides and instructions on how to use asent and its features.               |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
 | 🎛 **[Documentations]**     | The detailed reference for augmenty's API. Including function documentation |
@@ -51,7 +52,7 @@ asent.visualize(doc)
 [Demo]: https://share.streamlit.io/kennethenevoldsen/augmenty/dev/streamlit.py
 [News and changelog]: https://kennethenevoldsen.github.io/augmenty/news.html
 
-## 💬 Where to ask questions
+# 💬 Where to ask questions
 
 | Type                           |                        |
 | ------------------------------ | ---------------------- |
@@ -66,7 +67,7 @@ asent.visualize(doc)
 [github issue tracker]: https://github.com/kennethenevoldsen/asent/issues
 [github discussions]: https://github.com/kennethenevoldsen/asent/discussions
 
-## 🎓 Citing asent
+## 🎓 Citing this work
 
 If you use this library in your research, please cite it using:
 
