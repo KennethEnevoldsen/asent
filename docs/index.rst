@@ -17,7 +17,7 @@ Contents
 The documentation consist of three parts:
 
 - **Getting started** contains the installation instructions, guides, and tutorials on how to use asent.
-- **Languages** contains the documentation on the resources used for each specific language.
+- **Lexicon resources** contains the documentation on the resources used for each specific language.
 - **API references** contains the documentation of each function and public class.
 
 .. toctree::
@@ -31,10 +31,12 @@ The documentation consist of three parts:
 
 .. toctree::
    :caption: News
+
    news 
 
 .. toctree::
    :caption: FAQ
+
    faq
 
 .. toctree::
@@ -60,7 +62,8 @@ The documentation consist of three parts:
 
 .. toctree::
    :caption: GitHub
-  GitHub Repository <https://github.com/kennethenevoldsen/asent>
+
+   GitHub Repository <https://github.com/kennethenevoldsen/asent>
 
 
 Indices and search
