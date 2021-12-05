@@ -1,9 +1,9 @@
-
 from typing import Dict
 import catalogue
 
 lexicons = catalogue.create("asent", "lexicon", entry_points=True)
 lexicons = catalogue.create("asent", "lexicon", entry_points=True)
+
 
 def register_lexicon(name: str, lexicon: Dict[str, float]) -> None:
     """Registers a lexicon in asent.lexicons
@@ -18,5 +18,3 @@ def register_lexicon(name: str, lexicon: Dict[str, float]) -> None:
         {"happy": 4}
     """
     lexicons.register(name, func=lexicon)
-
-

@@ -80,8 +80,7 @@ def make_intensifier_getter(
             if token.is_upper and token.doc._.is_cap_diff:
                 scalar += C_INCR
             return scalar
-        else:
-            return 0.0
+        return 0.0
 
     return intensifier_scalar_getter
 
@@ -151,8 +150,7 @@ def make_valance_getter(
         if not Span.has_extension("is_cap_diff"):
             Span.set_extension("is_cap_diff", getter=allcap_differential_getter)
         return cap_diff_valence_getter
-    else:
-        return lemma_valence_getter
+    return lemma_valence_getter
 
 
 def make_is_negation_getter(
@@ -361,10 +359,9 @@ def normalize(score, alpha=15):
     norm_score = score / math.sqrt((score * score) + alpha)
     if norm_score < -1.0:
         return -1.0
-    elif norm_score > 1.0:
+    if norm_score > 1.0:
         return 1.0
-    else:
-        return norm_score
+    return norm_score
 
 
 def questionmark_amplification(text: str) -> float:

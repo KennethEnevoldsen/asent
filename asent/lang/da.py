@@ -32,7 +32,6 @@ CONTRASTIVE_CONJ = {"men", "dog"}
 
 INTENSIFIERS = {
     "absolut": B_INCR,
-    "utrolig": B_INCR,
     "vældig": B_INCR,
     "helt": B_INCR,
     "betydende": B_INCR,
@@ -62,7 +61,6 @@ INTENSIFIERS = {
     "særskilt": B_INCR,
     "ganske": B_INCR,
     "væsentlig": B_INCR,
-    "total": B_INCR,
     "uber": B_INCR,
     "virkelig": B_INCR,
     "temmelig": 0.1,
