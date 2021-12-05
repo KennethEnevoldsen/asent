@@ -55,77 +55,25 @@ asent.visualize(doc)
 
 | Type                           |                        |
 | ------------------------------ | ---------------------- |
+| 🚨 **FAQ**              | [FAQ] |
 | 🚨 **Bug Reports**              | [GitHub Issue Tracker] |
 | 🎁 **Feature Requests & Ideas** | [GitHub Issue Tracker] |
 | 👩‍💻 **Usage Questions**          | [GitHub Discussions]   |
 | 🗯 **General Discussion**       | [GitHub Discussions]   |
 
 
+[FAQ]: https://kennethenevoldsen.github.io/augmenty/faq.html
 [github issue tracker]: https://github.com/kennethenevoldsen/asent/issues
 [github discussions]: https://github.com/kennethenevoldsen/asent/discussions
 
+## 🎓 Citing asent
 
-
-# FAQ
-
-
-<details>
-  <summary>How do I test the code and run the test suite?</summary>
-
-
-asent comes with an extensive test suite. In order to run the tests, you'll usually want to clone the repository and build asent from the source. This will also install the required development dependencies and test utilities defined in the requirements.txt.
-
+If you use this library in your research, please cite it using:
 
 ```
-pip install -r requirements.txt
-pip install pytest
-
-python -m pytest
+@inproceedings{asent2021,
+  title={Asent: Fast, flexible and transparent sentiment analysis},
+  author={Enevoldsen, Kenneth and Hansen, Lasse},
+  year={2021}
+}
 ```
-
-which will run all the test in the `asent/tests` folder.
-
-Specific tests can be run using:
-
-```
-python -m pytest augmenty/tests/desired_test.py
-```
-
-**Code Coverage**
-If you want to check code coverage you can run the following:
-```
-pip install pytest-cov
-
-python -m pytest --cov=.
-```
-
-
-</details>
-
-
-<br /> 
-
-
-
-<br /> 
-
-<details>
-  <summary>How is the documentation generated?</summary>
-
-  asent uses [sphinx](https://www.sphinx-doc.org/en/master/index.html) to generate documentation. It uses the [Furo](https://github.com/pradyunsg/furo) theme with a custom styling.
-
-  To make the documentation you can run:
-  
-  ```
-  # install sphinx, themes and extensions
-  pip install sphinx furo sphinx-copybutton sphinxext-opengraph
-
-  # generate html from documentations
-
-  make -C docs html
-  ```
-  
-</details>
-
-
-<br /> 
