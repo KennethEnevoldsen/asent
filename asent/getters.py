@@ -157,7 +157,7 @@ def make_valance_getter(
 
 def make_is_negation_getter(
     negations: Iterable[str], lemmatize: bool = True, lowercase: bool = True
-) -> Callable:
+) -> Callable[[Token], bool]:
     """Creates a token getter which return whether a token is a negation or not.
 
     Args:
@@ -166,7 +166,7 @@ def make_is_negation_getter(
         lowercase (bool, optional): Should it look up in negations using the lowercased word? Defaults to True.
 
     Returns:
-        Callable: [description]
+        Callable[[Token], bool]: A token getter
     """
     t_getter = make_txt_getter(lemmatize, lowercase)
 
@@ -184,8 +184,18 @@ def make_is_contrastive_conj_getter(
     contrastive_conjugations: Iterable[str],
     lemmatize: bool = True,
     lowercase: bool = True,
-) -> Callable:
-    """..."""
+) -> Callable[[Token], bool]:
+    """Creates a token getter for whether a token is a constrastive conjugations
+
+    Args:
+        contrastive_conjugations (Iterable[str]): A list of contrastive conjugations.
+        lemmatize (bool, optional): Should you lemmatize before lookup in the contrastive conjugations list? Defaults to True.
+        lowercase (bool, optional): Should you lowercase before lookup in the contrastive conjugations list? Defaults to True.
+
+    Returns:
+        Callable[[Token], bool]: A token getter
+    """
+
     t_getter = make_txt_getter(lemmatize, lowercase)
 
     def is_contrastive_conj(token: Token) -> bool:
@@ -209,6 +219,7 @@ def make_is_negated_getter(
         is_negation_getter (Optional[Callable[[Token], bool]], optional): A function which given a
             token return if the token is a negation or not. If None it assumes that the the token
             extention "is_negation" is set. If specified overwrites teh extension. Defualts to None.
+
     Returns:
         Callable[[Token], bool]: The getter function
     """
@@ -389,7 +400,7 @@ def but_check(
     sentiment: list,
     before_but_scalar: float = BEFORE_BUT_SCALAR,
     after_but_scalar: float = AFTER_BUT_SCALAR,
-):
+) -> list:
     contains_but = False
     for token in span:
         if token._.is_contrastive_conj:
@@ -429,8 +440,7 @@ def make_span_polarity_getter(
     contrastive_conj_getter: Optional[Callable[[Token], bool]],
 ) -> SpanPolarityOutput:
     """Creates a function (getter) which for a span return the aggrated polarities. Including accounting for
-    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.
-
+    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks. 
     Assumed the Token extention "polarity" is set and returns a TokenPolarityOutput.
 
     Args:

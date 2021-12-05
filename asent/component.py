@@ -20,8 +20,8 @@ from asent.getters import (
 
 class Asent:
     """spaCy v.3.0 component for adding an asent sentiment models to `Doc` objects.
-    Ading the Token extentions valence, intensifier, is_negation, is_contrastive_conj,
-    and polarity as well as the Span and Doc extensions polarity.
+    Ading the Token extentions 'valence', 'intensifier', 'is_negation', 'is_negated',
+    'is_contrastive_conj' and 'polarity' as well as the Span and Doc extension 'polarity'.
     """
 
     def __init__(
@@ -33,10 +33,22 @@ class Asent:
         negations: Iterable[str] = set(),
         contrastive_conjugations: Iterable[str] = set(),
         lowercase: bool = True,
-        lemmatize: bool = True,
+        lemmatize: bool = False,
         force: bool = False,
     ):
-        """Initialise components"""
+        """Initialize component
+
+        Args:
+            nlp (Language): A spaCy language pipeline for which to add the component to
+            name (str): The name of the component
+            lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a word.
+            intensifiers (Dict[str, float], optional): A dictionary of intensifiers (e.g. {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.
+            negations (Iterable[str], optional): A list of negations (e..g "not"). Defaults to an empty set indicatin no negations will be used.
+            contrastive_conjugations (Iterable[str], optional): A list of contrastive conjugations (e.g. "but"). Defaults to empty set indicating no contrastive conjugations will be used.
+            lowercase (bool, optional): Should be text be lowercases before looking up in the lexicons? Defaults to True.
+            lemmatize (bool, optional): Should be text be lemmatized before looking up in the lexicons? Defaults to False.
+            force (bool, optional): Should existing extensions be overwritten? Defaults to False.
+        """
         self.name = name
 
         if (not Token.has_extension("valence")) or (force is True):
@@ -112,13 +124,21 @@ class Asent:
                 force=force,
             )
 
-    def __call__(self, doc: Doc):
-        """Run the pipeline component"""
+    def __call__(self, doc: Doc) -> Doc:
+        """Run the pipeline component
+
+        Args:
+            doc (Doc): A spaCy document the component should be applied to.
+
+        Returns:
+            Doc: A processed spacy Document.
+        """
         return doc
 
 
+
 @Language.factory("asent_v1", default_config={"lowercase": True, "lemmatize": False, "force": False})
-def create_da_sentiment_component(
+def create_asent_component(
     nlp: Language,
     name: str, 
     lexicon: Dict[str, float],
@@ -129,12 +149,13 @@ def create_da_sentiment_component(
     lemmatize: bool,
     force: bool,
 ) -> Language:
+    """Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_v1").
     """
-    Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_da_v1").
-    """
+
 
     return Asent(
         nlp,
+        name=name,
         lexicon=lexicon,
         intensifiers=intensifier,
         negations=negations,

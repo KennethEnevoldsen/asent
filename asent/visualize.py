@@ -2,7 +2,17 @@ from typing import Iterable, Union
 from spacy.tokens import Span, Doc
 from spacy import displacy
 
-def visualize(span: Union[Span, Doc], cmap="RdYlGn"):
+def visualize(span: Union[Span, Doc], cmap="RdYlGn") -> str:
+    """Render displaCy visualisation of sentiment
+
+    Args:
+        span (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
+        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
+
+    Returns:
+        str: Rendered HTML markup.
+    """
+
     if isinstance(span, Doc):
         span = span[:]
     thresholds = [t / 10 for t in range(-50, 51)]
@@ -34,6 +44,7 @@ def visualize(span: Union[Span, Doc], cmap="RdYlGn"):
 
 
 def make_colors(n=10, cmap="RdYlGn"):
+    """A utility function for creating a stepped color gradient"""
     from pylab import cm, matplotlib
 
     cmap = cm.get_cmap(cmap, n)  # PiYG
@@ -45,6 +56,7 @@ def make_colors(n=10, cmap="RdYlGn"):
 
 
 def print_colors(HEX: Iterable) -> None:
+    """An utility function for visualizing a color map"""
     from IPython.core.display import HTML, display
 
     for color in HEX:
