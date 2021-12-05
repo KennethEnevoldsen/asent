@@ -1,4 +1,4 @@
-<a href="https://github.com/kennethenevoldsen/asent"><img src="https://github.com/KennethEnevoldsen/asent/blob/main/docs/img/logo_black_font.png?raw=true" width="200" align="right" /></a>
+<a href="https://github.com/kennethenevoldsen/asent"><img src="https://github.com/KennethEnevoldsen/asent/blob/main/docs/img/logo_black_font.png?raw=true" width="300" align="right" /></a>
 # Asent: Fast, flexible and transparent sentiment analysis
 
 
