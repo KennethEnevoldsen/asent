@@ -2,6 +2,7 @@ from typing import Iterable, Union
 from spacy.tokens import Span, Doc
 from spacy import displacy
 
+
 def visualize(span: Union[Span, Doc], cmap="RdYlGn") -> str:
     """Render displaCy visualisation of sentiment
 
@@ -24,9 +25,14 @@ def visualize(span: Union[Span, Doc], cmap="RdYlGn") -> str:
 
     pol = span._.polarity
     t_pols = list(filter(lambda p: p, pol.polarities))
-    
+
     c_spans = [
-        {"start": tp.span.doc[tp.span.start].idx - span.doc[span.start].idx, "end": tp.span.doc[tp.span.end-1].idx + len(tp.span.doc[tp.span.end-1].text), "label": __normalize(tp.polarity)}
+        {
+            "start": tp.span.doc[tp.span.start].idx - span.doc[span.start].idx,
+            "end": tp.span.doc[tp.span.end - 1].idx
+            + len(tp.span.doc[tp.span.end - 1].text),
+            "label": __normalize(tp.polarity),
+        }
         for tp in t_pols
     ]
 
