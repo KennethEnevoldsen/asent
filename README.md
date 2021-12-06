@@ -15,6 +15,15 @@
 
 Inspired by Vader, made using SpaCy, transparent from the start.
 
+## Installation
+
+Installing Asent is simple using pip:
+
+```
+pip install asent
+```
+
+There is no reason to update from GitHub as the version on pypi should always be the same of on GitHub.
 
 ## Simple Example
 The following shows a simple example of how you can quickly apply sentiment analysis using asent. For more on using asent see the [usage guides].
@@ -41,7 +50,7 @@ asent.visualize(doc)
 
 | Documentation              |                                                                             |
 | -------------------------- | --------------------------------------------------------------------------- |
-| 🔧 **[Installation]**       | Guides and instructions on how to use asent and its features.               |
+| 🔧 **[Installation]**       | Installation instructions for Asent          |
 | 📚 **[Usage Guides]**       | Guides and instructions on how to use asent and its features.               |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
 | 🎛 **[Documentations]**     | The detailed reference for augmenty's API. Including function documentation |
