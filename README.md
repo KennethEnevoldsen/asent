@@ -9,7 +9,7 @@
 [![github actions docs](https://github.com/kennethenevoldsen/asent/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/asent/)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/95471fd640b6c1c09717c5f88e2e9fae/raw/badge-asent-pytest-coverage.json)
 [![CodeFactor](https://www.codefactor.io/repository/github/kennethenevoldsen/asent/badge)](https://www.codefactor.io/repository/github/kennethenevoldsen/asent)
-<!-- [![pip downloads](https://img.shields.io/pypi/dm/asent.svg)](https://pypi.org/project/asent/) -->
+[![pip downloads](https://img.shields.io/pypi/dm/asent.svg)](https://pypi.org/project/asent/)
 <!-- [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kennethenevoldsen/asent/dev/streamlit.py) -->
 
 
@@ -33,18 +33,22 @@ import spacy
 import asent
 
 # load spacy pipeline
-nlp = spacy.load("da_core_news_lg")
+nlp = spacy.load("en_core_web_lg")
 
 # add the rule-based sentiment model
-nlp.add_pipe("asent_da_v1")
+nlp.add_pipe("asent_en_v1")
 
 # try an example
-text = "jeg er ikke længere sur. 👿"
+text = "I am not very happy, but I am also not especially sad"
 doc = nlp(text)
 
 # visualize the results
 asent.visualize(doc)
 ```
+
+<img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png" width="500" />
+
+
 
 # 📖 Documentation
 
