@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.1, furo 2021.11.23"/>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
         <title>asent.visualize - asent 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
@@ -226,6 +226,7 @@
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span>
 <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 
+
 <div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""Render displaCy visualisation of sentiment</span>
 
@@ -248,9 +249,14 @@
 
     <span class="n">pol</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
     <span class="n">t_pols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="n">pol</span><span class="o">.</span><span class="n">polarities</span><span class="p">))</span>
-    
+
     <span class="n">c_spans</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">"start"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="s2">"end"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">),</span> <span class="s2">"label"</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">)}</span>
+        <span class="p">{</span>
+            <span class="s2">"start"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span>
+            <span class="s2">"end"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span>
+            <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">),</span>
+            <span class="s2">"label"</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
+        <span class="p">}</span>
         <span class="k">for</span> <span class="n">tp</span> <span class="ow">in</span> <span class="n">t_pols</span>
     <span class="p">]</span>
 
