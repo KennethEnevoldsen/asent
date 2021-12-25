@@ -661,8 +661,7 @@
     <span class="n">contrastive_conj_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpanPolarityOutput</span><span class="p">:</span>
     <span class="sd">"""Creates a function (getter) which for a span return the aggrated polarities. Including accounting for</span>
-<span class="sd">    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks. </span>
-<span class="sd">    Assumed the Token extention "polarity" is set and returns a TokenPolarityOutput.</span>
+<span class="sd">    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        polarity_getter (Optional[Callable[[Token], float]]): A function which given a token return</span>
