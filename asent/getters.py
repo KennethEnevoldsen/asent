@@ -437,8 +437,7 @@ def make_span_polarity_getter(
     contrastive_conj_getter: Optional[Callable[[Token], bool]],
 ) -> SpanPolarityOutput:
     """Creates a function (getter) which for a span return the aggrated polarities. Including accounting for
-    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks. 
-    Assumed the Token extention "polarity" is set and returns a TokenPolarityOutput.
+    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.
 
     Args:
         polarity_getter (Optional[Callable[[Token], float]]): A function which given a token return
