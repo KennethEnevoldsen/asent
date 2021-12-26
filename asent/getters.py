@@ -254,7 +254,7 @@ def make_is_negated_getter(
 
 def make_token_polarity_getter(
     valence_getter: Optional[Callable[[Token], float]] = None,
-    is_negation_getter: Optional[Callable[[Token], bool]] = None,
+    is_negated_getter: Optional[Callable[[Token], bool]] = None,
     intensifier_getter: Optional[Callable[[Token], float]] = None,
     negation_scalar: float = N_SCALAR,
     lookback_intensities: List[float] = [1.0, 0.95, 0.90],
@@ -268,17 +268,17 @@ def make_token_polarity_getter(
         valence_getter (Optional[Callable[[Token], float]]): a function which given a token return the
             valence (sentiment) of the token. If None it assumes that the the token extention "valence"
             is set. If specified it overwrites the extension. Defualts to None.
-        is_negation_getter (Optional[Callable[[Token], bool]], optional): A function which given a
-            token return if the token is a negation or not. If None it assumes that the the token
-            extention "is_negation" is set. If specified it overwrites the extension. Defualts to None.
+        is_negated_getter (Optional[Callable[[Token], bool]], optional): A function which given a
+            token return a boolean indicating whether the token is negated. If None it assumes that the the token
+            extention "is_negated" is set. If specified it overwrites the extension. Defualts to None.
         intensifier_getter (Optional[Callable[[Token], float]], optional): A getter which for a token
             return 0 if it is not an intensifier or its intensifcation value if it is an intensifier.
             E.g. the token 'especially' might have an value of 0.293 which increases or decreases the
             valence of the following word by the specified amount. Defaults to None,
             intensifiers aren't included in the analysis of token valence.
-        negation_scalar (float, optional): [description]. Defaults to the emperically derived constant
+        negation_scalar (float, optional):  Defaults to the emperically derived constant
             -0.74 (Hutto and Gilbert, 2014).
-        lookback_intensities (List[float], optional): How long to look back for negations and intensifiers
+        lookback_intensities (List[float], optional): How long to look back for intensifiers
             (length). Intensities indicate the how much to weight each intensifier. Defaults to
             [1.0, 0.95, 0.90] which is emperically derived (Hutto and Gilbert, 2014).
 
@@ -295,12 +295,10 @@ def make_token_polarity_getter(
             "Token class has no extension 'valence', either set the extension"
             + " or provide the valence_getter."
         )
-    if is_negation_getter:
+    if is_negated_getter:
         Token.set_extension(
             "is_negated",
-            getter=make_is_negated_getter(
-                lookback=lookback, is_negation_getter=is_negation_getter
-            ),
+            getter=is_negated_getter,
             force=True,
         )
     if not Token.has_extension("is_negated"):
@@ -323,7 +321,6 @@ def make_token_polarity_getter(
         valence = token._.valence
 
         start_tok = token.i  # only used if span is returned
-        negated = False
         if valence:
             for start_i in range(1, lookback + 1):
                 # dampen the scalar modifier of preceding words and emoticons
@@ -339,10 +336,9 @@ def make_token_polarity_getter(
                         valence = valence + b
                     else:
                         valence = valence - b
-                    if not negated and prev_token._.is_negation:
-                        valence = valence * negation_scalar
-                        negated = True  # prevent double negations
-                        start_tok = prev_token.i
+            if token._.is_negated:
+                valence = valence * negation_scalar
+
 
         return TokenPolarityOutput(
             polarity=valence, token=token, span=token.doc[start_tok : token.i + 1]
