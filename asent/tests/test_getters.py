@@ -150,6 +150,9 @@ def test_token_polarity(
     [
         ("jeg er glad", "positive", "da"),
         ("jeg er sur", "negative", "da"),
+        ("jeg er sur?", "negative", "da"),
+        ("jeg er sur!", "negative", "da"),
+        ("", "neutral", "da"),
         ("filmen var okay god men er generelt skuffet", "negative", "da"),
     ],
 )
@@ -194,9 +197,11 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
         assert sent._.polarity.compound > 0
     elif expected == "negative":
         assert sent._.polarity.compound < 0
+    elif expected == "neutral":
+        assert sent._.polarity.compound == 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'positive' or 'negative'"
+            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'"
         )
 
 
