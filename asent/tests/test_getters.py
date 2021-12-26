@@ -18,9 +18,13 @@ from asent.getters import (
 
 
 @pytest.fixture()
-def nlp_da():
-    nlp = spacy.load("da_core_news_lg")
-    return nlp
+def nlp_dict():
+    nlp_da = spacy.load("da_core_news_lg")
+    nlp_en = spacy.load("en_core_web_sm")
+    nlp_sv = spacy.blank("XX")  # spacy has no swedish pipelines
+    nlp_no = spacy.load("no_core_news_sm")
+
+    return {"da": nlp_da, "en": nlp_en, "np": nlp_no, "sv": nlp_sv}
 
 
 @pytest.mark.parametrize(
@@ -31,13 +35,14 @@ def nlp_da():
         ("jeg er sur", -1, "negative", "da"),
     ],
 )
-def test_valence_getter(example, idx, expected, lang: str, nlp_da):
+def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
 
-    if lang == "da":
-        nlp = nlp_da
-        lexicon = asent.lexicons.get("lexicon_da_v1")
+    nlp = nlp_dict[lang]
+    lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
-    Token.set_extension("valence", getter=make_valance_getter(lexicon=lexicon), force=True)
+    Token.set_extension(
+        "valence", getter=make_valance_getter(lexicon=lexicon), force=True
+    )
     doc = nlp(example)
 
     if expected == "positive":
@@ -59,12 +64,13 @@ def test_valence_getter(example, idx, expected, lang: str, nlp_da):
         ("jeg er sur", "jeg er SUR", -1, "da"),
     ],
 )
-def test_valence_getter_casing(example, cased_example, idx, lang, nlp_da):
-    if lang == "da":
-        nlp = nlp_da
-        lexicon = asent.lexicons.get("lexicon_da_v1")
+def test_valence_getter_casing(example, cased_example, idx, lang, nlp_dict):
+    nlp = nlp_dict[lang]
+    lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
-    Token.set_extension("valence", getter=make_valance_getter(lexicon=lexicon), force=True)
+    Token.set_extension(
+        "valence", getter=make_valance_getter(lexicon=lexicon), force=True
+    )
 
     docs = [nlp(t) for t in [example, cased_example]]
     assert abs(docs[0][idx]._.valence) < abs(docs[1][idx]._.valence)
@@ -81,11 +87,9 @@ def test_valence_getter_casing(example, cased_example, idx, lang, nlp_da):
         ("jeg er ikke længere særligt sur", -1, True, "da"),
     ],
 )
-def test_is_negation(example, idx, is_negated, lang: str, nlp_da):
-
-    if lang == "da":
-        nlp = nlp_da
-        negations = asent.lexicons.get("negations_da_v1")
+def test_is_negation(example, idx, is_negated, lang: str, nlp_dict):
+    nlp = nlp_dict[lang]
+    negations = asent.lexicons.get("negations_" + lang + "_v1")
 
     is_negation_getter = make_is_negation_getter(negations=negations)
     is_negated_getter = make_is_negated_getter(is_negation_getter=is_negation_getter)
@@ -107,14 +111,17 @@ def test_token_polarity(
     more_positive_example: str,
     more_positive_idx: int,
     lang: str,
-    nlp_da,
+    nlp_dict,
 ):
+
+    nlp = nlp_dict[lang]
+    lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
+    negations = asent.lexicons.get("negations_" + lang + "_v1")
+    intensifiers = asent.lexicons.get("intensifiers_" + lang + "_v1")
+
+    lowercase = True
+    lemmatize = False
     if lang == "da":
-        nlp = nlp_da
-        lexicon = asent.lexicons.get("lexicon_da_v1")
-        negations = asent.lexicons.get("negations_da_v1")
-        intensifiers = asent.lexicons.get("intensifiers_da_v1")
-        lowercase = True
         lemmatize = True
 
     valence_getter = make_valance_getter(
@@ -144,14 +151,15 @@ def test_token_polarity(
         ("filmen var okay god men er generelt skuffet", "negative", "da"),
     ],
 )
-def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_da):
+def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
+    nlp = nlp_dict[lang]
+    lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
+    negations = asent.lexicons.get("negations_" + lang + "_v1")
+    intensifiers = asent.lexicons.get("intensifiers_" + lang + "_v1")
+
+    lowercase = True
+    lemmatize = False
     if lang == "da":
-        nlp = nlp_da
-        lexicon = asent.lexicons.get("lexicon_da_v1")
-        negations = asent.lexicons.get("negations_da_v1")
-        intensifiers = asent.lexicons.get("intensifiers_da_v1")
-        contrast_conj = asent.lexicons.get("contrastive_conj_da_v1")
-        lowercase = True
         lemmatize = True
 
     valence_getter = make_valance_getter(
@@ -197,10 +205,30 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_da):
         ),
     ],
 )
-def test_span_polarity_contrast(example: str, more_positive_example: str, lang: str, nlp_da):
-    if lang=="da":
-        nlp = nlp_da
-        nlp.add_pipe("asent_da_v1", config={"force": True})
+def test_span_polarity_contrast(
+    example: str, more_positive_example: str, lang: str, nlp_dict
+):
+    nlp = nlp_dict[lang]
+
+    nlp.add_pipe("asent_" + lang + "_v1", config={"force": True})
 
     docs = [nlp(e) for e in [example, more_positive_example]]
     assert docs[0]._.polarity.compound < docs[1]._.polarity.compound
+
+
+@pytest.mark.parametrize(
+    "example,lang",
+    [
+        ("jeg er glad", "da"),
+        ("I am happy", "en"),
+        ("jeg er glad", "no"),
+        ("jag är glad", "sv"),
+    ],
+)
+def test_components(example: str, lang: str, nlp_dict):
+
+    nlp = nlp_dict[lang]
+
+    nlp.add_pipe("asent_" + lang + "_v1", config={"force": True})
+    doc = nlp(example)
+    doc._.polarity.compound > 0
