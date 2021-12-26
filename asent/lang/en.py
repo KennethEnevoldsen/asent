@@ -192,6 +192,7 @@ def create_en_sentiment_component(nlp: Language, name: str) -> Language:
     LEXICON.update(E_LEXICON)
 
     return Asent(nlp, 
+        name=name,
         lexicon = LEXICON,
         intensifiers = INTENSIFIERS,
         negations = NEGATIONS,

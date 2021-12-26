@@ -8,6 +8,7 @@ from ..constants import B_DECR, B_INCR
 from ..utils import lexicons
 from ..component import Asent
 
+
 def read_lexicon():
     lexicon_file = os.path.join("..", "lexicons", "se_lexicon_v1.txt")
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
@@ -125,9 +126,13 @@ def create_se_sentiment_component(nlp: Language, name: str) -> Language:
 
     LEXICON.update(LEXICON)
 
-    return Asent(nlp, lexicon=  LEXICON,
-        intensifiers = INTENSIFIERS,
-        negations = NEGATIONS,
-        contrastive_conjugations = set(),
-        lowercase =True,
-        lemmatize =False)
+    return Asent(
+        nlp,
+        name=name,
+        lexicon=LEXICON,
+        intensifiers=INTENSIFIERS,
+        negations=NEGATIONS,
+        contrastive_conjugations=set(),
+        lowercase=True,
+        lemmatize=False,
+    )

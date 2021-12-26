@@ -1,4 +1,3 @@
-
 import codecs
 import os
 from inspect import getsourcefile
@@ -9,6 +8,7 @@ from ..utils import lexicons
 from ..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
+
 
 def read_lexicon():
     lexicon_file = os.path.join("..", "lexicons", "no_lexicon_v1.txt")
@@ -143,6 +143,7 @@ lexicons.register("negations_no_v1", func=NEGATIONS)
 lexicons.register("contrastive_conj_no_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_no_v1", func=INTENSIFIERS)
 
+
 @Language.factory("asent_no_v1")
 def create_no_sentiment_component(nlp: Language, name: str) -> Language:
     """
@@ -151,9 +152,13 @@ def create_no_sentiment_component(nlp: Language, name: str) -> Language:
 
     LEXICON.update(E_LEXICON)
 
-    return Asent(nlp, lexicon=  LEXICON,
-        intensifiers = INTENSIFIERS,
-        negations = NEGATIONS,
-        contrastive_conjugations = CONTRASTIVE_CONJ,
-        lowercase =True,
-        lemmatize =False)
+    return Asent(
+        nlp,
+        name=name,
+        lexicon=LEXICON,
+        intensifiers=INTENSIFIERS,
+        negations=NEGATIONS,
+        contrastive_conjugations=CONTRASTIVE_CONJ,
+        lowercase=True,
+        lemmatize=False,
+    )

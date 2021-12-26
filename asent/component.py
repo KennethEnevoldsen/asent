@@ -27,8 +27,8 @@ class Asent:
     def __init__(
         self,
         nlp: Language,
-        name: str,
         lexicon: Dict[str, float],
+        name: str = "asent",
         intensifiers: Dict[str, float] = {},
         negations: Iterable[str] = set(),
         contrastive_conjugations: Iterable[str] = set(),
@@ -68,7 +68,7 @@ class Asent:
                 ),
                 force=force,
             )
-        
+
         if (not Token.has_extension("is_negation")) or (force is True):
             Token.set_extension(
                 "is_negation",
@@ -136,28 +136,36 @@ class Asent:
         return doc
 
 
+DEFAULT_CONFIG = {
+    "lexicon": {},
+    "intensifiers": {},
+    "negations": set(),
+    "contrastive_conj": set(),
+    "lowercase": True,
+    "lemmatize": False,
+    "force": False,
+}
 
-@Language.factory("asent_v1", default_config={"lowercase": True, "lemmatize": False, "force": False})
+
+@Language.factory("asent_v1", default_config=DEFAULT_CONFIG)
 def create_asent_component(
     nlp: Language,
-    name: str, 
+    name: str,
     lexicon: Dict[str, float],
-    intensifier: Dict[str, float],
+    intensifiers: Dict[str, float],
     negations: Iterable[str],
     contrastive_conj: Iterable[str],
     lowercase: bool,
     lemmatize: bool,
     force: bool,
 ) -> Language:
-    """Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_v1").
-    """
-
+    """Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_v1")."""
 
     return Asent(
         nlp,
         name=name,
         lexicon=lexicon,
-        intensifiers=intensifier,
+        intensifiers=intensifiers,
         negations=negations,
         contrastive_conjugations=contrastive_conj,
         lowercase=lowercase,

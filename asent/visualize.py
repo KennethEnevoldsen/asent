@@ -67,3 +67,21 @@ def print_colors(HEX: Iterable) -> None:
 
     for color in HEX:
         display(HTML(f'<p style="color:{color}">{color}</p>'))
+
+
+# # Visualize analysis (as opposed to prediction)
+# from spacy import displacy
+# ex = {
+#     "words": [
+#         {"text": "I", "tag": "0"},
+#         {"text": "'m", "tag": "0"},
+#         {"text": "not", "tag": "0"},
+#         {"text": "very", "tag": "0"},
+#         {"text": "happy", "tag": "2.7"}
+#     ],
+#     "arcs": [
+#         {"start": 2, "end": 4, "label": "negated by", "dir": "left"},
+#         {"start": 3, "end": 4, "label": "intensified by", "dir": "left"}
+#     ]
+# }
+# html = displacy.render(ex, style="dep", manual=True)
