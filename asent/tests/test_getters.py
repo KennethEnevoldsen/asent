@@ -91,7 +91,7 @@ def test_is_negation(example, idx, is_negated, lang: str, nlp_da):
     is_negated_getter = make_is_negated_getter(is_negation_getter=is_negation_getter)
     Token.set_extension(name="is_negated", getter=is_negated_getter, force=True)
     doc = nlp(example)
-    assert doc[idx]._.is_negated is is_negated
+    assert bool(doc[idx]._.is_negated) is is_negated
 
 
 @pytest.mark.parametrize(

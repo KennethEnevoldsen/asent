@@ -1,11 +1,4 @@
-from typing import (
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Tuple,
-)
+from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
 from spacy.tokens import Token, Doc, Span
 from .constants import (
     AFTER_BUT_SCALAR,
@@ -208,7 +201,7 @@ def make_is_contrastive_conj_getter(
 
 def make_is_negated_getter(
     lookback: int = 3, is_negation_getter: Optional[Callable[[Token], bool]] = None
-) -> Callable[[Token], bool]:
+) -> Callable[[Token], Optional[Token]]:
     """Creates a getter which checks if a token is negated by checked whether the n previous workds are negations.
 
     Args:
@@ -229,32 +222,20 @@ def make_is_negated_getter(
             + " or provide the is_negation_getter."
         )
 
-    def contains_negatation(span: Span) -> bool:
-        """
-        Determine if input contains negation words
-        """
-        for t in span:
-            if t._.is_negation is True:
-                return True
-        return False
-
-    if not Span.has_extension("contains_negatation"):
-        Span.set_extension("contains_negatation", getter=contains_negatation)
-
     def is_negated_getter(token: Token) -> bool:
         """
         Determine if token is negated
         """
-        if token.doc[token.i - lookback : token.i]._.contains_negatation:
-            return True
-        return False
+        for t in token.doc[token.i - lookback : token.i]:
+            if t._.is_negation:
+                return t
 
     return is_negated_getter
 
 
 def make_token_polarity_getter(
     valence_getter: Optional[Callable[[Token], float]] = None,
-    is_negated_getter: Optional[Callable[[Token], bool]] = None,
+    is_negated_getter: Optional[Callable[[Token], Union[bool, Optional[Token]]]] = None,
     intensifier_getter: Optional[Callable[[Token], float]] = None,
     negation_scalar: float = N_SCALAR,
     lookback_intensities: List[float] = [1.0, 0.95, 0.90],
@@ -336,9 +317,11 @@ def make_token_polarity_getter(
                         valence = valence + b
                     else:
                         valence = valence - b
-            if token._.is_negated:
+            is_neg = token._.is_negated
+            if is_neg:
                 valence = valence * negation_scalar
-
+                if isinstance(is_neg, Token) and start_tok > is_neg.i:
+                    start_tok = is_neg.i
 
         return TokenPolarityOutput(
             polarity=valence, token=token, span=token.doc[start_tok : token.i + 1]
@@ -559,7 +542,7 @@ def make_doc_polarity_getter(
             neutral=neutral,
             compound=compound,
             polarities=polarities,
-            doc=doc
+            doc=doc,
         )
 
     return polarity_getter
