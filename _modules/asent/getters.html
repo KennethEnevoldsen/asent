@@ -336,7 +336,7 @@
 
     <span class="n">t_getter</span> <span class="o">=</span> <span class="n">make_txt_getter</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">lemma_valence_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">valence_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">valence</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t_getter</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="ow">in</span> <span class="n">lexicon</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
@@ -346,7 +346,7 @@
         <span class="k">return</span> <span class="mf">0.0</span>
 
     <span class="k">def</span> <span class="nf">cap_diff_valence_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">valence</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">raw_valence</span>
+        <span class="n">valence</span> <span class="o">=</span> <span class="n">valence_getter</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_upper</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">sent</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_cap_diff</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">valence</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">valence</span> <span class="o">+=</span> <span class="n">cap_differential</span>
@@ -355,12 +355,10 @@
         <span class="k">return</span> <span class="n">valence</span>
 
     <span class="k">if</span> <span class="n">cap_differential</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"raw_valence"</span><span class="p">):</span>
-            <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"raw_valence"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">lemma_valence_getter</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">):</span>
-            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">)</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cap_diff_valence_getter</span>
-    <span class="k">return</span> <span class="n">lemma_valence_getter</span></div>
+    <span class="k">return</span> <span class="n">valence_getter</span></div>
 
 
 <div class="viewcode-block" id="make_is_negation_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_is_negation_getter">[docs]</a><span class="k">def</span> <span class="nf">make_is_negation_getter</span><span class="p">(</span>
