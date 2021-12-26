@@ -21,10 +21,11 @@ from asent.getters import (
 def nlp_dict():
     nlp_da = spacy.load("da_core_news_lg")
     nlp_en = spacy.load("en_core_web_sm")
-    nlp_sv = spacy.blank("sv")  # spacy has no swedish pipelines
-    nlp_no = spacy.load("nb_core_news_sm")
+    nlp_sv = spacy.blank("sv")  # spacy has no Swedish pipelines
+    nlp_sv.add_pipe("sentencizer")
+    nlp_nb = spacy.load("nb_core_news_sm")
 
-    return {"da": nlp_da, "en": nlp_en, "np": nlp_no, "sv": nlp_sv}
+    return {"da": nlp_da, "en": nlp_en, "no": nlp_nb, "sv": nlp_sv}
 
 
 @pytest.mark.parametrize(
@@ -156,6 +157,10 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
     negations = asent.lexicons.get("negations_" + lang + "_v1")
     intensifiers = asent.lexicons.get("intensifiers_" + lang + "_v1")
+    if lang != "sv":
+        cconj = asent.lexicons.get("contrastive_conj_" + lang + "_v1")
+    else:
+        cconj = set()
 
     lowercase = True
     lemmatize = False
@@ -166,15 +171,16 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
         lexicon, lowercase=lowercase, lemmatize=lemmatize
     )
     is_negation_getter = make_is_negation_getter(negations)
+    is_negated_getter = make_is_negated_getter(is_negation_getter=is_negation_getter)
     intensifier_getter = make_intensifier_getter(
         intensifiers, lowercase=lowercase, lemmatize=lemmatize
     )
     polarity_getter = make_token_polarity_getter(
         valence_getter=valence_getter,
-        is_negation_getter=is_negation_getter,
+        is_negated_getter=is_negated_getter,
         intensifier_getter=intensifier_getter,
     )
-    contrastive_conj_getter = make_is_contrastive_conj_getter(contrast_conj)
+    contrastive_conj_getter = make_is_contrastive_conj_getter(cconj)
     span_polarity_getter = make_span_polarity_getter(
         polarity_getter, contrastive_conj_getter=contrastive_conj_getter
     )
@@ -231,4 +237,4 @@ def test_components(example: str, lang: str, nlp_dict):
 
     nlp.add_pipe("asent_" + lang + "_v1", config={"force": True})
     doc = nlp(example)
-    doc._.polarity.compound > 0
+    assert doc._.polarity.compound > 0
