@@ -1,3 +1,0 @@
-The lexicons contain a list of rated lemmas for Danish. The words are rated in context by [Dalsgaard, Lauridsen and  Svendsen (2019)](https://tidsskrift.dk/lwo/article/view/115711). Followingly, the words are converted into lemmas using DaCy [(Enevoldsen et al., 2021)](https://github.com/centre-for-humanities-computing/DaCy).
-
-The lexicon includes a total of 6593 rated lemmas along with intensifier, contrastive conjugations and negations.
