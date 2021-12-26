@@ -144,7 +144,7 @@ lexicons.register("contrastive_conj_no_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_no_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_no_v1")
+@Language.factory("asent_no_v1", default_config={"force": False})
 def create_no_sentiment_component(nlp: Language, name: str) -> Language:
     """
     Allows the Norwegian sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_no_v1").

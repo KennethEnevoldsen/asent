@@ -118,7 +118,7 @@ lexicons.register("negations_se_v1", func=NEGATIONS)
 lexicons.register("intensifiers_se_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_se_v1")
+@Language.factory("asent_se_v1", default_config={"force": False})
 def create_se_sentiment_component(nlp: Language, name: str) -> Language:
     """
     Allows the Swedish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_se_v1").
