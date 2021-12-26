@@ -1,0 +1,16 @@
+
+name: Autoformat to Black
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Lint
+      uses : lgeiger/black-action@master
+      with:
+        python-version: 3.9
