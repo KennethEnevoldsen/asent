@@ -1,5 +1,5 @@
 include asent/lexicons/emoji_v1.json
 include asent/lexicons/no_lexicon_v1.txt
 include asent/lexicons/en_lexicon_v1.txt
-include asent/lexicons/se_lexicon_v1.txt
+include asent/lexicons/sv_lexicon_v1.txt
 include asent/lexicons/da_lexicon_v1.csv
