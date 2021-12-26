@@ -35,15 +35,15 @@ Languages
       and negations. It includes a total of 6593 rated lemmas along with intensifier, contrastive conjugations
       and negations.
 
-      You can load the Norwegian lexicons using:
+      You can load the Danish lexicons using:
 
       .. code-block:: python
 
          from asent import lexicons
-         rated_words = lexicons.get("lexicon_no_v1") 
-         negations = lexicons.get("negations_no_v1")
-         intensifiers = lexicons.get("intensifiers_no_v1")
-         cconj = lexicons.get("contrastive_conj_no_v1")
+         rated_words = lexicons.get("lexicon_da_v1") 
+         negations = lexicons.get("negations_da_v1")
+         intensifiers = lexicons.get("intensifiers_da_v1")
+         cconj = lexicons.get("contrastive_conj_da_v1")
 
 
 
@@ -56,15 +56,15 @@ Languages
 
       The lexicon includes a total of 3214 rated words along with intensifier, contrastive conjugations and negations.
 
-      You can load the Danish lexicons using:
+      You can load the Norwegian lexicons using:
 
       .. code-block:: python
 
          from asent import lexicons
-         rated_words = lexicons.get("lexicon_da_v1") 
-         negations = lexicons.get("negations_da_v1")
-         intensifiers = lexicons.get("intensifiers_da_v1")
-         cconj = lexicons.get("contrastive_conj_da_v1")
+         rated_words = lexicons.get("lexicon_no_v1") 
+         negations = lexicons.get("negations_no_v1")
+         intensifiers = lexicons.get("intensifiers_no_v1")
+         cconj = lexicons.get("contrastive_conj_no_v1")
 
 
    .. tab-item:: Swedish
