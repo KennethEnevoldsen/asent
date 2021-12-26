@@ -53,6 +53,7 @@ with custom styling.
 To make the documentation you can run:
 
 .. code-block:: bash
+
    # install sphinx, themes and extensions
    pip install sphinx furo sphinx-copybutton sphinxext-opengraph
 
@@ -60,3 +61,11 @@ To make the documentation you can run:
 
    make -C docs html
 
+
+
+.. adding a new language?
+.. couldn't you just train a transformer for sentiment analysis
+.. It is true that a trained transformer would probably perform sentiment analysis much better. 
+.. I fact most machine learning models would probably outperform a rule-based approach 
+.. with fairly simple feature engineering, however the goal of asent to focus on transparency first and 
+.. then building upon that system.

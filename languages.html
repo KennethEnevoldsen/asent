@@ -4,17 +4,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta property="og:title" content="Swedish" />
+  <meta property="og:title" content="Languages" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="lang.swedish.html" />
-  <meta property="og:description" content="Work in progress" />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Emoji" href="lang.emoji.html" /><link rel="prev" title="Norwegian" href="lang.norwegian.html" />
+  <meta property="og:url" content="languages.html" />
+  <meta property="og:description" content="English The lexicons contain a list of rated words for English along with intensifiers, contrastive conjugations and negations. The words are rated by Hutto and Gilbert, (2014). The lexicons contai..." />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="News and Changelog" href="news.html" /><link rel="prev" title="Customizing Asent" href="customizing.html" />
 
     <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
-        <title>Swedish - asent 0.0.7 documentation</title>
+        <title>Languages - asent 0.0.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
     
     
@@ -135,7 +136,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">asent 0.0.7 documentation</div></a>
+      <a href="index.html"><div class="brand">asent 0.0.8 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -170,11 +171,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Using Asent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customizing.html">Customizing your sentiment pipeline</a></li>
-<li class="toctree-l1"><a class="reference internal" href="model_workings.html">How does the model work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing.html">Customizing Asent</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Languages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">News</span></p>
 <ul>
@@ -183,14 +184,6 @@
 <p class="caption" role="heading"><span class="caption-text">FAQ</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Lexicon Resources</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="lang.danish.html">Danish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.english.html">English</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.norwegian.html">Norwegian</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Swedish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.emoji.html">Emoji</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API references</span></p>
 <ul>
@@ -227,18 +220,87 @@
           </label>
         </div>
         <article role="main">
-          <section id="swedish">
-<h1>Swedish<a class="headerlink" href="#swedish" title="Permalink to this headline">¶</a></h1>
-<p>Work in progress</p>
-<span class="target" id="module-asent.lang.se"></span><dl class="py function">
-<dt class="sig sig-object py" id="asent.lang.se.create_se_sentiment_component">
-<span class="sig-prename descclassname"><span class="pre">asent.lang.se.</span></span><span class="sig-name descname"><span class="pre">create_se_sentiment_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">spacy.language.Language</span></span></span><a class="reference internal" href="_modules/asent/lang/se.html#create_se_sentiment_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.lang.se.create_se_sentiment_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows the Swedish sentiment to be added to a spaCy pipe using nlp.add_pipe(“asent_se_v1”).</p>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="asent.lang.se.read_lexicon">
-<span class="sig-prename descclassname"><span class="pre">asent.lang.se.</span></span><span class="sig-name descname"><span class="pre">read_lexicon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/asent/lang/se.html#read_lexicon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.lang.se.read_lexicon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+          <section id="languages">
+<h1>Languages<a class="headerlink" href="#languages" title="Permalink to this headline">¶</a></h1>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="87292e8f-1597-4462-abf5-59c690f5893a" name="a6341558-bf70-41c8-9e52-dfe4cd3f1b5e" type="radio"/>
+<label class="sd-tab-label" for="87292e8f-1597-4462-abf5-59c690f5893a">
+English</label><div class="sd-tab-content docutils">
+<p>The lexicons contain a list of rated words for English along with intensifiers, contrastive conjugations and negations.
+The words are rated by
+<a class="reference external" href="https://ojs.aaai.org/index.php/ICWSM/article/view/14550">Hutto and Gilbert, (2014)</a>.</p>
+<p>The lexicons contain a total of 7504 rated words, 59 negations, 84 intensifiers, and 1 contrastive conjugations.</p>
+<p>You can load the English lexicons using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asent</span> <span class="kn">import</span> <span class="n">lexicons</span>
+<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"lexicon_en_v1"</span><span class="p">)</span>
+<span class="n">negations</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"negations_en_v1"</span><span class="p">)</span>
+<span class="n">intensifiers</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"intensifiers_en_v1"</span><span class="p">)</span>
+<span class="n">cconj</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"contrastive_conj_en_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="71b65fe3-b4ac-4479-9978-299ac21e588a" name="a6341558-bf70-41c8-9e52-dfe4cd3f1b5e" type="radio"/>
+<label class="sd-tab-label" for="71b65fe3-b4ac-4479-9978-299ac21e588a">
+Danish</label><div class="sd-tab-content docutils">
+<p>The Danish lexical resources contain a list of rated lemmas for Danish. The words are rated in context by
+<a class="reference external" href="https://tidsskrift.dk/lwo/article/view/115711">Dalsgaard, Lauridsen and  Svendsen (2019)</a>.
+Followingly, the words are converted into lemmas using DaCy
+<a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy">(Enevoldsen et al., 2021)</a>.
+The lexicon also include intensifier, contrastive conjugations
+and negations. It includes a total of 6593 rated lemmas along with intensifier, contrastive conjugations
+and negations.</p>
+<p>You can load the Norwegian lexicons using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asent</span> <span class="kn">import</span> <span class="n">lexicons</span>
+<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"lexicon_no_v1"</span><span class="p">)</span>
+<span class="n">negations</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"negations_no_v1"</span><span class="p">)</span>
+<span class="n">intensifiers</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"intensifiers_no_v1"</span><span class="p">)</span>
+<span class="n">cconj</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"contrastive_conj_no_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="50b2abcc-fc52-4e19-89f4-0e0b26930b68" name="a6341558-bf70-41c8-9e52-dfe4cd3f1b5e" type="radio"/>
+<label class="sd-tab-label" for="50b2abcc-fc52-4e19-89f4-0e0b26930b68">
+Norwegian</label><div class="sd-tab-content docutils">
+<p>The lexicons contain a list of rated words for Norwegian. The words are rated in context by Finn
+A. Nielsen as a part of his package <a class="reference external" href="https://github.com/olavski/afinn/blob/master/afinn/data/AFINN-no-165.txt">AFINN</a>.
+The contrastive conjugations, negations and intensifiers have been added by <a class="reference external" href="https://chcaa.io">Center for Humanities Computing Aarhus</a>.</p>
+<p>The lexicon includes a total of 3214 rated words along with intensifier, contrastive conjugations and negations.</p>
+<p>You can load the Danish lexicons using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asent</span> <span class="kn">import</span> <span class="n">lexicons</span>
+<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"lexicon_da_v1"</span><span class="p">)</span>
+<span class="n">negations</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"negations_da_v1"</span><span class="p">)</span>
+<span class="n">intensifiers</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"intensifiers_da_v1"</span><span class="p">)</span>
+<span class="n">cconj</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"contrastive_conj_da_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="2931845a-f861-4a2a-81a4-4c8d55d402ee" name="a6341558-bf70-41c8-9e52-dfe4cd3f1b5e" type="radio"/>
+<label class="sd-tab-label" for="2931845a-f861-4a2a-81a4-4c8d55d402ee">
+Swedish</label><div class="sd-tab-content docutils">
+<p>The lexicons is the same as the one used by the Swedish Vader, (<a class="reference external" href="https://pypi.org/project/vaderSentiment-swedish/">vaderSentiment-swedish</a>)
+available on PyPI.</p>
+<p>The lexicon includes a total of 5501 rated orthographic words as well as with intensifier, contrastive conjugations and negations.</p>
+<p>You can load the Swedish lexicons using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asent</span> <span class="kn">import</span> <span class="n">lexicons</span>
+<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"lexicon_se_v1"</span><span class="p">)</span>
+<span class="n">negations</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"negations_se_v1"</span><span class="p">)</span>
+<span class="n">intensifiers</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"intensifiers_se_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="9ee91e5e-9e38-4992-9f5b-ac919c1f29ec" name="a6341558-bf70-41c8-9e52-dfe4cd3f1b5e" type="radio"/>
+<label class="sd-tab-label" for="9ee91e5e-9e38-4992-9f5b-ac919c1f29ec">
+Emoji</label><div class="sd-tab-content docutils">
+<p>The rating of emojis is created by applying Vader <a class="reference external" href="https://ojs.aaai.org/index.php/ICWSM/article/view/14550">(Hutto and Gilbert, 2014)</a> to the description of the emojis.
+Afterwards, the scores are normalized to be between -5 and 5.</p>
+<p>It contains a total of 3570 rated emojis of which 391 of them has a non-zero rating.</p>
+<p>You can load the Emoji lexicon using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asent</span> <span class="kn">import</span> <span class="n">lexicons</span>
+<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"emoji_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
         </article>
@@ -246,23 +308,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="lang.emoji.html">
+          <a class="next-page" href="news.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Emoji</div>
+                <div class="title">News and Changelog</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="lang.norwegian.html">
+          <a class="prev-page" href="customizing.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Norwegian</div>
+                <div class="title">Customizing Asent</div>
                 
               </div>
             </a>
@@ -272,7 +334,7 @@
               Copyright &#169;  |
           Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
           <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            | <a class="muted-link" href="_sources/lang.swedish.rst.txt"
+            | <a class="muted-link" href="_sources/languages.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -293,5 +355,6 @@
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

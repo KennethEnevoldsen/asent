@@ -4,17 +4,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta property="og:title" content="Using Asent" />
+  <meta property="og:title" content="Getting started" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="introduction.html" />
-  <meta property="og:description" content="colab_tut For now the tutorial is only available in Google Colab." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Customizing your sentiment pipeline" href="customizing.html" /><link rel="prev" title="Installation" href="installation.html" />
+  <meta property="og:description" content="colab_tut Asent is a package for fast and transparent sentiment analysis. The package applied uses a dictionary of words rated as either positive or negative and a series of rules to determine whet..." />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Customizing Asent" href="customizing.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
-        <title>Using Asent - asent 0.0.7 documentation</title>
+        <title>Getting started - asent 0.0.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
     
     
@@ -135,7 +136,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">asent 0.0.7 documentation</div></a>
+      <a href="index.html"><div class="brand">asent 0.0.8 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +147,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -172,9 +173,9 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Using Asent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customizing.html">Customizing your sentiment pipeline</a></li>
-<li class="toctree-l1"><a class="reference internal" href="model_workings.html">How does the model work?</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing.html">Customizing Asent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="languages.html">Languages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">News</span></p>
 <ul>
@@ -183,14 +184,6 @@
 <p class="caption" role="heading"><span class="caption-text">FAQ</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Lexicon Resources</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="lang.danish.html">Danish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.english.html">English</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.norwegian.html">Norwegian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.swedish.html">Swedish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lang.emoji.html">Emoji</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API references</span></p>
 <ul>
@@ -221,16 +214,200 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="using-asent">
-<h1>Using Asent<a class="headerlink" href="#using-asent" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/introduction.ipynb"><img alt="colab_tut" src="https://colab.research.google.com/assets/colab-badge.svg" width="180pt"/></a></p>
-<p>For now the tutorial is only available in Google Colab.</p>
+          <section id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/introduction.ipynb"><img alt="colab_tut" src="https://colab.research.google.com/assets/colab-badge.svg" width="160pt"/></a></p>
+<p>Asent is a package for fast and transparent sentiment analysis. The package applied uses a dictionary of
+words rated as either positive or negative and a series of rules to determine whether a word,
+sentence or a document is positive or negative. The current rules account for negations (i.e.
+“not happy”), intensifiers (“very happy”) and account for contrastive conjugations (i.e. “but”)
+as well as other emphasis markers such as exclamation marks, casing and question marks. The following
+will take you through how the sentiment is calculated in a step by step fashion.</p>
+<p>To start of with we will need a spaCy pipeline as well as we will need to add the asent pipeline to it.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="4354ed5d-bd57-4306-8ec4-ca9bc7ab9a10" name="eadd8c3a-53d3-42e2-ad77-8d5321dce14b" type="radio"/>
+<label class="sd-tab-label" for="4354ed5d-bd57-4306-8ec4-ca9bc7ab9a10">
+English</label><div class="sd-tab-content docutils">
+<p>For English we can add the <code class="code docutils literal notranslate"><span class="pre">asent_en_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">en</span></code> indicates that it is the English pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
+that it is version 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asent</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1"># load spacy pipeline</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"en_core_web_lg"</span><span class="p">)</span>
+
+<span class="c1"># add the rule-based sentiment model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">"asent_en_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to install the spaCy pipeline beforehand it can be installed using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m spacy download en_core_web_lg
+</pre></div>
+</div>
+</div>
+</div>
+<input id="bf6a9d18-3282-4b0d-b919-92abc105fb2e" name="eadd8c3a-53d3-42e2-ad77-8d5321dce14b" type="radio"/>
+<label class="sd-tab-label" for="bf6a9d18-3282-4b0d-b919-92abc105fb2e">
+Danish</label><div class="sd-tab-content docutils">
+<p>For Danish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_da_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">da</span></code> indicates that it is the Danish pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
+that it is version 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asent</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1"># load spacy pipeline</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"da_core_news_lg"</span><span class="p">)</span>
+
+<span class="c1"># add the rule-based sentiment model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">"asent_da_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to install the spaCy pipeline beforehand it can be installed using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m spacy download da_core_news_lg
+</pre></div>
+</div>
+</div>
+</div>
+<input id="a016e96c-27f0-4cc6-ab20-bf3aab7ceb62" name="eadd8c3a-53d3-42e2-ad77-8d5321dce14b" type="radio"/>
+<label class="sd-tab-label" for="a016e96c-27f0-4cc6-ab20-bf3aab7ceb62">
+Norwegian</label><div class="sd-tab-content docutils">
+<p>For Norwegian we can add the <code class="code docutils literal notranslate"><span class="pre">asent_no_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
+that it is version 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asent</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1"># load spacy pipeline</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"nb_core_news_lg"</span><span class="p">)</span>
+
+<span class="c1"># add the rule-based sentiment model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">"asent_no_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to install the spaCy pipeline beforehand it can be installed using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m spacy download nb_core_news_lg
+</pre></div>
+</div>
+</div>
+</div>
+<input id="10eeccd2-a650-4bb5-b480-c34bb9070b26" name="eadd8c3a-53d3-42e2-ad77-8d5321dce14b" type="radio"/>
+<label class="sd-tab-label" for="10eeccd2-a650-4bb5-b480-c34bb9070b26">
+Swedish</label><div class="sd-tab-content docutils">
+<p>For Swedish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_se_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
+that it is version 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asent</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1"># load spacy pipeline</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"sv_pipeline"</span><span class="p">)</span>
+
+<span class="c1"># add the rule-based sentiment model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">"asent_sv_v1"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>spaCy does not have a pipeline for Swedish thus you will need to use the one by the
+<a class="reference external" href="https://github.com/Kungbib/swedish-spacy">Swedish royal library</a>, which can be installed using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install sv_pipeline-0.0.0.tar.gz
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<section id="token-valence-and-polarity">
+<h2>Token valence and polarity<a class="headerlink" href="#token-valence-and-polarity" title="Permalink to this headline">¶</a></h2>
+<p>As seen in the following. token valence is simply the value gained from a lookup in a rated dictionary.
+For instance if the have the example sentence <cite>“I am not very happy”</cite> the word <cite>“happy”`</cite> have a positive
+human rating of 2.7 which is not amplified by the word being in all-caps.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/token_polarity.png"><img alt="Calculation of token polarity and valence" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/token_polarity.png" style="width: 800px;"/></a>
+<p>We can extract valence quite easily using the <cite>valence</cite> extension:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"I am not very happy."</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>I     0.0
+am    0.0
+not   0.0
+very  0.0
+happy 2.7
+.     0.0
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Want to know more about the where these rated dictionaries come from?
+Check <a class="reference external" href="https://kennethenevoldsen.github.io/asent/languages/index.html">Languages</a>
+to see the lexical resources used for each language.</p>
+</div>
+<p>Naturally, in this context happy should not be perceived positively as it is negated,
+thus we should look at token polarity. Token polarity examines if a word is negated
+and it so multiplies the values by a negative constant. This constant is emperically
+derived to be 0.74 <a class="reference external" href="https://ojs.aaai.org/index.php/ICWSM/article/view/14550">(Hutto and Gilbert, 2014)</a>.
+Similarly, with the specific example we chose we can also see that <cite>“happy”`</cite> is intensified by
+the word <cite>“very”</cite>, while increases it polarity. The constant 0.293 is similarly emperically
+derived by Hutto and Gilbert. We can similarly extract the polarity using the <cite>polarity</cite> extension:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>polarity=0.0 token=I span=I
+polarity=0.0 token=am span=am
+polarity=0.0 token=not span=not
+polarity=0.0 token=very span=very
+polarity=-2.215 token=happy span=not very happy
+polarity=0.0 token=. span=.
+</pre></div>
+</div>
+<p>Notice that here we even get further information, that token <cite>“happy”</cite>,
+has a polarity of -2.215 and that this includes the span (sequence of tokens)
+<cite>“not very happy”</cite>.</p>
+</section>
+<section id="visualizing-polarity">
+<h2>Visualizing polarity<a class="headerlink" href="#visualizing-polarity" title="Permalink to this headline">¶</a></h2>
+<p>Asent also includes a series of methods to visualize the token polarity:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png" style="width: 800px;"/></a>
+</section>
+<section id="document-and-span-polarity">
+<h2>Document and Span Polarity<a class="headerlink" href="#document-and-span-polarity" title="Permalink to this headline">¶</a></h2>
+<p>We want to do more than simply calculate the polarity of the token, we want to extract
+information about the entire sentence (span) and aggregate this across the entire document.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/doc_polarity.png"><img alt="Calculation of document polarity" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/doc_polarity.png" style="width: 600px;"/></a>
+<p>The calculation of the sentence polarity includes a couple of steps.
+First, it checks if the sentence contains a contrastive conjugation (e.g. “but”),
+then overweight words after the but and underweight previous elements.
+This seems quite natural for example the sentence “The movie was great,
+but the acting was horrible”, noticeably put more weight on the second statement.
+This has also been shown empirically by <a class="reference external" href="https://ojs.aaai.org/index.php/ICWSM/article/view/14550">(Hutto and Gilbert, 2014)</a>.
+Afterwards, the model takes into account question marks and exclamation marks, which both increases
+the polarity of the sentence with negative sentences becoming more negative and positive sentences
+becoming more positive. Lastly, the polarity is normalized between approximately -1 and 1.</p>
+<p>You can easily extract the sentence polarity and the document polarity using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>neg=0.391 neu=0.609 pos=0.0 compound=-0.4964 span=I am not very happy.
+</pre></div>
+</div>
+<p>Here we see the normalized score for both the <code class="code docutils literal notranslate"><span class="pre">compound</span></code>, or aggregated, polarity as well
+the the neutral <code class="code docutils literal notranslate"><span class="pre">neu</span></code>, negative <code class="code docutils literal notranslate"><span class="pre">neg</span></code>, and positive <code class="code docutils literal notranslate"><span class="pre">pos</span></code>.</p>
+</section>
 </section>
 
         </article>
@@ -243,7 +420,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Customizing your sentiment pipeline</div>
+                <div class="title">Customizing Asent</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -272,8 +449,29 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#token-valence-and-polarity">Token valence and polarity</a></li>
+<li><a class="reference internal" href="#visualizing-polarity">Visualizing polarity</a></li>
+<li><a class="reference internal" href="#document-and-span-polarity">Document and Span Polarity</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -285,5 +483,6 @@
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>
