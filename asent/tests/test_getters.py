@@ -152,7 +152,6 @@ def test_token_polarity(
         ("jeg er sur", "negative", "da"),
         ("jeg er sur?", "negative", "da"),
         ("jeg er sur!", "negative", "da"),
-        ("", "neutral", "da"),
         ("filmen var okay god men er generelt skuffet", "negative", "da"),
     ],
 )
@@ -229,18 +228,28 @@ def test_span_polarity_contrast(
 
 
 @pytest.mark.parametrize(
-    "example,lang",
+    "example,expected,lang",
     [
-        ("I am happy", "en"),
-        ("jeg er glad", "da"),
-        ("jeg er glad", "no"),
-        ("jag är glad", "sv"),
+        ("I am happy", "positive", "en"),
+        ("jeg er glad", "positive", "da"),
+        ("jeg er glad", "positive", "no"),
+        ("jag är glad", "positive", "sv"),
+        ("", "neutral", "da"),
     ],
 )
-def test_components(example: str, lang: str, nlp_dict):
+def test_components(example: str, expected: str, lang: str, nlp_dict):
 
     nlp = nlp_dict[lang]
 
     nlp.add_pipe("asent_" + lang + "_v1", config={"force": True})
     doc = nlp(example)
-    assert doc._.polarity.compound > 0
+    if expected == "positive":
+        assert doc._.polarity.compound > 0
+    elif expected == "neutral":
+        assert doc._.polarity.compound == 0
+    elif expected == "negative":
+        assert doc._.polarity.compound < 0
+    else:
+        raise ValueError(
+            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'"
+        )

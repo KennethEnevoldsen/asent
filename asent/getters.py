@@ -530,11 +530,17 @@ def make_doc_polarity_getter(
         doc: Doc,
     ) -> DocPolarityOutput:
         polarities = [sent._.polarity for sent in doc.sents]
-        n = len(polarities)
-        negative = sum([p.negative for p in polarities]) / n
-        positive = sum([p.positive for p in polarities]) / n
-        neutral = sum([p.neutral for p in polarities]) / n
-        compound = sum([p.compound for p in polarities]) / n
+        if polarities:
+            n = len(polarities)
+            negative = sum([p.negative for p in polarities]) / n
+            positive = sum([p.positive for p in polarities]) / n
+            neutral = sum([p.neutral for p in polarities]) / n
+            compound = sum([p.compound for p in polarities]) / n
+        else:
+            negative = 0
+            positive = 0
+            neutral = 0
+            compound = 0
 
         return DocPolarityOutput(
             negative=negative,
