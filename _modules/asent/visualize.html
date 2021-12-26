@@ -278,12 +278,12 @@
         <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">print_colors</span><span class="p">(</span><span class="n">HEX</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""An utility function for visualizing a color map"""</span>
-    <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+<span class="c1"># def print_colors(HEX: Iterable) -&gt; None:</span>
+<span class="c1">#     """An utility function for visualizing a color map"""</span>
+<span class="c1">#     from IPython.core.display import HTML, display</span>
 
-    <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">HEX</span><span class="p">:</span>
-        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="sa">f</span><span class="s1">'&lt;p style="color:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&lt;/p&gt;'</span><span class="p">))</span>
+<span class="c1">#     for color in HEX:</span>
+<span class="c1">#         display(HTML(f'&lt;p style="color:{color}"&gt;{color}&lt;/p&gt;'))</span>
 
 
 <span class="c1"># # Visualize analysis (as opposed to prediction)</span>
