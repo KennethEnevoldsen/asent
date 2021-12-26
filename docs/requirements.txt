@@ -3,3 +3,4 @@ furo
 sphinx-copybutton
 sphinxext-opengraph
 myst-parser
+sphinx_design
