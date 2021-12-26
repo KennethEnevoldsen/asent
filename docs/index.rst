@@ -27,11 +27,9 @@ The documentation consists of three parts:
    installation
    introduction
    customizing
+   languages
 
-
-.. toctree::
-   
-   languages/index
+  
 
 .. toctree::
    :caption: News

@@ -1,6 +1,13 @@
 News and Changelog
 ==============================
 
+* 0.0.7 (26/12/21)
+
+  - Major updates to the documentation along with two new tutorials 📖
+  - Cool new infographics 😎
+  - bug-fixes including a notable bug where lexicons were missing 🪲
+
+
 * 0.0.3 (05/12/21)
 
   - First version of asent launches
