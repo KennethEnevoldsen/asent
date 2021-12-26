@@ -12,7 +12,8 @@ furo
 sphinx-copybutton
 sphinxext-opengraph
 myst-parser
+sphinx_design
 
 # code style
 flake8
-black
+black[jupyter]
