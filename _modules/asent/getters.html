@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
-        <title>asent.getters - asent 0.0.5 documentation</title>
+        <title>asent.getters - asent 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.0.5 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.0.7 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -478,7 +478,7 @@
 
 <div class="viewcode-block" id="make_token_polarity_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_token_polarity_getter">[docs]</a><span class="k">def</span> <span class="nf">make_token_polarity_getter</span><span class="p">(</span>
     <span class="n">valence_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">is_negation_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">is_negated_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">intensifier_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">negation_scalar</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">N_SCALAR</span><span class="p">,</span>
     <span class="n">lookback_intensities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">],</span>
@@ -492,17 +492,17 @@
 <span class="sd">        valence_getter (Optional[Callable[[Token], float]]): a function which given a token return the</span>
 <span class="sd">            valence (sentiment) of the token. If None it assumes that the the token extention "valence"</span>
 <span class="sd">            is set. If specified it overwrites the extension. Defualts to None.</span>
-<span class="sd">        is_negation_getter (Optional[Callable[[Token], bool]], optional): A function which given a</span>
-<span class="sd">            token return if the token is a negation or not. If None it assumes that the the token</span>
-<span class="sd">            extention "is_negation" is set. If specified it overwrites the extension. Defualts to None.</span>
+<span class="sd">        is_negated_getter (Optional[Callable[[Token], bool]], optional): A function which given a</span>
+<span class="sd">            token return a boolean indicating whether the token is negated. If None it assumes that the the token</span>
+<span class="sd">            extention "is_negated" is set. If specified it overwrites the extension. Defualts to None.</span>
 <span class="sd">        intensifier_getter (Optional[Callable[[Token], float]], optional): A getter which for a token</span>
 <span class="sd">            return 0 if it is not an intensifier or its intensifcation value if it is an intensifier.</span>
 <span class="sd">            E.g. the token 'especially' might have an value of 0.293 which increases or decreases the</span>
 <span class="sd">            valence of the following word by the specified amount. Defaults to None,</span>
 <span class="sd">            intensifiers aren't included in the analysis of token valence.</span>
-<span class="sd">        negation_scalar (float, optional): [description]. Defaults to the emperically derived constant</span>
+<span class="sd">        negation_scalar (float, optional):  Defaults to the emperically derived constant</span>
 <span class="sd">            -0.74 (Hutto and Gilbert, 2014).</span>
-<span class="sd">        lookback_intensities (List[float], optional): How long to look back for negations and intensifiers</span>
+<span class="sd">        lookback_intensities (List[float], optional): How long to look back for intensifiers</span>
 <span class="sd">            (length). Intensities indicate the how much to weight each intensifier. Defaults to</span>
 <span class="sd">            [1.0, 0.95, 0.90] which is emperically derived (Hutto and Gilbert, 2014).</span>
 
@@ -519,12 +519,10 @@
             <span class="s2">"Token class has no extension 'valence', either set the extension"</span>
             <span class="o">+</span> <span class="s2">" or provide the valence_getter."</span>
         <span class="p">)</span>
-    <span class="k">if</span> <span class="n">is_negation_getter</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">is_negated_getter</span><span class="p">:</span>
         <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
             <span class="s2">"is_negated"</span><span class="p">,</span>
-            <span class="n">getter</span><span class="o">=</span><span class="n">make_is_negated_getter</span><span class="p">(</span>
-                <span class="n">lookback</span><span class="o">=</span><span class="n">lookback</span><span class="p">,</span> <span class="n">is_negation_getter</span><span class="o">=</span><span class="n">is_negation_getter</span>
-            <span class="p">),</span>
+            <span class="n">getter</span><span class="o">=</span><span class="n">is_negated_getter</span><span class="p">,</span>
             <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_negated"</span><span class="p">):</span>
@@ -547,7 +545,6 @@
         <span class="n">valence</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span>
 
         <span class="n">start_tok</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span>  <span class="c1"># only used if span is returned</span>
-        <span class="n">negated</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">valence</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">start_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookback</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="c1"># dampen the scalar modifier of preceding words and emoticons</span>
@@ -563,10 +560,9 @@
                         <span class="n">valence</span> <span class="o">=</span> <span class="n">valence</span> <span class="o">+</span> <span class="n">b</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">valence</span> <span class="o">=</span> <span class="n">valence</span> <span class="o">-</span> <span class="n">b</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">negated</span> <span class="ow">and</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
-                        <span class="n">valence</span> <span class="o">=</span> <span class="n">valence</span> <span class="o">*</span> <span class="n">negation_scalar</span>
-                        <span class="n">negated</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># prevent double negations</span>
-                        <span class="n">start_tok</span> <span class="o">=</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">i</span>
+            <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negated</span><span class="p">:</span>
+                <span class="n">valence</span> <span class="o">=</span> <span class="n">valence</span> <span class="o">*</span> <span class="n">negation_scalar</span>
+
 
         <span class="k">return</span> <span class="n">TokenPolarityOutput</span><span class="p">(</span>
             <span class="n">polarity</span><span class="o">=</span><span class="n">valence</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">start_tok</span> <span class="p">:</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
