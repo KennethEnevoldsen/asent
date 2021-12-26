@@ -135,5 +135,5 @@ def create_se_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
         contrastive_conjugations=set(),
         lowercase=True,
         lemmatize=False,
-        force=force
+        force=force,
     )

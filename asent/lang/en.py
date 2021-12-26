@@ -6,9 +6,10 @@ from spacy.language import Language
 
 from ..constants import B_DECR, B_INCR
 from ..utils import lexicons
-from..component import Asent
+from ..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
+
 
 def read_lexicon():
     lexicon_file = os.path.join("..", "lexicons", "en_lexicon_v1.txt")
@@ -184,6 +185,7 @@ lexicons.register("negations_en_v1", func=NEGATIONS)
 lexicons.register("contrastive_conj_en_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_en_v1", func=INTENSIFIERS)
 
+
 @Language.factory("asent_en_v1", default_config={"force": False})
 def create_en_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
     """
@@ -191,12 +193,14 @@ def create_en_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
     """
     LEXICON.update(E_LEXICON)
 
-    return Asent(nlp, 
+    return Asent(
+        nlp,
         name=name,
-        lexicon = LEXICON,
-        intensifiers = INTENSIFIERS,
-        negations = NEGATIONS,
-        contrastive_conjugations = CONTRASTIVE_CONJ,
-        lowercase =True,
-        lemmatize =False,
-        force=force)
+        lexicon=LEXICON,
+        intensifiers=INTENSIFIERS,
+        negations=NEGATIONS,
+        contrastive_conjugations=CONTRASTIVE_CONJ,
+        lowercase=True,
+        lemmatize=False,
+        force=force,
+    )

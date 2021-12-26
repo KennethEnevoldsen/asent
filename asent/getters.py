@@ -139,7 +139,9 @@ def make_valance_getter(
 
     if cap_differential:
         if not Span.has_extension("is_cap_diff"):
-            Span.set_extension("is_cap_diff", getter=allcap_differential_getter, force=True)
+            Span.set_extension(
+                "is_cap_diff", getter=allcap_differential_getter, force=True
+            )
         return cap_diff_valence_getter
     return valence_getter
 

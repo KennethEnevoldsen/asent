@@ -1,5 +1,5 @@
-
 import asent
+
 
 def test_lexicons():
     d = asent.lexicons.get("emoji_v1")

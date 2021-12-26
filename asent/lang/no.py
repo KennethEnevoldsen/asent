@@ -161,6 +161,5 @@ def create_no_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
         contrastive_conjugations=CONTRASTIVE_CONJ,
         lowercase=True,
         lemmatize=False,
-        force=force
-
+        force=force,
     )

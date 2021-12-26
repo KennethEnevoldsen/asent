@@ -8,6 +8,7 @@ from spacy.tokens import Span, Token, Doc
 
 class TokenPolarityOutput(BaseModel):
     """A data class for the polarity output of a span, notably allows for plotting the output"""
+
     class Config:
         arbitrary_types_allowed = True
 
@@ -36,7 +37,7 @@ class TokenPolarityOutput(BaseModel):
         return self.polarity > other
 
     def __bool__(self):
-        return bool(self.polarity) 
+        return bool(self.polarity)
 
     def __eq__(self, other: Union[TokenPolarityOutput, float]):
         if isinstance(other, TokenPolarityOutput):
@@ -46,6 +47,7 @@ class TokenPolarityOutput(BaseModel):
 
 class SpanPolarityOutput(BaseModel):
     """A data class for the polarity output of a span, notably allows for plotting the output"""
+
     class Config:
         arbitrary_types_allowed = True
 
@@ -84,9 +86,9 @@ class SpanPolarityOutput(BaseModel):
         return self.compound == other
 
 
-
 class DocPolarityOutput(BaseModel):
     """A data class for the polarity output of a doc"""
+
     class Config:
         arbitrary_types_allowed = True
 
