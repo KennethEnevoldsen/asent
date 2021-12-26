@@ -61,12 +61,12 @@ def make_colors(n=10, cmap="RdYlGn"):
         yield matplotlib.colors.rgb2hex(rgba)
 
 
-def print_colors(HEX: Iterable) -> None:
-    """An utility function for visualizing a color map"""
-    from IPython.core.display import HTML, display
+# def print_colors(HEX: Iterable) -> None:
+#     """An utility function for visualizing a color map"""
+#     from IPython.core.display import HTML, display
 
-    for color in HEX:
-        display(HTML(f'<p style="color:{color}">{color}</p>'))
+#     for color in HEX:
+#         display(HTML(f'<p style="color:{color}">{color}</p>'))
 
 
 # # Visualize analysis (as opposed to prediction)
