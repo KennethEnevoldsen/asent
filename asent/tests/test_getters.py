@@ -129,13 +129,14 @@ def test_token_polarity(
         lexicon=lexicon, lowercase=lowercase, lemmatize=lemmatize
     )
     is_negation_getter = make_is_negation_getter(negations=negations)
+    is_negated_getter = make_is_negated_getter(is_negation_getter=is_negation_getter)
     intensifier_getter = make_intensifier_getter(
         intensifiers=intensifiers, lowercase=lowercase, lemmatize=lemmatize
     )
 
     polarity_getter = make_token_polarity_getter(
         valence_getter=valence_getter,
-        is_negation_getter=is_negation_getter,
+        is_negated_getter=is_negated_getter,
         intensifier_getter=intensifier_getter,
     )
     Token.set_extension("polarity", getter=polarity_getter, force=True)
@@ -225,8 +226,8 @@ def test_span_polarity_contrast(
 @pytest.mark.parametrize(
     "example,lang",
     [
-        ("jeg er glad", "da"),
         ("I am happy", "en"),
+        ("jeg er glad", "da"),
         ("jeg er glad", "no"),
         ("jag är glad", "sv"),
     ],

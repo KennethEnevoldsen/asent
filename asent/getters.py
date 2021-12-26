@@ -119,7 +119,7 @@ def make_valance_getter(
 
     t_getter = make_txt_getter(lemmatize, lowercase)
 
-    def lemma_valence_getter(token: Token) -> float:
+    def valence_getter(token: Token) -> float:
         valence = 0
         t = t_getter(token)
         if (t in lexicon) and not (
@@ -129,7 +129,7 @@ def make_valance_getter(
         return 0.0
 
     def cap_diff_valence_getter(token: Token) -> float:
-        valence = token._.raw_valence
+        valence = valence_getter(token)
         if token.is_upper and token.sent._.is_cap_diff:
             if valence > 0:
                 valence += cap_differential
@@ -138,12 +138,10 @@ def make_valance_getter(
         return valence
 
     if cap_differential:
-        if not Token.has_extension("raw_valence"):
-            Token.set_extension("raw_valence", getter=lemma_valence_getter)
         if not Span.has_extension("is_cap_diff"):
-            Span.set_extension("is_cap_diff", getter=allcap_differential_getter)
+            Span.set_extension("is_cap_diff", getter=allcap_differential_getter, force=True)
         return cap_diff_valence_getter
-    return lemma_valence_getter
+    return valence_getter
 
 
 def make_is_negation_getter(
