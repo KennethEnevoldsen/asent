@@ -235,17 +235,17 @@ indicating that it is a negation.
 
 
 
-from this there is two things we can change, first instead of looking
-up the negation we can simply examine whether it is a negation or at
+from this, there are two things we can change, first instead of looking
+up the negation, we can examine whether it is a negation or at
 least that it has the right part-of-speech tag. Secondly, we can
-implement an methods which checks if a word is negated using the
+implement a method which check if a word is negated using the
 dependency tree.
 
 
 Morphology and Part-of-Speech for negations
 ************************************************
 
-asent check is a word is a negation using the ``is_negation`` token
+Asent check is a word is a negation using the ``is_negation`` token
 extension. We can see this using:
 
 
@@ -272,8 +272,8 @@ extension. We can see this using:
     . 	    False
 
 We will now simply overwrite the extension with one using the morph
-tag. First we will create a function which applied to a token returns
-whether it is a negation, secondly we will overwrite then extensions
+tag. First, we will create a function which applied to a token returns
+whether it is a negation. Secondly, we will overwrite the extensions
 using the token's ``set_extention`` method.
 
 .. code:: python
@@ -297,15 +297,15 @@ using the token's ``set_extention`` method.
 
 
 Now our negations use the morph tag, which in this case provides the
-same results so the result aren't that interesting. What we really
+same results so the result isn't that interesting. What we really
 what it the second part:
 
 Using the dependency tree for negations
 ************************************************
 
 
-In the following we will overwrite the ``is_negated`` extension used
-by asen to check if a word is negated. We can start by examining it:
+In the following, we will overwrite the ``is_negated`` extension used
+by Asent to check if a word is negated. We can start by examining it:
 
 
 .. code:: python
@@ -331,7 +331,7 @@ by asen to check if a word is negated. We can start by examining it:
     . 	    None
 
 
-We noticably see that *ledsen* is not negated, although it should be,
+Noticably, see that *ledsen* is not negated, although it should be,
 but we also clearly see the three following words after the negation
 is negated as was expected from the heuristic rule.
 
