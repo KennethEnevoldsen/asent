@@ -10,7 +10,7 @@ from ..component import Asent
 
 
 def read_lexicon():
-    lexicon_file = os.path.join("..", "lexicons", "se_lexicon_v1.txt")
+    lexicon_file = os.path.join("..", "lexicons", "sv_lexicon_v1.txt")
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
     lexicon_full_filepath = os.path.join(
         os.path.dirname(_this_module_file_path_), lexicon_file
@@ -113,15 +113,15 @@ INTENSIFIERS = {
     "viss": B_DECR,
 }
 
-lexicons.register("lexicon_se_v1", func=LEXICON)
-lexicons.register("negations_se_v1", func=NEGATIONS)
-lexicons.register("intensifiers_se_v1", func=INTENSIFIERS)
+lexicons.register("lexicon_sv_v1", func=LEXICON)
+lexicons.register("negations_sv_v1", func=NEGATIONS)
+lexicons.register("intensifiers_sv_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_se_v1", default_config={"force": False})
-def create_se_sentiment_component(nlp: Language, name: str) -> Language:
+@Language.factory("asent_sv_v1", default_config={"force": False})
+def create_se_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
     """
-    Allows the Swedish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_se_v1").
+    Allows the Swedish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_sv_v1").
     """
 
     LEXICON.update(LEXICON)
@@ -135,4 +135,5 @@ def create_se_sentiment_component(nlp: Language, name: str) -> Language:
         contrastive_conjugations=set(),
         lowercase=True,
         lemmatize=False,
+        force=force
     )

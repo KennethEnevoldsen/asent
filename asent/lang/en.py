@@ -185,7 +185,7 @@ lexicons.register("contrastive_conj_en_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_en_v1", func=INTENSIFIERS)
 
 @Language.factory("asent_en_v1", default_config={"force": False})
-def create_en_sentiment_component(nlp: Language, name: str) -> Language:
+def create_en_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
     """
     Allows the English sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_en_v1").
     """
@@ -198,4 +198,5 @@ def create_en_sentiment_component(nlp: Language, name: str) -> Language:
         negations = NEGATIONS,
         contrastive_conjugations = CONTRASTIVE_CONJ,
         lowercase =True,
-        lemmatize =False)
+        lemmatize =False,
+        force=force)
