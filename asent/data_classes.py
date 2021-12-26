@@ -7,7 +7,8 @@ from spacy.tokens import Span, Token, Doc
 
 
 class TokenPolarityOutput(BaseModel):
-    """A data class for the polarity output of a span, notably allows for plotting the output"""
+    """A data class for the polarity output of a span,
+    notably allows for plotting the output"""
 
     class Config:
         arbitrary_types_allowed = True
@@ -46,7 +47,8 @@ class TokenPolarityOutput(BaseModel):
 
 
 class SpanPolarityOutput(BaseModel):
-    """A data class for the polarity output of a span, notably allows for plotting the output"""
+    """A data class for the polarity output of a span,
+    notably allows for plotting the output"""
 
     class Config:
         arbitrary_types_allowed = True
