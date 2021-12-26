@@ -356,7 +356,9 @@
 
     <span class="k">if</span> <span class="n">cap_differential</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">):</span>
-            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
+                <span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">cap_diff_valence_getter</span>
     <span class="k">return</span> <span class="n">valence_getter</span></div>
 
