@@ -3,7 +3,8 @@ matplotlib>=3.5.0,<4.0.0
 
 # large danish spacy pipeline
 https://huggingface.co/spacy/da_core_news_lg/resolve/main/da_core_news_lg-any-py3-none-any.whl
-
+https://huggingface.co/spacy/en_core_web_sm/resolve/main/en_core_web_sm-any-py3-none-any.whl
+https://huggingface.co/spacy/nb_core_news_sm/resolve/main/nb_core_news_sm-any-py3-none-any.whl
 
 # documentation
 sphinx

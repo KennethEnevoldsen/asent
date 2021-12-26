@@ -21,8 +21,8 @@ from asent.getters import (
 def nlp_dict():
     nlp_da = spacy.load("da_core_news_lg")
     nlp_en = spacy.load("en_core_web_sm")
-    nlp_sv = spacy.blank("XX")  # spacy has no swedish pipelines
-    nlp_no = spacy.load("no_core_news_sm")
+    nlp_sv = spacy.blank("sv")  # spacy has no swedish pipelines
+    nlp_no = spacy.load("nb_core_news_sm")
 
     return {"da": nlp_da, "en": nlp_en, "np": nlp_no, "sv": nlp_sv}
 
