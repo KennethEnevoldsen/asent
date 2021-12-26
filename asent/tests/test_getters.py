@@ -151,7 +151,10 @@ def test_token_polarity(
         ("jeg er glad", "positive", "da"),
         ("jeg er sur", "negative", "da"),
         ("jeg er sur?", "negative", "da"),
+        ("jeg er sur???", "negative", "da"),
         ("jeg er sur!", "negative", "da"),
+        ("jeg er sur!!!!!!", "negative", "da"),
+        ("xyz", "neutral", "da"),
         ("filmen var okay god men er generelt skuffet", "negative", "da"),
     ],
 )

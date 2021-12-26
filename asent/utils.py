@@ -13,8 +13,8 @@ def register_lexicon(name: str, lexicon: Dict[str, float]) -> None:
         lexicon (Dict[str, float]): The lexicon supplies as a dictionary.
 
     Example:
-        >>> asent.register("my_lexicon_v1", {"happy": 4})
+        >>> asent.register("my_lexicon_v1", {"happy": 4, "sad": -2})
         >>> asent.lexicons.get("my_lexicon_v1")
-        {"happy": 4}
+        {"happy": 4, "sad": -2}
     """
     lexicons.register(name, func=lexicon)
