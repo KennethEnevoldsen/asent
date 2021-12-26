@@ -1,6 +1,11 @@
 Customizing Asent
 ======================================================
 
+.. |colab_tut| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :width: 140pt
+   :target: https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/Customizing_your_pipeline.ipynb
+
+|colab_tut|
 
 Asent is built using a series of extension attributes on the spaCy
 classes, ``Doc``, ``Token`` and ``Span``. This allows you to switch
@@ -135,7 +140,7 @@ We can now add a sentiment component to the pipeline, using the
 
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png
-  :width: 800
+  :width: 300
   :alt: Model prediction
 
 
@@ -175,7 +180,7 @@ First let us examine an example where it fails:
     asent.visualize(doc)
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png
-  :width: 800
+  :width: 700
   :alt: Model prediction
 
 
@@ -187,7 +192,7 @@ First let us examine an example where it fails:
     displacy.render(doc)
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png
-  :width: 800
+  :width: 1400
   :alt: A dependency parse
 
 
@@ -215,7 +220,7 @@ We can even go a bit further and examine the morph extension:
 .. code:: text
 
     Jag 	 Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs
-    är 	    Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
+    är 	        Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
     inte 	 Polarity=Neg
     glad 	 Case=Nom|Definite=Ind|Degree=Pos|Gender=Com|Number=Sing
     men 	 
@@ -225,7 +230,7 @@ We can even go a bit further and examine the morph extension:
     säga 	 VerbForm=Inf|Voice=Act
     att 	 
     jag 	 Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs
-    är 	    Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
+    är 	        Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
     ledsen 	 Case=Nom|Definite=Ind|Gender=Com|Number=Sing|Tense=Past|VerbForm=Part
     . 	 
 
@@ -257,7 +262,7 @@ extension. We can see this using:
 .. code:: text
 
     Jag 	 False
-    är 	    False
+    är 	        False
     inte 	 True
     glad 	 False
     men 	 False
@@ -267,9 +272,9 @@ extension. We can see this using:
     säga 	 False
     att 	 False
     jag 	 False
-    är 	    False
+    är 	        False
     ledsen 	 False
-    . 	    False
+    . 	        False
 
 We will now simply overwrite the extension with one using the morph
 tag. First, we will create a function which applied to a token returns
@@ -316,7 +321,7 @@ by Asent to check if a word is negated. We can start by examining it:
 .. code:: text
 
     Jag 	 None
-    är 	    None
+    är 	        None
     inte 	 None
     glad 	 inte
     men 	 inte
@@ -326,9 +331,9 @@ by Asent to check if a word is negated. We can start by examining it:
     säga 	 inte
     att 	 inte
     jag 	 inte
-    är 	    None
+    är 	        None
     ledsen 	 None
-    . 	    None
+    . 	        None
 
 
 Noticably, see that *ledsen* is not negated, although it should be,
@@ -372,7 +377,7 @@ is negated as was expected from the heuristic rule.
 
 
     Jag 	 0.0 False - None
-    är 	    0.0 False - None
+    är 	        0.0 False - None
     inte 	 0.0 True - None
     glad 	 3.1 False - inte
     men 	 0.0 False - None
@@ -382,9 +387,9 @@ is negated as was expected from the heuristic rule.
     säga 	 0.0 False - None
     att 	 0.0 False - None
     jag 	 0.0 False - None
-    är 	    0.0 False - None
+    är 	        0.0 False - None
     ledsen 	 -2.1 False - inte
-    . 	    0.0 False - None
+    . 	        0.0 False - None
 
 
 .. code:: python
@@ -394,7 +399,7 @@ is negated as was expected from the heuristic rule.
 
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png
-  :width: 800
+  :width: 700
   :alt: Model prediction
 
 

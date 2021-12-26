@@ -62,10 +62,16 @@ To make the documentation you can run:
    make -C docs html
 
 
+How do I add a new language?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. adding a new language?
-.. couldn't you just train a transformer for sentiment analysis
-.. It is true that a trained transformer would probably perform sentiment analysis much better. 
-.. I fact most machine learning models would probably outperform a rule-based approach 
-.. with fairly simple feature engineering, however the goal of asent to focus on transparency first and 
-.. then building upon that system.
+Check out the `customizing Asent <https://kennethenevoldsen.github.io/asent/customizing.html>`__ guide it gives an example of how to add a new language.
+Once you have added we would very much appreciate a pull request with your new language.
+
+
+Couldn't you just train a transformer for this?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is true that a trained transformer would probably perform sentence-level sentiment analysis much better. However, this modular approach to sentiment analysis
+allows a more fine-grained sentiment analysis, as would for example be done in aspect-based sentiment analysis. This too, however, could be done using neural architectures.
+The goal of Asent it not to exclude such approaches (in fact it can use transformer-based models  through spaCy) but to combine them in a way that allow the end user to examine the results.

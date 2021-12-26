@@ -7,7 +7,7 @@
   <meta property="og:title" content="Customizing Asent" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="customizing.html" />
-  <meta property="og:description" content="Asent is built using a series of extension attributes on the spaCy classes, Doc, Token and Span. This allows you to switch out the parts and also improve on one component at a time. In this tutoria..." />
+  <meta property="og:description" content="colab_tut Asent is built using a series of extension attributes on the spaCy classes, Doc, Token and Span. This allows you to switch out the parts and also improve on one component at a time. In th..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Languages" href="languages.html" /><link rel="prev" title="Getting started" href="introduction.html" />
 
     <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
@@ -222,6 +222,7 @@
         <article role="main">
           <section id="customizing-asent">
 <h1>Customizing Asent<a class="headerlink" href="#customizing-asent" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/Customizing_your_pipeline.ipynb"><img alt="colab_tut" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt"/></a></p>
 <p>Asent is built using a series of extension attributes on the spaCy
 classes, <code class="docutils literal notranslate"><span class="pre">Doc</span></code>, <code class="docutils literal notranslate"><span class="pre">Token</span></code> and <code class="docutils literal notranslate"><span class="pre">Span</span></code>. This allows you to switch
 out the parts and also improve on one component at a time. In this
@@ -325,7 +326,7 @@ score on how much it intensifies to the following word.</p>
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png" style="width: 300px;"/></a>
 <p>Do note, that we specified that when the model should lookup in the
 dictionaries it should lowercase the lookup word (<code class="docutils literal notranslate"><span class="pre">lowercase=True</span></code>)
 and it should not lemmatize(<code class="docutils literal notranslate"><span class="pre">lemmatize=False</span></code>) the word. This
@@ -353,14 +354,14 @@ parse and part-of-speech tagging we can do better!</p>
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png" style="width: 700px;"/></a>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 
 <span class="c1"># examine the part-of-speech tags and dependency tree</span>
 <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png"><img alt="A dependency parse" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png"><img alt="A dependency parse" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png" style="width: 1400px;"/></a>
 <p>From this we can notice two things:</p>
 <p>1) Negation have the
 <a class="reference external" href="https://universaldependencies.org/u/pos/PART.html">PART</a>
@@ -377,7 +378,7 @@ you will) from the negated word.</p>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs
-är      Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
+är          Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
 inte         Polarity=Neg
 glad         Case=Nom|Definite=Ind|Degree=Pos|Gender=Com|Number=Sing
 men
@@ -387,7 +388,7 @@ inte         Polarity=Neg
 säga         VerbForm=Inf|Voice=Act
 att
 jag          Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs
-är      Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
+är          Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act
 ledsen       Case=Nom|Definite=Ind|Gender=Com|Number=Sing|Tense=Past|VerbForm=Part
 .
 </pre></div>
@@ -410,7 +411,7 @@ extension. We can see this using:</p>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          False
-är      False
+är          False
 inte         True
 glad         False
 men          False
@@ -420,9 +421,9 @@ inte         True
 säga         False
 att          False
 jag          False
-är      False
+är          False
 ledsen       False
-.       False
+.           False
 </pre></div>
 </div>
 <p>We will now simply overwrite the extension with one using the morph
@@ -460,7 +461,7 @@ by Asent to check if a word is negated. We can start by examining it:</p>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          None
-är      None
+är          None
 inte         None
 glad         inte
 men          inte
@@ -470,9 +471,9 @@ inte         None
 säga         inte
 att          inte
 jag          inte
-är      None
+är          None
 ledsen       None
-.       None
+.           None
 </pre></div>
 </div>
 <p>Noticably, see that <em>ledsen</em> is not negated, although it should be,
@@ -509,7 +510,7 @@ is negated as was expected from the heuristic rule.</p>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          0.0 False - None
-är      0.0 False - None
+är          0.0 False - None
 inte         0.0 True - None
 glad         3.1 False - inte
 men          0.0 False - None
@@ -519,16 +520,16 @@ inte         0.0 True - None
 säga         0.0 False - None
 att          0.0 False - None
 jag          0.0 False - None
-är      0.0 False - None
+är          0.0 False - None
 ledsen       -2.1 False - inte
-.       0.0 False - None
+.           0.0 False - None
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 <span class="n">doc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png" style="width: 700px;"/></a>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TokenPolarityOutput(polarity=1.554, token=ledsen, span=inte säga att jag är ledsen)
 </pre></div>
 </div>

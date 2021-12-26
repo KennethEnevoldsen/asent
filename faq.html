@@ -266,6 +266,17 @@ make -C docs html
 </pre></div>
 </div>
 </section>
+<section id="how-do-i-add-a-new-language">
+<h2>How do I add a new language?<a class="headerlink" href="#how-do-i-add-a-new-language" title="Permalink to this headline">¶</a></h2>
+<p>Check out the <a class="reference external" href="https://kennethenevoldsen.github.io/asent/customizing.html">customizing Asent</a> guide it gives an example of how to add a new language.
+Once you have added we would very much appreciate a pull request with your new language.</p>
+</section>
+<section id="couldn-t-you-just-train-a-transformer-for-this">
+<h2>Couldn’t you just train a transformer for this?<a class="headerlink" href="#couldn-t-you-just-train-a-transformer-for-this" title="Permalink to this headline">¶</a></h2>
+<p>It is true that a trained transformer would probably perform sentence-level sentiment analysis much better. However, this modular approach to sentiment analysis
+allows a more fine-grained sentiment analysis, as would for example be done in aspect-based sentiment analysis. This too, however, could be done using neural architectures.
+The goal of Asent it not to exclude such approaches (in fact it can use transformer-based models  through spaCy) but to combine them in a way that allow the end user to examine the results.</p>
+</section>
 </section>
 
         </article>
@@ -323,6 +334,8 @@ make -C docs html
 <li><a class="reference internal" href="#citing-asent">Citing asent</a></li>
 <li><a class="reference internal" href="#how-do-i-test-the-code-and-run-the-test-suite">How do I test the code and run the test suite?</a></li>
 <li><a class="reference internal" href="#how-is-the-documentation-generated">How is the documentation generated?</a></li>
+<li><a class="reference internal" href="#how-do-i-add-a-new-language">How do I add a new language?</a></li>
+<li><a class="reference internal" href="#couldn-t-you-just-train-a-transformer-for-this">Couldn’t you just train a transformer for this?</a></li>
 </ul>
 </li>
 </ul>
