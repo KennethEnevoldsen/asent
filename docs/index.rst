@@ -14,7 +14,7 @@ customizable.
 Contents
 ---------------------------------
   
-The documentation consist of three parts:
+The documentation consists of three parts:
 
 - **Getting started** contains the installation instructions, guides, and tutorials on how to use asent.
 - **Lexicon resources** contains the documentation on the resources used for each specific language.
@@ -27,7 +27,11 @@ The documentation consist of three parts:
    installation
    introduction
    customizing
-   model_workings
+
+
+.. toctree::
+   
+   languages/index
 
 .. toctree::
    :caption: News
@@ -39,15 +43,7 @@ The documentation consist of three parts:
 
    faq
 
-.. toctree::
-   :maxdepth: 3
-   :caption: Lexicon Resources
 
-   lang.danish
-   lang.english
-   lang.norwegian
-   lang.swedish
-   lang.emoji
 
 .. toctree::
    :maxdepth: 3
@@ -57,7 +53,6 @@ The documentation consist of three parts:
    asent.getters
    asent.component
    
-
 
 
 .. toctree::
