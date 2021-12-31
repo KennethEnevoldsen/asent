@@ -21,4 +21,5 @@ def test_visualize(example: str, lang: str, nlp_dict):
     nlp.add_pipe("asent_" + lang + "_v1")
 
     doc = nlp(example)
-    asent.visualize(doc)
+    asent.visualize(doc, style="prediction")
+    asent.visualize(doc, style="analysis")

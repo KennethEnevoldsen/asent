@@ -3,19 +3,45 @@ from spacy.tokens import Span, Doc
 from spacy import displacy
 
 
-def visualize(span: Union[Span, Doc], cmap="RdYlGn") -> str:
-    """Render displaCy visualisation of sentiment
+def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -> str:
+    """Render displaCy visualisation of  model prediction of sentiment or analysis of sentiment
 
     Args:
-        span (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
+        style (str, optional): A string indicating whether it should visualize "prediction" or "analysis".
+            "prediction", color codes positive or negative spans according to the cmap. "analysis" visualize
+            for each sentimental word if it has by negated or intensified a word, and which word.
+        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
+
+    Returns:
+        str: Rendered HTML markup.
+    """
+    if style.lower() == "prediction":
+        return visualize_prediction(doc, cmap=cmap)
+    elif style.lower() == "analysis":
+        return visualize_analysis(doc)
+    else:
+        ValueError(
+            "Invalid style argument, should be either 'analysis' or 'prediction'"
+        )
+
+
+def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
+    """Render displaCy visualisation of model prediction of sentiment
+
+    Args:
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
         cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
 
     Returns:
         str: Rendered HTML markup.
     """
 
-    if isinstance(span, Doc):
-        span = span[:]
+    if isinstance(doc, Doc):
+        span = doc[:]
+    else:
+        span = doc
+
     thresholds = [t / 10 for t in range(-50, 51)]
     sentiment_colors = make_colors(n=len(thresholds), cmap=cmap)
     sentiment_color_dict = {str(t): c for c, t in zip(sentiment_colors, thresholds)}
@@ -49,6 +75,60 @@ def visualize(span: Union[Span, Doc], cmap="RdYlGn") -> str:
     return html
 
 
+def visualize_analysis(doc: Union[Span, Doc]) -> str:
+    """Render displaCy visualisation of model analysis
+
+    Args:
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
+
+    Returns:
+        str: Rendered HTML markup.
+    """
+
+    if isinstance(doc, Doc):
+        span = doc[:]
+    else:
+        span = doc
+
+    pol = span._.polarity
+
+    arcs = []
+    words = []
+    for t, t_pol in zip(span, pol.polarities):
+        if t._.valence:
+            words.append({"text": t.text, "tag": f"{t._.polarity.polarity:.1f} ({t._.valence:.1f})"})
+        else:
+            words.append({"text": t.text, "tag": f"{t._.valence:.1f}"})
+
+        if t_pol:
+            if t_pol.intensifiers:
+                for intens in t_pol.intensifiers:
+                    arcs.append(
+                        {
+                            "start": intens.i,
+                            "end": t.i,
+                            "label": "intensified by",
+                            "dir": "left",
+                        }
+                    )
+            if t_pol.negation:
+                arcs.append(
+                    {
+                        "start": t_pol.negation.i,
+                        "end": t.i,
+                        "label": "intensified by",
+                        "dir": "left",
+                    }
+                )
+    # Visualize analysis
+    from spacy import displacy
+
+    ex = {"words": words, "arcs": arcs}
+    html = displacy.render(ex, style="dep", manual=True)
+
+    return html
+
+
 def make_colors(n=10, cmap="RdYlGn"):
     """A utility function for creating a stepped color gradient"""
     from pylab import cm, matplotlib
@@ -67,21 +147,3 @@ def make_colors(n=10, cmap="RdYlGn"):
 
 #     for color in HEX:
 #         display(HTML(f'<p style="color:{color}">{color}</p>'))
-
-
-# # Visualize analysis (as opposed to prediction)
-# from spacy import displacy
-# ex = {
-#     "words": [
-#         {"text": "I", "tag": "0"},
-#         {"text": "'m", "tag": "0"},
-#         {"text": "not", "tag": "0"},
-#         {"text": "very", "tag": "0"},
-#         {"text": "happy", "tag": "2.7"}
-#     ],
-#     "arcs": [
-#         {"start": 2, "end": 4, "label": "negated by", "dir": "left"},
-#         {"start": 3, "end": 4, "label": "intensified by", "dir": "left"}
-#     ]
-# }
-# html = displacy.render(ex, style="dep", manual=True)
