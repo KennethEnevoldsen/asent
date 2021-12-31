@@ -1,6 +1,14 @@
+# GitHub action for checking in any files in the repo should
+# be reformatted with black.
+
 name: black
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 
 jobs:
   lint:
