@@ -42,12 +42,18 @@ nlp.add_pipe("asent_en_v1")
 text = "I am not very happy, but I am also not especially sad"
 doc = nlp(text)
 
-# visualize the results
-asent.visualize(doc)
+# visualize model prediction
+asent.visualize(doc, style="prediction")
 ```
 
 <img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png" width="500" />
 
+If we want to know even more
+```
+# visualize the analysis performed by the model:
+asent.visualize(doc[:5], style="analysis")
+```
+<img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis.png" width="500" />
 
 
 # 📖 Documentation

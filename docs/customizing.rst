@@ -140,7 +140,7 @@ We can now add a sentiment component to the pipeline, using the
 
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png
-  :width: 300
+  :width: 250
   :alt: Model prediction
 
 
@@ -180,7 +180,7 @@ First let us examine an example where it fails:
     asent.visualize(doc)
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png
-  :width: 700
+  :width: 600
   :alt: Model prediction
 
 
@@ -399,7 +399,7 @@ is negated as was expected from the heuristic rule.
 
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png
-  :width: 700
+  :width: 600
   :alt: Model prediction
 
 
@@ -409,7 +409,7 @@ is negated as was expected from the heuristic rule.
 
 
 .. admonition:: Exercise
-   :class: note
+    :class: note
 
     You will notice that there is no contrastive conjugation for
     Swedish, but that the part-of-speech tags do include a tag for it

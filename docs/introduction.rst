@@ -204,11 +204,22 @@ Asent also includes a series of methods to visualize the token polarity:
 
 .. code-block:: python
 
-   asent.visualize(doc)
+   asent.visualize(doc, style="prediction")
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png
-  :width: 800
+  :width: 600
   :alt: Model prediction
+
+You can even get more information about why the token has the polarity by plotting the model analysis:
+
+.. code-block:: python
+
+   asent.visualize(doc, style="analysis")
+
+.. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis1.png
+  :width: 600
+  :alt: Model analysis
+
 
 
 Document and Span Polarity

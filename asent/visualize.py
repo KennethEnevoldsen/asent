@@ -15,6 +15,17 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
 
     Returns:
         str: Rendered HTML markup.
+
+    Examples:
+        >>> nlp = spacy.load("en_core_web_lg")
+        >>> # add the rule-based sentiment model
+        >>> nlp.add_pipe("asent_en_v1")
+        >>> # try an example
+        >>> text = "I am not very happy"
+        >>> doc = nlp(text)
+        >>> # visualize model prediction
+        >>> asent.visualize(doc, style="prediction")
+        >>> asent.visualize(doc, style="analysis")
     """
     if style.lower() == "prediction":
         return visualize_prediction(doc, cmap=cmap)
