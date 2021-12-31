@@ -327,7 +327,11 @@ def make_token_polarity_getter(
                     start_tok = is_neg.i
 
         return TokenPolarityOutput(
-            polarity=valence, token=token, span=token.doc[start_tok : token.i + 1], negation=is_neg, intensifiers=intensifiers
+            polarity=valence,
+            token=token,
+            span=token.doc[start_tok : token.i + 1],
+            negation=is_neg,
+            intensifiers=intensifiers,
         )
 
     return token_polarity_getter

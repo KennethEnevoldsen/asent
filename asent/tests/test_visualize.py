@@ -23,4 +23,3 @@ def test_visualize(example: str, lang: str, nlp_dict):
     doc = nlp(example)
     asent.visualize(doc, style="prediction")
     asent.visualize(doc, style="analysis")
-

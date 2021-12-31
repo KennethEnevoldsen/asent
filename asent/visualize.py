@@ -107,7 +107,12 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
     words = []
     for t, t_pol in zip(span, pol.polarities):
         if t._.valence:
-            words.append({"text": t.text, "tag": f"{t._.polarity.polarity:.1f} ({t._.valence:.1f})"})
+            words.append(
+                {
+                    "text": t.text,
+                    "tag": f"{t._.polarity.polarity:.1f} ({t._.valence:.1f})",
+                }
+            )
         else:
             words.append({"text": t.text, "tag": f"{t._.valence:.1f}"})
 
