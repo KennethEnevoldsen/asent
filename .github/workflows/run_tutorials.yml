@@ -1,3 +1,6 @@
+# Workflow for running Tutorials on GitHub Actions
+# Work by running converting all .ipynb to .py
+# then run all .py in the tutorials folder
 
 name: Run Tutorials
 on:
@@ -26,5 +29,6 @@ jobs:
       run: |
         jupyter nbconvert --to script ./tutorials/*.ipynb
     - name: Run notebooks
+      # run all python script in tutorials folder
       run: |
-        python ./tutorials/*.py
+        for f in tutorials/*.py; do python "$f"; done
