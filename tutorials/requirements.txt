@@ -1,0 +1,5 @@
+# introduction
+https://huggingface.co/spacy/en_core_web_lg/resolve/main/en_core_web_lg-any-py3-none-any.whl
+
+# customizing your pipeline
+https://huggingface.co/explosion/sv_udv25_swedishtalbanken_trf/resolve/main/sv_udv25_swedishtalbanken_trf-any-py3-none-any.whl

@@ -15,3 +15,10 @@ docs/_build/*
 
 # mac
 .DS_Store
+ 
+# Tutorials
+tutorials/*.py
+
+# package
+asent.egg-info
+build
