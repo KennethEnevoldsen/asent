@@ -326,7 +326,7 @@ score on how much it intensifies to the following word.</p>
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png" style="width: 300px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png" style="width: 250px;"/></a>
 <p>Do note, that we specified that when the model should lookup in the
 dictionaries it should lowercase the lookup word (<code class="docutils literal notranslate"><span class="pre">lowercase=True</span></code>)
 and it should not lemmatize(<code class="docutils literal notranslate"><span class="pre">lemmatize=False</span></code>) the word. This
@@ -354,7 +354,7 @@ parse and part-of-speech tagging we can do better!</p>
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png" style="width: 600px;"/></a>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 
 <span class="c1"># examine the part-of-speech tags and dependency tree</span>
@@ -529,18 +529,16 @@ ledsen       -2.1 False - inte
 <span class="n">doc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png" style="width: 600px;"/></a>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TokenPolarityOutput(polarity=1.554, token=ledsen, span=inte säga att jag är ledsen)
 </pre></div>
 </div>
 <div class="note admonition">
 <p class="admonition-title">Exercise</p>
-<blockquote>
-<div><p>You will notice that there is no contrastive conjugation for
+<p>You will notice that there is no contrastive conjugation for
 Swedish, but that the part-of-speech tags do include a tag for it
 (CCONJ). Overwrite the <code class="docutils literal notranslate"><span class="pre">is_contrastive_conj</span></code> extension to include
 contrastive conjugations.</p>
-</div></blockquote>
 </div>
 </section>
 </section>

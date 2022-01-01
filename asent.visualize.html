@@ -226,12 +226,15 @@
 <span id="asent-visualize"></span><h2>asent.visualize<a class="headerlink" href="#module-asent.visualize" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="asent.visualize.visualize">
-<span class="sig-prename descclassname"><span class="pre">asent.visualize.</span></span><span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.span.Span</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">spacy.tokens.doc.Doc</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RdYlGn'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/asent/visualize.html#visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.visualize.visualize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render displaCy visualisation of sentiment</p>
+<span class="sig-prename descclassname"><span class="pre">asent.visualize.</span></span><span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.span.Span</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">spacy.tokens.doc.Doc</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'prediction'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RdYlGn'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/asent/visualize.html#visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.visualize.visualize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render displaCy visualisation of  model prediction of sentiment or analysis of sentiment</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>span</strong> (<em>Union</em><em>[</em><em>Span</em><em>, </em><em>Doc</em><em>]</em>) – The span or document you wish to apply the visualizer to.</p></li>
+<li><p><strong>doc</strong> (<em>Union</em><em>[</em><em>Span</em><em>, </em><em>Doc</em><em>]</em>) – The span or document you wish to apply the visualizer to.</p></li>
+<li><p><strong>style</strong> (<em>str</em><em>, </em><em>optional</em>) – A string indicating whether it should visualize “prediction” or “analysis”.
+“prediction”, color codes positive or negative spans according to the cmap. “analysis” visualize
+for each sentimental word if it has by negated or intensified a word, and which word.</p></li>
 <li><p><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) – The color map derived from matplotlib. Defaults to “RdYlGn”.</p></li>
 </ul>
 </dd>
@@ -242,6 +245,18 @@
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"en_core_web_lg"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># add the rule-based sentiment model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">"asent_en_v1"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># try an example</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s2">"I am not very happy"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># visualize model prediction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"prediction"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"analysis"</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 </section>
 </section>

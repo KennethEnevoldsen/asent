@@ -518,6 +518,8 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TokenPolarityOutput</span><span class="p">:</span>
         <span class="n">valence</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span>
 
+        <span class="n">intensifiers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">is_neg</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">start_tok</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span>  <span class="c1"># only used if span is returned</span>
         <span class="k">if</span> <span class="n">valence</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">start_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookback</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
@@ -528,6 +530,7 @@
                     <span class="n">prev_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">start_i</span><span class="p">]</span>
                     <span class="n">b</span> <span class="o">=</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">intensifier</span>
                     <span class="k">if</span> <span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">intensifiers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prev_token</span><span class="p">)</span>
                         <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">lookback_intensities</span><span class="p">[</span><span class="n">start_i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
                         <span class="n">start_tok</span> <span class="o">=</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">i</span>
                     <span class="k">if</span> <span class="n">valence</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -541,7 +544,11 @@
                     <span class="n">start_tok</span> <span class="o">=</span> <span class="n">is_neg</span><span class="o">.</span><span class="n">i</span>
 
         <span class="k">return</span> <span class="n">TokenPolarityOutput</span><span class="p">(</span>
-            <span class="n">polarity</span><span class="o">=</span><span class="n">valence</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">start_tok</span> <span class="p">:</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">polarity</span><span class="o">=</span><span class="n">valence</span><span class="p">,</span>
+            <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
+            <span class="n">span</span><span class="o">=</span><span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">start_tok</span> <span class="p">:</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">negation</span><span class="o">=</span><span class="n">is_neg</span><span class="p">,</span>
+            <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifiers</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">token_polarity_getter</span></div>

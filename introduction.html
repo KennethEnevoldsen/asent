@@ -231,8 +231,8 @@ as well as other emphasis markers such as exclamation marks, casing and question
 will take you through how the sentiment is calculated in a step by step fashion.</p>
 <p>To start of with we will need a spaCy pipeline as well as we will need to add the asent pipeline to it.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="57cde18e-e414-4399-bfa9-f18cacf7ba79" name="a621f29a-ab7c-4f47-8555-7d8713564cc0" type="radio"/>
-<label class="sd-tab-label" for="57cde18e-e414-4399-bfa9-f18cacf7ba79">
+<input checked="checked" id="4a927334-e192-44af-adfd-501fccca30a0" name="14b1acf6-224b-45c5-a0d6-b634d013a8c1" type="radio"/>
+<label class="sd-tab-label" for="4a927334-e192-44af-adfd-501fccca30a0">
 English</label><div class="sd-tab-content docutils">
 <p>For English we can add the <code class="code docutils literal notranslate"><span class="pre">asent_en_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">en</span></code> indicates that it is the English pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -254,8 +254,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="824e2ae7-e058-4057-9e21-374d4793936f" name="a621f29a-ab7c-4f47-8555-7d8713564cc0" type="radio"/>
-<label class="sd-tab-label" for="824e2ae7-e058-4057-9e21-374d4793936f">
+<input id="863762fd-7ddc-4671-b3b1-7b69e6c3baf3" name="14b1acf6-224b-45c5-a0d6-b634d013a8c1" type="radio"/>
+<label class="sd-tab-label" for="863762fd-7ddc-4671-b3b1-7b69e6c3baf3">
 Danish</label><div class="sd-tab-content docutils">
 <p>For Danish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_da_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">da</span></code> indicates that it is the Danish pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -277,8 +277,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="ca7b3e89-9d3b-45a9-9740-513dd051ec48" name="a621f29a-ab7c-4f47-8555-7d8713564cc0" type="radio"/>
-<label class="sd-tab-label" for="ca7b3e89-9d3b-45a9-9740-513dd051ec48">
+<input id="69553948-2c36-4610-9941-4c65a8849647" name="14b1acf6-224b-45c5-a0d6-b634d013a8c1" type="radio"/>
+<label class="sd-tab-label" for="69553948-2c36-4610-9941-4c65a8849647">
 Norwegian</label><div class="sd-tab-content docutils">
 <p>For Norwegian we can add the <code class="code docutils literal notranslate"><span class="pre">asent_no_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -300,8 +300,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="9e7e1611-0bf9-4380-989e-36d4d0e8e997" name="a621f29a-ab7c-4f47-8555-7d8713564cc0" type="radio"/>
-<label class="sd-tab-label" for="9e7e1611-0bf9-4380-989e-36d4d0e8e997">
+<input id="9786b91a-1286-4746-91b4-4488d6837305" name="14b1acf6-224b-45c5-a0d6-b634d013a8c1" type="radio"/>
+<label class="sd-tab-label" for="9786b91a-1286-4746-91b4-4488d6837305">
 Swedish</label><div class="sd-tab-content docutils">
 <p>For Swedish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_se_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -378,10 +378,15 @@ has a polarity of -2.215 and that this includes the span (sequence of tokens)
 <section id="visualizing-polarity">
 <h2>Visualizing polarity<a class="headerlink" href="#visualizing-polarity" title="Permalink to this headline">¶</a></h2>
 <p>Asent also includes a series of methods to visualize the token polarity:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"prediction"</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png" style="width: 600px;"/></a>
+<p>You can even get more information about why the token has the polarity by plotting the model analysis:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"analysis"</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis1.png"><img alt="Model analysis" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis1.png" style="width: 600px;"/></a>
 </section>
 <section id="document-and-span-polarity">
 <h2>Document and Span Polarity<a class="headerlink" href="#document-and-span-polarity" title="Permalink to this headline">¶</a></h2>
