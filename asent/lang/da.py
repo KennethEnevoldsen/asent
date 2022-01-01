@@ -5,7 +5,7 @@ from spacy.language import Language
 
 from ..constants import B_INCR
 from ..component import Asent
-from ..utils import lexicons
+from ..utils import lexicons, components
 
 from .emoji import LEXICON as E_LEXICON
 
@@ -99,3 +99,6 @@ def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
         lemmatize=True,
         force=force,
     )
+
+
+components.register("asent_da_v1", func=create_da_sentiment_component)

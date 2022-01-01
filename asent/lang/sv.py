@@ -5,7 +5,7 @@ from inspect import getsourcefile
 from spacy.language import Language
 
 from ..constants import B_DECR, B_INCR
-from ..utils import lexicons
+from ..utils import lexicons, components
 from ..component import Asent
 
 
@@ -119,7 +119,7 @@ lexicons.register("intensifiers_sv_v1", func=INTENSIFIERS)
 
 
 @Language.factory("asent_sv_v1", default_config={"force": False})
-def create_se_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
+def create_sv_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
     """
     Allows the Swedish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_sv_v1").
     """
@@ -137,3 +137,6 @@ def create_se_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
         lemmatize=False,
         force=force,
     )
+
+
+components.register("asent_sv_v1", func=create_sv_sentiment_component)

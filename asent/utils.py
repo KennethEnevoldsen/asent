@@ -1,8 +1,8 @@
-from typing import Dict
+from typing import Callable, Dict, List
 import catalogue
 
 lexicons = catalogue.create("asent", "lexicon", entry_points=True)
-lexicons = catalogue.create("asent", "lexicon", entry_points=True)
+components = catalogue.create("asent", "components", entry_points=True)
 
 
 def register_lexicon(name: str, lexicon: Dict[str, float]) -> None:
@@ -18,3 +18,13 @@ def register_lexicon(name: str, lexicon: Dict[str, float]) -> None:
         {"happy": 4, "sad": -2}
     """
     lexicons.register(name, func=lexicon)
+
+
+def register_component(name: str, func: Callable) -> None:
+    """Registers a component in asent.components
+
+    Args:
+        name (str): The name of the lexicon
+        func (Callable): A Callable component
+    """
+    components.register(name, func=func)

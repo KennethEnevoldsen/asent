@@ -4,7 +4,7 @@ from inspect import getsourcefile
 
 from spacy.language import Language
 
-from ..utils import lexicons
+from ..utils import lexicons, components
 from ..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
@@ -163,3 +163,6 @@ def create_no_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
         lemmatize=False,
         force=force,
     )
+
+
+components.register("asent_no_v1", func=create_no_sentiment_component)
