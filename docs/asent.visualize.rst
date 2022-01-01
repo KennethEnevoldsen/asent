@@ -7,4 +7,4 @@ asent.visualize
    :members:
    :undoc-members:
    :show-inheritance:
-   :exclude-members: make_colors, print_colors
+   :exclude-members: make_colors, print_colors, visualize_prediction, visualize_analysis

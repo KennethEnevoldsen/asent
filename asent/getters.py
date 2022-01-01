@@ -301,6 +301,8 @@ def make_token_polarity_getter(
     ) -> TokenPolarityOutput:
         valence = token._.valence
 
+        intensifiers = []
+        is_neg = None
         start_tok = token.i  # only used if span is returned
         if valence:
             for start_i in range(1, lookback + 1):
@@ -311,6 +313,7 @@ def make_token_polarity_getter(
                     prev_token = token.doc[token.i - start_i]
                     b = prev_token._.intensifier
                     if b != 0:
+                        intensifiers.append(prev_token)
                         b = b * lookback_intensities[start_i - 1]
                         start_tok = prev_token.i
                     if valence > 0:
@@ -324,7 +327,11 @@ def make_token_polarity_getter(
                     start_tok = is_neg.i
 
         return TokenPolarityOutput(
-            polarity=valence, token=token, span=token.doc[start_tok : token.i + 1]
+            polarity=valence,
+            token=token,
+            span=token.doc[start_tok : token.i + 1],
+            negation=is_neg,
+            intensifiers=intensifiers,
         )
 
     return token_polarity_getter
