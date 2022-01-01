@@ -7,7 +7,7 @@
   <meta property="og:title" content="Components" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="asent.component.html" />
-  <meta property="og:description" content="asent.component: Calculation of various readability metrics." />
+  <meta property="og:description" content="Asent contains a bunch of components to get a full list you can always run: asent.component: Calculation of various readability metrics." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Getters" href="asent.getters.html" />
 
     <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
@@ -222,6 +222,18 @@
         <article role="main">
           <section id="components">
 <h1>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h1>
+<p>Asent contains a bunch of components to get a full list you can always run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asent</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">asent</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">get_all</span><span class="p">():</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>asent_da_v1
+asent_en_v1
+asent_no_v1
+asent_sv_v1
+</pre></div>
+</div>
 <section id="module-asent.component">
 <span id="asent-component"></span><h2>asent.component<a class="headerlink" href="#module-asent.component" title="Permalink to this headline">¶</a></h2>
 <p>Calculation of various readability metrics.</p>
