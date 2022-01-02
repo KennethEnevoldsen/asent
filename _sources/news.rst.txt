@@ -1,6 +1,12 @@
 News and Changelog
 ==============================
 
+* 0.1.3 (02/01/22)
+
+  - 96% Coverage on pytest 🎉
+  - New Visualizer for visualizing the "analysis" of the model, using spaCy dependency Visualizer
+  - New CI for Tutorials to ensure that they always run
+
 * 0.1.0 (26/12/21)
 
   - Major updates to the documentation along with two new tutorials 📖
