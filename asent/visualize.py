@@ -32,7 +32,7 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
     elif style.lower() == "analysis":
         return visualize_analysis(doc)
     else:
-        ValueError(
+        raise ValueError(
             "Invalid style argument, should be either 'analysis' or 'prediction'"
         )
 
