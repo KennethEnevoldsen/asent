@@ -53,7 +53,7 @@ If we want to know even more
 # visualize the analysis performed by the model:
 asent.visualize(doc[:5], style="analysis")
 ```
-<img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis.png" width="500" />
+<img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis.png" width="700" />
 
 
 # 📖 Documentation
