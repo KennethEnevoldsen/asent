@@ -7,6 +7,7 @@ from .test_getters import nlp_dict
 @pytest.mark.parametrize(
     "example,lang",
     [
+        ("I am not very happy", "en"),
         ("jeg er glad", "da"),
         ("jeg er GLAD", "da"),
         ("jeg er MEGET glad", "da"),
