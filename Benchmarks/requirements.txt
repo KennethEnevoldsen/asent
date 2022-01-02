@@ -1,0 +1,2 @@
+danlp==0.1.1
+https://huggingface.co/spacy/da_core_news_lg/resolve/main/da_core_news_lg-any-py3-none-any.whl
