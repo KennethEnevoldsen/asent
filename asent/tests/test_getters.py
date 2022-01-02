@@ -235,6 +235,7 @@ def test_span_polarity_contrast(
     [
         ("I am happy", "positive", "en"),
         ("I am very happy", "positive", "en"),
+        ("I am VERY happy", "positive", "en"),
         ("I am not very happy", "negative", "en"),
         ("jeg er glad", "positive", "da"),
         ("jeg er glad", "positive", "no"),
