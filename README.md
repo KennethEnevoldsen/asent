@@ -63,14 +63,14 @@ asent.visualize(doc[:5], style="analysis")
 | 🔧 **[Installation]**       | Installation instructions for Asent          |
 | 📚 **[Usage Guides]**       | Guides and instructions on how to use asent and its features.               |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
-| 🎛 **[Documentations]**     | The detailed reference for augmenty's API. Including function documentation |
+| 🎛 **[Documentations]**     | The detailed reference for Asents's API. Including function documentation |
 
 [Documentations]: https://kennethenevoldsen.github.io/asent/index.html
 [Installation]: https://kennethenevoldsen.github.io/asent/installation.html
 [usage guides]: https://kennethenevoldsen.github.io/asent/introduction.html
 [api references]: https://kennethenevoldsen.github.io/asent/
-[Demo]: https://share.streamlit.io/kennethenevoldsen/augmenty/dev/streamlit.py
-[News and changelog]: https://kennethenevoldsen.github.io/augmenty/news.html
+[Demo]: https://share.streamlit.io/kennethenevoldsen/augmenty/dev/streamlit.py # These links are for augmenty?
+[News and changelog]: https://kennethenevoldsen.github.io/augmenty/news.html # These links are for augmenty?
 
 # 💬 Where to ask questions
 
@@ -83,7 +83,7 @@ asent.visualize(doc[:5], style="analysis")
 | 🗯 **General Discussion**       | [GitHub Discussions]   |
 
 
-[FAQ]: https://kennethenevoldsen.github.io/augmenty/faq.html
+[FAQ]: https://kennethenevoldsen.github.io/augmenty/faq.html # These links are for augmenty?
 [github issue tracker]: https://github.com/kennethenevoldsen/asent/issues
 [github discussions]: https://github.com/kennethenevoldsen/asent/discussions
 
