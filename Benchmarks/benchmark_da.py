@@ -3,11 +3,10 @@ A benchmark script for the Danish pipelines
 """
 
 import sys
-from typing import Callable, Dict
 
 
 sys.path.append(".")
-sys.path.append("benchmark/")
+sys.path.append("Benchmarks/")
 sys.path.append("..")
 
 
@@ -15,6 +14,7 @@ from benchmark import validate_datasets, show_n_incorrect
 
 import asent
 import spacy
+
 
 
 da_components = [
@@ -64,74 +64,250 @@ def load_twittersent():
 
 
 danish_datasets = {
-    "europarl1": load_europarl1,
-    "europarl2": load_europarl2,
-    "lccsent": load_lccsent,
-    "angry-tweets": load_angrytweets,
-    "twitter-sent": load_twittersent,
+    "europarl1": load_europarl1(),
+    "europarl2": load_europarl2(),
+    "lccsent": load_lccsent(),
+    "angry-tweets": load_angrytweets(),
+    "twitter-sent": load_twittersent(),
 }
 
 c = da_components[0]
 nlp = spacy.load("da_core_news_lg")
 nlp.add_pipe(c, config={"force": True})
+# validate_datasets(nlp, danish_datasets)
 
-validate_datasets(nlp, danish_datasets)
-
-from asent.getters import make_valance_getter, make_is_negated_getter, make_is_negation_getter, make_intensifier_getter
-asent.lexicons.get("lexicon_da_v1")
-
-da_getters = {} 
 
 def make_valence_getters():
+    from asent.getters import make_valance_getter
+
     getters = {}
-    getters["valence_standard"] = make_valance_getter(lexicon=asent.lexicons.get("lexicon_da_v1"), lemmatize=True, lowercase=True, cap_differential=True)
-    getters["valence_no_cap"] = make_valance_getter(lexicon=asent.lexicons.get("lexicon_da_v1"), lemmatize=True, lowercase=True, cap_differential=False)
-    getters["valence_no_lemma"] = make_valance_getter(lexicon=asent.lexicons.get("lexicon_da_v1"), lemmatize=False, lowercase=True, cap_differential=False)
+    getters["valence_standard"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_v1"),
+        lemmatize=True,
+        lowercase=True,
+        cap_differential=True,
+    )
+    getters["valence_no_cap"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_v1"),
+        lemmatize=True,
+        lowercase=True,
+        cap_differential=False,
+    )
+    getters["valence_no_lemma"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_v1"),
+        lemmatize=False,
+        lowercase=True,
+        cap_differential=False,
+    )
 
-    getters["standard_valence"] = make_valance_getter(lexicon=asent.lexicons.get("lexicon_da_afinn"), lemmatize=True, lowercase=True, cap_differential=True)
-    getters["valence_no_cap"] = make_valance_getter(lexicon=asent.lexicons.get("lexicon_da_afinn"), lemmatize=True, lowercase=True, cap_differential=False)
-    getters["valence_no_lemma"] = make_valance_getter(lexicon=asent.lexicons.get("lexicon_da_afinn"), lemmatize=False, lowercase=True, cap_differential=False)
+    getters["valence_no_lemma"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_v1"),
+        lemmatize=False,
+        lowercase=True,
+        cap_differential=False,
+    )
 
+    getters["valence_afinn"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_afinn_v1"),
+        lemmatize=True,
+        lowercase=True,
+        cap_differential=True,
+    )
+    getters["valence_no_cap_afinn"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_afinn_v1"),
+        lemmatize=True,
+        lowercase=True,
+        cap_differential=False,
+    )
+    getters["valence_no_lemma_afinn"] = make_valance_getter(
+        lexicon=asent.lexicons.get("lexicon_da_afinn_v1"),
+        lemmatize=False,
+        lowercase=True,
+        cap_differential=False,
+    )
     # sentida1
+    return getters
+
 
 def make_is_negated_getters():
+    from asent.getters import make_is_negated_getter, make_is_negation_getter
+    from new_funcs import is_negation, is_negated
+    from functools import partial
+
     getters = {}
-    neg = make_is_negation_getter(negations=asent.lexicons.get("negations_da_v1"), lemmatize=True, lowercase=True)
+    neg = make_is_negation_getter(
+        negations=asent.lexicons.get("negations_da_v1"), lemmatize=True, lowercase=True
+    )
     getters["is_negated_standard"] = make_is_negated_getter(is_negation_getter=neg)
     neg = make_is_negation_getter(negations={}, lemmatize=True, lowercase=True)
     getters["is_negated_no_negations"] = make_is_negated_getter(is_negation_getter=neg)
-    
-    neg = ...
-    getters["is_negated_with_morph_neg"] = make_is_negated_getter(is_negation_getter=neg)
 
-    neg = ...
-    getters["is_negated_with_dep_neg"] = make_is_negated_getter(is_negation_getter=neg)
+    getters["is_negated_with_morph_neg"] = make_is_negated_getter(
+        is_negation_getter=is_negation
+    )
 
-    neg = ...
-    getters["is_negated_with_dep_and_morph"] = make_is_negated_getter(is_negation_getter=neg)
-
+    neg = make_is_negation_getter(
+        negations=asent.lexicons.get("negations_da_v1"), lemmatize=True, lowercase=True
+    )
+    getters["is_negated_with_dep_neg"] = partial(is_negated, is_negation_getter=neg)
+    getters["is_negated_with_dep_and_morph"] = partial(
+        is_negated, is_negation_getter=is_negation
+    )
+    return getters
 
 
 def make_is_intensifiers_getters():
+    from asent.getters import make_intensifier_getter
+
     getters = {}
-    getters["intensifier_standard"] = make_intensifier_getter(intensifiers=asent.lexicons("intensifiers_da_v1"), lemmatize=True)
-    getters["intensifier_no_cap_diff"] = make_intensifier_getter(intensifiers=asent.lexicons("intensifiers_da_v1"), lemmatize=True, cap_differential=False)
+    getters["intensifier_standard"] = make_intensifier_getter(
+        intensifiers=asent.lexicons("intensifiers_da_v1"), lemmatize=True
+    )
+    getters["intensifier_no_cap_diff"] = make_intensifier_getter(
+        intensifiers=asent.lexicons("intensifiers_da_v1"),
+        lemmatize=True,
+        # cap_differential=False,
+    )
     getters["intensifier_no_intensifiers"] = make_intensifier_getter(intensifiers={})
-    # getters["intensifier_with_dep_lemma"] = ...
-    # getters["intensifier_with_dep_no_lemma"] = ...
+    # intensifiers filtered to adv and adj
+    # getters["intensifier_filtered_lemma"] = ...
+    # getters["intensifier_filtered_no_lemma"] = ...
+    return getters
+
+
+def make_token_polarity_getters():
+    from asent.getters import make_token_polarity_getter
+
+    getters = {}
+    getters["token_polarity_standard"] = make_token_polarity_getter()
+    # with dep intensifiers lookback
+    return getters
+
 
 def make_span_polarity_getters():
-    # with but
-    # without but
+    from asent.getters import make_span_polarity_getter, make_is_contrastive_conj_getter
 
+    getters = {}
+    cconj_getter = make_is_contrastive_conj_getter(
+        asent.lexicons.get("contrastive_conj_da_v1")
+    )
+    getters["span_polarity_standard"] = make_span_polarity_getter(polarity_getter=None,
+        contrastive_conj_getter=cconj_getter
+    )
+
+    cconj_getter = make_is_contrastive_conj_getter(
+        asent.lexicons.get("contrastive_conj_da_v1"), lemmatize=False
+    )
+    getters["span_polarity_cconj_lemma"] = make_span_polarity_getter(polarity_getter=None,
+        contrastive_conj_getter=cconj_getter
+    )
+
+    cconj_getter = make_is_contrastive_conj_getter({})
+    getters["span_polarity_no_cconj"] = make_span_polarity_getter(polarity_getter=None,
+        contrastive_conj_getter=cconj_getter
+    )
+
+    # with dep/pos but
     # with without exclamation
     # with without questionmarks
-    
+    return getters
 
 
-def grid_search(nlp, getters = Dict[str, Callable]):
-    pass
+def make_doc_polarity_getters():
+    from asent.getters import make_doc_polarity_getter
 
-# texts, pred = danish_datasets["twitter-sent"]()
+    getters = {}
+    getters["doc_polarity_standard"] = make_doc_polarity_getter(span_polarity_getter=None)
 
-# show_n_incorrect(nlp, texts, pred)
+    from afinn import Afinn
+    afinn = Afinn(language='da')
+    def afinn_getter(doc):
+        return afinn.score(doc.text)
+
+    getters["doc_polarity_afinn"] = afinn_getter
+        
+
+    return getters
+
+
+def make_da_getters_grid():
+    getters = {
+        "Token": {
+            "valence": make_valence_getters(),
+            "is_negated": make_is_negated_getters(),
+            "is_intensifier": make_is_intensifiers_getters(),
+            "polarity": make_token_polarity_getters(),
+        },
+        "Span": {"polarity": make_span_polarity_getters()},
+        "Doc": {"polarity": make_doc_polarity_getters()},
+    }
+    return getters
+
+
+def grid_search(nlp, grid=make_da_getters_grid(), datasets=danish_datasets):
+    from spacy.tokens import Token, Span, Doc
+
+    queue = [
+        (obj, ext, getter_name, getter)
+        for obj, obj_dict in grid.items()
+        for ext, ext_dict in obj_dict.items()
+        for getter_name, getter in ext_dict.items()
+    ]
+
+    def assign_ext(obj, ext, getter):
+        if obj.lower() == "token":
+            Token.set_extension(ext, getter=getter, force=True)
+        if obj.lower() == "span":
+            Span.set_extension(ext, getter=getter, force=True)
+        if obj.lower() == "doc":
+            Doc.set_extension(ext, getter=getter, force=True)
+
+    results = []
+    while queue:
+        obj, ext, getter_name, getter = queue.pop()
+        print(getter_name)
+
+        results_ = {}
+        results_["assigned_getters"] = []
+
+        # set extensions
+        assign_ext(obj, ext, getter)
+        results_["assigned_getters"].append((obj, ext, getter_name))
+
+        for obj, ext, getter_name, getter in queue:
+            assign_ext(obj, ext, getter)
+            results_["assigned_getters"].append((obj, ext, getter_name))
+
+        results_["performance"] = validate_datasets(nlp, datasets, verbose=False)
+        results.append(results_)
+
+    return results
+
+import pandas as pd
+import numpy as np
+grid = make_da_getters_grid()
+[grid.pop(k) for k in list(grid.keys()) if k != "Token"]
+[grid["Token"].pop(k) for k in list(grid["Token"].keys()) if k != "valence"]
+
+
+res = grid_search(nlp, grid=grid)
+
+
+from copy import deepcopy
+sav = deepcopy(res)
+
+
+# import pickle
+# with open("tmp.pkl", "wb") as f:
+#     pickle.dump(sav, f)
+
+for d in res:
+    ds = d.pop("performance")
+    for ds_name, ds_dict in ds.items():
+        for k, val in ds_dict.items():
+            d[f"{ds_name}_{k}"] = val
+
+
+
+df = pd.DataFrame(res)
+df

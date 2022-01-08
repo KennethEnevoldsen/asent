@@ -85,7 +85,12 @@ def validate(
     search_for_best_range: bool = True,
     categorical: Optional[bool] = None,
 ):
-    preds = [doc._.polarity.compound for doc in nlp.pipe(texts)]
+    def get_score(doc):
+        if isinstance(doc._.polarity, float):
+            return doc._.polarity
+        return doc._.polarity.compound
+
+    preds = [get_score(doc) for doc in nlp.pipe(texts)]
     y_true = np.array(list(true))
 
     if isinstance(y_true[0], str) and categorical is None:
@@ -120,8 +125,8 @@ def validate(
 
 def validate_datasets(nlp, datasets, verbose: bool = True):
     output = {}
-    for d_name, loader in datasets.items():
-        texts, true = loader()
+    for d_name, dataset in datasets.items():
+        texts, true = dataset
 
         out = validate(texts, true, nlp)
         output[d_name] = out
@@ -136,4 +141,4 @@ def validate_datasets(nlp, datasets, verbose: bool = True):
                 if not isinstance(score, tuple)
             ]
             print(f"\tUsed neutral-range: {out['used neutral range']}")
-    return out
+    return output
