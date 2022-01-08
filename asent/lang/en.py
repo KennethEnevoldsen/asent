@@ -5,29 +5,13 @@ from inspect import getsourcefile
 from spacy.language import Language
 
 from ..constants import B_DECR, B_INCR
-from ..utils import lexicons, components
+from ..utils import lexicons, components, read_lexicon
 from ..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
 
 
-def read_lexicon():
-    lexicon_file = os.path.join("..", "lexicons", "en_lexicon_v1.txt")
-    _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
-    lexicon_full_filepath = os.path.join(
-        os.path.dirname(_this_module_file_path_), lexicon_file
-    )
-    with codecs.open(lexicon_full_filepath, encoding="utf-8") as f:
-        lexicon = {}
-        for line in f.read().rstrip("\n").split("\n"):
-            if not line:
-                continue
-            (word, measure) = line.strip().split("\t")[0:2]
-            lexicon[word] = float(measure)
-    return lexicon
-
-
-LEXICON = read_lexicon()
+LEXICON = read_lexicon(os.path.join("..", "lexicons", "en_lexicon_v1.txt"))
 
 NEGATIONS = {
     "aint",

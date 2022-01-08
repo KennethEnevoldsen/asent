@@ -1,16 +1,17 @@
 import os
+import codecs
 from inspect import getsourcefile
 
 from spacy.language import Language
 
 from ..constants import B_INCR
 from ..component import Asent
-from ..utils import lexicons, components
+from ..utils import lexicons, components, read_lexicon
 
 from .emoji import LEXICON as E_LEXICON
 
 
-def read_lexicon():
+def read_csv_lexicon():
     lexicon_file = os.path.join("..", "lexicons", "da_lexicon_v1.csv")
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
     lexicon_full_filepath = os.path.join(
@@ -25,7 +26,8 @@ def read_lexicon():
     return lexicon
 
 
-LEXICON = read_lexicon()
+LEXICON = read_csv_lexicon()
+
 
 NEGATIONS = {"ikke", "ik", "ikk", "ik'", "aldrig", "ingen"}
 CONTRASTIVE_CONJ = {"men", "dog"}
@@ -74,10 +76,15 @@ INTENSIFIERS = {
     "seriøs": 0.3,
 }
 
+
 lexicons.register("lexicon_da_v1", func=LEXICON)
 lexicons.register("negations_da_v1", func=NEGATIONS)
 lexicons.register("contrastive_conj_da_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_da_v1", func=INTENSIFIERS)
+lexicons.register(
+    "lexicon_da_afinn_v1",
+    func=read_lexicon(os.path.join("..", "lexicons", "da_lexicon_afinn_v1.txt")),
+)
 
 
 @Language.factory("asent_da_v1", default_config={"force": False})
