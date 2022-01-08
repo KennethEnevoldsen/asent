@@ -10,13 +10,13 @@
   <meta property="og:description" content="colab_tut Asent is a package for fast and transparent sentiment analysis. The package applied uses a dictionary of words rated as either positive or negative and a series of rules to determine whet..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Customizing Asent" href="customizing.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2022.01.02"/>
         <title>Getting started - asent 0.1.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
     
     
 
@@ -231,8 +231,8 @@ as well as other emphasis markers such as exclamation marks, casing and question
 will take you through how the sentiment is calculated in a step by step fashion.</p>
 <p>To start of with we will need a spaCy pipeline as well as we will need to add the asent pipeline to it.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="2d056595-aa2e-4323-a279-3f4c40ce7638" name="1d2e0f41-2e62-4b87-94d4-c6b11510cfbd" type="radio"/>
-<label class="sd-tab-label" for="2d056595-aa2e-4323-a279-3f4c40ce7638">
+<input checked="checked" id="99265697-7303-491f-98b3-3eed99f5d64a" name="f5436d02-696e-4fa1-96f5-5dd956351f41" type="radio"/>
+<label class="sd-tab-label" for="99265697-7303-491f-98b3-3eed99f5d64a">
 English</label><div class="sd-tab-content docutils">
 <p>For English we can add the <code class="code docutils literal notranslate"><span class="pre">asent_en_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">en</span></code> indicates that it is the English pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -254,8 +254,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="2df406d2-2a8e-4c77-aed1-c4e7e58f51a6" name="1d2e0f41-2e62-4b87-94d4-c6b11510cfbd" type="radio"/>
-<label class="sd-tab-label" for="2df406d2-2a8e-4c77-aed1-c4e7e58f51a6">
+<input id="fb623e86-12bf-4202-9ebf-b649f92e5e61" name="f5436d02-696e-4fa1-96f5-5dd956351f41" type="radio"/>
+<label class="sd-tab-label" for="fb623e86-12bf-4202-9ebf-b649f92e5e61">
 Danish</label><div class="sd-tab-content docutils">
 <p>For Danish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_da_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">da</span></code> indicates that it is the Danish pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -277,8 +277,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="a63d4f82-c256-421d-8c87-4c0a96ccbc2f" name="1d2e0f41-2e62-4b87-94d4-c6b11510cfbd" type="radio"/>
-<label class="sd-tab-label" for="a63d4f82-c256-421d-8c87-4c0a96ccbc2f">
+<input id="c31e1bab-e1c4-4e8c-a861-132067a60db4" name="f5436d02-696e-4fa1-96f5-5dd956351f41" type="radio"/>
+<label class="sd-tab-label" for="c31e1bab-e1c4-4e8c-a861-132067a60db4">
 Norwegian</label><div class="sd-tab-content docutils">
 <p>For Norwegian we can add the <code class="code docutils literal notranslate"><span class="pre">asent_no_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -300,8 +300,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="05116cee-8974-47a1-888c-4179b68d480d" name="1d2e0f41-2e62-4b87-94d4-c6b11510cfbd" type="radio"/>
-<label class="sd-tab-label" for="05116cee-8974-47a1-888c-4179b68d480d">
+<input id="d85a452e-6fc5-4beb-86e7-cc948ba67111" name="f5436d02-696e-4fa1-96f5-5dd956351f41" type="radio"/>
+<label class="sd-tab-label" for="d85a452e-6fc5-4beb-86e7-cc948ba67111">
 Swedish</label><div class="sd-tab-content docutils">
 <p>For Swedish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_se_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
