@@ -45,6 +45,9 @@ Languages
          intensifiers = lexicons.get("intensifiers_da_v1")
          cconj = lexicons.get("contrastive_conj_da_v1")
 
+      Beyond the default lexicon Asent on contains the `Afinn <https://github.com/fnielsen/afinn>`__ dictionary for Danish:
+      .. code-block:: python
+         afinn = lexicons.get("lexicon_da_afinn_v1")
 
 
 
