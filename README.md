@@ -10,7 +10,6 @@
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/95471fd640b6c1c09717c5f88e2e9fae/raw/badge-asent-pytest-coverage.json)
 [![CodeFactor](https://www.codefactor.io/repository/github/kennethenevoldsen/asent/badge)](https://www.codefactor.io/repository/github/kennethenevoldsen/asent)
 [![pip downloads](https://img.shields.io/pypi/dm/asent.svg)](https://pypi.org/project/asent/)
-<!-- [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kennethenevoldsen/asent/dev/streamlit.py) -->
 
 
 Inspired by Vader, made using SpaCy, transparent from the start.
@@ -63,13 +62,11 @@ asent.visualize(doc[:5], style="analysis")
 | 🔧 **[Installation]**       | Installation instructions for Asent          |
 | 📚 **[Usage Guides]**       | Guides and instructions on how to use asent and its features.               |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
-| 🎛 **[Documentation]**     | The detailed reference for augmenty's API. Including function documentation |
+| 🎛 **[Documentation]**     | The detailed reference for Asents's API. Including function documentation |
 
 [Documentation]: https://kennethenevoldsen.github.io/asent/index.html
 [Installation]: https://kennethenevoldsen.github.io/asent/installation.html
 [usage guides]: https://kennethenevoldsen.github.io/asent/introduction.html
-[api references]: https://kennethenevoldsen.github.io/asent/
-[Demo]: https://share.streamlit.io/kennethenevoldsen/augmenty/dev/streamlit.py
 [News and changelog]: https://kennethenevoldsen.github.io/asent/news.html
 
 # 💬 Where to ask questions
