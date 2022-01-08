@@ -22,3 +22,7 @@ tutorials/*.py
 # package
 asent.egg-info
 build
+
+
+# etc.
+*.pkl
