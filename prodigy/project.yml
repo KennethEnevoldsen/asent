@@ -1,0 +1,32 @@
+# prodigy spans.manual angrytweets blank:da angrytweets.jsonl --label positive,negative
+
+prodigy db-in angrytweets angrytweets.jsonl
+
+prodigy stats angrytweets -l
+
+prodigy review angrytweets_review angrytweets --label positiv --view-id classification
+
+prodigy spans.manual angrytweets_annotated da_core_news_lg angrytweets.jsonl --label positive,negative --patterns da_match_patterns.jsonl
+
+
+prodigy db-out angrytweets_annotated > ./angrytweets_annotated.jsonl
+# Tagging guidelines:
+Only positiive or negative words or phrases
+
+I.e.
+"Intet mindre end [GENIALT|postive] afsnit" only genialt should be rated as positive, 
+while "intet mindre end" should be considered an intensifier. Similarly
+"squ" in the following is an intensifier.
+"Det er sgu [sjovt|positive] [:-D|postive]"
+Emoticons and emoji should also be taggedd in postive/negative.
+
+Negations should not be included.
+"@USER ikke [enig|positive]!"
+
+Cases where negations can't handle the situation tag multiple words i.e.:
+"[Under niveau|negative] : Her er de otte mest [skuffende|negative] spillere denne sæson [ LINK ] # pldk"
+
+Irony should not be tagged I.e.:
+"Skal vi ikke give dem en pokal for det ?"
+While negative should not be tagged.
+

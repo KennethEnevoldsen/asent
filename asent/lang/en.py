@@ -10,8 +10,8 @@ from ..component import Asent
 
 from .emoji import LEXICON as E_LEXICON
 
-
-LEXICON = read_lexicon(os.path.join("..", "lexicons", "en_lexicon_v1.txt"))
+apath = os.path.dirname(os.path.abspath(__file__))
+LEXICON = read_lexicon(os.path.join(apath, "..", "lexicons", "en_lexicon_v1.txt"))
 
 NEGATIONS = {
     "aint",

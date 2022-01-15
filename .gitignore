@@ -23,6 +23,9 @@ tutorials/*.py
 asent.egg-info
 build
 
+# prodigy license
+prodigy/requirements.txt
 
-# etc.
+# data
 *.pkl
+*.ndjson

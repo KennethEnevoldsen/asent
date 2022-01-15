@@ -1,10 +1,6 @@
 from typing import Callable, Dict
 import catalogue
 
-import os
-import codecs
-from inspect import getsourcefile
-
 lexicons = catalogue.create("asent", "lexicon", entry_points=True)
 components = catalogue.create("asent", "components", entry_points=True)
 
@@ -34,12 +30,7 @@ def register_component(name: str, func: Callable) -> None:
     components.register(name, func=func)
 
 def read_lexicon(path: str) -> Dict[str, float]:
-
-    _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
-    lexicon_full_filepath = os.path.join(
-        os.path.dirname(_this_module_file_path_), path
-    )
-    with codecs.open(lexicon_full_filepath, encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         lexicon = {}
         for line in f.read().rstrip("\n").split("\n"):
             if not line:

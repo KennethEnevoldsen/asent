@@ -81,9 +81,12 @@ lexicons.register("lexicon_da_v1", func=LEXICON)
 lexicons.register("negations_da_v1", func=NEGATIONS)
 lexicons.register("contrastive_conj_da_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_da_v1", func=INTENSIFIERS)
+
+apath = os.path.dirname(os.path.abspath(__file__))
+afinn_path = os.path.join(apath, "..", "lexicons", "da_lexicon_afinn_v1.txt")
 lexicons.register(
     "lexicon_da_afinn_v1",
-    func=read_lexicon(os.path.join("..", "lexicons", "da_lexicon_afinn_v1.txt")),
+    func=read_lexicon(afinn_path),
 )
 
 

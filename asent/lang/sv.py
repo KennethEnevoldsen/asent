@@ -8,8 +8,8 @@ from ..constants import B_DECR, B_INCR
 from ..utils import lexicons, components, read_lexicon
 from ..component import Asent
 
-
-LEXICON = read_lexicon(os.path.join("..", "lexicons", "sv_lexicon_v1.txt"))
+apath = os.path.dirname(os.path.abspath(__file__))
+LEXICON = read_lexicon(os.path.join(apath, "..", "lexicons", "sv_lexicon_v1.txt"))
 
 NEGATIONS = {
     "inte",

@@ -6,6 +6,8 @@ from sklearn.metrics import (
     accuracy_score,
     r2_score,
     mean_squared_error,
+    confusion_matrix,
+    classification_report
 )
 
 
@@ -107,6 +109,8 @@ def validate(
     metrics = {
         "Macro F1": (partial(f1_score, average="macro"), "categorical"),
         "Accuracy": (accuracy_score, "categorical"),
+        "Confusion Matrix": (confusion_matrix, "categorical"),
+        "Classification Report": (classification_report, "categorical"),
         "RMSE": (mean_squared_error, "Non-categorical"),
         "R2": (r2_score, "Non-categorical"),
     }
@@ -138,7 +142,7 @@ def validate_datasets(nlp, datasets, verbose: bool = True):
             [
                 print(f"{name}: {score:.2f} - ", end="")
                 for name, score in out.items()
-                if not isinstance(score, tuple)
+                if isinstance(score, float)
             ]
             print(f"\tUsed neutral-range: {out['used neutral range']}")
     return output

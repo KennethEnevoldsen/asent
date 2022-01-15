@@ -10,11 +10,10 @@ sys.path.append("Benchmarks/")
 sys.path.append("..")
 
 
-from benchmark import validate_datasets, show_n_incorrect
+from benchmark import validate_datasets, show_n_incorrect, to_categorical
 
 import asent
 import spacy
-
 
 
 da_components = [
@@ -74,7 +73,35 @@ danish_datasets = {
 c = da_components[0]
 nlp = spacy.load("da_core_news_lg")
 nlp.add_pipe(c, config={"force": True})
-# validate_datasets(nlp, danish_datasets)
+from asent.getters import make_valance_getter
+
+v_getter = make_valance_getter(
+    lexicon=asent.lexicons.get("lexicon_da_afinn_v1"),
+    lemmatize=False,
+    lowercase=True,
+    cap_differential=False,
+)
+from spacy.tokens import Token
+
+Token.set_extension("valence", getter=v_getter, force=True)
+
+res = validate_datasets(nlp, danish_datasets)
+
+[(t,r) for t, r in zip(danish_datasets["europarl1"][0], danish_datasets["europarl1"][1]) if "Hr. formand" in t]
+
+
+import numpy as np
+res = show_n_incorrect(
+    nlp,
+    texts=danish_datasets["europarl1"][0],
+    y_true=to_categorical(np.array(danish_datasets["europarl1"][0])),
+    y_pred=to_categorical(
+        np.array([d._.polarity.compound for d in nlp.pipe(danish_datasets["europarl1"][0])])
+    ),n=10
+)
+
+print(res["angry-tweets"]["Classification Report"])
+print(res["angry-tweets"]["Confusion Matrix"])
 
 
 def make_valence_getters():
@@ -191,20 +218,20 @@ def make_span_polarity_getters():
     cconj_getter = make_is_contrastive_conj_getter(
         asent.lexicons.get("contrastive_conj_da_v1")
     )
-    getters["span_polarity_standard"] = make_span_polarity_getter(polarity_getter=None,
-        contrastive_conj_getter=cconj_getter
+    getters["span_polarity_standard"] = make_span_polarity_getter(
+        polarity_getter=None, contrastive_conj_getter=cconj_getter
     )
 
     cconj_getter = make_is_contrastive_conj_getter(
         asent.lexicons.get("contrastive_conj_da_v1"), lemmatize=False
     )
-    getters["span_polarity_cconj_lemma"] = make_span_polarity_getter(polarity_getter=None,
-        contrastive_conj_getter=cconj_getter
+    getters["span_polarity_cconj_lemma"] = make_span_polarity_getter(
+        polarity_getter=None, contrastive_conj_getter=cconj_getter
     )
 
     cconj_getter = make_is_contrastive_conj_getter({})
-    getters["span_polarity_no_cconj"] = make_span_polarity_getter(polarity_getter=None,
-        contrastive_conj_getter=cconj_getter
+    getters["span_polarity_no_cconj"] = make_span_polarity_getter(
+        polarity_getter=None, contrastive_conj_getter=cconj_getter
     )
 
     # with dep/pos but
@@ -217,15 +244,18 @@ def make_doc_polarity_getters():
     from asent.getters import make_doc_polarity_getter
 
     getters = {}
-    getters["doc_polarity_standard"] = make_doc_polarity_getter(span_polarity_getter=None)
+    getters["doc_polarity_standard"] = make_doc_polarity_getter(
+        span_polarity_getter=None
+    )
 
     from afinn import Afinn
-    afinn = Afinn(language='da')
+
+    afinn = Afinn(language="da")
+
     def afinn_getter(doc):
         return afinn.score(doc.text)
 
     getters["doc_polarity_afinn"] = afinn_getter
-        
 
     return getters
 
@@ -274,17 +304,15 @@ def grid_search(nlp, grid=make_da_getters_grid(), datasets=danish_datasets):
         assign_ext(obj, ext, getter)
         results_["assigned_getters"].append((obj, ext, getter_name))
 
-        for obj, ext, getter_name, getter in queue:
-            assign_ext(obj, ext, getter)
-            results_["assigned_getters"].append((obj, ext, getter_name))
-
         results_["performance"] = validate_datasets(nlp, datasets, verbose=False)
         results.append(results_)
 
     return results
 
+
 import pandas as pd
 import numpy as np
+
 grid = make_da_getters_grid()
 [grid.pop(k) for k in list(grid.keys()) if k != "Token"]
 [grid["Token"].pop(k) for k in list(grid["Token"].keys()) if k != "valence"]
@@ -294,6 +322,7 @@ res = grid_search(nlp, grid=grid)
 
 
 from copy import deepcopy
+
 sav = deepcopy(res)
 
 
@@ -306,7 +335,6 @@ for d in res:
     for ds_name, ds_dict in ds.items():
         for k, val in ds_dict.items():
             d[f"{ds_name}_{k}"] = val
-
 
 
 df = pd.DataFrame(res)
