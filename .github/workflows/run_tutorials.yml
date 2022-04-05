@@ -31,4 +31,5 @@ jobs:
     - name: Run notebooks
       # run all python script in tutorials folder
       run: |
+        rm ./tutorials/customizing_your_pipeline.py  # ignore this script (requires a GPU)
         for f in tutorials/*.py; do python "$f"; done
