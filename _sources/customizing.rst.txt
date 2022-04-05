@@ -34,6 +34,12 @@ Which can then be loading using spaCy:
     import spacy
     nlp = spacy.load("sv_udv25_swedishtalbanken_trf")
 
+.. attention::
+
+    This pipeline requires a GPU and torch>=1.9.0
+
+
+
 .. seealso::
 
     If you don't wish to use the experimental version by spaCy we recommend  pipeline by `the Swedish royal library <https://github.com/Kungbib/swedish-spacy>`__.
