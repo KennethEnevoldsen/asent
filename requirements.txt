@@ -16,4 +16,4 @@ sphinx_design
 
 # code style
 flake8
-black==22.3.0
+black
