@@ -11,6 +11,4 @@ with open("asent/about.py") as f:
 with open("README.md", "r") as f:
     long_description = f.read()
 
-setuptools.setup(
-    version=__version__
-)
+setuptools.setup(version=__version__)
