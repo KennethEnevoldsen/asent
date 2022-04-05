@@ -16,4 +16,4 @@ sphinx_design
 
 # code style
 flake8
-black[jupyter]
+black[jupyter]==22.3.0
