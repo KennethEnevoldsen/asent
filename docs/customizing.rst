@@ -3,7 +3,7 @@ Customizing Asent
 
 .. |colab_tut| image:: https://colab.research.google.com/assets/colab-badge.svg
    :width: 140pt
-   :target: https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/Customizing_your_pipeline.ipynb
+   :target: https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/customizing_your_pipeline.ipynb
 
 |colab_tut|
 
