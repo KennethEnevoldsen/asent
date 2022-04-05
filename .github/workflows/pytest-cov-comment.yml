@@ -31,7 +31,9 @@ jobs:
         pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        python ./dev/pytest-coverage/run_coverage.py
+        echo "[run]\nomit =\n\tasent/tests/*" > .coveragerc
+        python -m  pytest --cov=asent --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
+
 
   pytest-coverage:
     runs-on: ubuntu-latest
@@ -45,15 +47,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest pytest-cov
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        python ./dev/pytest-coverage/run_coverage.py
+        echo "[run]\nomit =\n\tasent/tests/*" > .coveragerc
+        python -m  pytest --cov=asent --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
+
     - name: Pytest coverage comment
       id: coverage-comment
       uses: MishaKav/pytest-coverage-comment@v1.0
       with:
-        pytest-coverage-path: ./dev/pytest-coverage/pytest-coverage.txt
+        pytest-coverage-path: ./pytest-coverage.txt
 
     - name: Check the output coverage
       run: |
