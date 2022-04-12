@@ -13,13 +13,13 @@
 <meta property="og:description" content="colab_tut Asent is a package for fast and transparent sentiment analysis. The package applied uses a dictionary of words rated as either positive or negative and a series of rules to determine whet..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Customizing Asent" href="customizing.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>Getting started - asent 0.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
 
@@ -52,10 +52,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -238,8 +240,8 @@ as well as other emphasis markers such as exclamation marks, casing and question
 will take you through how the sentiment is calculated in a step by step fashion.</p>
 <p>To start of with we will need a spaCy pipeline as well as we will need to add the asent pipeline to it.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="b703bc69-ef09-48ab-b2bd-a5da67f5667f" name="785cbdfb-2b18-4001-badd-3a00fa053a00" type="radio"/>
-<label class="sd-tab-label" for="b703bc69-ef09-48ab-b2bd-a5da67f5667f">
+<input checked="checked" id="5bcd54da-e51f-4147-a32b-adf412027c07" name="e869db46-1cb8-4473-bfb0-0cab21e07f83" type="radio"/>
+<label class="sd-tab-label" for="5bcd54da-e51f-4147-a32b-adf412027c07">
 English</label><div class="sd-tab-content docutils">
 <p>For English we can add the <code class="code docutils literal notranslate"><span class="pre">asent_en_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">en</span></code> indicates that it is the English pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -261,8 +263,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="e3fd5866-6f91-41dc-aaa4-06b19a5cb04f" name="785cbdfb-2b18-4001-badd-3a00fa053a00" type="radio"/>
-<label class="sd-tab-label" for="e3fd5866-6f91-41dc-aaa4-06b19a5cb04f">
+<input id="386d1f25-0601-40db-ad9b-b38cf3abaec5" name="e869db46-1cb8-4473-bfb0-0cab21e07f83" type="radio"/>
+<label class="sd-tab-label" for="386d1f25-0601-40db-ad9b-b38cf3abaec5">
 Danish</label><div class="sd-tab-content docutils">
 <p>For Danish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_da_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">da</span></code> indicates that it is the Danish pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -284,8 +286,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="9be4d807-ca8c-4480-bad6-910e20544f5d" name="785cbdfb-2b18-4001-badd-3a00fa053a00" type="radio"/>
-<label class="sd-tab-label" for="9be4d807-ca8c-4480-bad6-910e20544f5d">
+<input id="964abf3f-b4eb-41bb-8994-7536e98502c9" name="e869db46-1cb8-4473-bfb0-0cab21e07f83" type="radio"/>
+<label class="sd-tab-label" for="964abf3f-b4eb-41bb-8994-7536e98502c9">
 Norwegian</label><div class="sd-tab-content docutils">
 <p>For Norwegian we can add the <code class="code docutils literal notranslate"><span class="pre">asent_no_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
@@ -307,8 +309,8 @@ that it is version 1.</p>
 </div>
 </div>
 </div>
-<input id="59c4bd55-82a0-45dc-ab24-87b6c6a111c4" name="785cbdfb-2b18-4001-badd-3a00fa053a00" type="radio"/>
-<label class="sd-tab-label" for="59c4bd55-82a0-45dc-ab24-87b6c6a111c4">
+<input id="c18ee01e-ff5c-4c0d-a648-b2d66a09c734" name="e869db46-1cb8-4473-bfb0-0cab21e07f83" type="radio"/>
+<label class="sd-tab-label" for="c18ee01e-ff5c-4c0d-a648-b2d66a09c734">
 Swedish</label><div class="sd-tab-content docutils">
 <p>For Swedish we can add the <code class="code docutils literal notranslate"><span class="pre">asent_se_v1</span></code> to it, where <code class="code docutils literal notranslate"><span class="pre">no</span></code> indicates that it is the Norwegian pipeline and  <code class="code docutils literal notranslate"><span class="pre">v1</span></code> indicate
 that it is version 1.</p>
