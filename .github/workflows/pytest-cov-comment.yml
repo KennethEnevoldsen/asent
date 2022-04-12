@@ -31,8 +31,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        echo "[run]\nomit =\n\tasent/tests/*" > .coveragerc
-        python -m  pytest --cov=asent --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
+        python -m  pytest --cov=asent --cov-report term-missing
 
 
   pytest-coverage:
@@ -50,8 +49,8 @@ jobs:
         pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        echo "[run]\nomit =\n\tasent/tests/*" > .coveragerc
-        python -m  pytest --cov=asent --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
+        set -o pipefail
+        pytest --cov=asent --cov-report term-missing | tee pytest-coverage.txt
 
     - name: Pytest coverage comment
       id: coverage-comment
