@@ -132,7 +132,7 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
                     {
                         "start": t_pol.negation.i,
                         "end": t.i,
-                        "label": "intensified by",
+                        "label": "negated by",
                         "dir": "left",
                     }
                 )

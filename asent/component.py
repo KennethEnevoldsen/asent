@@ -143,7 +143,7 @@ DEFAULT_CONFIG = {
     "contrastive_conj": set(),
     "lowercase": True,
     "lemmatize": False,
-    "force": False,
+    "force": True,
 }
 
 
