@@ -80,7 +80,7 @@ lexicons.register("contrastive_conj_da_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_da_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_da_v1", default_config={"force": False})
+@Language.factory("asent_da_v1", default_config={"force": True})
 def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
     """
     Allows the Danish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_da_v1").
