@@ -54,7 +54,7 @@ jobs:
 
     - name: Pytest coverage comment
       id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.1.25
+      uses: MishaKav/pytest-coverage-comment@v1.1.28
       with:
         pytest-coverage-path: ./pytest-coverage.txt
         github-token: ${{ secrets.SPHINX_DOCUMENTATION }}
