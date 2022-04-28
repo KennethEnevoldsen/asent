@@ -60,6 +60,7 @@ jobs:
         github-token: ${{ secrets.SPHINX_DOCUMENTATION }}
 
     - name: Check the output coverage
+      if: ${{ github.event_name == 'push' }}
       run: |
         echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
         echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
