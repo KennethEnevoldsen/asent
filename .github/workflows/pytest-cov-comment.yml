@@ -54,12 +54,13 @@ jobs:
 
     - name: Pytest coverage comment
       id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.1.25
+      uses: MishaKav/pytest-coverage-comment@v1.1.28
       with:
         pytest-coverage-path: ./pytest-coverage.txt
         github-token: ${{ secrets.SPHINX_DOCUMENTATION }}
 
     - name: Check the output coverage
+      if: ${{ github.event_name == 'push' }}
       run: |
         echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
         echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
