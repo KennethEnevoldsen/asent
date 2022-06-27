@@ -114,17 +114,17 @@ class DocPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: DocPolarityOutput | float):
+    def __lt__(self, other: Union[DocPolarityOutput, float]):
         if isinstance(other, DocPolarityOutput):
             other = other.compound
         return self.compound < other
 
-    def __gt__(self, other: DocPolarityOutput | float):
+    def __gt__(self, other: Union[DocPolarityOutput, float]):
         if isinstance(other, DocPolarityOutput):
             other = other.compound
         return self.compound > other
 
-    def __eq__(self, other: DocPolarityOutput | float) -> bool:
+    def __eq__(self, other: Union[DocPolarityOutput, float]) -> bool:
         if isinstance(other, DocPolarityOutput):
             other = other.compound
         return self.compound == other
