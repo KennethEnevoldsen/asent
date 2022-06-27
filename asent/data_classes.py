@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Union
+
 from pydantic import BaseModel
 from spacy.tokens import Doc, Span, Token
 
@@ -27,12 +29,12 @@ class TokenPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: TokenPolarityOutput | float):
+    def __lt__(self, other: Union[TokenPolarityOutput, float]):
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity < other
 
-    def __gt__(self, other: TokenPolarityOutput | float):
+    def __gt__(self, other: Union[TokenPolarityOutput, float]):
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity > other
@@ -40,7 +42,7 @@ class TokenPolarityOutput(BaseModel):
     def __bool__(self):
         return bool(self.polarity)
 
-    def __eq__(self, other: TokenPolarityOutput | float):
+    def __eq__(self, other: Union[TokenPolarityOutput, float]):
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity == other
@@ -72,17 +74,17 @@ class SpanPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: SpanPolarityOutput | float):
+    def __lt__(self, other: Union[SpanPolarityOutput, float]):
         if isinstance(other, SpanPolarityOutput):
             other = other.compound
         return self.compound < other
 
-    def __gt__(self, other: SpanPolarityOutput | float):
+    def __gt__(self, other: Union[SpanPolarityOutput, float]):
         if isinstance(other, SpanPolarityOutput):
             other = other.compound
         return self.compound > other
 
-    def __eq__(self, other: SpanPolarityOutput | float) -> bool:
+    def __eq__(self, other: Union[SpanPolarityOutput, float]) -> bool:
         if isinstance(other, SpanPolarityOutput):
             other = other.compound
         return self.compound == other
