@@ -84,9 +84,7 @@ pipe.replace("polarity", new_valence_getter)
 # error polarity is set for both, Token span and doc, please specify 
 pipe.replace("polarity", setter=span_polarity_setter, container="Span")
 ```
-# Create a pipeline visualizer like:
 
-https://huggingface.co/spaces/spacy/pipeline-visualizer
 
 
 # create an internal atrribute that keeps the list of highlights
@@ -103,4 +101,3 @@ def set_highlight(token, value):
 # user-facing attribute used for getting and setting
 Token.set_extension('highlight', getter=get_highlights, setter=set_highlight)
 
-# Ask rebekkah about
