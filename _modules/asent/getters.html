@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>asent.getters - asent 0.4.0 documentation</title>
+        <title>asent.getters - asent 0.4.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -130,7 +130,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.4.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -221,17 +221,13 @@
         </div>
         <article role="main">
           <h1>Source code for asent.getters</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Token</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">AFTER_BUT_SCALAR</span><span class="p">,</span>
-    <span class="n">BEFORE_BUT_SCALAR</span><span class="p">,</span>
-    <span class="n">C_INCR</span><span class="p">,</span>
-    <span class="n">N_SCALAR</span><span class="p">,</span>
-<span class="p">)</span>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">,</span> <span class="n">Token</span>
+
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">AFTER_BUT_SCALAR</span><span class="p">,</span> <span class="n">BEFORE_BUT_SCALAR</span><span class="p">,</span> <span class="n">C_INCR</span><span class="p">,</span> <span class="n">N_SCALAR</span>
 <span class="kn">from</span> <span class="nn">.data_classes</span> <span class="kn">import</span> <span class="n">DocPolarityOutput</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">,</span> <span class="n">TokenPolarityOutput</span>
-<span class="kn">import</span> <span class="nn">math</span>
 
 
 <div class="viewcode-block" id="make_txt_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_txt_getter">[docs]</a><span class="k">def</span> <span class="nf">make_txt_getter</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
@@ -271,7 +267,8 @@
     <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">"""Creates a token getter which checks it token is an intensifier and return it intensification factor</span>
+    <span class="sd">"""Creates a token getter which checks it token is an intensifier and</span>
+<span class="sd">    return it intensification factor.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        intensifiers (Dict[str, float]): A dictionary of intensifiers and multiplication factor.</span>
@@ -287,9 +284,7 @@
         <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">intensifier_scalar_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        get intensifier score for token.</span>
-<span class="sd">        """</span>
+        <span class="sd">"""get intensifier score for token."""</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t_getter</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">intensifiers</span><span class="p">:</span>
             <span class="n">scalar</span> <span class="o">=</span> <span class="n">intensifiers</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
@@ -302,7 +297,7 @@
 
 
 <div class="viewcode-block" id="allcap_differential_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.allcap_differential_getter">[docs]</a><span class="k">def</span> <span class="nf">allcap_differential_getter</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""Check whether just some words in the span are ALL CAPS</span>
+    <span class="sd">"""Check whether just some words in the span are ALL CAPS.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Span): A spaCy span</span>
@@ -327,7 +322,8 @@
     <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">cap_differential</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">C_INCR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">"""Creates a token getter which return the valence (sentiment) of a token including the capitalization of the token.</span>
+    <span class="sd">"""Creates a token getter which return the valence (sentiment) of a token</span>
+<span class="sd">    including the capitalization of the token.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        lexicon (Dict[str, float]): The valence scores of the tokens.</span>
@@ -343,7 +339,6 @@
     <span class="n">t_getter</span> <span class="o">=</span> <span class="n">make_txt_getter</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">valence_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">valence</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t_getter</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="ow">in</span> <span class="n">lexicon</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"intensifier"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">intensifier</span>
@@ -363,16 +358,21 @@
     <span class="k">if</span> <span class="n">cap_differential</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_cap_diff"</span><span class="p">):</span>
             <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"is_cap_diff"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
+                <span class="s2">"is_cap_diff"</span><span class="p">,</span>
+                <span class="n">getter</span><span class="o">=</span><span class="n">allcap_differential_getter</span><span class="p">,</span>
+                <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">cap_diff_valence_getter</span>
     <span class="k">return</span> <span class="n">valence_getter</span></div>
 
 
 <div class="viewcode-block" id="make_is_negation_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_is_negation_getter">[docs]</a><span class="k">def</span> <span class="nf">make_is_negation_getter</span><span class="p">(</span>
-    <span class="n">negations</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">negations</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]:</span>
-    <span class="sd">"""Creates a token getter which return whether a token is a negation or not.</span>
+    <span class="sd">"""Creates a token getter which return whether a token is a negation or</span>
+<span class="sd">    not.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        negations (Iterable[str]): An list of negations</span>
@@ -385,9 +385,7 @@
     <span class="n">t_getter</span> <span class="o">=</span> <span class="n">make_txt_getter</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_negation</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Determine if token is negation words</span>
-<span class="sd">        """</span>
+        <span class="sd">"""Determine if token is negation words."""</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t_getter</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">negations</span>
 
@@ -399,7 +397,8 @@
     <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]:</span>
-    <span class="sd">"""Creates a token getter for whether a token is a constrastive conjugations</span>
+    <span class="sd">"""Creates a token getter for whether a token is a constrastive</span>
+<span class="sd">    conjugations.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        contrastive_conjugations (Iterable[str]): A list of contrastive conjugations.</span>
@@ -413,9 +412,7 @@
     <span class="n">t_getter</span> <span class="o">=</span> <span class="n">make_txt_getter</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_contrastive_conj</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Determine if token is a contrastive conjugation</span>
-<span class="sd">        """</span>
+        <span class="sd">"""Determine if token is a contrastive conjugation."""</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t_getter</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">contrastive_conjugations</span>
 
@@ -423,9 +420,11 @@
 
 
 <div class="viewcode-block" id="make_is_negated_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_is_negated_getter">[docs]</a><span class="k">def</span> <span class="nf">make_is_negated_getter</span><span class="p">(</span>
-    <span class="n">lookback</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">is_negation_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">lookback</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">is_negation_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Token</span><span class="p">]]:</span>
-    <span class="sd">"""Creates a getter which checks if a token is negated by checked whether the n previous workds are negations.</span>
+    <span class="sd">"""Creates a getter which checks if a token is negated by checked whether</span>
+<span class="sd">    the n previous workds are negations.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        lookback (int, optional): How many token should it look backwards for negations? Defaults to 3</span>
@@ -442,13 +441,11 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_negation"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"Token class has no extension 'is_negation', either set the extension"</span>
-            <span class="o">+</span> <span class="s2">" or provide the is_negation_getter."</span>
+            <span class="o">+</span> <span class="s2">" or provide the is_negation_getter."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_negated_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Determine if token is negated</span>
-<span class="sd">        """</span>
+        <span class="sd">"""Determine if token is negated."""</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">lookback</span> <span class="p">:</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">t</span>
@@ -464,9 +461,9 @@
     <span class="n">lookback_intensities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">],</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">"""Creates a function (getter) which takes a token and return the polarity of the token based upon whether the token valence (sentiment)</span>
-<span class="sd">    including whether is negated and whether it is intensified using an intensifier.</span>
-
+    <span class="sd">"""Creates a function (getter) which takes a token and return the polarity</span>
+<span class="sd">    of the token based upon whether the token valence (sentiment) including</span>
+<span class="sd">    whether is negated and whether it is intensified using an intensifier.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        valence_getter (Optional[Callable[[Token], float]]): a function which given a token return the</span>
@@ -497,7 +494,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"valence"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"Token class has no extension 'valence', either set the extension"</span>
-            <span class="o">+</span> <span class="s2">" or provide the valence_getter."</span>
+            <span class="o">+</span> <span class="s2">" or provide the valence_getter."</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">is_negated_getter</span><span class="p">:</span>
         <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
@@ -508,7 +505,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_negated"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"Token class has no extension 'is_negated', either set the extension"</span>
-            <span class="o">+</span> <span class="s2">" or provide the is_negation_getter."</span>
+            <span class="o">+</span> <span class="s2">" or provide the is_negation_getter."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">intensifier_getter</span><span class="p">:</span>
@@ -561,10 +558,8 @@
 
 
 <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Normalize the score to be between -1 and 1 using an alpha that</span>
-<span class="sd">    approximates the max expected value</span>
-<span class="sd">    """</span>
+    <span class="sd">"""Normalize the score to be between -1 and 1 using an alpha that</span>
+<span class="sd">    approximates the max expected value."""</span>
     <span class="n">norm_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">score</span> <span class="o">*</span> <span class="n">score</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">norm_score</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span>
@@ -574,9 +569,7 @@
 
 
 <span class="k">def</span> <span class="nf">questionmark_amplification</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Amplified the questions</span>
-<span class="sd">    """</span>
+    <span class="sd">"""Amplified the questions."""</span>
     <span class="c1"># check for added emphasis resulting from question marks (2 or 3+)</span>
     <span class="n">qm_count</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"?"</span><span class="p">)</span>
     <span class="n">qm_amplifier</span> <span class="o">=</span> <span class="mi">0</span>
@@ -621,9 +614,7 @@
 
 
 <span class="k">def</span> <span class="nf">sift_sentiment_scores</span><span class="p">(</span><span class="n">sentiments</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-    <span class="sd">"""</span>
-<span class="sd">    separate positive and negative sentiment scores</span>
-<span class="sd">    """</span>
+    <span class="sd">"""separate positive and negative sentiment scores."""</span>
     <span class="n">pos_sum</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">neg_sum</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">neu_count</span> <span class="o">=</span> <span class="mi">0</span>
@@ -645,8 +636,9 @@
     <span class="n">polarity_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]],</span>
     <span class="n">contrastive_conj_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpanPolarityOutput</span><span class="p">:</span>
-    <span class="sd">"""Creates a function (getter) which for a span return the aggrated polarities. Including accounting for</span>
-<span class="sd">    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.</span>
+    <span class="sd">"""Creates a function (getter) which for a span return the aggrated</span>
+<span class="sd">    polarities. Including accounting for contrastive conjugations (e.g. 'but'),</span>
+<span class="sd">    exclamationsmarks and questionmarks.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        polarity_getter (Optional[Callable[[Token], float]]): A function which given a token return</span>
@@ -668,16 +660,18 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"polarity"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"Token class has no extension 'polarity', either set the extension"</span>
-            <span class="o">+</span> <span class="s2">" or provide the polarity_getter."</span>
+            <span class="o">+</span> <span class="s2">" or provide the polarity_getter."</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">contrastive_conj_getter</span><span class="p">:</span>
         <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-            <span class="s2">"is_contrastive_conj"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">contrastive_conj_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
+            <span class="s2">"is_contrastive_conj"</span><span class="p">,</span>
+            <span class="n">getter</span><span class="o">=</span><span class="n">contrastive_conj_getter</span><span class="p">,</span>
+            <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_contrastive_conj"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"Token class has no extension 'is_contrastive_conj', either set the extension"</span>
-            <span class="o">+</span> <span class="s2">" or provide the contrastive_conj_getter."</span>
+            <span class="o">+</span> <span class="s2">" or provide the contrastive_conj_getter."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__extract</span><span class="p">(</span><span class="n">polarity</span><span class="p">:</span> <span class="n">TokenPolarityOutput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Span</span><span class="p">]:</span>
@@ -736,8 +730,9 @@
 <div class="viewcode-block" id="make_doc_polarity_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_doc_polarity_getter">[docs]</a><span class="k">def</span> <span class="nf">make_doc_polarity_getter</span><span class="p">(</span>
     <span class="n">span_polarity_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Span</span><span class="p">],</span> <span class="nb">float</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocPolarityOutput</span><span class="p">:</span>
-    <span class="sd">"""Creates a function (getter) which for a doc return the aggrated polarities. Including accounting for</span>
-<span class="sd">    contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.</span>
+    <span class="sd">"""Creates a function (getter) which for a doc return the aggrated</span>
+<span class="sd">    polarities. Including accounting for contrastive conjugations (e.g. 'but'),</span>
+<span class="sd">    exclamationsmarks and questionmarks.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span_polarity_getter (Optional[Callable[[Span], float]]):  a function which given a span return</span>
@@ -753,7 +748,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"polarity"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"Span class has no extension 'polarity', either set the extension"</span>
-            <span class="o">+</span> <span class="s2">" or provide the span_polarity_getter."</span>
+            <span class="o">+</span> <span class="s2">" or provide the span_polarity_getter."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">polarity_getter</span><span class="p">(</span>
@@ -762,10 +757,10 @@
         <span class="n">polarities</span> <span class="o">=</span> <span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">polarities</span><span class="p">:</span>
             <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">polarities</span><span class="p">)</span>
-            <span class="n">negative</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">negative</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
-            <span class="n">positive</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">positive</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
-            <span class="n">neutral</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">neutral</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
-            <span class="n">compound</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">compound</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">negative</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">negative</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">positive</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">positive</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">neutral</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">neutral</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">compound</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">compound</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polarities</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">negative</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">positive</span> <span class="o">=</span> <span class="mi">0</span>

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>asent.component - asent 0.4.0 documentation</title>
+        <title>asent.component - asent 0.4.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -130,7 +130,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.4.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -223,28 +223,30 @@
           <h1>Source code for asent.component</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Calculation of various readability metrics."""</span>
 
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Token</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
-
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span>
 
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">,</span> <span class="n">Token</span>
 
 <span class="kn">from</span> <span class="nn">asent.getters</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">make_token_polarity_getter</span><span class="p">,</span>
-    <span class="n">make_span_polarity_getter</span><span class="p">,</span>
-    <span class="n">make_is_negation_getter</span><span class="p">,</span>
-    <span class="n">make_is_negated_getter</span><span class="p">,</span>
-    <span class="n">make_valance_getter</span><span class="p">,</span>
+    <span class="n">make_doc_polarity_getter</span><span class="p">,</span>
     <span class="n">make_intensifier_getter</span><span class="p">,</span>
     <span class="n">make_is_contrastive_conj_getter</span><span class="p">,</span>
-    <span class="n">make_doc_polarity_getter</span><span class="p">,</span>
+    <span class="n">make_is_negated_getter</span><span class="p">,</span>
+    <span class="n">make_is_negation_getter</span><span class="p">,</span>
+    <span class="n">make_span_polarity_getter</span><span class="p">,</span>
+    <span class="n">make_token_polarity_getter</span><span class="p">,</span>
+    <span class="n">make_valance_getter</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <div class="viewcode-block" id="Asent"><a class="viewcode-back" href="../../asent.component.html#asent.component.Asent">[docs]</a><span class="k">class</span> <span class="nc">Asent</span><span class="p">:</span>
-    <span class="sd">"""spaCy v.3.0 component for adding an asent sentiment models to `Doc` objects.</span>
-<span class="sd">    Ading the Token extentions 'valence', 'intensifier', 'is_negation', 'is_negated',</span>
-<span class="sd">    'is_contrastive_conj' and 'polarity' as well as the Span and Doc extension 'polarity'.</span>
+    <span class="sd">"""spaCy v.3.0 component for adding an asent sentiment models to `Doc`</span>
+<span class="sd">    objects.</span>
+
+<span class="sd">    Ading the Token extentions 'valence', 'intensifier', 'is_negation',</span>
+<span class="sd">    'is_negated', 'is_contrastive_conj' and 'polarity' as well as the</span>
+<span class="sd">    Span and Doc extension 'polarity'.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -259,7 +261,7 @@
         <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""Initialize component</span>
+        <span class="sd">"""Initialize component.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            nlp (Language): A spaCy language pipeline for which to add the component to</span>
@@ -278,7 +280,9 @@
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
                 <span class="s2">"valence"</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_valance_getter</span><span class="p">(</span>
-                    <span class="n">lexicon</span><span class="o">=</span><span class="n">lexicon</span><span class="p">,</span> <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span><span class="p">,</span> <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span>
+                    <span class="n">lexicon</span><span class="o">=</span><span class="n">lexicon</span><span class="p">,</span>
+                    <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span><span class="p">,</span>
+                    <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
@@ -287,7 +291,9 @@
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
                 <span class="s2">"intensifier"</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_intensifier_getter</span><span class="p">(</span>
-                    <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifiers</span><span class="p">,</span> <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span> <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span>
+                    <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifiers</span><span class="p">,</span>
+                    <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
+                    <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
@@ -296,7 +302,9 @@
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
                 <span class="s2">"is_negation"</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_is_negation_getter</span><span class="p">(</span>
-                    <span class="n">negations</span><span class="o">=</span><span class="n">negations</span><span class="p">,</span> <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span> <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span>
+                    <span class="n">negations</span><span class="o">=</span><span class="n">negations</span><span class="p">,</span>
+                    <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
+                    <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
@@ -348,7 +356,7 @@
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Doc</span><span class="p">:</span>
-        <span class="sd">"""Run the pipeline component</span>
+        <span class="sd">"""Run the pipeline component.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            doc (Doc): A spaCy document the component should be applied to.</span>
@@ -382,7 +390,8 @@
     <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
-    <span class="sd">"""Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_v1")."""</span>
+    <span class="sd">"""Allows a asent sentiment pipe to be added to a spaCy pipe using</span>
+<span class="sd">    nlp.add_pipe("asent_v1")."""</span>
 
     <span class="k">return</span> <span class="n">Asent</span><span class="p">(</span>
         <span class="n">nlp</span><span class="p">,</span>
