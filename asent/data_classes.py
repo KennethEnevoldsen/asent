@@ -60,7 +60,7 @@ class SpanPolarityOutput(BaseModel):
     positive: float
     compound: float
     span: Span
-    polarities: list[TokenPolarityOutput]
+    polarities: List[TokenPolarityOutput]
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
@@ -101,7 +101,7 @@ class DocPolarityOutput(BaseModel):
     positive: float
     compound: float
     doc: Doc
-    polarities: list[SpanPolarityOutput]
+    polarities: List[SpanPolarityOutput]
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
