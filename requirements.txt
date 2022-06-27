@@ -2,7 +2,7 @@ spacy>=3.0.0,<3.4.0
 matplotlib>=3.5.0,<4.0.0
 
 # spacy pipeline
-https://github.com/explosion/spacy-models/releases/download/da_core_news_lg-3.2.0/da_core_news_lg-3.2.0-py3-none-any.wh
+https://github.com/explosion/spacy-models/releases/download/da_core_news_lg-3.2.0/da_core_news_lg-3.2.0-py3-none-any.whl
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl
 https://github.com/explosion/spacy-models/releases/download/nb_core_news_sm-3.2.0/nb_core_news_sm-3.2.0-py3-none-any.whl
 
@@ -17,3 +17,4 @@ sphinx_design
 # code style
 flake8
 black
+pre-commit
