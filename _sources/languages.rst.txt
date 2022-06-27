@@ -27,10 +27,7 @@ Languages
    .. tab-item:: Danish
 
 
-      The Danish lexical resources contain a list of rated lemmas for Danish. The words are rated in context by 
-      `Dalsgaard, Lauridsen and  Svendsen (2019) <https://tidsskrift.dk/lwo/article/view/115711>`__. 
-      Followingly, the words are converted into lemmas using DaCy 
-      `(Enevoldsen et al., 2021) <https://github.com/centre-for-humanities-computing/DaCy>`__.
+      The Danish lexical resources contain a list of rated words derived from `Afinn <https://github.com/fnielsen/afinn>`__.
       The lexicon also include intensifier, contrastive conjugations
       and negations. It includes a total of 6593 rated lemmas along with intensifier, contrastive conjugations
       and negations.
@@ -40,11 +37,18 @@ Languages
       .. code-block:: python
 
          from asent import lexicons
-         rated_words = lexicons.get("lexicon_da_v1") 
+         rated_words = lexicons.get("lexicon_da_afinn_v1")
          negations = lexicons.get("negations_da_v1")
          intensifiers = lexicons.get("intensifiers_da_v1")
          cconj = lexicons.get("contrastive_conj_da_v1")
 
+      Beyond the default lexicon Asent also include a series of words rated in context by
+      `Dalsgaard, Lauridsen and  Svendsen (2019) <https://tidsskrift.dk/lwo/article/view/115711>`__. Which have been lemmatized using DaCy 
+      `(Enevoldsen et al., 2021) <https://github.com/centre-for-humanities-computing/DaCy>`__. This dictionary:
+      
+      .. code-block:: python
+
+         rated_words = lexicons.get("lexicon_da_sentida_lemma_v1") 
 
 
 
