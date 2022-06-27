@@ -100,7 +100,7 @@ def allcap_differential_getter(span: Span) -> bool:
 
 def make_valance_getter(
     lexicon: Dict[str, float],
-    lemmatize: bool = True,
+    lemmatize: bool = False,
     lowercase: bool = True,
     cap_differential: Optional[float] = C_INCR,
 ) -> Callable[[Token], float]:

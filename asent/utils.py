@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List
+from typing import Callable, Dict
 import catalogue
 
 lexicons = catalogue.create("asent", "lexicon", entry_points=True)
@@ -28,3 +28,14 @@ def register_component(name: str, func: Callable) -> None:
         func (Callable): A Callable component
     """
     components.register(name, func=func)
+
+
+def read_lexicon(path: str) -> Dict[str, float]:
+    with open(path, encoding="utf-8") as f:
+        lexicon = {}
+        for line in f.read().rstrip("\n").split("\n"):
+            if not line:
+                continue
+            (word, measure) = line.strip().split("\t")[0:2]
+            lexicon[word] = float(measure)
+    return lexicon

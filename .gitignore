@@ -28,3 +28,8 @@ build
 
 # prodigy
 prodigy/*
+prodigy/requirements.txt
+
+# data
+*.pkl
+*.ndjson
