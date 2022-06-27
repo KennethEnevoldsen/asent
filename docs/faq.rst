@@ -11,7 +11,7 @@ If you use this library in your research, please cite it using:
 
    @inproceedings{asent2021,
       title={Asent: Fast, flexible and transparent sentiment analysis},
-      author={Enevoldsen, Kenneth and Hansen, Lasse},
+      author={Enevoldsen, Kenneth},
       year={2021}
    }
 
