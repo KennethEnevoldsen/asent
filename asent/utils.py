@@ -29,6 +29,7 @@ def register_component(name: str, func: Callable) -> None:
     """
     components.register(name, func=func)
 
+
 def read_lexicon(path: str) -> Dict[str, float]:
     with open(path, encoding="utf-8") as f:
         lexicon = {}
