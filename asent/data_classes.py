@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import List, Optional, Union
-
 from pydantic import BaseModel
 from spacy.tokens import Doc, Span, Token
 

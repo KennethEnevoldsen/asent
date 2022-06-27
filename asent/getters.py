@@ -116,7 +116,6 @@ def make_valance_getter(
     t_getter = make_txt_getter(lemmatize, lowercase)
 
     def valence_getter(token: Token) -> float:
-        valence = 0
         t = t_getter(token)
         if (t in lexicon) and not (
             Token.has_extension("intensifier") and token._.intensifier

@@ -2,7 +2,6 @@ import codecs
 import json
 import os
 from inspect import getsourcefile
-from typing import Tuple
 
 import numpy as np
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer

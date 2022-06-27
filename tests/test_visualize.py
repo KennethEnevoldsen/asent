@@ -2,7 +2,7 @@ import pytest
 
 import asent
 
-from .test_getters import nlp_dict
+from .test_getters import nlp_dict  # noqa
 
 
 @pytest.mark.parametrize(
@@ -18,7 +18,7 @@ from .test_getters import nlp_dict
         ("jeg er ikke længere særligt sur", "da"),
     ],
 )
-def test_visualize(example: str, lang: str, nlp_dict):
+def test_visualize(example: str, lang: str, nlp_dict):  # noqa
 
     nlp = nlp_dict[lang]
     nlp.add_pipe("asent_" + lang + "_v1")

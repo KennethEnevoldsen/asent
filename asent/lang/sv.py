@@ -1,6 +1,4 @@
-import codecs
 import os
-from inspect import getsourcefile
 
 from spacy.language import Language
 

@@ -1,4 +1,4 @@
-from typing import Iterable, Union
+from typing import Union
 
 from spacy import displacy
 from spacy.tokens import Doc, Span
