@@ -12,7 +12,8 @@ def read_emoji_as_dict():
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
     emoji_lexicon = "emoji_utf8_lexicon.txt"
     emoji_full_filepath = os.path.join(
-        os.path.dirname(_this_module_file_path_), emoji_lexicon
+        os.path.dirname(_this_module_file_path_),
+        emoji_lexicon,
     )
     with codecs.open(emoji_full_filepath, encoding="utf-8") as f:
         emoji_dict = {}

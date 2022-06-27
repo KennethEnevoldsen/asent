@@ -4,9 +4,9 @@ from inspect import getsourcefile
 
 from spacy.language import Language
 
-from ..constants import B_DECR, B_INCR
-from ..utils import lexicons, components, read_lexicon
 from ..component import Asent
+from ..constants import B_DECR, B_INCR
+from ..utils import components, lexicons, read_lexicon
 
 apath = os.path.dirname(os.path.abspath(__file__))
 LEXICON = read_lexicon(os.path.join(apath, "..", "lexicons", "sv_lexicon_v1.txt"))
@@ -104,9 +104,8 @@ lexicons.register("intensifiers_sv_v1", func=INTENSIFIERS)
 
 @Language.factory("asent_sv_v1", default_config={"force": True})
 def create_sv_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
-    """
-    Allows the Swedish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_sv_v1").
-    """
+    """Allows the Swedish sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_sv_v1")."""
 
     LEXICON.update(LEXICON)
 

@@ -13,7 +13,8 @@ def read_csv_lexicon():
     lexicon_file = os.path.join("..", "lexicons", "da_lexicon_sentida_lemma_v1.csv")
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
     lexicon_full_filepath = os.path.join(
-        os.path.dirname(_this_module_file_path_), lexicon_file
+        os.path.dirname(_this_module_file_path_),
+        lexicon_file,
     )
 
     with open(lexicon_full_filepath) as f:
@@ -94,9 +95,8 @@ lexicons.register(  # store as default
 
 @Language.factory("asent_da_v1", default_config={"force": True})
 def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
-    """
-    Allows the Danish sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_da_v1").
-    """
+    """Allows the Danish sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_da_v1")."""
 
     LEXICON.update(E_LEXICON)
 

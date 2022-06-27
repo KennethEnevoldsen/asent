@@ -1,6 +1,5 @@
 import setuptools
 
-
 with open("asent/about.py") as f:
     v = f.read()
     for l in v.split("\n"):

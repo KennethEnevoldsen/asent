@@ -4,9 +4,8 @@ from inspect import getsourcefile
 
 from spacy.language import Language
 
-from ..utils import lexicons, components, read_lexicon
 from ..component import Asent
-
+from ..utils import components, lexicons, read_lexicon
 from .emoji import LEXICON as E_LEXICON
 
 apath = os.path.dirname(os.path.abspath(__file__))
@@ -130,9 +129,8 @@ lexicons.register("intensifiers_no_v1", func=INTENSIFIERS)
 
 @Language.factory("asent_no_v1", default_config={"force": True})
 def create_no_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
-    """
-    Allows the Norwegian sentiment to be added to a spaCy pipe using nlp.add_pipe("asent_no_v1").
-    """
+    """Allows the Norwegian sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_no_v1")."""
 
     LEXICON.update(E_LEXICON)
 

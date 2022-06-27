@@ -1,10 +1,12 @@
 from typing import Iterable, Union
-from spacy.tokens import Span, Doc
+
 from spacy import displacy
+from spacy.tokens import Doc, Span
 
 
 def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -> str:
-    """Render displaCy visualisation of  model prediction of sentiment or analysis of sentiment
+    """Render displaCy visualisation of  model prediction of sentiment or
+    analysis of sentiment.
 
     Args:
         doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
@@ -33,12 +35,12 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
         return visualize_analysis(doc)
     else:
         raise ValueError(
-            "Invalid style argument, should be either 'analysis' or 'prediction'"
+            "Invalid style argument, should be either 'analysis' or 'prediction'",
         )
 
 
 def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
-    """Render displaCy visualisation of model prediction of sentiment
+    """Render displaCy visualisation of model prediction of sentiment.
 
     Args:
         doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
@@ -78,16 +80,19 @@ def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
             "text": span.text,
             "ents": c_spans,
             "title": None,
-        }
+        },
     ]
     html = displacy.render(
-        ex, style="ent", manual=True, options={"colors": sentiment_color_dict}
+        ex,
+        style="ent",
+        manual=True,
+        options={"colors": sentiment_color_dict},
     )
     return html
 
 
 def visualize_analysis(doc: Union[Span, Doc]) -> str:
-    """Render displaCy visualisation of model analysis
+    """Render displaCy visualisation of model analysis.
 
     Args:
         doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
@@ -111,7 +116,7 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
                 {
                     "text": t.text,
                     "tag": f"{t._.polarity.polarity:.1f} ({t._.valence:.1f})",
-                }
+                },
             )
         else:
             words.append({"text": t.text, "tag": f"{t._.valence:.1f}"})
@@ -125,7 +130,7 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
                             "end": t.i,
                             "label": "intensified by",
                             "dir": "left",
-                        }
+                        },
                     )
             if t_pol.negation:
                 arcs.append(
@@ -134,7 +139,7 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
                         "end": t.i,
                         "label": "negated by",
                         "dir": "left",
-                    }
+                    },
                 )
     # Visualize analysis
     from spacy import displacy
@@ -146,7 +151,7 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
 
 
 def make_colors(n=10, cmap="RdYlGn"):
-    """A utility function for creating a stepped color gradient"""
+    """A utility function for creating a stepped color gradient."""
     from pylab import cm, matplotlib
 
     cmap = cm.get_cmap(cmap, n)  # PiYG

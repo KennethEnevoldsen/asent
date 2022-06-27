@@ -2,9 +2,9 @@ import pytest
 import spacy
 
 from asent.data_classes import (
-    TokenPolarityOutput,
-    SpanPolarityOutput,
     DocPolarityOutput,
+    SpanPolarityOutput,
+    TokenPolarityOutput,
 )
 
 

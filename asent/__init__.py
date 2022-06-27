@@ -1,6 +1,4 @@
-from .utils import register_lexicon, lexicons, components, register_component  # noqa
-
+from .about import __documentation__, __download_url__, __title__, __version__  # noqa
+from .lang import da, emoji, en, no, sv  # noqa
+from .utils import components, lexicons, register_component, register_lexicon  # noqa
 from .visualize import visualize  # noqa
-from .lang import da, no, en, emoji, sv  # noqa
-
-from .about import __version__, __download_url__, __documentation__, __title__  # noqa
