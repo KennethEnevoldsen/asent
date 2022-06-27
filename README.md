@@ -94,15 +94,3 @@ punctuations. For more on how the model works check out the [usage guide].
 [FAQ]: https://kennethenevoldsen.github.io/asent/faq.html
 [github issue tracker]: https://github.com/kennethenevoldsen/asent/issues
 [github discussions]: https://github.com/kennethenevoldsen/asent/discussions
-
-## 🎓 Citing this work
-
-If you use this library in your research, please cite it using:
-
-```
-@inproceedings{asent2021,
-  title={Asent: Fast, flexible and transparent sentiment analysis},
-  author={Kenneth Enevoldsen},
-  year={2021}
-}
-```
