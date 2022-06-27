@@ -8,7 +8,7 @@ https://github.com/explosion/spacy-models/releases/download/nb_core_news_sm-3.2.
 
 # documentation
 sphinx>=4.5.0,<6.0.0
-furo==2022.6.21
+furo>=2022.6.21
 sphinx-copybutton
 sphinxext-opengraph
 myst-parser
