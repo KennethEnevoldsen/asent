@@ -5,16 +5,24 @@ Frequently asked questions
 Citing asent
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you use this library in your research, please cite it using:
+If you use this library in your research, please cite it using the following citation.
+Naturally you will have to change the version to fit the used version.
 
 .. code-block::
 
-   @inproceedings{asent2021,
-      title={Asent: Fast, flexible and transparent sentiment analysis},
-      author={Enevoldsen, Kenneth and Hansen, Lasse},
-      year={2021}
+   @software{Enevoldsen_Asent_Fast_flexible_2022,
+   author = {Enevoldsen, Kenneth},
+   title = {{Asent: Fast, flexible and transparent sentiment analysis}},
+   url = {https://github.com/KennethEnevoldsen/asent},
+   version = {0.4.0},
+   year = {2022}
    }
 
+or if you prefer APA:
+
+.. code-block::
+   
+   Enevoldsen, K. (2022). Asent: Fast, flexible and transparent sentiment analysis (Version 0.4.0) [Computer software]. https://github.com/KennethEnevoldsen/asent
 
 How do I test the code and run the test suite?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -41,28 +41,39 @@ nlp.add_pipe("asent_en_v1")
 text = "I am not very happy, but I am also not especially sad"
 doc = nlp(text)
 
+# print polarity of document, scaled to be between -1, and 1
+print(doc._.polarity)
+# neg=0.0 neu=0.631 pos=0.369 compound=0.7526
+```
+
+Naturally, a simple score can be quite unsatisfying, thus Asent implements a series of visualizer to interpret the results: 
+```python
 # visualize model prediction
 asent.visualize(doc, style="prediction")
 ```
 
 <img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png" width="500" />
 
-If we want to know even more
-```
+If we want to know why the model comes the result it does we can use the `analysis` style:
+```python
 # visualize the analysis performed by the model:
 asent.visualize(doc[:5], style="analysis")
 ```
 <img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis.png" width="700" />
 
+Where the value in the parenthesis (2.7) indicates the human-rating of the word, while
+the value outside the parenthesis indicates the value accounting for the negation.
+Asent also accounts for contrastive conjugations (e.g. but), casing, emoji's and
+punctuations. For more on how the model works check out the [usage guide].
 
 # 📖 Documentation
 
-| Documentation              |                                                                             |
-| -------------------------- | --------------------------------------------------------------------------- |
-| 🔧 **[Installation]**       | Installation instructions for Asent          |
-| 📚 **[Usage Guides]**       | Guides and instructions on how to use asent and its features.               |
-| 📰 **[News and changelog]** | New additions, changes and version history.                                 |
-| 🎛 **[Documentation]**     | The detailed reference for Asents's API. Including function documentation |
+| Documentation              |                                                                                                                         |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| 🔧 **[Installation]**       | Installation instructions for Asent                                                                                     |
+| 📚 **[Usage Guides]**       | Guides and instructions on how to use asent and its features. It also gives short introduction to how the models works. |
+| 📰 **[News and changelog]** | New additions, changes and version history.                                                                             |
+| 🎛 **[Documentation]**      | The detailed reference for Asents's API. Including function documentation                                               |
 
 [Documentation]: https://kennethenevoldsen.github.io/asent/index.html
 [Installation]: https://kennethenevoldsen.github.io/asent/installation.html
