@@ -2,9 +2,9 @@ spacy>=3.0.0,<3.4.0
 matplotlib>=3.5.0,<4.0.0
 
 # spacy pipeline
-https://huggingface.co/spacy/da_core_news_lg/resolve/main/da_core_news_lg-any-py3-none-any.whl
-https://huggingface.co/spacy/en_core_web_sm/resolve/main/en_core_web_sm-any-py3-none-any.whl
-https://huggingface.co/spacy/nb_core_news_sm/resolve/main/nb_core_news_sm-any-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/da_core_news_lg-3.2.0/da_core_news_lg-3.2.0-py3-none-any.wh
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/nb_core_news_sm-3.2.0/nb_core_news_sm-3.2.0-py3-none-any.whl
 
 # documentation
 sphinx>=4.5.0,<5.0.0
