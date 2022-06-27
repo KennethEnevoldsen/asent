@@ -16,7 +16,7 @@ class TokenPolarityOutput(BaseModel):
     polarity: float
     token: Token
     span: Span
-    negation: Token | None = None
+    negation: Union[Token, None] = None
     intensifiers: list[Token] = []
 
     def __repr_str__(self, join_str: str) -> str:
