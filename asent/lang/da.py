@@ -10,7 +10,7 @@ from .emoji import LEXICON as E_LEXICON
 
 
 def read_csv_lexicon():
-    lexicon_file = os.path.join("..", "lexicons", "da_lexicon_sentida_v1.csv")
+    lexicon_file = os.path.join("..", "lexicons", "da_lexicon_sentida_lemma_v1.csv")
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
     lexicon_full_filepath = os.path.join(
         os.path.dirname(_this_module_file_path_), lexicon_file
