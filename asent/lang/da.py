@@ -86,6 +86,10 @@ lexicons.register(
     "lexicon_da_afinn_v1",
     func=read_lexicon(afinn_path),
 )
+lexicons.register(  # store as default
+    "lexicon_da_v1",
+    func=lexicons.get("lexicon_da_afinn_v1"),
+)
 
 
 @Language.factory("asent_da_v1", default_config={"force": True})
@@ -104,7 +108,7 @@ def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
         negations=NEGATIONS,
         contrastive_conjugations=CONTRASTIVE_CONJ,
         lowercase=True,
-        lemmatize=True,
+        lemmatize=False,
         force=force,
     )
 
