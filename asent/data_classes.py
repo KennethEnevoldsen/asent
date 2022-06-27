@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Union
+from typing import List, Union
 
 from pydantic import BaseModel
 from spacy.tokens import Doc, Span, Token
@@ -17,7 +17,7 @@ class TokenPolarityOutput(BaseModel):
     token: Token
     span: Span
     negation: Union[Token, None] = None
-    intensifiers: list[Token] = []
+    intensifiers: List[Token] = []
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
