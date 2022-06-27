@@ -3,15 +3,14 @@ from inspect import getsourcefile
 
 from spacy.language import Language
 
-from ..constants import B_INCR
 from ..component import Asent
-from ..utils import lexicons, components
-
+from ..constants import B_INCR
+from ..utils import components, lexicons, read_lexicon
 from .emoji import LEXICON as E_LEXICON
 
 
-def read_lexicon():
-    lexicon_file = os.path.join("..", "lexicons", "da_lexicon_v1.csv")
+def read_csv_lexicon():
+    lexicon_file = os.path.join("..", "lexicons", "da_lexicon_sentida_lemma_v1.csv")
     _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
     lexicon_full_filepath = os.path.join(
         os.path.dirname(_this_module_file_path_), lexicon_file
@@ -25,7 +24,8 @@ def read_lexicon():
     return lexicon
 
 
-LEXICON = read_lexicon()
+LEXICON = read_csv_lexicon()
+
 
 NEGATIONS = {"ikke", "ik", "ikk", "ik'", "aldrig", "ingen"}
 CONTRASTIVE_CONJ = {"men", "dog"}
@@ -74,10 +74,22 @@ INTENSIFIERS = {
     "seriøs": 0.3,
 }
 
-lexicons.register("lexicon_da_v1", func=LEXICON)
+
+lexicons.register("lexicon_da_sentida_lemma_v1", func=LEXICON)
 lexicons.register("negations_da_v1", func=NEGATIONS)
 lexicons.register("contrastive_conj_da_v1", func=CONTRASTIVE_CONJ)
 lexicons.register("intensifiers_da_v1", func=INTENSIFIERS)
+
+apath = os.path.dirname(os.path.abspath(__file__))
+afinn_path = os.path.join(apath, "..", "lexicons", "da_lexicon_afinn_v1.txt")
+lexicons.register(
+    "lexicon_da_afinn_v1",
+    func=read_lexicon(afinn_path),
+)
+lexicons.register(  # store as default
+    "lexicon_da_v1",
+    func=lexicons.get("lexicon_da_afinn_v1"),
+)
 
 
 @Language.factory("asent_da_v1", default_config={"force": True})
@@ -91,12 +103,12 @@ def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
     return Asent(
         nlp,
         name=name,
-        lexicon=LEXICON,
+        lexicon=lexicons.get("lexicon_da_afinn_v1"),
         intensifiers=INTENSIFIERS,
         negations=NEGATIONS,
         contrastive_conjugations=CONTRASTIVE_CONJ,
         lowercase=True,
-        lemmatize=True,
+        lemmatize=False,
         force=force,
     )
 

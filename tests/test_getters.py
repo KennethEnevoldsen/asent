@@ -1,19 +1,17 @@
 import pytest
-
 import spacy
-from spacy.tokens import Token, Span, Doc
+from spacy.tokens import Doc, Token
 
 import asent
-
 from asent.getters import (
+    make_doc_polarity_getter,
     make_intensifier_getter,
     make_is_contrastive_conj_getter,
-    make_valance_getter,
     make_is_negated_getter,
-    make_token_polarity_getter,
-    make_span_polarity_getter,
-    make_doc_polarity_getter,
     make_is_negation_getter,
+    make_span_polarity_getter,
+    make_token_polarity_getter,
+    make_valance_getter,
 )
 
 
@@ -122,8 +120,6 @@ def test_token_polarity(
 
     lowercase = True
     lemmatize = False
-    if lang == "da":
-        lemmatize = True
 
     valence_getter = make_valance_getter(
         lexicon=lexicon, lowercase=lowercase, lemmatize=lemmatize
@@ -170,8 +166,6 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
 
     lowercase = True
     lemmatize = False
-    if lang == "da":
-        lemmatize = True
 
     valence_getter = make_valance_getter(
         lexicon, lowercase=lowercase, lemmatize=lemmatize

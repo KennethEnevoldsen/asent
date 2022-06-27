@@ -1,6 +1,13 @@
 News and Changelog
 ==============================
 
+* 0.4.0 (27/05/22)
+
+  - Added new Danish Dictionary from `AFINN <https://github.com/fnielsen/afinn>`__
+  - Fixed minor bugs related to the Visualizer
+  - Fixed spaCy pipelines used in text to allow for more consistent tests going forward.
+
+
 * 0.1.3 (02/01/22)
 
   - 96% Coverage on pytest 🎉
