@@ -40,7 +40,9 @@ def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
     Token.set_extension(
-        "valence", getter=make_valance_getter(lexicon=lexicon), force=True
+        "valence",
+        getter=make_valance_getter(lexicon=lexicon),
+        force=True,
     )
     doc = nlp(example)
 
@@ -52,7 +54,7 @@ def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
         assert doc[idx]._.valence == 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'positive' or 'negative'"
+            "Invalid expected value '{expected}', should be either 'positive' or 'negative'",
         )
 
 
@@ -68,7 +70,9 @@ def test_valence_getter_casing(example, cased_example, idx, lang, nlp_dict):
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
     Token.set_extension(
-        "valence", getter=make_valance_getter(lexicon=lexicon), force=True
+        "valence",
+        getter=make_valance_getter(lexicon=lexicon),
+        force=True,
     )
 
     docs = [nlp(t) for t in [example, cased_example]]
@@ -122,12 +126,16 @@ def test_token_polarity(
     lemmatize = False
 
     valence_getter = make_valance_getter(
-        lexicon=lexicon, lowercase=lowercase, lemmatize=lemmatize
+        lexicon=lexicon,
+        lowercase=lowercase,
+        lemmatize=lemmatize,
     )
     is_negation_getter = make_is_negation_getter(negations=negations)
     is_negated_getter = make_is_negated_getter(is_negation_getter=is_negation_getter)
     intensifier_getter = make_intensifier_getter(
-        intensifiers=intensifiers, lowercase=lowercase, lemmatize=lemmatize
+        intensifiers=intensifiers,
+        lowercase=lowercase,
+        lemmatize=lemmatize,
     )
 
     polarity_getter = make_token_polarity_getter(
@@ -168,12 +176,16 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
     lemmatize = False
 
     valence_getter = make_valance_getter(
-        lexicon, lowercase=lowercase, lemmatize=lemmatize
+        lexicon,
+        lowercase=lowercase,
+        lemmatize=lemmatize,
     )
     is_negation_getter = make_is_negation_getter(negations)
     is_negated_getter = make_is_negated_getter(is_negation_getter=is_negation_getter)
     intensifier_getter = make_intensifier_getter(
-        intensifiers, lowercase=lowercase, lemmatize=lemmatize
+        intensifiers,
+        lowercase=lowercase,
+        lemmatize=lemmatize,
     )
     polarity_getter = make_token_polarity_getter(
         valence_getter=valence_getter,
@@ -182,7 +194,8 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
     )
     contrastive_conj_getter = make_is_contrastive_conj_getter(cconj)
     span_polarity_getter = make_span_polarity_getter(
-        polarity_getter, contrastive_conj_getter=contrastive_conj_getter
+        polarity_getter,
+        contrastive_conj_getter=contrastive_conj_getter,
     )
     doc_polarity_getter = make_doc_polarity_getter(span_polarity_getter)
     Doc.set_extension("polarity", getter=doc_polarity_getter, force=True)
@@ -197,7 +210,7 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
         assert sent._.polarity.compound == 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'"
+            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'",
         )
 
 
@@ -214,7 +227,10 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
     ],
 )
 def test_span_polarity_contrast(
-    example: str, more_positive_example: str, lang: str, nlp_dict
+    example: str,
+    more_positive_example: str,
+    lang: str,
+    nlp_dict,
 ):
     nlp = nlp_dict[lang]
 
@@ -251,5 +267,5 @@ def test_components(example: str, expected: str, lang: str, nlp_dict):
         assert doc._.polarity.compound < 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'"
+            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'",
         )

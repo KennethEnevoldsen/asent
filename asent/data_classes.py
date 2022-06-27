@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from typing import List, Optional, Union
-from pydantic import BaseModel
+from typing import List, Union
 
-from spacy.tokens import Span, Token, Doc
+from pydantic import BaseModel
+from spacy.tokens import Doc, Span, Token
 
 
 class TokenPolarityOutput(BaseModel):
-    """A data class for the polarity output of a span,
-    notably allows for plotting the output"""
+    """A data class for the polarity output of a span, notably allows for
+    plotting the output."""
 
     class Config:
         arbitrary_types_allowed = True
@@ -16,7 +16,7 @@ class TokenPolarityOutput(BaseModel):
     polarity: float
     token: Token
     span: Span
-    negation: Optional[Token] = None
+    negation: Union[Token, None] = None
     intensifiers: List[Token] = []
 
     def __repr_str__(self, join_str: str) -> str:
@@ -49,8 +49,8 @@ class TokenPolarityOutput(BaseModel):
 
 
 class SpanPolarityOutput(BaseModel):
-    """A data class for the polarity output of a span,
-    notably allows for plotting the output"""
+    """A data class for the polarity output of a span, notably allows for
+    plotting the output."""
 
     class Config:
         arbitrary_types_allowed = True
@@ -91,7 +91,7 @@ class SpanPolarityOutput(BaseModel):
 
 
 class DocPolarityOutput(BaseModel):
-    """A data class for the polarity output of a doc"""
+    """A data class for the polarity output of a doc."""
 
     class Config:
         arbitrary_types_allowed = True

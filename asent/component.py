@@ -1,27 +1,29 @@
 """Calculation of various readability metrics."""
 
-from spacy.tokens import Token, Doc, Span
-from spacy.language import Language
-
 from typing import Dict, Iterable
 
+from spacy.language import Language
+from spacy.tokens import Doc, Span, Token
 
 from asent.getters import (
-    make_token_polarity_getter,
-    make_span_polarity_getter,
-    make_is_negation_getter,
-    make_is_negated_getter,
-    make_valance_getter,
+    make_doc_polarity_getter,
     make_intensifier_getter,
     make_is_contrastive_conj_getter,
-    make_doc_polarity_getter,
+    make_is_negated_getter,
+    make_is_negation_getter,
+    make_span_polarity_getter,
+    make_token_polarity_getter,
+    make_valance_getter,
 )
 
 
 class Asent:
-    """spaCy v.3.0 component for adding an asent sentiment models to `Doc` objects.
-    Ading the Token extentions 'valence', 'intensifier', 'is_negation', 'is_negated',
-    'is_contrastive_conj' and 'polarity' as well as the Span and Doc extension 'polarity'.
+    """spaCy v.3.0 component for adding an asent sentiment models to `Doc`
+    objects.
+
+    Ading the Token extentions 'valence', 'intensifier', 'is_negation',
+    'is_negated', 'is_contrastive_conj' and 'polarity' as well as the
+    Span and Doc extension 'polarity'.
     """
 
     def __init__(
@@ -36,7 +38,7 @@ class Asent:
         lemmatize: bool = False,
         force: bool = False,
     ):
-        """Initialize component
+        """Initialize component.
 
         Args:
             nlp (Language): A spaCy language pipeline for which to add the component to
@@ -55,7 +57,9 @@ class Asent:
             Token.set_extension(
                 "valence",
                 getter=make_valance_getter(
-                    lexicon=lexicon, lowercase=lowercase, lemmatize=lemmatize
+                    lexicon=lexicon,
+                    lowercase=lowercase,
+                    lemmatize=lemmatize,
                 ),
                 force=force,
             )
@@ -64,7 +68,9 @@ class Asent:
             Token.set_extension(
                 "intensifier",
                 getter=make_intensifier_getter(
-                    intensifiers=intensifiers, lemmatize=lemmatize, lowercase=lowercase
+                    intensifiers=intensifiers,
+                    lemmatize=lemmatize,
+                    lowercase=lowercase,
                 ),
                 force=force,
             )
@@ -73,7 +79,9 @@ class Asent:
             Token.set_extension(
                 "is_negation",
                 getter=make_is_negation_getter(
-                    negations=negations, lemmatize=lemmatize, lowercase=lowercase
+                    negations=negations,
+                    lemmatize=lemmatize,
+                    lowercase=lowercase,
                 ),
                 force=force,
             )
@@ -125,7 +133,7 @@ class Asent:
             )
 
     def __call__(self, doc: Doc) -> Doc:
-        """Run the pipeline component
+        """Run the pipeline component.
 
         Args:
             doc (Doc): A spaCy document the component should be applied to.
@@ -159,7 +167,8 @@ def create_asent_component(
     lemmatize: bool,
     force: bool,
 ) -> Language:
-    """Allows a asent sentiment pipe to be added to a spaCy pipe using nlp.add_pipe("asent_v1")."""
+    """Allows a asent sentiment pipe to be added to a spaCy pipe using
+    nlp.add_pipe("asent_v1")."""
 
     return Asent(
         nlp,

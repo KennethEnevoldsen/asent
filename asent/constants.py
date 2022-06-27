@@ -1,6 +1,4 @@
-"""
-This contains emperically derived constants from Hutto and Gilbert (2014)
-"""
+"""This contains emperically derived constants from Hutto and Gilbert (2014)"""
 
 # (empirically derived mean sentiment intensity rating increase for booster words)
 B_INCR = 0.293

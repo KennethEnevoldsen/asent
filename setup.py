@@ -1,11 +1,10 @@
 import setuptools
 
-
 with open("asent/about.py") as f:
     v = f.read()
-    for l in v.split("\n"):
-        if l.startswith("__version__"):
-            __version__ = l.split('"')[-2]
+    for line in v.split("\n"):
+        if line.startswith("__version__"):
+            __version__ = line.split('"')[-2]
 
 
 with open("README.md", "r") as f:
