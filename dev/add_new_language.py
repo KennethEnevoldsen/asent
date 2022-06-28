@@ -22,5 +22,5 @@ for w_path in set(path.glob("sentiment-lexicons/*.txt")):
 lexicon_path = Path("/Users/au561649/Desktop/Github/asent/asent/lexicons")
 for lang_id in rated_words:
     with open(lexicon_path / f"{lang_id}_lexicon_chen_skiena_2014_v1.txt", "w") as f:
-        txt = "\n".join([", ".join([str(i) for i in w]) for w in rated_words[lang_id]])
+        txt = "\n".join(["\t".join([str(i) for i in w]) for w in rated_words[lang_id]])
         f.write(txt)
