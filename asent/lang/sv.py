@@ -94,10 +94,6 @@ INTENSIFIERS = {
 lexicons.register(f"lexicon_{LANG}_v1", func=LEXICON)
 lexicons.register(f"negations_{LANG}_v1", func=NEGATIONS)
 lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
-lexicons.register(
-    f"{LANG}_lexicon_chen_skiena_2014_v1",
-    func=read_lexicon(LEXICON_PATH / f"lexicon_{LANG}_chen_skiena_2014_v1.txt"),
-)
 
 
 @Language.factory("asent_{LANG}_v1", default_config={"force": True})

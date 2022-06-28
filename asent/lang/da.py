@@ -80,10 +80,6 @@ lexicons.register(  # store as default
     f"lexicon_{LANG}_v1",
     func=lexicons.get(f"lexicon_{LANG}_afinn_v1"),
 )
-lexicons.register(
-    f"{LANG}_lexicon_chen_skiena_2014_v1",
-    func=read_lexicon(LEXICON_PATH / f"lexicon_{LANG}_chen_skiena_2014_v1.txt"),
-)
 
 
 @Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
