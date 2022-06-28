@@ -1,15 +1,12 @@
-import os
-
 from spacy.language import Language
 
 from ..component import Asent
 from ..constants import B_DECR, B_INCR
-from ..utils import components, lexicons, read_lexicon
+from ..utils import LEXICON_PATH, components, lexicons, read_lexicon
 from .emoji import LEXICON as E_LEXICON
 
-apath = os.path.dirname(os.path.abspath(__file__))
-LEXICON = read_lexicon(os.path.join(apath, "..", "lexicons", "en_lexicon_v1.txt"))
-
+LANG = "en"
+LEXICON = read_lexicon(LEXICON_PATH / f"{LANG}_lexicon_v1.txt")
 NEGATIONS = {
     "aint",
     "arent",
@@ -71,9 +68,7 @@ NEGATIONS = {
     "seldom",
     "despite",
 }
-
 CONTRASTIVE_CONJ = {"but"}
-
 INTENSIFIERS = {
     "absolutely": B_INCR,
     "amazingly": B_INCR,
@@ -161,16 +156,21 @@ INTENSIFIERS = {
     "sort-of": B_DECR,
 }
 
-lexicons.register("lexicon_en_v1", func=LEXICON)
-lexicons.register("negations_en_v1", func=NEGATIONS)
-lexicons.register("contrastive_conj_en_v1", func=CONTRASTIVE_CONJ)
-lexicons.register("intensifiers_en_v1", func=INTENSIFIERS)
+lexicons.register(f"lexicon_{LANG}_v1", func=LEXICON)
+lexicons.register(f"negations_{LANG}_v1", func=NEGATIONS)
+lexicons.register(f"contrastive_conj_{LANG}_v1", func=CONTRASTIVE_CONJ)
+lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
+
+lexicons.register(
+    f"{LANG}_lexicon_chen_skiena_2014_v1",
+    func=read_lexicon(LEXICON_PATH / f"lexicon_{LANG}_chen_skiena_2014_v1.txt"),
+)
 
 
-@Language.factory("asent_en_v1", default_config={"force": True})
+@Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
 def create_en_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
-    """Allows the English sentiment to be added to a spaCy pipe using
-    nlp.add_pipe("asent_en_v1")."""
+    f"""Allows the English sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_{LANG}_v1")."""
     LEXICON.update(E_LEXICON)
 
     return Asent(
@@ -186,4 +186,4 @@ def create_en_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
     )
 
 
-components.register("asent_en_v1", func=create_en_sentiment_component)
+components.register(f"asent_{LANG}_v1", func=create_en_sentiment_component)
