@@ -8,7 +8,7 @@ from asent.lang.emoji import LEXICON as E_LEXICON
 from asent.utils import LEXICON_PATH, components, lexicons, read_lexicon
 
 lang_path = LEXICON_PATH / ".." / "lang"
-langs = [lang.stem for lang in lang_path.glob("*.py") if len(lang.stem) == 2]
+langs = [lang.stem for lang in lang_path.glob("*.py") if len(lang.stem) < 4]
 
 
 def create_xx_sentiment_component(
@@ -18,7 +18,8 @@ def create_xx_sentiment_component(
     force: bool,
 ) -> Language:
     """Allows the sentiment pipe to be added to a spaCy pipe using
-    nlp.add_pipe("asent_{language id}_v1").
+    nlp.add_pipe("asent_{language id}_v1"). Note that this is overwritten by
+    languages which have a specified default, e.g. the case for en, da, sv.
 
     note that this function uses a lexicon that is automatically
     constructed. We therefore recommend examines the output and
@@ -27,10 +28,12 @@ def create_xx_sentiment_component(
     Lexicons for All Major Languages.
     """
 
-    msg = f"""'asent_{lang}_v1' uses a lexicon that is automatically constructed. We
-    therefore recommend examines the output and adjusting the lexicon.
-    For more information on how the lexicon was constructed see; Chen, Y., &
-    Skiena, S. (2014). Building Sentiment Lexicons for All Major Languages."""
+    msg = (
+        f"'asent_{lang}_v1' uses a lexicon that is automatically constructed. We "
+        + "therefore recommend examines the output and adjusting the lexicon. "
+        + "For more information on how the lexicon was constructed see; Chen, Y., & "
+        + "Skiena, S. (2014). Building Sentiment Lexicons for All Major Languages."
+    )
     warn(msg)
 
     lex = lexicons.get(f"lexicon_{lang}_chen_skiena_2014_v1.txt")

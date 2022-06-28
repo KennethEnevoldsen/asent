@@ -28,6 +28,7 @@ The documentation consists of three parts:
    introduction
    customizing
    languages
+   languages_test
 
   
 
