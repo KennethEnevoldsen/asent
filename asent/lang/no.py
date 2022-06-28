@@ -5,7 +5,7 @@ from ..utils import LEXICON_PATH, components, lexicons, read_lexicon
 from .emoji import LEXICON as E_LEXICON
 
 LANG = "no"
-LEXICON = read_lexicon(LEXICON_PATH, "no_lexicon_v1.txt")
+LEXICON = read_lexicon(LEXICON_PATH / "no_lexicon_v1.txt")
 NEGATIONS = {"ikke", "ik", "ikk", "ik'", "aldrig", "ingen"}
 CONTRASTIVE_CONJ = {"dog", "men"}
 INTENSIFIERS = {

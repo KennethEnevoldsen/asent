@@ -5,7 +5,7 @@ from ..constants import B_DECR, B_INCR
 from ..utils import LEXICON_PATH, components, lexicons, read_lexicon
 
 LANG = "sv"
-LEXICON = read_lexicon(LEXICON_PATH, f"{LANG}_lexicon_v1.txt")
+LEXICON = read_lexicon(LEXICON_PATH / f"{LANG}_lexicon_v1.txt")
 NEGATIONS = {
     "inte",
     "varken",
@@ -96,7 +96,7 @@ lexicons.register(f"negations_{LANG}_v1", func=NEGATIONS)
 lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_{LANG}_v1", default_config={"force": True})
+@Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
 def create_sv_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
     f"""Allows the Swedish sentiment to be added to a spaCy pipe using
     nlp.add_pipe("asent_{LANG}_v1")."""
