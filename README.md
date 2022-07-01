@@ -12,7 +12,10 @@
 [![pip downloads](https://img.shields.io/pypi/dm/asent.svg)](https://pypi.org/project/asent/)
 
 
-Inspired by Vader, made using SpaCy, transparent from the start.
+Asent is a rule-based sentiment analysis library for Python made using [SpaCy](https://spacy.io). 
+It is inspired by [Vaderhttps://github.com/cjhutto/vaderSentiment](https://github.com/cjhutto/vaderSentiment), 
+but uses a more modular ruleset, that allows the user one could change the method for finding negations. 
+Furthermore it im transparent from the start.
 
 ## Installation
 
