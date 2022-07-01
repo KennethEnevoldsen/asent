@@ -160,6 +160,7 @@ def test_token_polarity(
         ("jeg er sur!!!!!!", "negative", "da"),
         ("xyz", "neutral", "da"),
         ("filmen var okay god men er generelt skuffet", "negative", "da"),
+        ("ich bin ser gut!", "positive", "de"),
     ],
 )
 def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):

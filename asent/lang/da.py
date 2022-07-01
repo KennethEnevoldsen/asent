@@ -1,23 +1,17 @@
-import os
-from inspect import getsourcefile
-
 from spacy.language import Language
 
 from ..component import Asent
 from ..constants import B_INCR
-from ..utils import components, lexicons, read_lexicon
+from ..utils import LEXICON_PATH, components, lexicons, read_lexicon
 from .emoji import LEXICON as E_LEXICON
+
+LANG = "da"
 
 
 def read_csv_lexicon():
-    lexicon_file = os.path.join("..", "lexicons", "da_lexicon_sentida_lemma_v1.csv")
-    _this_module_file_path_ = os.path.abspath(getsourcefile(lambda: 0))
-    lexicon_full_filepath = os.path.join(
-        os.path.dirname(_this_module_file_path_),
-        lexicon_file,
-    )
+    lexicon_file = LEXICON_PATH / f"{LANG}_lexicon_sentida_lemma_v1.csv"
 
-    with open(lexicon_full_filepath) as f:
+    with open(lexicon_file) as f:
         pairs = filter(lambda x: x, f.read().split("\n")[1:])
         lexicon = {
             word: float(rating) for word, rating in map(lambda x: x.split(","), pairs)
@@ -26,11 +20,8 @@ def read_csv_lexicon():
 
 
 LEXICON = read_csv_lexicon()
-
-
 NEGATIONS = {"ikke", "ik", "ikk", "ik'", "aldrig", "ingen"}
 CONTRASTIVE_CONJ = {"men", "dog"}
-
 INTENSIFIERS = {
     "absolut": B_INCR,
     "vældig": B_INCR,
@@ -76,34 +67,33 @@ INTENSIFIERS = {
 }
 
 
-lexicons.register("lexicon_da_sentida_lemma_v1", func=LEXICON)
-lexicons.register("negations_da_v1", func=NEGATIONS)
-lexicons.register("contrastive_conj_da_v1", func=CONTRASTIVE_CONJ)
-lexicons.register("intensifiers_da_v1", func=INTENSIFIERS)
+lexicons.register(f"lexicon_{LANG}_sentida_lemma_v1", func=LEXICON)
+lexicons.register(f"negations_{LANG}_v1", func=NEGATIONS)
+lexicons.register(f"contrastive_conj_{LANG}_v1", func=CONTRASTIVE_CONJ)
+lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
 
-apath = os.path.dirname(os.path.abspath(__file__))
-afinn_path = os.path.join(apath, "..", "lexicons", "da_lexicon_afinn_v1.txt")
 lexicons.register(
     "lexicon_da_afinn_v1",
-    func=read_lexicon(afinn_path),
+    func=read_lexicon(LEXICON_PATH / f"{LANG}_lexicon_afinn_v1.txt"),
 )
 lexicons.register(  # store as default
-    "lexicon_da_v1",
-    func=lexicons.get("lexicon_da_afinn_v1"),
+    f"lexicon_{LANG}_v1",
+    func=lexicons.get(f"lexicon_{LANG}_afinn_v1"),
 )
 
 
-@Language.factory("asent_da_v1", default_config={"force": True})
+@Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
 def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
-    """Allows the Danish sentiment to be added to a spaCy pipe using
-    nlp.add_pipe("asent_da_v1")."""
+    f"""Allows the Danish sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_{LANG}_v1")."""
 
-    LEXICON.update(E_LEXICON)
+    lex = lexicons.get(f"lexicon_{LANG}_afinn_v1")
+    lex.update(E_LEXICON)
 
     return Asent(
         nlp,
         name=name,
-        lexicon=lexicons.get("lexicon_da_afinn_v1"),
+        lexicon=lex,
         intensifiers=INTENSIFIERS,
         negations=NEGATIONS,
         contrastive_conjugations=CONTRASTIVE_CONJ,
@@ -113,4 +103,4 @@ def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
     )
 
 
-components.register("asent_da_v1", func=create_da_sentiment_component)
+components.register(f"asent_{LANG}_v1", func=create_da_sentiment_component)

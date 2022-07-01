@@ -1,18 +1,13 @@
-import os
-
 from spacy.language import Language
 
 from ..component import Asent
-from ..utils import components, lexicons, read_lexicon
+from ..utils import LEXICON_PATH, components, lexicons, read_lexicon
 from .emoji import LEXICON as E_LEXICON
 
-apath = os.path.dirname(os.path.abspath(__file__))
-LEXICON = read_lexicon(os.path.join(apath, "..", "lexicons", "no_lexicon_v1.txt"))
-
+LANG = "no"
+LEXICON = read_lexicon(LEXICON_PATH / "no_lexicon_v1.txt")
 NEGATIONS = {"ikke", "ik", "ikk", "ik'", "aldrig", "ingen"}
-
 CONTRASTIVE_CONJ = {"dog", "men"}
-
 INTENSIFIERS = {
     "Temmelig ": 0.293,  # bokmål
     "Meget ": 0.293,
@@ -119,16 +114,16 @@ INTENSIFIERS = {
     "No og da": -0.293,
 }
 
-lexicons.register("lexicon_no_v1", func=LEXICON)
-lexicons.register("negations_no_v1", func=NEGATIONS)
-lexicons.register("contrastive_conj_no_v1", func=CONTRASTIVE_CONJ)
-lexicons.register("intensifiers_no_v1", func=INTENSIFIERS)
+lexicons.register(f"lexicon_{LANG}_v1", func=LEXICON)
+lexicons.register(f"negations_{LANG}_v1", func=NEGATIONS)
+lexicons.register(f"contrastive_conj_{LANG}_v1", func=CONTRASTIVE_CONJ)
+lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
 
 
-@Language.factory("asent_no_v1", default_config={"force": True})
+@Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
 def create_no_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
-    """Allows the Norwegian sentiment to be added to a spaCy pipe using
-    nlp.add_pipe("asent_no_v1")."""
+    f"""Allows the Norwegian sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_{LANG}_v1")."""
 
     LEXICON.update(E_LEXICON)
 
@@ -145,4 +140,4 @@ def create_no_sentiment_component(nlp: Language, name: str, force: bool) -> Lang
     )
 
 
-components.register("asent_no_v1", func=create_no_sentiment_component)
+components.register(f"asent_{LANG}_v1", func=create_no_sentiment_component)

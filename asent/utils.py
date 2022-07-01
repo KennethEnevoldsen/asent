@@ -1,6 +1,9 @@
+from pathlib import Path
 from typing import Callable, Dict
 
 import catalogue
+
+LEXICON_PATH = Path(__file__).parent / ".." / "asent" / "lexicons"
 
 lexicons = catalogue.create("asent", "lexicon", entry_points=True)
 components = catalogue.create("asent", "components", entry_points=True)
