@@ -22,8 +22,9 @@ def nlp_dict():
     nlp_sv = spacy.blank("sv")  # spacy has no Swedish pipelines
     nlp_sv.add_pipe("sentencizer")
     nlp_nb = spacy.load("nb_core_news_sm")
+    nlp_de = spacy.load("de_core_news_sm")
 
-    return {"da": nlp_da, "en": nlp_en, "no": nlp_nb, "sv": nlp_sv}
+    return {"da": nlp_da, "en": nlp_en, "no": nlp_nb, "sv": nlp_sv, "de": nlp_de}
 
 
 @pytest.mark.parametrize(
