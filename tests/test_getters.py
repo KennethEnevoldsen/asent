@@ -165,9 +165,14 @@ def test_token_polarity(
 def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
-    negations = asent.lexicons.get("negations_" + lang + "_v1")
-    intensifiers = asent.lexicons.get("intensifiers_" + lang + "_v1")
-    if lang != "sv":
+
+    if lang in {"da", "sv"}:
+        negations = asent.lexicons.get("negations_" + lang + "_v1")
+        intensifiers = asent.lexicons.get("intensifiers_" + lang + "_v1")
+    else:
+        negations = set()
+        intensifiers = {}
+    if lang in {"da"}:
         cconj = asent.lexicons.get("contrastive_conj_" + lang + "_v1")
     else:
         cconj = set()
