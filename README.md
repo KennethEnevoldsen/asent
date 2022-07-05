@@ -13,7 +13,7 @@
 
 
 Asent is a rule-based sentiment analysis library for Python made using [SpaCy](https://spacy.io). 
-It is inspired by [Vaderhttps://github.com/cjhutto/vaderSentiment](https://github.com/cjhutto/vaderSentiment), but uses a more modular ruleset, that allows the user to change e.g. the method for finding negations. Furthermore it includes visualiser to visualize model predictions, making they model easily interpretable.
+It is inspired by [Vader](https://github.com/cjhutto/vaderSentiment), but uses a more modular ruleset, that allows the user to change e.g. the method for finding negations. Furthermore it includes visualiser to visualize model predictions, making they model easily interpretable.
 
 
 ## Installation
