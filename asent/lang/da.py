@@ -55,6 +55,8 @@ INTENSIFIERS = {
     "væsentlig": B_INCR,
     "uber": B_INCR,
     "virkelig": B_INCR,
+    "særlig": B_INCR,
+    "særligt": B_INCR,
     "temmelig": 0.1,
     "megen": 0.2,
     "mega": 0.4,
