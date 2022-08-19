@@ -37,7 +37,7 @@ To start of with we will need a spaCy pipeline as well as we will need to add th
             nlp = spacy.load("en_core_web_lg")
 
             # add the rule-based sentiment model
-            nlp = nlp.add_pipe("asent_en_v1")
+            nlp.add_pipe("asent_en_v1")
 
          .. note::
 
@@ -63,7 +63,7 @@ To start of with we will need a spaCy pipeline as well as we will need to add th
             nlp = spacy.load("da_core_news_lg")
 
             # add the rule-based sentiment model
-            nlp = nlp.add_pipe("asent_da_v1")
+            nlp.add_pipe("asent_da_v1")
 
          .. note::
 
@@ -90,7 +90,7 @@ To start of with we will need a spaCy pipeline as well as we will need to add th
             nlp = spacy.load("nb_core_news_lg")
 
             # add the rule-based sentiment model
-            nlp = nlp.add_pipe("asent_no_v1")
+            nlp.add_pipe("asent_no_v1")
 
          .. note::
 
@@ -116,7 +116,7 @@ To start of with we will need a spaCy pipeline as well as we will need to add th
             nlp = spacy.load("sv_pipeline")
 
             # add the rule-based sentiment model
-            nlp = nlp.add_pipe("asent_sv_v1")
+            nlp.add_pipe("asent_sv_v1")
 
          .. note::
 
