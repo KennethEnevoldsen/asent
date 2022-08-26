@@ -10,14 +10,14 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
 
     Args:
         doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
-        style (str, optional): A string indicating whether it should visualize
+        style (str): A string indicating whether it should visualize
             "prediction" or "analysis". "prediction", color codes positive or negative
             spans according to the cmap. "analysis" visualize for each sentimental word
             if it has by negated or intensified a word, and which word.
             If you are looking for the previous visualizer for "prediction", use
             "prediction-no-overlap". Note that this does not allow for overlapping span.
             Thus it can lead to odd results. Defaults to "prediction".
-        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
+        cmap (str): The color map derived from matplotlib. Defaults to "RdYlGn".
 
     Returns:
         str: Rendered HTML markup.

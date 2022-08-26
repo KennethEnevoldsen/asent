@@ -29,12 +29,16 @@ class TokenPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: Union[TokenPolarityOutput, float]):
+    def __lt__(self, other: object):
+        if not isinstance(other, (TokenPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity < other
 
-    def __gt__(self, other: Union[TokenPolarityOutput, float]):
+    def __gt__(self, other: object):
+        if not isinstance(other, (TokenPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity > other
@@ -42,7 +46,9 @@ class TokenPolarityOutput(BaseModel):
     def __bool__(self):
         return bool(self.polarity)
 
-    def __eq__(self, other: Union[TokenPolarityOutput, float]):
+    def __eq__(self, other: object):
+        if not isinstance(other, (TokenPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity == other
@@ -74,17 +80,23 @@ class SpanPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: Union[SpanPolarityOutput, float]):
+    def __lt__(self, other: object):
+        if not isinstance(other, (SpanPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, SpanPolarityOutput):
             other = other.compound
         return self.compound < other
 
-    def __gt__(self, other: Union[SpanPolarityOutput, float]):
+    def __gt__(self, other: object):
+        if not isinstance(other, (SpanPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, SpanPolarityOutput):
             other = other.compound
         return self.compound > other
 
-    def __eq__(self, other: Union[SpanPolarityOutput, float]) -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, (SpanPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, SpanPolarityOutput):
             other = other.compound
         return self.compound == other
@@ -114,17 +126,23 @@ class DocPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: Union[DocPolarityOutput, float]):
+    def __lt__(self, other: object):
+        if not isinstance(other, (DocPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, DocPolarityOutput):
             other = other.compound
         return self.compound < other
 
-    def __gt__(self, other: Union[DocPolarityOutput, float]):
+    def __gt__(self, other: object):
+        if not isinstance(other, (DocPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, DocPolarityOutput):
             other = other.compound
         return self.compound > other
 
-    def __eq__(self, other: Union[DocPolarityOutput, float]) -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, (DocPolarityOutput, float)):
+            return NotImplemented
         if isinstance(other, DocPolarityOutput):
             other = other.compound
         return self.compound == other

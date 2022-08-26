@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable, Dict
+from typing import Callable, Dict, Union
 
 import catalogue
 
@@ -34,7 +34,7 @@ def register_component(name: str, func: Callable) -> None:
     components.register(name, func=func)
 
 
-def read_lexicon(path: str) -> Dict[str, float]:
+def read_lexicon(path: Union[str, Path]) -> Dict[str, float]:
     with open(path, encoding="utf-8") as f:
         lexicon = {}
         for line in f.read().rstrip("\n").split("\n"):

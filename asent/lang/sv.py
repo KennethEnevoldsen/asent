@@ -1,3 +1,5 @@
+from typing import Dict, Set
+
 from spacy.language import Language
 
 from ..component import Asent
@@ -18,8 +20,8 @@ NEGATIONS = {
     "sällan",
     "trots",
 }
-BUT_WORDS = {}
-INTENSIFIERS = {
+CONTRASTIVE_CONJ: Set[str] = set()
+INTENSIFIERS: Dict[str, float] = {
     "absolut": B_INCR,
     "otroligt": B_INCR,
     "väldigt": B_INCR,
@@ -97,7 +99,7 @@ lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
 
 
 @Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
-def create_sv_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
+def create_sv_sentiment_component(nlp: Language, name: str, force: bool) -> Asent:
     f"""Allows the Swedish sentiment to be added to a spaCy pipe using
     nlp.add_pipe("asent_{LANG}_v1")."""
 
