@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>asent.getters - asent 0.4.3 documentation</title>
+        <title>asent.getters - asent 0.5.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -130,7 +130,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.4.3 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.5.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -446,14 +446,16 @@
 
     <span class="k">def</span> <span class="nf">is_negated_getter</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""Determine if token is negated."""</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">lookback</span> <span class="p">:</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span><span class="p">]:</span>
+        <span class="c1"># don't look back before the sentence start</span>
+        <span class="n">min_token_idx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">sent</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">lookback</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">min_token_idx</span> <span class="p">:</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">t</span>
 
     <span class="k">return</span> <span class="n">is_negated_getter</span></div>
 
 
-<div class="viewcode-block" id="make_token_polarity_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_token_polarity_getter">[docs]</a><span class="k">def</span> <span class="nf">make_token_polarity_getter</span><span class="p">(</span>
+<div class="viewcode-block" id="make_token_polarity_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_token_polarity_getter">[docs]</a><span class="k">def</span> <span class="nf">make_token_polarity_getter</span><span class="p">(</span>  <span class="c1"># noqa: C901</span>
     <span class="n">valence_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">is_negated_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Token</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">intensifier_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -529,8 +531,14 @@
                 <span class="c1"># dampen the scalar modifier of preceding words and emoticons</span>
                 <span class="c1"># (excluding the ones that immediately preceed the item) based</span>
                 <span class="c1"># on their distance from the current item.</span>
+
                 <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">start_i</span><span class="p">:</span>
-                    <span class="n">prev_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">start_i</span><span class="p">]</span>
+                    <span class="n">tok_id</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">start_i</span>
+                    <span class="c1"># stop if before sentence start</span>
+                    <span class="k">if</span> <span class="n">tok_id</span> <span class="o">&lt;</span> <span class="n">token</span><span class="o">.</span><span class="n">sent</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+                    <span class="n">prev_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tok_id</span><span class="p">]</span>
                     <span class="n">b</span> <span class="o">=</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">intensifier</span>
                     <span class="k">if</span> <span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="n">intensifiers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prev_token</span><span class="p">)</span>
@@ -632,7 +640,7 @@
     <span class="k">return</span> <span class="n">pos_sum</span><span class="p">,</span> <span class="n">neg_sum</span><span class="p">,</span> <span class="n">neu_count</span>
 
 
-<div class="viewcode-block" id="make_span_polarity_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_span_polarity_getter">[docs]</a><span class="k">def</span> <span class="nf">make_span_polarity_getter</span><span class="p">(</span>
+<div class="viewcode-block" id="make_span_polarity_getter"><a class="viewcode-back" href="../../asent.getters.html#asent.getters.make_span_polarity_getter">[docs]</a><span class="k">def</span> <span class="nf">make_span_polarity_getter</span><span class="p">(</span>  <span class="c1"># noqa: C901</span>
     <span class="n">polarity_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">float</span><span class="p">]],</span>
     <span class="n">contrastive_conj_getter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Token</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpanPolarityOutput</span><span class="p">:</span>
