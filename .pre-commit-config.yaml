@@ -13,12 +13,6 @@ repos:
     hooks:
       - id: add-trailing-comma
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.34.0
-    hooks:
-      - id: pyupgrade
-        args: [--keep-runtime-typing]
-
   - repo: https://github.com/myint/docformatter
     rev: v1.3.1
     hooks:

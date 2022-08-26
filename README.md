@@ -33,8 +33,9 @@ The following shows a simple example of how you can quickly apply sentiment anal
 import spacy
 import asent
 
-# load spacy pipeline
-nlp = spacy.load("en_core_web_lg")
+# create spacy pipeline
+nlp = spacy.blank('en')
+nlp.add_pipe('sentencizer')
 
 # add the rule-based sentiment model
 nlp.add_pipe("asent_en_v1")
