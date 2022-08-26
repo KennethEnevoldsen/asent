@@ -4,7 +4,7 @@ News and Changelog
 * 0.6.0 (26/05/22)
 
   - Fixed bug where the prediction visualizer repeats text when there is overlapping span. and intensifiers were considered outside of the sentences boundaries. Adressing `#57 <https://github.com/KennethEnevoldsen/asent/issues/57>`__
-  - Due to updated visualizer asent now required spacy version >= 3.3.0.
+  - To use the new visualizers asent now required spacy version >= 3.3.0. However, can be run with spacy>=3.0.0.
   - Updates to documentation
 
 * 0.5.3 (26/05/22)

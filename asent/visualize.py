@@ -1,5 +1,8 @@
+from distutils.log import warn
 from typing import Union
 
+import spacy
+from packaging import version
 from spacy import displacy
 from spacy.tokens import Doc, Span
 
@@ -33,6 +36,17 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
         >>> asent.visualize(doc, style="prediction")
         >>> asent.visualize(doc, style="analysis")
     """
+
+    if style == "prediction" and version.parse(spacy.__version__) < version.parse(
+        "3.3.0",
+    ):
+        warn(
+            "The visualization style 'prediction' is not available for spacy version "
+            + "< 3.3.0. Using 'prediction-no-overlap' instead. Note that this does not"
+            + "allow for overlapping span.",
+        )
+        style = "prediction-no-overlap"
+
     if style.lower() == "prediction":
         return visualize_prediction(doc, cmap=cmap)
     elif style.lower() == "prediction-no-overlap":
