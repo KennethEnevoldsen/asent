@@ -103,7 +103,7 @@ To start of with we will need a spaCy pipeline as well as we will need to add th
 
     .. tab-item:: Swedish
 
-         For Swedish we can add the :code:`asent_se_v1` to it, where :code:`no` indicates that it is the Norwegian pipeline and  :code:`v1` indicate
+         For Swedish we can add the :code:`asent_se_v1` to it, where :code:`se` indicates that it is the Swedish pipeline and  :code:`v1` indicate
          that it is version 1.
 
 
@@ -113,19 +113,11 @@ To start of with we will need a spaCy pipeline as well as we will need to add th
             import spacy
 
             # load spacy pipeline
-            nlp = spacy.load("sv_pipeline")
+            nlp = spacy.load("sv_core_news_sm")
 
             # add the rule-based sentiment model
             nlp.add_pipe("asent_sv_v1")
 
-         .. note::
-
-            spaCy does not have a pipeline for Swedish thus you will need to use the one by the 
-            `Swedish royal library <https://github.com/Kungbib/swedish-spacy>`__, which can be installed using:
-
-            .. code-block:: bash
-
-               pip install sv_pipeline-0.0.0.tar.gz
             
 
 
@@ -204,6 +196,7 @@ Asent also includes a series of methods to visualize the token polarity:
 
 .. code-block:: python
 
+   doc = nlp("I am not very happy, but aslo not very especially sad")
    asent.visualize(doc, style="prediction")
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred.png
@@ -214,7 +207,7 @@ You can even get more information about why the token has the polarity by plotti
 
 .. code-block:: python
 
-   asent.visualize(doc, style="analysis")
+   asent.visualize(doc[:5], style="analysis")
 
 .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_analysis1.png
   :width: 600
@@ -246,6 +239,8 @@ You can easily extract the sentence polarity and the document polarity using:
 
 .. code-block:: python
 
+   doc = nlp("I am not very happy.")
+   
    for sentence in doc.sents:
       print(sentence._.polarity)
    
