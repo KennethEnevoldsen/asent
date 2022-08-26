@@ -85,7 +85,7 @@ lexicons.register(  # store as default
 
 
 @Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
-def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Language:
+def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Asent:
     f"""Allows the Danish sentiment to be added to a spaCy pipe using
     nlp.add_pipe("asent_{LANG}_v1")."""
 

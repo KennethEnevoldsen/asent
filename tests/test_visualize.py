@@ -31,6 +31,7 @@ def test_visualize(example: str, lang: str, nlp_dict):  # noqa
 
     # test on spans
     asent.visualize(doc[:2], style="prediction")
+    asent.visualize(doc[:2], style="prediction-no-overlap")
     asent.visualize(doc[:2], style="analysis")
 
     # error

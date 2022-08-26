@@ -44,12 +44,12 @@ class Asent:
             nlp (Language): A spaCy language pipeline for which to add the component to
             name (str): The name of the component
             lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a word.
-            intensifiers (Dict[str, float], optional): A dictionary of intensifiers (e.g. {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.
-            negations (Iterable[str], optional): A list of negations (e..g "not"). Defaults to an empty set indicatin no negations will be used.
-            contrastive_conjugations (Iterable[str], optional): A list of contrastive conjugations (e.g. "but"). Defaults to empty set indicating no contrastive conjugations will be used.
-            lowercase (bool, optional): Should be text be lowercases before looking up in the lexicons? Defaults to True.
-            lemmatize (bool, optional): Should be text be lemmatized before looking up in the lexicons? Defaults to False.
-            force (bool, optional): Should existing extensions be overwritten? Defaults to False.
+            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g. {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.
+            negations (Iterable[str]): A list of negations (e..g "not"). Defaults to an empty set indicatin no negations will be used.
+            contrastive_conjugations (Iterable[str]): A list of contrastive conjugations (e.g. "but"). Defaults to empty set indicating no contrastive conjugations will be used.
+            lowercase (bool): Should be text be lowercases before looking up in the lexicons? Defaults to True.
+            lemmatize (bool): Should be text be lemmatized before looking up in the lexicons? Defaults to False.
+            force (bool): Should existing extensions be overwritten? Defaults to False.
         """
         self.name = name
 
@@ -126,9 +126,10 @@ class Asent:
             )
 
         if (not Doc.has_extension("polarity")) or (force is True):
+            doc_pol_getter = make_doc_polarity_getter(span_polarity_getter=None)
             Doc.set_extension(
                 "polarity",
-                getter=make_doc_polarity_getter(span_polarity_getter=None),
+                getter=doc_pol_getter,
                 force=force,
             )
 
@@ -166,9 +167,29 @@ def create_asent_component(
     lowercase: bool,
     lemmatize: bool,
     force: bool,
-) -> Language:
+) -> Asent:
     """Allows a asent sentiment pipe to be added to a spaCy pipe using
-    nlp.add_pipe("asent_v1")."""
+    nlp.add_pipe("asent_v1").
+
+    Args:
+        nlp (Language): A spaCy language pipeline to add the component to.
+        name (str): The name of the component.
+        lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a
+            word.
+        intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.
+            {"very": 0.293}).
+        negations (Iterable[str]): A list of negations (e.g. "not").
+        contrastive_conj (Iterable[str]): A list of contrastive conjugations (e.g.
+            "but").
+        lowercase (bool): Should be text be lowercases before looking up in the
+            lexicons?
+        lemmatize (bool): Should be text be lemmatized before looking up in the
+            lexicons?
+        force (bool): Should existing extensions be overwritten?
+
+    Returns:
+        Asent: A sentiment component.
+    """
 
     return Asent(
         nlp,

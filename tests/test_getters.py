@@ -17,12 +17,15 @@ from asent.getters import (
 
 @pytest.fixture()
 def nlp_dict():
-    nlp_da = spacy.load("da_core_news_lg")
-    nlp_en = spacy.load("en_core_web_sm")
-    nlp_sv = spacy.blank("sv")  # spacy has no Swedish pipelines
+    nlp_en = spacy.blank("en")
+    nlp_en.add_pipe("sentencizer")
+    nlp_da = spacy.load("da_core_news_sm")
+    nlp_sv = spacy.blank("sv")
     nlp_sv.add_pipe("sentencizer")
-    nlp_nb = spacy.load("nb_core_news_sm")
-    nlp_de = spacy.load("de_core_news_sm")
+    nlp_nb = spacy.blank("nb")
+    nlp_nb.add_pipe("sentencizer")
+    nlp_de = spacy.blank("de")
+    nlp_de.add_pipe("sentencizer")
 
     return {"da": nlp_da, "en": nlp_en, "no": nlp_nb, "sv": nlp_sv, "de": nlp_de}
 

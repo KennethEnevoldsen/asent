@@ -16,7 +16,7 @@ def create_xx_sentiment_component(
     name: str,
     lang: str,
     force: bool,
-) -> Language:
+) -> Asent:
     """Allows the sentiment pipe to be added to a spaCy pipe using
     nlp.add_pipe("asent_{language id}_v1"). Note that this is overwritten by
     languages which have a specified default, e.g. the case for en, da, sv.
@@ -26,6 +26,15 @@ def create_xx_sentiment_component(
     adjusting the lexicon. For more information on how the lexicon was
     constructed see; Chen, Y., & Skiena, S. (2014). Building Sentiment
     Lexicons for All Major Languages.
+
+    Args:
+        nlp: The spaCy language object to add the sentiment pipe to.
+        name: The name of the sentiment pipe.
+        lang: The language id of the sentiment pipe.
+        force: Whether to force the sentiment pipe to be added to the language.
+
+    Returns:
+        Asent: The sentiment pipe.
     """
 
     msg = (
@@ -54,8 +63,8 @@ def create_xx_sentiment_component(
 
 _create_xx_component = {}
 
-for lex in LEXICON_PATH.glob("*_lexicon_chen_skiena_2014_v1.txt"):
-    lang = lex.stem.split("_")[0]
+for lex_path in LEXICON_PATH.glob("*_lexicon_chen_skiena_2014_v1.txt"):
+    lang = lex_path.stem.split("_")[0]
 
     # register the Chen Skiena (2014) lexicons
     lexicons.register(
