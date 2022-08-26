@@ -10,9 +10,13 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
 
     Args:
         doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
-        style (str, optional): A string indicating whether it should visualize "prediction" or "analysis".
-            "prediction", color codes positive or negative spans according to the cmap. "analysis" visualize
-            for each sentimental word if it has by negated or intensified a word, and which word.
+        style (str, optional): A string indicating whether it should visualize
+            "prediction" or "analysis". "prediction", color codes positive or negative
+            spans according to the cmap. "analysis" visualize for each sentimental word
+            if it has by negated or intensified a word, and which word.
+            If you are looking for the previous visualizer for "prediction", use
+            "prediction-no-overlap". Note that this does not allow for overlapping span.
+            Thus it can lead to odd results. Defaults to "prediction".
         cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
 
     Returns:
@@ -31,6 +35,8 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
     """
     if style.lower() == "prediction":
         return visualize_prediction(doc, cmap=cmap)
+    elif style.lower() == "prediction-no-overlap":
+        return visualize_prediction_no_overlap(doc, cmap=cmap)
     elif style.lower() == "analysis":
         return visualize_analysis(doc)
     else:
@@ -39,8 +45,11 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
         )
 
 
-def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
+def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
     """Render displaCy visualisation of model prediction of sentiment.
+
+    This visualization is similar to visualize_prediction, but it does not allow
+    for overlapping spans.
 
     Args:
         doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
@@ -82,12 +91,65 @@ def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
             "title": None,
         },
     ]
+
     html = displacy.render(
         ex,
         style="ent",
         manual=True,
         options={"colors": sentiment_color_dict},
     )
+    return html
+
+
+def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
+    """Render displaCy visualisation of model prediction of sentiment.
+
+    Args:
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
+        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
+
+    Returns:
+        str: Rendered HTML markup.
+    """
+
+    if isinstance(doc, Doc):
+        span = doc[:]
+    else:
+        span = doc
+
+    thresholds = [t / 10 for t in range(-50, 51)]
+    sentiment_colors = make_colors(n=len(thresholds), cmap=cmap)
+    sentiment_color_dict = {str(t): c for c, t in zip(sentiment_colors, thresholds)}
+
+    def __normalize(val: float) -> str:
+        return str(max(min(round(val, 1), 5), -5))
+
+    pol = span._.polarity
+    t_pols = list(filter(lambda p: p, pol.polarities))
+
+    c_spans = [
+        {
+            "start_token": tp.span.start,
+            "end_token": tp.span.end,
+            "label": __normalize(tp.polarity),
+        }
+        for tp in t_pols
+    ]
+    ex = [
+        {
+            "text": span.text,
+            "spans": c_spans,
+            "tokens": [t.text for t in span],
+        },
+    ]
+
+    html = displacy.render(
+        ex,
+        style="span",
+        manual=True,
+        options={"colors": sentiment_color_dict},
+    )
+
     return html
 
 
