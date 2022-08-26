@@ -223,14 +223,16 @@ def make_is_negated_getter(
 
     def is_negated_getter(token: Token) -> bool:
         """Determine if token is negated."""
-        for t in token.doc[token.i - lookback : token.i]:
+        # don't look back before the sentence start
+        min_token_idx = max(token.sent.start, token.i - lookback)
+        for t in token.doc[min_token_idx : token.i]:
             if t._.is_negation:
                 return t
 
     return is_negated_getter
 
 
-def make_token_polarity_getter(
+def make_token_polarity_getter(  # noqa: C901
     valence_getter: Optional[Callable[[Token], float]] = None,
     is_negated_getter: Optional[Callable[[Token], Union[bool, Optional[Token]]]] = None,
     intensifier_getter: Optional[Callable[[Token], float]] = None,
@@ -306,8 +308,14 @@ def make_token_polarity_getter(
                 # dampen the scalar modifier of preceding words and emoticons
                 # (excluding the ones that immediately preceed the item) based
                 # on their distance from the current item.
+
                 if token.i > start_i:
-                    prev_token = token.doc[token.i - start_i]
+                    tok_id = token.i - start_i
+                    # stop if before sentence start
+                    if tok_id < token.sent.start:
+                        break
+
+                    prev_token = token.doc[tok_id]
                     b = prev_token._.intensifier
                     if b != 0:
                         intensifiers.append(prev_token)
@@ -409,7 +417,7 @@ def sift_sentiment_scores(sentiments: Iterable[float]) -> Tuple[float, float, in
     return pos_sum, neg_sum, neu_count
 
 
-def make_span_polarity_getter(
+def make_span_polarity_getter(  # noqa: C901
     polarity_getter: Optional[Callable[[Token], float]],
     contrastive_conj_getter: Optional[Callable[[Token], bool]],
 ) -> SpanPolarityOutput:

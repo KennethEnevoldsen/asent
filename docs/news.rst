@@ -1,6 +1,11 @@
 News and Changelog
 ==============================
 
+* 0.5.3 (26/05/22)
+
+  - Fixed bug where negation and intensifiers were considered outside of the sentences boundaries. Adressing `58 <https://github.com/KennethEnevoldsen/asent/issues/58>`__.
+  - Improvements to the documentation. Thanks to @tomaarsen for the pull request.
+
 * 0.4.2 (28/05/22)
 
   - Added new Danish Dictionary from `AFINN <https://github.com/fnielsen/afinn>`__
