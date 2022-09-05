@@ -19,7 +19,6 @@ from .test_getters import nlp_dict  # noqa
     ],
 )
 def test_visualize(example: str, lang: str, nlp_dict):  # noqa
-
     nlp = nlp_dict[lang]
     nlp.add_pipe("asent_" + lang + "_v1")
 

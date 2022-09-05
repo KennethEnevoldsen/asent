@@ -39,7 +39,6 @@ def nlp_dict():
     ],
 )
 def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
-
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
@@ -264,7 +263,6 @@ def test_span_polarity_contrast(
     ],
 )
 def test_components(example: str, expected: str, lang: str, nlp_dict):
-
     nlp = nlp_dict[lang]
 
     nlp.add_pipe("asent_" + lang + "_v1", config={"force": True})
