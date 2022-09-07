@@ -55,7 +55,7 @@ jobs:
     - name: Pytest coverage comment
       if: ${{ github.event_name == 'push' }}
       id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.1.33
+      uses: MishaKav/pytest-coverage-comment@v1.1.35
       with:
         pytest-coverage-path: ./pytest-coverage.txt
         github-token: ${{ secrets.SPHINX_DOCUMENTATION }}
@@ -65,7 +65,9 @@ jobs:
       run: |
         echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
         echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
+
     - name: Create the Badge
+      if: ${{ github.event_name == 'push' }}
       uses: schneegans/dynamic-badges-action@v1.3.0
       with:
         auth: ${{ secrets.PYTEST_COVERAGE }}
