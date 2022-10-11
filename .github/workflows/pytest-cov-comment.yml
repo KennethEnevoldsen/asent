@@ -68,7 +68,7 @@ jobs:
 
     - name: Create the Badge
       if: ${{ github.event_name == 'push' }}
-      uses: schneegans/dynamic-badges-action@v1.3.0
+      uses: schneegans/dynamic-badges-action@v1.5.0
       with:
         auth: ${{ secrets.PYTEST_COVERAGE }}
         gistID: 95471fd640b6c1c09717c5f88e2e9fae
