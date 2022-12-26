@@ -1,8 +1,9 @@
 """convert into sentiment lexicon from:
 
-https://www.kaggle.com/datasets/rtatman/sentiment-lexicons-for-81-languages/discussion/39827?resource=download
-into txt files for each language with each positive word rated +1 and negative words
-rated -1.
+https://www.kaggle.com/datasets/rtatman/sentiment-lexicons-
+for-81-languages/discussion/39827?resource=download into txt files for
+each language with each positive word rated +1 and negative words rated
+-1.
 """
 from collections import defaultdict
 from pathlib import Path
