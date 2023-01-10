@@ -253,15 +253,15 @@ Naturally you will have to change the version to fit the used version.</p>
 you’ll usually want to clone the repository and build asent from the
 source. This will also install the required development dependencies
 and test utilities defined in the <a class="reference external" href="https://github.com/KennethEnevoldsen/asent/blob/master/requirements.txt">requirements.txt</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
-pip install pytest
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>pytest
 
-python -m pytest
+python<span class="w"> </span>-m<span class="w"> </span>pytest
 </pre></div>
 </div>
 <p>which will run all the test in the <cite>asent/tests</cite> folder.</p>
 <p>Specific tests can be run using:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m pytest asent/tests/desired_test.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>asent/tests/desired_test.py
 </pre></div>
 </div>
 </section>
@@ -272,11 +272,11 @@ documentation. It uses the <a class="reference external" href="https://github.co
 with custom styling.</p>
 <p>To make the documentation you can run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install sphinx, themes and extensions</span>
-pip install sphinx furo sphinx-copybutton sphinxext-opengraph
+pip<span class="w"> </span>install<span class="w"> </span>sphinx<span class="w"> </span>furo<span class="w"> </span>sphinx-copybutton<span class="w"> </span>sphinxext-opengraph
 
 <span class="c1"># generate html from documentations</span>
 
-make -C docs html
+make<span class="w"> </span>-C<span class="w"> </span>docs<span class="w"> </span>html
 </pre></div>
 </div>
 </section>
