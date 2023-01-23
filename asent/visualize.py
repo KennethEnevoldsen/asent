@@ -36,7 +36,6 @@ def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -
         >>> asent.visualize(doc, style="prediction")
         >>> asent.visualize(doc, style="analysis")
     """
-
     if style == "prediction" and version.parse(spacy.__version__) < version.parse(
         "3.3.0",
     ):
@@ -72,7 +71,6 @@ def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str
     Returns:
         str: Rendered HTML markup.
     """
-
     if isinstance(doc, Doc):
         span = doc[:]
     else:
@@ -125,7 +123,6 @@ def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
     Returns:
         str: Rendered HTML markup.
     """
-
     if isinstance(doc, Doc):
         span = doc[:]
     else:
@@ -176,7 +173,6 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
     Returns:
         str: Rendered HTML markup.
     """
-
     if isinstance(doc, Doc):
         span = doc[:]
     else:
