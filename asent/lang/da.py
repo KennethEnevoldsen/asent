@@ -11,7 +11,7 @@ LANG = "da"
 def read_csv_lexicon():
     lexicon_file = LEXICON_PATH / f"{LANG}_lexicon_sentida_lemma_v1.csv"
 
-    with open(lexicon_file) as f:
+    with open(lexicon_file, encoding="utf-8") as f:
         pairs = filter(lambda x: x, f.read().split("\n")[1:])
         lexicon = {
             word: float(rating) for word, rating in map(lambda x: x.split(","), pairs)
