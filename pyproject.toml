@@ -125,4 +125,3 @@ universal = true
 
 [tool.distutils.sdist]
 formats = "gztar"
-
