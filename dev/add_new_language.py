@@ -1,8 +1,9 @@
 """convert into sentiment lexicon from:
 
-https://www.kaggle.com/datasets/rtatman/sentiment-lexicons-for-81-languages/discussion/39827?resource=download
-into txt files for each language with each positive word rated +1 and negative words
-rated -1.
+https://www.kaggle.com/datasets/rtatman/sentiment-lexicons-
+for-81-languages/discussion/39827?resource=download into txt files for
+each language with each positive word rated +1 and negative words rated
+-1.
 """
 from collections import defaultdict
 from pathlib import Path
@@ -14,7 +15,7 @@ for w_path in set(path.glob("sentiment-lexicons/*.txt")):
     lang_id = w_path.stem.split("_")[-1]
     is_positive = w_path.stem.split("_")[0] == "positive"
     rating = 1 if is_positive else -1
-    with open(path / w_path, "r") as f:
+    with open(path / w_path) as f:
         words = list(filter(lambda x: x, f.read().split("\n")))
     words = [(w, rating) for w in words]
     rated_words[lang_id] += words

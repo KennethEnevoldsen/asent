@@ -39,6 +39,26 @@ def make_txt_getter(lemmatize: bool, lowercase: bool) -> Callable[[Token], str]:
     return get_txt
 
 
+def allcap_differential_getter(span: Union[Span, Doc]) -> bool:
+    """Check whether just some words in the span are ALL CAPS.
+
+    Args:
+        span (Union[Span, Doc]): A spaCy span
+
+    Returns:
+        bool: `True` if some but not all items in `words` are ALL CAPS
+    """
+    is_different = False
+    allcap_words = 0
+    for word in span:
+        if word.is_upper:
+            allcap_words += 1
+    cap_differential = len(span) - allcap_words
+    if 0 < cap_differential < len(span):
+        is_different = True
+    return is_different
+
+
 def make_intensifier_getter(
     intensifiers: Dict[str, float],
     lemmatize: bool = True,
@@ -48,9 +68,12 @@ def make_intensifier_getter(
     return it intensification factor.
 
     Args:
-        intensifiers (Dict[str, float]): A dictionary of intensifiers and multiplication factor.
-        lemmatize (bool): Should it look up in the intensifiers using the lemma? Defaults to True.
-        lowercase (bool): Should it look up in the intensifiers using the lowercased word? Defaults to True.
+        intensifiers (Dict[str, float]): A dictionary of intensifiers and multiplication
+            factor.
+        lemmatize (bool): Should it look up in the intensifiers using the lemma?
+            Defaults to True.
+        lowercase (bool): Should it look up in the intensifiers using the lowercased
+            word? Defaults to True.
 
     Returns:
         Callable[[Token], float]: The getter function
@@ -71,26 +94,6 @@ def make_intensifier_getter(
         return 0.0
 
     return intensifier_scalar_getter
-
-
-def allcap_differential_getter(span: Union[Span, Doc]) -> bool:
-    """Check whether just some words in the span are ALL CAPS.
-
-    Args:
-        span (Union[Span, Doc]): A spaCy span
-
-    Returns:
-        bool: `True` if some but not all items in `words` are ALL CAPS
-    """
-    is_different = False
-    allcap_words = 0
-    for word in span:
-        if word.is_upper:
-            allcap_words += 1
-    cap_differential = len(span) - allcap_words
-    if 0 < cap_differential < len(span):
-        is_different = True
-    return is_different
 
 
 def make_valance_getter(
@@ -157,8 +160,10 @@ def make_is_negation_getter(
 
     Args:
         negations (Iterable[str]): An list of negations
-        lemmatize (bool): Should it look up in negations using the lemma? Defaults to True.
-        lowercase (bool): Should it look up in negations using the lowercased word? Defaults to True.
+        lemmatize (bool): Should it look up in negations using the lemma? Defaults to
+            True.
+        lowercase (bool): Should it look up in negations using the lowercased word?
+            Defaults to True.
 
     Returns:
         Callable[[Token], bool]: A token getter
@@ -183,8 +188,10 @@ def make_is_contrastive_conj_getter(
 
     Args:
         contrastive_conjugations (Iterable[str]): A list of contrastive conjugations.
-        lemmatize (bool): Should you lemmatize before lookup in the contrastive conjugations list? Defaults to True.
-        lowercase (bool): Should you lowercase before lookup in the contrastive conjugations list? Defaults to True.
+        lemmatize (bool): Should you lemmatize before lookup in the contrastive
+            conjugations list? Defaults to True.
+        lowercase (bool): Should you lowercase before lookup in the
+            conjugations list? Defaults to True.
 
     Returns:
         Callable[[Token], bool]: A token getter
@@ -208,11 +215,12 @@ def make_is_negated_getter(
     the n previous workds are negations.
 
     Args:
-        lookback (int): How many token should it look backwards for negations? Defaults to 3
-            which is emperically derived by Hutto and Gilbert (2014).
+        lookback (int): How many token should it look backwards for negations? Defaults
+            to 3 which is emperically derived by Hutto and Gilbert (2014).
         is_negation_getter (Optional[Callable[[Token], bool]]): A function which given a
-            token return if the token is a negation or not. If None it assumes that the the token
-            extention "is_negation" is set. If specified overwrites teh extension. Defualts to None.
+            token return if the token is a negation or not. If None it assumes that
+            the token extention "is_negation" is set. If specified overwrites the
+            extension. Defualts to None.
 
     Returns:
         Callable[[Token], bool]: The getter function
@@ -477,8 +485,8 @@ def make_span_polarity_getter(  # noqa: C901
         )
     if not Token.has_extension("is_contrastive_conj"):
         raise ValueError(
-            "Token class has no extension 'is_contrastive_conj', either set the extension"
-            + " or provide the contrastive_conj_getter.",
+            "Token class has no extension 'is_contrastive_conj', either set the "
+            + "extension or provide the contrastive_conj_getter.",
         )
 
     def __extract(polarity: TokenPolarityOutput) -> Tuple[float, Span]:

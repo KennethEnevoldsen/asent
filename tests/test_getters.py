@@ -57,7 +57,8 @@ def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
         assert doc[idx]._.valence == 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'positive' or 'negative'",
+            "Invalid expected value '{expected}', should be either 'positive' or "
+            + "'negative'",
         )
 
 
@@ -219,7 +220,8 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
         assert sent._.polarity.compound == 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'",
+            "Invalid expected value '{expected}', should be either 'neutral', "
+            + "'positive' or 'negative'",
         )
 
 
@@ -275,5 +277,6 @@ def test_components(example: str, expected: str, lang: str, nlp_dict):
         assert doc._.polarity.compound < 0
     else:
         raise ValueError(
-            "Invalid expected value '{expected}', should be either 'neutral', 'positive' or 'negative'",
+            "Invalid expected value '{expected}', should be either 'neutral', "
+            + "'positive' or 'negative'",
         )

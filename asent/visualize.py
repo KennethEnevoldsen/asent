@@ -7,56 +7,24 @@ from spacy import displacy
 from spacy.tokens import Doc, Span
 
 
-def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -> str:
-    """Render displaCy visualisation of  model prediction of sentiment or
-    analysis of sentiment.
+def make_colors(n=10, cmap="RdYlGn"):
+    """A utility function for creating a stepped color gradient."""
+    from pylab import cm, matplotlib
 
-    Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
-        style (str): A string indicating whether it should visualize
-            "prediction" or "analysis". "prediction", color codes positive or negative
-            spans according to the cmap. "analysis" visualize for each sentimental word
-            if it has by negated or intensified a word, and which word.
-            If you are looking for the previous visualizer for "prediction", use
-            "prediction-no-overlap". Note that this does not allow for overlapping span.
-            Thus it can lead to odd results. Defaults to "prediction".
-        cmap (str): The color map derived from matplotlib. Defaults to "RdYlGn".
+    cmap = cm.get_cmap(cmap, n)  # PiYG
 
-    Returns:
-        str: Rendered HTML markup.
+    for i in range(cmap.N):
+        rgba = cmap(i)
+        # rgb2hex accepts rgb or rgba
+        yield matplotlib.colors.rgb2hex(rgba)
 
-    Examples:
-        >>> nlp = spacy.load("en_core_web_lg")
-        >>> # add the rule-based sentiment model
-        >>> nlp.add_pipe("asent_en_v1")
-        >>> # try an example
-        >>> text = "I am not very happy"
-        >>> doc = nlp(text)
-        >>> # visualize model prediction
-        >>> asent.visualize(doc, style="prediction")
-        >>> asent.visualize(doc, style="analysis")
-    """
 
-    if style == "prediction" and version.parse(spacy.__version__) < version.parse(
-        "3.3.0",
-    ):
-        warn(
-            "The visualization style 'prediction' is not available for spacy version "
-            + "< 3.3.0. Using 'prediction-no-overlap' instead. Note that this does not"
-            + "allow for overlapping span.",
-        )
-        style = "prediction-no-overlap"
+# def print_colors(HEX: Iterable) -> None:
+#     """An utility function for visualizing a color map"""
+#     from IPython.core.display import HTML, display
 
-    if style.lower() == "prediction":
-        return visualize_prediction(doc, cmap=cmap)
-    elif style.lower() == "prediction-no-overlap":
-        return visualize_prediction_no_overlap(doc, cmap=cmap)
-    elif style.lower() == "analysis":
-        return visualize_analysis(doc)
-    else:
-        raise ValueError(
-            "Invalid style argument, should be either 'analysis' or 'prediction'",
-        )
+#     for color in HEX:
+#         display(HTML(f'<p style="color:{color}">{color}</p>'))
 
 
 def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
@@ -66,8 +34,10 @@ def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str
     for overlapping spans.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
-        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+            to.
+        cmap (str, optional): The color map derived from matplotlib. Defaults to
+            "RdYlGn".
 
     Returns:
         str: Rendered HTML markup.
@@ -119,8 +89,10 @@ def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
     """Render displaCy visualisation of model prediction of sentiment.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
-        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+            to.
+        cmap (str, optional): The color map derived from matplotlib. Defaults to
+            "RdYlGn".
 
     Returns:
         str: Rendered HTML markup.
@@ -171,7 +143,8 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
     """Render displaCy visualisation of model analysis.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+            to.
 
     Returns:
         str: Rendered HTML markup.
@@ -226,21 +199,54 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
     return html
 
 
-def make_colors(n=10, cmap="RdYlGn"):
-    """A utility function for creating a stepped color gradient."""
-    from pylab import cm, matplotlib
+def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -> str:
+    """Render displaCy visualisation of  model prediction of sentiment or
+    analysis of sentiment.
 
-    cmap = cm.get_cmap(cmap, n)  # PiYG
+    Args:
+        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+            to.
+        style (str): A string indicating whether it should visualize
+            "prediction" or "analysis". "prediction", color codes positive or negative
+            spans according to the cmap. "analysis" visualize for each sentimental word
+            if it has by negated or intensified a word, and which word.
+            If you are looking for the previous visualizer for "prediction", use
+            "prediction-no-overlap". Note that this does not allow for overlapping span.
+            Thus it can lead to odd results. Defaults to "prediction".
+        cmap (str): The color map derived from matplotlib. Defaults to "RdYlGn".
 
-    for i in range(cmap.N):
-        rgba = cmap(i)
-        # rgb2hex accepts rgb or rgba
-        yield matplotlib.colors.rgb2hex(rgba)
+    Returns:
+        str: Rendered HTML markup.
 
+    Examples:
+        >>> nlp = spacy.load("en_core_web_lg")
+        >>> # add the rule-based sentiment model
+        >>> nlp.add_pipe("asent_en_v1")
+        >>> # try an example
+        >>> text = "I am not very happy"
+        >>> doc = nlp(text)
+        >>> # visualize model prediction
+        >>> asent.visualize(doc, style="prediction")
+        >>> asent.visualize(doc, style="analysis")
+    """
 
-# def print_colors(HEX: Iterable) -> None:
-#     """An utility function for visualizing a color map"""
-#     from IPython.core.display import HTML, display
+    if style == "prediction" and version.parse(spacy.__version__) < version.parse(
+        "3.3.0",
+    ):
+        warn(
+            "The visualization style 'prediction' is not available for spacy version "
+            + "< 3.3.0. Using 'prediction-no-overlap' instead. Note that this does not"
+            + "allow for overlapping span.",
+        )
+        style = "prediction-no-overlap"
 
-#     for color in HEX:
-#         display(HTML(f'<p style="color:{color}">{color}</p>'))
+    if style.lower() == "prediction":
+        return visualize_prediction(doc, cmap=cmap)
+    elif style.lower() == "prediction-no-overlap":
+        return visualize_prediction_no_overlap(doc, cmap=cmap)
+    elif style.lower() == "analysis":
+        return visualize_analysis(doc)
+    else:
+        raise ValueError(
+            "Invalid style argument, should be either 'analysis' or 'prediction'",
+        )
