@@ -1,14 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>asent.visualize - asent 0.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -159,7 +160,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -206,7 +207,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -230,71 +232,41 @@
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 
 
-<div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"prediction"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Render displaCy visualisation of  model prediction of sentiment or</span>
-<span class="sd">    analysis of sentiment.</span>
+<span class="k">def</span> <span class="nf">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility function for creating a stepped color gradient.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.</span>
-<span class="sd">        style (str): A string indicating whether it should visualize</span>
-<span class="sd">            "prediction" or "analysis". "prediction", color codes positive or negative</span>
-<span class="sd">            spans according to the cmap. "analysis" visualize for each sentimental word</span>
-<span class="sd">            if it has by negated or intensified a word, and which word.</span>
-<span class="sd">            If you are looking for the previous visualizer for "prediction", use</span>
-<span class="sd">            "prediction-no-overlap". Note that this does not allow for overlapping span.</span>
-<span class="sd">            Thus it can lead to odd results. Defaults to "prediction".</span>
-<span class="sd">        cmap (str): The color map derived from matplotlib. Defaults to "RdYlGn".</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        str: Rendered HTML markup.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; nlp = spacy.load("en_core_web_lg")</span>
-<span class="sd">        &gt;&gt;&gt; # add the rule-based sentiment model</span>
-<span class="sd">        &gt;&gt;&gt; nlp.add_pipe("asent_en_v1")</span>
-<span class="sd">        &gt;&gt;&gt; # try an example</span>
-<span class="sd">        &gt;&gt;&gt; text = "I am not very happy"</span>
-<span class="sd">        &gt;&gt;&gt; doc = nlp(text)</span>
-<span class="sd">        &gt;&gt;&gt; # visualize model prediction</span>
-<span class="sd">        &gt;&gt;&gt; asent.visualize(doc, style="prediction")</span>
-<span class="sd">        &gt;&gt;&gt; asent.visualize(doc, style="analysis")</span>
-<span class="sd">    """</span>
-
-    <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">"prediction"</span> <span class="ow">and</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">spacy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
-        <span class="s2">"3.3.0"</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="n">warn</span><span class="p">(</span>
-            <span class="s2">"The visualization style 'prediction' is not available for spacy version "</span>
-            <span class="o">+</span> <span class="s2">"&lt; 3.3.0. Using 'prediction-no-overlap' instead. Note that this does not"</span>
-            <span class="o">+</span> <span class="s2">"allow for overlapping span."</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">style</span> <span class="o">=</span> <span class="s2">"prediction-no-overlap"</span>
-
-    <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"prediction"</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"prediction-no-overlap"</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"analysis"</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">visualize_analysis</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">"Invalid style argument, should be either 'analysis' or 'prediction'"</span><span class="p">,</span>
-        <span class="p">)</span></div>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="c1"># rgb2hex accepts rgb or rgba</span>
+        <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Render displaCy visualisation of model prediction of sentiment.</span>
+<span class="c1"># def print_colors(HEX: Iterable) -&gt; None:</span>
+<span class="c1">#     &quot;&quot;&quot;An utility function for visualizing a color map&quot;&quot;&quot;</span>
+<span class="c1">#     from IPython.core.display import HTML, display</span>
+
+<span class="c1">#     for color in HEX:</span>
+<span class="c1">#         display(HTML(f&#39;&lt;p style=&quot;color:{color}&quot;&gt;{color}&lt;/p&gt;&#39;))</span>
+
+
+<span class="k">def</span> <span class="nf">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of model prediction of sentiment.</span>
 
 <span class="sd">    This visualization is similar to visualize_prediction, but it does not allow</span>
 <span class="sd">    for overlapping spans.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.</span>
-<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".</span>
+<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">            to.</span>
+<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to</span>
+<span class="sd">            &quot;RdYlGn&quot;.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: Rendered HTML markup.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
         <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
@@ -313,41 +285,43 @@
 
     <span class="n">c_spans</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">"start"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span>
-            <span class="s2">"end"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span>
+            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span>
+            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span>
             <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">),</span>
-            <span class="s2">"label"</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">tp</span> <span class="ow">in</span> <span class="n">t_pols</span>
     <span class="p">]</span>
 
     <span class="n">ex</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">"text"</span><span class="p">:</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
-            <span class="s2">"ents"</span><span class="p">:</span> <span class="n">c_spans</span><span class="p">,</span>
-            <span class="s2">"title"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+            <span class="s2">&quot;ents&quot;</span><span class="p">:</span> <span class="n">c_spans</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">]</span>
 
     <span class="n">html</span> <span class="o">=</span> <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
         <span class="n">ex</span><span class="p">,</span>
-        <span class="n">style</span><span class="o">=</span><span class="s2">"ent"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ent&quot;</span><span class="p">,</span>
         <span class="n">manual</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"colors"</span><span class="p">:</span> <span class="n">sentiment_color_dict</span><span class="p">},</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;colors&quot;</span><span class="p">:</span> <span class="n">sentiment_color_dict</span><span class="p">},</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">html</span>
 
 
-<span class="k">def</span> <span class="nf">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Render displaCy visualisation of model prediction of sentiment.</span>
+<span class="k">def</span> <span class="nf">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of model prediction of sentiment.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.</span>
-<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to "RdYlGn".</span>
+<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">            to.</span>
+<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to</span>
+<span class="sd">            &quot;RdYlGn&quot;.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: Rendered HTML markup.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
         <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
@@ -366,39 +340,40 @@
 
     <span class="n">c_spans</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">"start_token"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
-            <span class="s2">"end_token"</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="p">,</span>
-            <span class="s2">"label"</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
+            <span class="s2">&quot;start_token&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+            <span class="s2">&quot;end_token&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">tp</span> <span class="ow">in</span> <span class="n">t_pols</span>
     <span class="p">]</span>
     <span class="n">ex</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">"text"</span><span class="p">:</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
-            <span class="s2">"spans"</span><span class="p">:</span> <span class="n">c_spans</span><span class="p">,</span>
-            <span class="s2">"tokens"</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">span</span><span class="p">],</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+            <span class="s2">&quot;spans&quot;</span><span class="p">:</span> <span class="n">c_spans</span><span class="p">,</span>
+            <span class="s2">&quot;tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">span</span><span class="p">],</span>
         <span class="p">},</span>
     <span class="p">]</span>
 
     <span class="n">html</span> <span class="o">=</span> <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
         <span class="n">ex</span><span class="p">,</span>
-        <span class="n">style</span><span class="o">=</span><span class="s2">"span"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="s2">&quot;span&quot;</span><span class="p">,</span>
         <span class="n">manual</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"colors"</span><span class="p">:</span> <span class="n">sentiment_color_dict</span><span class="p">},</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;colors&quot;</span><span class="p">:</span> <span class="n">sentiment_color_dict</span><span class="p">},</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">html</span>
 
 
 <span class="k">def</span> <span class="nf">visualize_analysis</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Render displaCy visualisation of model analysis.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of model analysis.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer to.</span>
+<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">            to.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: Rendered HTML markup.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
         <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
@@ -413,60 +388,93 @@
         <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="p">:</span>
             <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">"text"</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
-                    <span class="s2">"tag"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="o">.</span><span class="n">polarity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+                    <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="o">.</span><span class="n">polarity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
                 <span class="p">},</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"text"</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s2">"tag"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">})</span>
+            <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
 
         <span class="k">if</span> <span class="n">t_pol</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">t_pol</span><span class="o">.</span><span class="n">intensifiers</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">intens</span> <span class="ow">in</span> <span class="n">t_pol</span><span class="o">.</span><span class="n">intensifiers</span><span class="p">:</span>
                     <span class="n">arcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                         <span class="p">{</span>
-                            <span class="s2">"start"</span><span class="p">:</span> <span class="n">intens</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
-                            <span class="s2">"end"</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
-                            <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"intensified by"</span><span class="p">,</span>
-                            <span class="s2">"dir"</span><span class="p">:</span> <span class="s2">"left"</span><span class="p">,</span>
+                            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">intens</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
+                            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
+                            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;intensified by&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
                         <span class="p">},</span>
                     <span class="p">)</span>
             <span class="k">if</span> <span class="n">t_pol</span><span class="o">.</span><span class="n">negation</span><span class="p">:</span>
                 <span class="n">arcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="p">{</span>
-                        <span class="s2">"start"</span><span class="p">:</span> <span class="n">t_pol</span><span class="o">.</span><span class="n">negation</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
-                        <span class="s2">"end"</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
-                        <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"negated by"</span><span class="p">,</span>
-                        <span class="s2">"dir"</span><span class="p">:</span> <span class="s2">"left"</span><span class="p">,</span>
+                        <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">t_pol</span><span class="o">.</span><span class="n">negation</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
+                        <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
+                        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;negated by&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
                     <span class="p">},</span>
                 <span class="p">)</span>
     <span class="c1"># Visualize analysis</span>
     <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 
-    <span class="n">ex</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"words"</span><span class="p">:</span> <span class="n">words</span><span class="p">,</span> <span class="s2">"arcs"</span><span class="p">:</span> <span class="n">arcs</span><span class="p">}</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"dep"</span><span class="p">,</span> <span class="n">manual</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;words&quot;</span><span class="p">:</span> <span class="n">words</span><span class="p">,</span> <span class="s2">&quot;arcs&quot;</span><span class="p">:</span> <span class="n">arcs</span><span class="p">}</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dep&quot;</span><span class="p">,</span> <span class="n">manual</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">html</span>
 
 
-<span class="k">def</span> <span class="nf">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn"</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""A utility function for creating a stepped color gradient."""</span>
-    <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>
+<div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of  model prediction of sentiment or</span>
+<span class="sd">    analysis of sentiment.</span>
 
-    <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG</span>
+<span class="sd">    Args:</span>
+<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">            to.</span>
+<span class="sd">        style (str): A string indicating whether it should visualize</span>
+<span class="sd">            &quot;prediction&quot; or &quot;analysis&quot;. &quot;prediction&quot;, color codes positive or negative</span>
+<span class="sd">            spans according to the cmap. &quot;analysis&quot; visualize for each sentimental word</span>
+<span class="sd">            if it has by negated or intensified a word, and which word.</span>
+<span class="sd">            If you are looking for the previous visualizer for &quot;prediction&quot;, use</span>
+<span class="sd">            &quot;prediction-no-overlap&quot;. Note that this does not allow for overlapping span.</span>
+<span class="sd">            Thus it can lead to odd results. Defaults to &quot;prediction&quot;.</span>
+<span class="sd">        cmap (str): The color map derived from matplotlib. Defaults to &quot;RdYlGn&quot;.</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="c1"># rgb2hex accepts rgb or rgba</span>
-        <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Rendered HTML markup.</span>
 
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; nlp = spacy.load(&quot;en_core_web_lg&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # add the rule-based sentiment model</span>
+<span class="sd">        &gt;&gt;&gt; nlp.add_pipe(&quot;asent_en_v1&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # try an example</span>
+<span class="sd">        &gt;&gt;&gt; text = &quot;I am not very happy&quot;</span>
+<span class="sd">        &gt;&gt;&gt; doc = nlp(text)</span>
+<span class="sd">        &gt;&gt;&gt; # visualize model prediction</span>
+<span class="sd">        &gt;&gt;&gt; asent.visualize(doc, style=&quot;prediction&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; asent.visualize(doc, style=&quot;analysis&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="c1"># def print_colors(HEX: Iterable) -&gt; None:</span>
-<span class="c1">#     """An utility function for visualizing a color map"""</span>
-<span class="c1">#     from IPython.core.display import HTML, display</span>
+    <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;prediction&quot;</span> <span class="ow">and</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">spacy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+        <span class="s2">&quot;3.3.0&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;The visualization style &#39;prediction&#39; is not available for spacy version &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;&lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does not&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;allow for overlapping span.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;prediction-no-overlap&quot;</span>
 
-<span class="c1">#     for color in HEX:</span>
-<span class="c1">#         display(HTML(f'&lt;p style="color:{color}"&gt;{color}&lt;/p&gt;'))</span>
+    <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;prediction&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;prediction-no-overlap&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;analysis&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">visualize_analysis</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Invalid style argument, should be either &#39;analysis&#39; or &#39;prediction&#39;&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
@@ -488,6 +496,11 @@
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/KenethEnevoldsen/asent" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -502,9 +515,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>

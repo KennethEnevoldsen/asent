@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="Frequently asked questions" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="faq.html" />
@@ -11,11 +11,12 @@
 <meta name="description" content="Citing asent: If you use this library in your research, please cite it using the following citation. Naturally you will have to change the version to fit the used version. or if you prefer APA: How..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Visualizers" href="asent.visualize.html" /><link rel="prev" title="News and Changelog" href="news.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>Frequently asked questions - asent 0.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -166,7 +167,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -213,7 +214,17 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/KenethEnevoldsen/asent/edit/main/docs/faq.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -228,9 +239,9 @@
         </div>
         <article role="main">
           <section id="frequently-asked-questions">
-<h1>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">#</a></h1>
+<h1>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h1>
 <section id="citing-asent">
-<h2>Citing asent<a class="headerlink" href="#citing-asent" title="Permalink to this headline">#</a></h2>
+<h2>Citing asent<a class="headerlink" href="#citing-asent" title="Permalink to this heading">#</a></h2>
 <p>If you use this library in your research, please cite it using the following citation.
 Naturally you will have to change the version to fit the used version.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">Enevoldsen_Asent_Fast_flexible_2022</span><span class="p">,</span>
@@ -248,31 +259,34 @@ Naturally you will have to change the version to fit the used version.</p>
 </div>
 </section>
 <section id="how-do-i-test-the-code-and-run-the-test-suite">
-<h2>How do I test the code and run the test suite?<a class="headerlink" href="#how-do-i-test-the-code-and-run-the-test-suite" title="Permalink to this headline">#</a></h2>
-<p>asent comes with an extensive test suite. In order to run the tests,
-you’ll usually want to clone the repository and build asent from the
+<h2>How do I test the code and run the test suite?<a class="headerlink" href="#how-do-i-test-the-code-and-run-the-test-suite" title="Permalink to this heading">#</a></h2>
+<p>This package comes with an extensive test suite. In order to run the tests,
+you’ll usually want to clone the repository and build the package from the
 source. This will also install the required development dependencies
-and test utilities defined in the <a class="reference external" href="https://github.com/KennethEnevoldsen/asent/blob/master/requirements.txt">requirements.txt</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-pip<span class="w"> </span>install<span class="w"> </span>pytest
+and test utilities defined in the extras_require section of the <code class="code docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[tests]&quot;</span>
 
 python<span class="w"> </span>-m<span class="w"> </span>pytest
 </pre></div>
 </div>
-<p>which will run all the test in the <cite>asent/tests</cite> folder.</p>
+<p>which will run all the test in the <cite>tests</cite> folder.</p>
 <p>Specific tests can be run using:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>asent/tests/desired_test.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/desired_test.py
+</pre></div>
+</div>
+<p>If you want to check code coverage you can run the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span><span class="o">=.</span>
 </pre></div>
 </div>
 </section>
 <section id="how-is-the-documentation-generated">
-<h2>How is the documentation generated?<a class="headerlink" href="#how-is-the-documentation-generated" title="Permalink to this headline">#</a></h2>
+<h2>How is the documentation generated?<a class="headerlink" href="#how-is-the-documentation-generated" title="Permalink to this heading">#</a></h2>
 <p>Asent uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a> to generate
 documentation. It uses the <a class="reference external" href="https://github.com/pradyunsg/furo">Furo</a> theme
 with custom styling.</p>
 <p>To make the documentation you can run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install sphinx, themes and extensions</span>
-pip<span class="w"> </span>install<span class="w"> </span>sphinx<span class="w"> </span>furo<span class="w"> </span>sphinx-copybutton<span class="w"> </span>sphinxext-opengraph
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
 
 <span class="c1"># generate html from documentations</span>
 
@@ -281,12 +295,12 @@ make<span class="w"> </span>-C<span class="w"> </span>docs<span class="w"> </spa
 </div>
 </section>
 <section id="how-do-i-add-a-new-language">
-<h2>How do I add a new language?<a class="headerlink" href="#how-do-i-add-a-new-language" title="Permalink to this headline">#</a></h2>
+<h2>How do I add a new language?<a class="headerlink" href="#how-do-i-add-a-new-language" title="Permalink to this heading">#</a></h2>
 <p>Check out the <a class="reference external" href="https://kennethenevoldsen.github.io/asent/customizing.html">customizing Asent</a> guide it gives an example of how to add a new language.
 Once you have added we would very much appreciate a pull request with your new language.</p>
 </section>
 <section id="couldn-t-you-just-train-a-transformer-for-this">
-<h2>Couldn’t you just train a transformer for this?<a class="headerlink" href="#couldn-t-you-just-train-a-transformer-for-this" title="Permalink to this headline">#</a></h2>
+<h2>Couldn’t you just train a transformer for this?<a class="headerlink" href="#couldn-t-you-just-train-a-transformer-for-this" title="Permalink to this heading">#</a></h2>
 <p>It is true that a trained transformer would probably perform sentence-level sentiment analysis much better. However, this modular approach to sentiment analysis
 allows a more fine-grained sentiment analysis, as would for example be done in aspect-based sentiment analysis. This too, however, could be done using neural architectures.
 The goal of Asent it not to exclude such approaches (in fact it can use transformer-based models  through spaCy) but to combine them in a way that allow the end user to examine the results.</p>
@@ -305,10 +319,10 @@ The goal of Asent it not to exclude such approaches (in fact it can use transfor
                 </div>
                 <div class="title">Visualizers</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="news.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -331,6 +345,11 @@ The goal of Asent it not to exclude such approaches (in fact it can use transfor
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/KenethEnevoldsen/asent" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -344,7 +363,7 @@ The goal of Asent it not to exclude such approaches (in fact it can use transfor
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -368,9 +387,8 @@ The goal of Asent it not to exclude such approaches (in fact it can use transfor
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="Customizing Asent" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="customizing.html" />
@@ -11,11 +11,12 @@
 <meta name="description" content="colab_tut Asent is built using a series of extension attributes on the spaCy classes, Doc, Token and Span. This allows you to switch out the parts and also improve on one component at a time. In th..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Languages" href="languages.html" /><link rel="prev" title="Getting started" href="introduction.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>Customizing Asent - asent 0.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -166,7 +167,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -213,7 +214,17 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/KenethEnevoldsen/asent/edit/main/docs/customizing.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -228,8 +239,8 @@
         </div>
         <article role="main">
           <section id="customizing-asent">
-<h1>Customizing Asent<a class="headerlink" href="#customizing-asent" title="Permalink to this headline">#</a></h1>
-<p><a class="reference external" href="https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/customizing_your_pipeline.ipynb"><img alt="colab_tut" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt"/></a></p>
+<h1>Customizing Asent<a class="headerlink" href="#customizing-asent" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/kennethenevoldsen/asent/blob/main/docs/tutorials/customizing_your_pipeline.ipynb"><img alt="colab_tut" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>Asent is built using a series of extension attributes on the spaCy
 classes, <code class="docutils literal notranslate"><span class="pre">Doc</span></code>, <code class="docutils literal notranslate"><span class="pre">Token</span></code> and <code class="docutils literal notranslate"><span class="pre">Span</span></code>. This allows you to switch
 out the parts and also improve on one component at a time. In this
@@ -246,7 +257,7 @@ the way the pipeline checks if a word is negated.</p>
 </div>
 <p>Which can then be loading using spaCy:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"sv_udv25_swedishtalbanken_trf"</span><span class="p">)</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;sv_udv25_swedishtalbanken_trf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition attention">
@@ -258,16 +269,16 @@ the way the pipeline checks if a word is negated.</p>
 <p>If you don’t wish to use the experimental version by spaCy we recommend  pipeline by <a class="reference external" href="https://github.com/Kungbib/swedish-spacy">the Swedish royal library</a>.</p>
 </div>
 <section id="creating-the-pipeline">
-<h2>Creating the pipeline<a class="headerlink" href="#creating-the-pipeline" title="Permalink to this headline">#</a></h2>
+<h2>Creating the pipeline<a class="headerlink" href="#creating-the-pipeline" title="Permalink to this heading">#</a></h2>
 <p>A large part of the customization is made simple using the <code class="docutils literal notranslate"><span class="pre">Asent</span></code>
 component. Here we will implement the Swedish Asent pipeline, for
 this we need a dictionary of rated words and potentially a list of
 intensifiers, negation and contrastive conjunctions.</p>
 <p>We can extract these using the <code class="docutils literal notranslate"><span class="pre">lexicons.get</span></code> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asent</span> <span class="kn">import</span> <span class="n">lexicons</span>
-<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"lexicon_se_v1"</span><span class="p">)</span>
-<span class="n">negations</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"negations_se_v1"</span><span class="p">)</span>
-<span class="n">intensifiers</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"intensifiers_se_v1"</span><span class="p">)</span>
+<span class="n">rated_words</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lexicon_se_v1&quot;</span><span class="p">)</span>
+<span class="n">negations</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;negations_se_v1&quot;</span><span class="p">)</span>
+<span class="n">intensifiers</span> <span class="o">=</span> <span class="n">lexicons</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;intensifiers_se_v1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Before we move on let us check what each of these contains, let us
@@ -276,16 +287,16 @@ words as well as a human rating of how positive/negative it is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">rated_words</span><span class="o">.</span><span class="n">items</span><span class="p">())[</span><span class="mi">140</span><span class="p">:</span><span class="mi">150</span><span class="p">]</span> <span class="c1"># the start of the dictionary is mostly emoticons</span>
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[('motbjudande', -3.1),
- ('avskyr', -2.9),
- ('förmågor', 1.0),
- ('förmåga', 1.3),
- ('ombord', 0.1),
- ('frånvarande', -1.1),
- ('frikänna', 1.6),
- ('befrias', 1.5),
- ('frikänner', 1.6),
- ('missbruk', -3.2)]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[(&#39;motbjudande&#39;, -3.1),
+ (&#39;avskyr&#39;, -2.9),
+ (&#39;förmågor&#39;, 1.0),
+ (&#39;förmåga&#39;, 1.3),
+ (&#39;ombord&#39;, 0.1),
+ (&#39;frånvarande&#39;, -1.1),
+ (&#39;frikänna&#39;, 1.6),
+ (&#39;befrias&#39;, 1.5),
+ (&#39;frikänner&#39;, 1.6),
+ (&#39;missbruk&#39;, -3.2)]
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">negations</span></code> is simply a list or a set of words, which is considered
@@ -293,16 +304,16 @@ negations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">negations</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>['utan',
- 'aldrig',
- 'ingenting',
- 'sällan',
- 'trots',
- 'ingenstans',
- 'ingen',
- 'nej',
- 'varken',
- 'inte']
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[&#39;utan&#39;,
+ &#39;aldrig&#39;,
+ &#39;ingenting&#39;,
+ &#39;sällan&#39;,
+ &#39;trots&#39;,
+ &#39;ingenstans&#39;,
+ &#39;ingen&#39;,
+ &#39;nej&#39;,
+ &#39;varken&#39;,
+ &#39;inte&#39;]
 </pre></div>
 </div>
 <p>Finally, <code class="docutils literal notranslate"><span class="pre">intensifiers</span></code> is a dictionary of words such intensifies
@@ -311,16 +322,16 @@ score on how much it intensifies to the following word.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">intensifiers</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[('absolut', 0.293),
-('otroligt', 0.293),
-('väldigt', 0.293),
-('helt', 0.293),
-('betydande', 0.293),
-('betydligt', 0.293),
-('bestämt', 0.293),
-('djupt', 0.293),
-('effing', 0.293),
-('enorm', 0.293)]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[(&#39;absolut&#39;, 0.293),
+(&#39;otroligt&#39;, 0.293),
+(&#39;väldigt&#39;, 0.293),
+(&#39;helt&#39;, 0.293),
+(&#39;betydande&#39;, 0.293),
+(&#39;betydligt&#39;, 0.293),
+(&#39;bestämt&#39;, 0.293),
+(&#39;djupt&#39;, 0.293),
+(&#39;effing&#39;, 0.293),
+(&#39;enorm&#39;, 0.293)]
 </pre></div>
 </div>
 <p>We can now add a sentiment component to the pipeline, using the
@@ -329,15 +340,15 @@ score on how much it intensifies to the following word.</p>
 <span class="kn">from</span> <span class="nn">asent.component</span> <span class="kn">import</span> <span class="n">Asent</span>
 
 <span class="n">Asent</span><span class="p">(</span>
-    <span class="n">nlp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"asent_se"</span><span class="p">,</span> <span class="n">lexicon</span><span class="o">=</span><span class="n">rated_words</span><span class="p">,</span> <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifiers</span><span class="p">,</span> <span class="n">negations</span><span class="o">=</span><span class="n">negations</span><span class="p">,</span> <span class="n">lowercase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lemmatize</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">nlp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;asent_se&quot;</span><span class="p">,</span> <span class="n">lexicon</span><span class="o">=</span><span class="n">rated_words</span><span class="p">,</span> <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifiers</span><span class="p">,</span> <span class="n">negations</span><span class="o">=</span><span class="n">negations</span><span class="p">,</span> <span class="n">lowercase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lemmatize</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 
 <span class="c1"># test it out and visualize results</span>
-<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"Jag är enormt lycklig"</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Jag är enormt lycklig&quot;</span><span class="p">)</span>
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png" style="width: 250px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv1.png" style="width: 250px;" /></a>
 <p>Do note, that we specified that when the model should lookup in the
 dictionaries it should lowercase the lookup word (<code class="docutils literal notranslate"><span class="pre">lowercase=True</span></code>)
 and it should not lemmatize(<code class="docutils literal notranslate"><span class="pre">lemmatize=False</span></code>) the word. This
@@ -347,7 +358,7 @@ lexicon is case sensitive you should not lowercase before the look
 up.</p>
 </section>
 <section id="customizing-your-pipeline">
-<h2>Customizing your Pipeline<a class="headerlink" href="#customizing-your-pipeline" title="Permalink to this headline">#</a></h2>
+<h2>Customizing your Pipeline<a class="headerlink" href="#customizing-your-pipeline" title="Permalink to this heading">#</a></h2>
 <p>In the following, we will customize our pipeline a bit further. We
 will especially look at the negations. The current implementation
 based on <a class="reference external" href="https://ojs.aaai.org/index.php/ICWSM/article/view/14550">Hutto and Gilbert
@@ -357,22 +368,22 @@ is a negation. This is a simplifying assumption which has been shown
 to generally work well, however, with spaCy performing a dependency
 parse and part-of-speech tagging we can do better!</p>
 <section id="examining-an-example">
-<h3>Examining an example<a class="headerlink" href="#examining-an-example" title="Permalink to this headline">#</a></h3>
+<h3>Examining an example<a class="headerlink" href="#examining-an-example" title="Permalink to this heading">#</a></h3>
 <p>First let us examine an example where it fails:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"Jag är inte glad men jag skulle inte säga att jag är ledsen."</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Jag är inte glad men jag skulle inte säga att jag är ledsen.&quot;</span><span class="p">)</span>
 <span class="c1"># I am not happy but I would not say that I am sad.</span>
 
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png" style="width: 600px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv.png" style="width: 600px;" /></a>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 
 <span class="c1"># examine the part-of-speech tags and dependency tree</span>
 <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png"><img alt="A dependency parse" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png" style="width: 1400px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png"><img alt="A dependency parse" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/dep_parse.png" style="width: 1400px;" /></a>
 <p>From this we can notice two things:</p>
 <p>1) Negation have the
 <a class="reference external" href="https://universaldependencies.org/u/pos/PART.html">PART</a>
@@ -385,7 +396,7 @@ the words we wish negated is “down the tree” (or down the arrow if
 you will) from the negated word.</p>
 <p>We can even go a bit further and examine the morph extension:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">morph</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">morph</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs
@@ -414,11 +425,11 @@ implement a method which check if a word is negated using the
 dependency tree.</p>
 </section>
 <section id="morphology-and-part-of-speech-for-negations">
-<h3>Morphology and Part-of-Speech for negations<a class="headerlink" href="#morphology-and-part-of-speech-for-negations" title="Permalink to this headline">#</a></h3>
+<h3>Morphology and Part-of-Speech for negations<a class="headerlink" href="#morphology-and-part-of-speech-for-negations" title="Permalink to this heading">#</a></h3>
 <p>Asent check is a word is a negation using the <code class="docutils literal notranslate"><span class="pre">is_negation</span></code> token
 extension. We can see this using:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          False
@@ -444,19 +455,19 @@ using the token’s <code class="docutils literal notranslate"><span class="pre"
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Token</span>
 
 <span class="k">def</span> <span class="nf">is_negation</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""checks is token is a negation</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;checks is token is a negation</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        token (Token): A spaCy token</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: a boolean indicating whether the token is a negation</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">m_dict</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">morph</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">(</span><span class="s2">"Polarity"</span> <span class="ow">in</span> <span class="n">m_dict</span>  <span class="c1"># if is has the polarity attribute</span>
-            <span class="ow">and</span> <span class="n">m_dict</span><span class="p">[</span><span class="s2">"Polarity"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Neg"</span><span class="p">)</span>  <span class="c1"># and it is negative</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Polarity&quot;</span> <span class="ow">in</span> <span class="n">m_dict</span>  <span class="c1"># if is has the polarity attribute</span>
+            <span class="ow">and</span> <span class="n">m_dict</span><span class="p">[</span><span class="s2">&quot;Polarity&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Neg&quot;</span><span class="p">)</span>  <span class="c1"># and it is negative</span>
 
-<span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_negation"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">is_negation</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;is_negation&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">is_negation</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now our negations use the morph tag, which in this case provides the
@@ -464,11 +475,11 @@ same results so the result isn’t that interesting. What we really
 what it the second part:</p>
 </section>
 <section id="using-the-dependency-tree-for-negations">
-<h3>Using the dependency tree for negations<a class="headerlink" href="#using-the-dependency-tree-for-negations" title="Permalink to this headline">#</a></h3>
+<h3>Using the dependency tree for negations<a class="headerlink" href="#using-the-dependency-tree-for-negations" title="Permalink to this heading">#</a></h3>
 <p>In the following, we will overwrite the <code class="docutils literal notranslate"><span class="pre">is_negated</span></code> extension used
 by Asent to check if a word is negated. We can start by examining it:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negated</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negated</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          None
@@ -493,31 +504,31 @@ is negated as was expected from the heuristic rule.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="k">def</span> <span class="nf">is_negated</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Token</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">"""checks is token is negated</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;checks is token is negated</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        token (Token): A spaCy token</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Optional[Token]: return the negation if the token is negated</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># only check if a word is negated if it is rated (it is not meaningful to do otherwise)</span>
     <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
             <span class="c1"># if the token is modified by a negation</span>
-            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">dep_</span> <span class="o">==</span> <span class="s2">"advmod"</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">dep_</span> <span class="o">==</span> <span class="s2">&quot;advmod&quot;</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">c</span>
         <span class="c1"># or if its head it negated:</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">dep_</span> <span class="o">==</span> <span class="s2">"advmod"</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">dep_</span> <span class="o">==</span> <span class="s2">&quot;advmod&quot;</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">c</span>
 
 
-<span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"is_negated"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">is_negated</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;is_negated&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">is_negated</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="p">,</span>  <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span>  <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negated</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">valence</span><span class="p">,</span>  <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negation</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>  <span class="n">t</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_negated</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jag          0.0 False - None
@@ -540,7 +551,7 @@ ledsen       -2.1 False - inte
 <span class="n">doc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png" style="width: 600px;"/></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png"><img alt="Model prediction" src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_pred_sv2.png" style="width: 600px;" /></a>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TokenPolarityOutput(polarity=1.554, token=ledsen, span=inte säga att jag är ledsen)
 </pre></div>
 </div>
@@ -567,10 +578,10 @@ contrastive conjugations.</p>
                 </div>
                 <div class="title">Languages</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="introduction.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -593,6 +604,11 @@ contrastive conjugations.</p>
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/KenethEnevoldsen/asent" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -606,7 +622,7 @@ contrastive conjugations.</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -632,9 +648,8 @@ contrastive conjugations.</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

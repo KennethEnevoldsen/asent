@@ -1,14 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>asent.component - asent 0.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -159,7 +160,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -206,7 +207,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -221,7 +223,7 @@
         </div>
         <article role="main">
           <h1>Source code for asent.component</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Calculation of various readability metrics."""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Calculation of various readability metrics.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span>
 
@@ -241,19 +243,19 @@
 
 
 <div class="viewcode-block" id="Asent"><a class="viewcode-back" href="../../asent.component.html#asent.component.Asent">[docs]</a><span class="k">class</span> <span class="nc">Asent</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""spaCy v.3.0 component for adding an asent sentiment models to `Doc`</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy v.3.0 component for adding an asent sentiment models to `Doc`</span>
 <span class="sd">    objects.</span>
 
-<span class="sd">    Ading the Token extentions 'valence', 'intensifier', 'is_negation',</span>
-<span class="sd">    'is_negated', 'is_contrastive_conj' and 'polarity' as well as the</span>
-<span class="sd">    Span and Doc extension 'polarity'.</span>
-<span class="sd">    """</span>
+<span class="sd">    Ading the Token extentions &#39;valence&#39;, &#39;intensifier&#39;, &#39;is_negation&#39;,</span>
+<span class="sd">    &#39;is_negated&#39;, &#39;is_contrastive_conj&#39; and &#39;polarity&#39; as well as the</span>
+<span class="sd">    Span and Doc extension &#39;polarity&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
         <span class="n">lexicon</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"asent"</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;asent&quot;</span><span class="p">,</span>
         <span class="n">intensifiers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
         <span class="n">negations</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span>
         <span class="n">contrastive_conjugations</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span>
@@ -261,24 +263,31 @@
         <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">"""Initialize component.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize component.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            nlp (Language): A spaCy language pipeline for which to add the component to</span>
 <span class="sd">            name (str): The name of the component</span>
-<span class="sd">            lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a word.</span>
-<span class="sd">            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g. {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.</span>
-<span class="sd">            negations (Iterable[str]): A list of negations (e..g "not"). Defaults to an empty set indicatin no negations will be used.</span>
-<span class="sd">            contrastive_conjugations (Iterable[str]): A list of contrastive conjugations (e.g. "but"). Defaults to empty set indicating no contrastive conjugations will be used.</span>
-<span class="sd">            lowercase (bool): Should be text be lowercases before looking up in the lexicons? Defaults to True.</span>
-<span class="sd">            lemmatize (bool): Should be text be lemmatized before looking up in the lexicons? Defaults to False.</span>
+<span class="sd">            lexicon (Dict[str, float]): The lexicion used to look up the valence scores</span>
+<span class="sd">                of a word.</span>
+<span class="sd">            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.</span>
+<span class="sd">                {&quot;very&quot;: 0.293}). Defaults to {}, indicating no intensifiers is used.</span>
+<span class="sd">            negations (Iterable[str]): A list of negations (e..g &quot;not&quot;). Defaults to an</span>
+<span class="sd">                empty set indicatin no negations will be used.</span>
+<span class="sd">            contrastive_conjugations (Iterable[str]): A list of contrastive</span>
+<span class="sd">                conjugations (e.g. &quot;but&quot;). Defaults to empty set indicating no</span>
+<span class="sd">                contrastive conjugations will be used.</span>
+<span class="sd">            lowercase (bool): Should be text be lowercases before looking up in the</span>
+<span class="sd">                lexicons? Defaults to True.</span>
+<span class="sd">            lemmatize (bool): Should be text be lemmatized before looking up in the</span>
+<span class="sd">                lexicons? Defaults to False.</span>
 <span class="sd">            force (bool): Should existing extensions be overwritten? Defaults to False.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"valence"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;valence&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"valence"</span><span class="p">,</span>
+                <span class="s2">&quot;valence&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_valance_getter</span><span class="p">(</span>
                     <span class="n">lexicon</span><span class="o">=</span><span class="n">lexicon</span><span class="p">,</span>
                     <span class="n">lowercase</span><span class="o">=</span><span class="n">lowercase</span><span class="p">,</span>
@@ -287,9 +296,9 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"intensifier"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;intensifier&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"intensifier"</span><span class="p">,</span>
+                <span class="s2">&quot;intensifier&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_intensifier_getter</span><span class="p">(</span>
                     <span class="n">intensifiers</span><span class="o">=</span><span class="n">intensifiers</span><span class="p">,</span>
                     <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
@@ -298,9 +307,9 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_negation"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;is_negation&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"is_negation"</span><span class="p">,</span>
+                <span class="s2">&quot;is_negation&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_is_negation_getter</span><span class="p">(</span>
                     <span class="n">negations</span><span class="o">=</span><span class="n">negations</span><span class="p">,</span>
                     <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
@@ -309,16 +318,16 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_negated"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;is_negated&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"is_negated"</span><span class="p">,</span>
+                <span class="s2">&quot;is_negated&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_is_negated_getter</span><span class="p">(),</span>
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"is_contrastive_conj"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;is_contrastive_conj&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"is_contrastive_conj"</span><span class="p">,</span>
+                <span class="s2">&quot;is_contrastive_conj&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_is_contrastive_conj_getter</span><span class="p">(</span>
                     <span class="n">contrastive_conjugations</span><span class="o">=</span><span class="n">contrastive_conjugations</span><span class="p">,</span>
                     <span class="n">lemmatize</span><span class="o">=</span><span class="n">lemmatize</span><span class="p">,</span>
@@ -327,9 +336,9 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"polarity"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;polarity&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"polarity"</span><span class="p">,</span>
+                <span class="s2">&quot;polarity&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_token_polarity_getter</span><span class="p">(</span>
                     <span class="n">valence_getter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">is_negation_getter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -338,9 +347,9 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"polarity"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;polarity&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"polarity"</span><span class="p">,</span>
+                <span class="s2">&quot;polarity&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">make_span_polarity_getter</span><span class="p">(</span>
                     <span class="n">polarity_getter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">contrastive_conj_getter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -348,38 +357,38 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"polarity"</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;polarity&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">doc_pol_getter</span> <span class="o">=</span> <span class="n">make_doc_polarity_getter</span><span class="p">(</span><span class="n">span_polarity_getter</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">"polarity"</span><span class="p">,</span>
+                <span class="s2">&quot;polarity&quot;</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">doc_pol_getter</span><span class="p">,</span>
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Doc</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Run the pipeline component.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            doc (Doc): A spaCy document the component should be applied to.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Doc: A processed spacy Document.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">doc</span></div>
 
 
 <span class="n">DEFAULT_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"lexicon"</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">"intensifiers"</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">"negations"</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
-    <span class="s2">"contrastive_conj"</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
-    <span class="s2">"lowercase"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">"lemmatize"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">"force"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;lexicon&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;intensifiers&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;negations&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+    <span class="s2">&quot;contrastive_conj&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+    <span class="s2">&quot;lowercase&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;lemmatize&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">}</span>
 
 
-<span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">"asent_v1"</span><span class="p">,</span> <span class="n">default_config</span><span class="o">=</span><span class="n">DEFAULT_CONFIG</span><span class="p">)</span>
+<span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;asent_v1&quot;</span><span class="p">,</span> <span class="n">default_config</span><span class="o">=</span><span class="n">DEFAULT_CONFIG</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">create_asent_component</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -391,8 +400,8 @@
     <span class="n">lemmatize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Asent</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Allows a asent sentiment pipe to be added to a spaCy pipe using</span>
-<span class="sd">    nlp.add_pipe("asent_v1").</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows a asent sentiment pipe to be added to a spaCy pipe using</span>
+<span class="sd">    nlp.add_pipe(&quot;asent_v1&quot;).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): A spaCy language pipeline to add the component to.</span>
@@ -400,10 +409,10 @@
 <span class="sd">        lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a</span>
 <span class="sd">            word.</span>
 <span class="sd">        intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.</span>
-<span class="sd">            {"very": 0.293}).</span>
-<span class="sd">        negations (Iterable[str]): A list of negations (e.g. "not").</span>
+<span class="sd">            {&quot;very&quot;: 0.293}).</span>
+<span class="sd">        negations (Iterable[str]): A list of negations (e.g. &quot;not&quot;).</span>
 <span class="sd">        contrastive_conj (Iterable[str]): A list of contrastive conjugations (e.g.</span>
-<span class="sd">            "but").</span>
+<span class="sd">            &quot;but&quot;).</span>
 <span class="sd">        lowercase (bool): Should be text be lowercases before looking up in the</span>
 <span class="sd">            lexicons?</span>
 <span class="sd">        lemmatize (bool): Should be text be lemmatized before looking up in the</span>
@@ -412,7 +421,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Asent: A sentiment component.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">Asent</span><span class="p">(</span>
         <span class="n">nlp</span><span class="p">,</span>
@@ -446,6 +455,11 @@
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/KenethEnevoldsen/asent" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -460,9 +474,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>

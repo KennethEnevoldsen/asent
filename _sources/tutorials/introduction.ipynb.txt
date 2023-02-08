@@ -1,0 +1,537 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<a href=\"https://github.com/kennethenevoldsen/asent\"><img src=\"https://github.com/KennethEnevoldsen/asent/blob/main/docs/img/logo_black_font.png?raw=true\" width=\"300\" /></a>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Installation\n",
+    "Before we start we should install asent this can be done simply by commenting the following lines out:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# !pip install asent"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Tutorial\n",
+    "\n",
+    "> *Note*: This tutorial is English but the library also allows for multiple other languages to see all languages available check out the [Languages section](https://kennethenevoldsen.github.io/asent/languages/index.html) on the website.\n",
+    "\n",
+    "Asent is a package for fast and transparent sentiment analysis. The package applied uses a dictionary of words rated as either positive or negative and a series of rules to determine whether a word, sentence or a document is positive or negative. The current rules account for negations (i.e. \"not happy\"), intensifiers (\"very happy\") and account for contrastive conjugations (i.e. \"but\") as well as other emphasis markers such as exclamation marks, casing and question marks. The following will take you through how the sentiment is calculated in a step by step fashion.\n",
+    "\n",
+    "To start of with we will need a spaCy pipeline as well as we will need to add the asent pipeline `asent_en_v1` to it, where `en` indicate that it is the English pipeline and that `v1` indicate that it is version 1.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<asent.component.Asent at 0x10b47ad10>"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import asent\n",
+    "import spacy\n",
+    "\n",
+    "# create (or load) spacy pipeline\n",
+    "nlp = spacy.blank(\"en\")\n",
+    "nlp.add_pipe(\"sentencizer\")\n",
+    "\n",
+    "# add the rule-based sentiment model\n",
+    "nlp.add_pipe(\"asent_en_v1\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If you want to see all the available components you can simply run:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "asent_yi_v1\n",
+      "asent_io_v1\n",
+      "asent_ku_v1\n",
+      "asent_kn_v1\n",
+      "asent_it_v1\n",
+      "asent_uz_v1\n",
+      "asent_de_v1\n",
+      "asent_mt_v1\n",
+      "asent_fa_v1\n",
+      "asent_nl_v1\n",
+      "asent_lv_v1\n",
+      "asent_gu_v1\n",
+      "asent_br_v1\n",
+      "asent_eo_v1\n",
+      "asent_he_v1\n",
+      "asent_tk_v1\n",
+      "asent_et_v1\n",
+      "asent_ro_v1\n",
+      "asent_ur_v1\n",
+      "asent_ja_v1\n",
+      "asent_zhw_v1\n",
+      "asent_vo_v1\n",
+      "asent_fi_v1\n",
+      "asent_fr_v1\n",
+      "asent_ar_v1\n",
+      "asent_fo_v1\n",
+      "asent_vi_v1\n",
+      "asent_id_v1\n",
+      "asent_el_v1\n",
+      "asent_cs_v1\n",
+      "asent_th_v1\n",
+      "asent_ia_v1\n",
+      "asent_sk_v1\n",
+      "asent_hu_v1\n",
+      "asent_az_v1\n",
+      "asent_mr_v1\n",
+      "asent_km_v1\n",
+      "asent_te_v1\n",
+      "asent_bg_v1\n",
+      "asent_fy_v1\n",
+      "asent_bn_v1\n",
+      "asent_es_v1\n",
+      "asent_tl_v1\n",
+      "asent_sq_v1\n",
+      "asent_ka_v1\n",
+      "asent_hy_v1\n",
+      "asent_gl_v1\n",
+      "asent_rm_v1\n",
+      "asent_tr_v1\n",
+      "asent_uk_v1\n",
+      "asent_lb_v1\n",
+      "asent_pl_v1\n",
+      "asent_ga_v1\n",
+      "asent_lt_v1\n",
+      "asent_nn_v1\n",
+      "asent_is_v1\n",
+      "asent_ta_v1\n",
+      "asent_gd_v1\n",
+      "asent_ms_v1\n",
+      "asent_zh_v1\n",
+      "asent_ca_v1\n",
+      "asent_ht_v1\n",
+      "asent_af_v1\n",
+      "asent_be_v1\n",
+      "asent_hi_v1\n",
+      "asent_hr_v1\n",
+      "asent_cy_v1\n",
+      "asent_mk_v1\n",
+      "asent_ko_v1\n",
+      "asent_wa_v1\n",
+      "asent_sr_v1\n",
+      "asent_an_v1\n",
+      "asent_ky_v1\n",
+      "asent_pt_v1\n",
+      "asent_eu_v1\n",
+      "asent_sw_v1\n",
+      "asent_ru_v1\n",
+      "asent_bs_v1\n",
+      "asent_sl_v1\n",
+      "asent_la_v1\n",
+      "asent_da_v1\n",
+      "asent_en_v1\n",
+      "asent_no_v1\n",
+      "asent_sv_v1\n"
+     ]
+    }
+   ],
+   "source": [
+    "for c in asent.components.get_all():\n",
+    "    print(c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Token valence and polarity\n",
+    "As seen in figure 1. token valence is simply the value gained from a lookup in a rated dictionary. For instance if the have the example sentence \"I am not very happy\" the word \"happy\" has a positive human rating of 2.7 which is not amplified by the word being in all-caps.\n",
+    "\n",
+    "\n",
+    "<h3 align=\"center\">\n",
+    "<figure>\n",
+    "<img src=\"https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/token_polarity.png\" width=\"700\" />\n",
+    "</figure>\n",
+    "  <small>\n",
+    "  Figure 1: Calculation of token polarity and valence\n",
+    "  </small>\n",
+    "</h3>\n",
+    "\n",
+    "We can extract valence quite easily using the `valence` extension:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "I \t 0.0\n",
+      "am \t 0.0\n",
+      "not \t 0.0\n",
+      "very \t 0.0\n",
+      "happy \t 2.7\n",
+      ". \t 0.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "doc = nlp(\"I am not very happy.\")\n",
+    "\n",
+    "for token in doc:\n",
+    "    print(token, \"\\t\", token._.valence)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Naturally, in this context happy should not be perceived positively as it is negated, thus we should look at token polarity. Token polarity examines if a word is negated and, if so, multiplies the values by a negative constant. This constant is emperically derived to be 0.74 [(Hutto and Gilbert, 2014)](https://ojs.aaai.org/index.php/ICWSM/article/view/14550). Similarly with the specific example we chose we can also see that \"happy\" is intensified by the word \"very\", while increases it polarity. The constant 0.293 is also emperically derived by Hutto and Gilbert. We can similarly extract the polarity using the `polarity` extension:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "polarity=0.0 token=I span=I\n",
+      "polarity=0.0 token=am span=am\n",
+      "polarity=0.0 token=not span=not\n",
+      "polarity=0.0 token=very span=very\n",
+      "polarity=-2.215 token=happy span=not very happy\n",
+      "polarity=0.0 token=. span=.\n"
+     ]
+    }
+   ],
+   "source": [
+    "for token in doc:\n",
+    "    print(token._.polarity)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Notice that here we even get further information, that token \"happy\", has a polarity of -2.215 and that this includes the span (sequence of tokens) \"not very happy\"."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Visualizing polarity\n",
+    "Asent also include a series of methods to visualize the token polarity:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><div class=\"spans\" style=\"line-height: 2.5; direction: ltr\">I am \n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    not\n",
+       "    \n",
+       "<span style=\"background: #fba15b; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "<span style=\"background: #fba15b; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "    <span style=\"background: #fba15b; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px\">\n",
+       "        -2.2\n",
+       "    </span>\n",
+       "</span>\n",
+       "\n",
+       "\n",
+       "</span>\n",
+       "\n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    very\n",
+       "    \n",
+       "<span style=\"background: #fba15b; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "</span>\n",
+       "\n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    happy\n",
+       "    \n",
+       "<span style=\"background: #fba15b; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "</span>\n",
+       ", but aslo \n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    not\n",
+       "    \n",
+       "<span style=\"background: #a6d96a; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "<span style=\"background: #a6d96a; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "    <span style=\"background: #a6d96a; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px\">\n",
+       "        2.0\n",
+       "    </span>\n",
+       "</span>\n",
+       "\n",
+       "\n",
+       "</span>\n",
+       "\n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    very\n",
+       "    \n",
+       "<span style=\"background: #a6d96a; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "</span>\n",
+       "\n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    especially\n",
+       "    \n",
+       "<span style=\"background: #a6d96a; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "</span>\n",
+       "\n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    sad\n",
+       "    \n",
+       "<span style=\"background: #a6d96a; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "</span>\n",
+       "</div></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "doc = nlp(\"I am not very happy, but aslo not very especially sad\")\n",
+    "asent.visualize(doc, style=\"prediction\")\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "And if you want more information as to why it obtains the score it does:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:lang=\"en\" id=\"2e784686ab6b4a6a86b90bae01d2e09f-0\" class=\"displacy\" width=\"925\" height=\"312.0\" direction=\"ltr\" style=\"max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr\">\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"222.0\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"50\">I</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"50\">0.0</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"222.0\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"225\">am</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"225\">0.0</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"222.0\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"400\">not</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"400\">0.0</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"222.0\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"575\">very</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"575\">0.0</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"222.0\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"750\">happy</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"750\">-2.2 (2.7)</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-0\" stroke-width=\"2px\" d=\"M595,177.0 C595,89.5 745.0,89.5 745.0,177.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-0\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">intensified by</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M595,179.0 L587,167.0 603,167.0\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-1\" stroke-width=\"2px\" d=\"M420,177.0 C420,2.0 750.0,2.0 750.0,177.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-1\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">negated by</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M420,179.0 L412,167.0 428,167.0\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "</svg></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "asent.visualize(doc[:5], style=\"analysis\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Document and Span Polarity\n",
+    "\n",
+    "We want to do more than simply calculate the polarity of the token, we want to extract information about the entire sentence (span) and aggregate this across the entire document.\n",
+    "\n",
+    "<h3 align=\"center\">\n",
+    "<figure>\n",
+    "<img src=\"https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/doc_polarity.png\" width=\"600\" />\n",
+    "</figure>\n",
+    "  <small>\n",
+    "  Figure 2: Calculation of document polarity\n",
+    "  </small>\n",
+    "</h3>\n",
+    "\n",
+    "The calculation of the sentence polarity includes a couple of steps. \n",
+    "\n",
+    "First, it checks if the sentence contains a contrastive conjugation (e.g. \"but\"), then overweighs things after the but and underweighs previous elements. This seems quite natural for e.g. the sentence \"The movie was great, but the acting was horrible\", where the second statement is noticeably more important. This has also been shown empirically by [(Hutto and Gilbert, 2014)](https://ojs.aaai.org/index.php/ICWSM/article/view/14550). \n",
+    "\n",
+    "Afterwards, the model takes into account question marks and exclamations marks, which both increase the polarity of the sentence – negative sentences become more negative and positive sentences become less negative. Lastly, the polarity is normalized between approximately -1 and 1.\n",
+    "\n",
+    "You can easily extract the sentence polarity and the document polarity using: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "neg=0.391 neu=0.609 pos=0.0 compound=-0.4964 span=I am not very happy.\n"
+     ]
+    }
+   ],
+   "source": [
+    "doc = nlp(\"I am not very happy.\")\n",
+    "for sentence in doc.sents:\n",
+    "    print(sentence._.polarity)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "neg=0.0 neu=0.59 pos=0.41 compound=0.7871\n"
+     ]
+    }
+   ],
+   "source": [
+    "# or for multiple sentences:\n",
+    "print(doc._.polarity)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here we see the normalized score for both the `compound`, or aggregated, polarity as well the the neutral `neu`, negative `neg`, and positive `pos`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": []
+  }
+ ],
+ "metadata": {
+  "interpreter": {
+   "hash": "4bf26e8f1c179b01cb59a2d6823fb6cd29f134e7c953e081ed300474f231d990"
+  },
+  "kernelspec": {
+   "display_name": "Python 3.7.3 64-bit",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.6"
+  },
+  "orig_nbformat": 4
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
