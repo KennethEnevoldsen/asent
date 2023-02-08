@@ -7,16 +7,20 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "yearly"
+      interval: "monthly"
     allow:
       - dependency-type: "all"
     commit-message:
       prefix: ":arrow_up:"
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "yearly"
-    allow:
-      - dependency-type: "all"
-    commit-message:
-      prefix: ":arrow_up:"
+  # Uncomment this section to enable Dependabot for GitHub Actions
+  # with auto-merge enabled this can cause error with untested github actions
+  # being automatically merged into the main branch
+
+  # - package-ecosystem: "github-actions"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "monthly"
+  #   allow:
+  #     - dependency-type: "all"
+  #   commit-message:
+  #     prefix: ":arrow_up:"
