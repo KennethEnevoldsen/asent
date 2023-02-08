@@ -1,9 +1,0 @@
-[darglint]
-ignore=DAR401
-strictness=short
-
-# Removing the object id from the error message allows the path to be Cmd+Click-able in VSCode. 
-# Makes it much easier to navigate to the line.
-# (E.g. src/psycopt2d/data/generate_synthetic_dataset_for_eval.py:overwrite_prop_with_null:54 becomes 
-# src/psycopt2d/data/generate_synthetic_dataset_for_eval.py:54). 
-message_template= - {path}:{line}: {msg} ({msg_id} in {obj})

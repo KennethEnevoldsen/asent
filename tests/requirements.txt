@@ -1,0 +1,4 @@
+# spacy pipeline
+https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.4.0/da_core_news_sm-3.4.0-py3-none-any.whl
+
+

@@ -27,28 +27,32 @@ or if you prefer APA:
 How do I test the code and run the test suite?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-asent comes with an extensive test suite. In order to run the tests,
-you'll usually want to clone the repository and build asent from the
+This package comes with an extensive test suite. In order to run the tests,
+you'll usually want to clone the repository and build the package from the
 source. This will also install the required development dependencies
-and test utilities defined in the `requirements.txt <https://github.com/KennethEnevoldsen/asent/blob/master/requirements.txt>`__.
-
+and test utilities defined in the extras_require section of the :code:`pyproject.toml`.
 
 .. code-block:: bash
 
-   pip install -r requirements.txt
-   pip install pytest
+   pip install -e ".[tests]"
 
    python -m pytest
 
 
-which will run all the test in the `asent/tests` folder.
+which will run all the test in the `tests` folder.
 
 Specific tests can be run using:
 
 .. code-block:: bash
 
-   python -m pytest asent/tests/desired_test.py
+   python -m pytest tests/desired_test.py
 
+
+If you want to check code coverage you can run the following:
+
+.. code-block::
+
+   python -m pytest --cov=.
 
 
 How is the documentation generated?
@@ -63,12 +67,11 @@ To make the documentation you can run:
 .. code-block:: bash
 
    # install sphinx, themes and extensions
-   pip install sphinx furo sphinx-copybutton sphinxext-opengraph
+   pip install -e ".[docs]"
 
    # generate html from documentations
 
    make -C docs html
-
 
 How do I add a new language?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

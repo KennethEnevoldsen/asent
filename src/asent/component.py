@@ -43,12 +43,19 @@ class Asent:
         Args:
             nlp (Language): A spaCy language pipeline for which to add the component to
             name (str): The name of the component
-            lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a word.
-            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g. {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.
-            negations (Iterable[str]): A list of negations (e..g "not"). Defaults to an empty set indicatin no negations will be used.
-            contrastive_conjugations (Iterable[str]): A list of contrastive conjugations (e.g. "but"). Defaults to empty set indicating no contrastive conjugations will be used.
-            lowercase (bool): Should be text be lowercases before looking up in the lexicons? Defaults to True.
-            lemmatize (bool): Should be text be lemmatized before looking up in the lexicons? Defaults to False.
+            lexicon (Dict[str, float]): The lexicion used to look up the valence scores
+                of a word.
+            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.
+                {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.
+            negations (Iterable[str]): A list of negations (e..g "not"). Defaults to an
+                empty set indicatin no negations will be used.
+            contrastive_conjugations (Iterable[str]): A list of contrastive
+                conjugations (e.g. "but"). Defaults to empty set indicating no
+                contrastive conjugations will be used.
+            lowercase (bool): Should be text be lowercases before looking up in the
+                lexicons? Defaults to True.
+            lemmatize (bool): Should be text be lemmatized before looking up in the
+                lexicons? Defaults to False.
             force (bool): Should existing extensions be overwritten? Defaults to False.
         """
         self.name = name

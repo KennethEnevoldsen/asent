@@ -3,7 +3,7 @@ Getting started
 
 .. |colab_tut| image:: https://colab.research.google.com/assets/colab-badge.svg
    :width: 140pt
-   :target: https://colab.research.google.com/github/kennethenevoldsen/asent/blob/master/tutorials/introduction.ipynb
+   :target: https://colab.research.google.com/github/kennethenevoldsen/asent/blob/main/docs/tutorials/introduction.ipynb
 
 |colab_tut|
 
