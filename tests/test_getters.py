@@ -120,7 +120,6 @@ def test_token_polarity(
     lang: str,
     nlp_dict,
 ):
-
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
     negations = asent.lexicons.get("negations_" + lang + "_v1")

@@ -251,7 +251,7 @@ def make_token_polarity_getter(  # noqa: C901
     intensifier_getter: Optional[Callable[[Token], float]] = None,
     negation_scalar: float = N_SCALAR,
     lookback_intensities: List[float] = [1.0, 0.95, 0.90],
-    **kwargs
+    **kwargs,
 ) -> Callable[[Token], TokenPolarityOutput]:
     """Creates a function (getter) which takes a token and return the polarity
     of the token based upon whether the token valence (sentiment) including
