@@ -10,7 +10,6 @@ def test_no_negations_and_intensifiers_out_of_sentence():
 
     https://github.com/KennethEnevoldsen/asent/issues/58
     """
-
     # create spacy pipeline
     nlp = spacy.blank("en")
     nlp.add_pipe("sentencizer")
