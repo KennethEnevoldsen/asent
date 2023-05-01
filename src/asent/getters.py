@@ -84,7 +84,7 @@ def make_intensifier_getter(
         Doc.set_extension("is_cap_diff", getter=allcap_differential_getter)
 
     def intensifier_scalar_getter(token: Token) -> float:
-        """get intensifier score for token."""
+        """Get intensifier score for token."""
         t = t_getter(token)
         if t in intensifiers:
             scalar = intensifiers[t]
@@ -429,7 +429,7 @@ def but_check(
 
 
 def sift_sentiment_scores(sentiments: Iterable[float]) -> Tuple[float, float, int]:
-    """separate positive and negative sentiment scores."""
+    """Separate positive and negative sentiment scores."""
     pos_sum = 0.0
     neg_sum = 0.0
     neu_count = 0

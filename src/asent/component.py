@@ -18,7 +18,7 @@ from asent.getters import (
 
 
 class Asent:
-    """spaCy v.3.0 component for adding an asent sentiment models to `Doc`
+    """SpaCy v.3.0 component for adding an asent sentiment models to `Doc`
     objects.
 
     Ading the Token extentions 'valence', 'intensifier', 'is_negation',
