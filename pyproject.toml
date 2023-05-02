@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asent"
-version = "0.7.0"
+version = "0.7.1"
 description = "A python package for flexible and transparent sentiment analysis."
 authors = [{name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com"}]
 classifiers = [
@@ -32,6 +32,7 @@ keywords = ["nlp",
     "ABSA"
     ]
 requires-python = ">=3.8"
+
 dependencies = [
     "spacy>=3.0.0,<3.6.0",
     "matplotlib>=3.5.0,<4.0.0",

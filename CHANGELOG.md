@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.1 (2023-03-08)
+### Fix
+* Updated spacy dependency ([`bfe8424`](https://github.com/KennethEnevoldsen/asent/commit/bfe842446028ecae62899a684f2099f75b8ed2ae))
+
+### Documentation
+* Fix badge ([`40a8d49`](https://github.com/KennethEnevoldsen/asent/commit/40a8d49731c5b2c100da1e64493a78bdeb7ea2e1))
+
 ## v0.7.0 (2023-02-08)
 ### Feature
 * Added two additional intensifers for Danish ([`21f121d`](https://github.com/KennethEnevoldsen/asent/commit/21f121dafc406a2fb6e357b06fdac70a8d6f5f40))
