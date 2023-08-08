@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.2 (2023-08-08)
+
+### Fix
+
+* Removed upper bound ([`499ad72`](https://github.com/KennethEnevoldsen/asent/commit/499ad72b3db2049d4a3dd633483f1b6b119f9729))
+
 ## v0.7.1 (2023-03-08)
 ### Fix
 * Updated spacy dependency ([`bfe8424`](https://github.com/KennethEnevoldsen/asent/commit/bfe842446028ecae62899a684f2099f75b8ed2ae))
