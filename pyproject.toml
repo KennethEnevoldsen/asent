@@ -34,8 +34,8 @@ keywords = ["nlp",
 requires-python = ">=3.8"
 
 dependencies = [
-    "spacy>=3.0.0,<3.6.0",
-    "matplotlib>=3.5.0,<4.0.0",
+    "spacy>=3.0.0",
+    "matplotlib>=3.5.0",
 ]
 
 [project.readme]
@@ -53,12 +53,12 @@ documentation = "https://kennethenevoldsen.github.io/asent/"
 
 [project.optional-dependencies]
 da = ["dacy>=1.1.0"]
-all = ["nltk>=3.6.7,<3.8.0"]
+all = ["nltk>=3.6.7"]
 style = [
-    "black==22.12.0",
-    "pre-commit>=2.20.0,<2.21.0",
-    "ruff==0.0.263",
-    "mypy==0.991"
+    "black>=22.12.0",
+    "pre-commit>=2.20.0",
+    "ruff>=0.0.263",
+    "mypy>=0.991"
 ]
 tests = [
     "pytest>=7.1.3",
