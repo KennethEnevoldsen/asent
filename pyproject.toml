@@ -199,7 +199,7 @@ extras = tests
 use_develop = true
 commands =
   pip install -r tests/requirements.txt
-  pytest
+  pytest -n auto
 
 [testenv:type]
 allowlist_externals = pyright
