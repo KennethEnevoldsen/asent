@@ -36,3 +36,6 @@ prodigy/requirements.txt
 
 # venv
 .venv
+
+# development
+.tox/
