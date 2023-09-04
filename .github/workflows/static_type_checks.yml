@@ -45,6 +45,7 @@ jobs:
 
       - name: Run static type checker simple
         run: |
+          pip install -e ".[dev, tests]"
           pyright src/
 
       - name: Run static type checker
