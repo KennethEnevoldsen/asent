@@ -33,6 +33,18 @@ def test_visualize(example: str, lang: str, nlp_dict):  # noqa
     asent.visualize(doc[:2], style="prediction-no-overlap")
     asent.visualize(doc[:2], style="analysis")
 
+    # test on polarities
+    pol = doc._.polarity
+    asent.visualize(pol, style="prediction")
+    asent.visualize(pol, style="prediction-no-overlap")
+    asent.visualize(pol, style="analysis")
+
+    # test on span polarities
+    span_pol = doc[:2]._.polarity
+    asent.visualize(span_pol, style="prediction")
+    asent.visualize(span_pol, style="prediction-no-overlap")
+    asent.visualize(span_pol, style="analysis")
+
     # error
     with pytest.raises(ValueError):
         asent.visualize(doc[:2], style="invalid")
