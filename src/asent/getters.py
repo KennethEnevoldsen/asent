@@ -419,9 +419,9 @@ def but_check(
             but_idx = token.i
             contains_but = True
     if contains_but is not False:
-        for i, s in enumerate(sentiment[0:but_idx]):
+        for i, s in enumerate(sentiment[0:but_idx]):  # type: ignore
             sentiment[i] = s * before_but_scalar
-        for i, s in enumerate(sentiment[but_idx:]):
+        for i, s in enumerate(sentiment[but_idx:]):  # type: ignore
             sentiment[i] = s * after_but_scalar
     return sentiment
 

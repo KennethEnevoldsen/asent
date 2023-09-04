@@ -11,12 +11,12 @@ from asent.data_classes import DocPolarityOutput, SpanPolarityOutput
 
 def make_colors(n: int = 10, cmap: str = "RdYlGn"):
     """A utility function for creating a stepped color gradient."""
-    from pylab import cm, matplotlib
+    from pylab import cm, matplotlib  # type: ignore
 
     cmap = cm.get_cmap(cmap, n)  # PiYG
 
-    for i in range(cmap.N):
-        rgba = cmap(i)
+    for i in range(cmap.N):  # type: ignore
+        rgba = cmap(i)  # type: ignore
         # rgb2hex accepts rgb or rgba
         yield matplotlib.colors.rgb2hex(rgba)
 
@@ -244,7 +244,7 @@ def visualize(
         >>> asent.visualize(doc, style="analysis")
     """
 
-    if style == "prediction" and version.parse(spacy.__version__) < version.parse(
+    if style == "prediction" and version.parse(spacy.__version__) < version.parse(  # type: ignore
         "3.3.0",
     ):
         warn(

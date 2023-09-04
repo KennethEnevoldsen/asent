@@ -199,9 +199,10 @@ extras = tests
 use_develop = true
 commands =
   pip install -r tests/requirements.txt
-  pytest -n auto {posargs:test}
+  pytest
 
 [testenv:type]
+allowlist_externals = pyright
 description: run type checks
 extras = tests, dev
 basepython = py39 # Setting these explicitly avoid recreating env if your shell is set to a different version
