@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asent"
-version = "0.7.4"
+version = "0.7.5"
 description = "A python package for flexible and transparent sentiment analysis."
 authors = [
     { name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com" },

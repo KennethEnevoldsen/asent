@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.5 (2023-09-04)
+
+### Fix
+
+* Error in pyproject.toml ([`4e76210`](https://github.com/KennethEnevoldsen/asent/commit/4e762104edcf3b41fe0c237fb1e0d2e5809e9dbf))
+
 ## v0.7.4 (2023-09-04)
 
 ### Fix
