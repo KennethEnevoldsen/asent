@@ -1,0 +1,27 @@
+# .rej files occur when cruft update could not merge two files.
+# They need to be handled, but are easy to miss if there's no CI 
+name: Check for .rej files
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-for-rej-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for .rej files
+        run: |
+          files=`find . -type f -name "*.rej"`
+          count=`echo $files | grep -o "\.rej" | wc -l`
+          if [[ $count != 0 ]]; then
+            echo "Found .rej files in the repository."
+            echo $files | 
+            exit 1
+          else
+            echo "No .rej files found in the repository."
+          fi

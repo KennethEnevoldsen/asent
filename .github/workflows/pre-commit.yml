@@ -1,0 +1,79 @@
+# GitHub action to check if pre-commit has been run. Runs from .pre-commit-config.yaml, where the pre-commit actions are.
+
+name: run-pre-commit
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  pre-commit:
+    permissions:
+      pull-requests: write
+    concurrency:
+      group: "${{ github.workflow }} @ ${{ github.ref }}"
+      cancel-in-progress: true
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.PAT }}
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit
+        id: pre_commit
+        continue-on-error: true
+        run: |
+          if pre-commit run --color always --all-files; then
+            echo "Pre-commit check passed"
+            echo "pre_commit_failed=0" >> $GITHUB_OUTPUT
+          else
+            echo "Pre-commit check failed"
+            echo "pre_commit_failed=1" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      # Have this step before commit in case the PR is from a fork. In this case, we want the
+      # add-pr-comment to fail, because it makes it means that the contributer is directed here,
+      # and are given the informative error message, instead of directed to a "could not commit error message".
+      - uses: mshick/add-pr-comment@v2
+        if: ${{ steps.pre_commit.outputs.pre_commit_failed == 1 && github.event_name == 'pull_request' }}
+        id: add_comment
+        with:
+          message: |
+            Looks like some formatting rules failed.
+
+            ✨ The action has attempted automatic fixes ✨
+
+            If any were succesful, they were committed to the branch.
+            We suggest using `git pull --rebase` to apply them locally. 
+
+            If some errors could not be fixed automatically, you can:
+
+            🏎️ Get results locally by running `pre-commit run --all-files`
+            🕵️ Examine the results in the `Run pre-commit` section of this workflow `pre-commit` 
+
+            We also recommend setting up the `ruff` and `black` extensions to auto-format on save in your chosen editor.
+
+      - name: Commit formatting
+        if: ${{ steps.pre_commit.outputs.pre_commit_failed == 1 && github.event_name == 'pull_request' }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -am "style: linting"
+          git push --no-verify
+
+      - name: Fail workflow
+        if: ${{ steps.pre_commit.outputs.pre_commit_failed == 1 && github.event_name == 'pull_request' }}
+        run: exit 1

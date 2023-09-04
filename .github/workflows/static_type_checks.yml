@@ -1,0 +1,97 @@
+# We do not include static_type_checks as a pre-commit hook because pre-commit hooks
+# are installed in their own virtual environment, so static_type_checks cannot
+# use stubs from imports
+name: static_type_checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  static_type_checks:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    concurrency:
+      group: "${{ github.workflow }} @ ${{ github.ref }}"
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.9"]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache tox
+        uses: actions/cache@v3.2.6
+        id: cache_tox
+        with:
+          path: |
+            .tox
+          key: ${{ runner.os }}-${{ matrix.python-version }}-static-type-checks
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        id: setup_python
+        with:
+          python-version: ${{ matrix.python-version}}
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          pip install invoke tox
+
+      - name: Run static type checker
+        id: pyright
+        continue-on-error: true
+        run: |
+          if inv static-type-checks; then
+            echo "pyright check passed"
+            echo "pyright_failed=0" >> $GITHUB_OUTPUT
+          else
+            echo "pyright check failed"
+            echo "pyright_failed=1" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: find_comment
+        if: ${{github.event_name == 'pull_request'}}
+        continue-on-error: true
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: ✨ Looks like pyright failed ✨
+
+      - uses: mshick/add-pr-comment@v2
+        if: ${{ steps.pyright.outputs.pyright_failed == 1 && github.event_name == 'pull_request'}}
+        id: add_comment
+        with:
+          message: |
+            ✨ Looks like pyright failed ✨
+          
+            If you want to fix this, we recommend doing it locally by either:
+            
+              a) Enabling pyright in VSCode and going through the errors in the problems tab 
+            
+            `VSCode settings > Python > Analysis: Type checking mode > "basic"`
+            
+              b) Debugging via the command line
+            
+                1. Installing pyright, which is included in the dev dependencies: `pip install -e ".[dev]"`
+                2. Diagnosing the errors by running `pyright .`
+
+      - uses: mshick/add-pr-comment@v2
+        if: ${{ steps.pyright.outputs.pyright_failed == 0 && steps.find_comment.outputs.comment-id != '' && github.event_name == 'pull_request'}}
+        with:
+          message-id: ${{ steps.find_comment.outputs.comment-id }}
+          message: |
+            🌟 pyright succeeds! 🌟
+
+      - name: Show pyright output
+        id: fail_run
+        if: ${{steps.pyright.outputs.pyright_failed == 1}}
+        run: |
+          inv static-type-checks # Rerunning pyright isn't optimal computationally, but typically takes no more than a couple of seconds, and this ensures that the errors are in the failing step

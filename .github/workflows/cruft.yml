@@ -1,0 +1,66 @@
+name: Cruft Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cruft-check:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      # Avoid infinite loop where main
+      # Feature PR -> cruft check from main ->
+      # Cruft update PR -> cruft check from main ->
+      # Cruft update PR ...
+      - name: Check if pull request is from a fork
+        run: |
+          if [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
+            echo "Pull request is from a fork and does not have permissions for PR creation. Exiting gracefully."
+            exit 0
+          elif [ "${{github.event.pull_request.title}}"  == "ci - update cruft" ]; then
+            echo "Pull request is already a cruft update. Exiting gracefully."
+            exit 0
+          else
+            echo "Pull request is not from a fork, continuing."
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Cruft
+        run: pip install cruft
+
+      - name: Update cruft
+        id: cruft_check
+        run: |
+          cruft_output=$(cruft update --skip-apply-ask)
+          if echo "$cruft_output" | grep -q "Good work!"; then
+            echo "$cruft_output"
+            echo "cruft_updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "$cruft_output"
+            echo "cruft_updated=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        if: ${{ steps.cruft_check.outputs.cruft_updated == 'true' && github.event.pull_request.title != 'ci - update cruft' }}
+        continue-on-error: true
+        with:
+          title: "ci - update cruft"
+          branch: "update-cruft"
+          body: "🌲 Cruft updates"
+          token: ${{ secrets.PAT }}
+          commit-message: "ci: update cruft"
+          labels: "dependencies" # This makes the PR exempt from the stale bot

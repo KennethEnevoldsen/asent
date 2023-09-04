@@ -1,35 +1,31 @@
-default_stages: [commit, push]
+default_stages: [commit]
 
 repos:
-  - repo: https://github.com/bwhmather/ssort
-    rev: v0.11.6
-    hooks:
-      - id: ssort
-        exclude: dev()
-
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v3.0.1
-    hooks:
-      - id: add-trailing-comma
-
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.5
-    hooks:
-      - id: docformatter
-        args: [--in-place]
-
   - repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 22.8.0
     hooks:
       - id: black
-        args: [--line-length, "88"]
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.286
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.254
     hooks:
       - id: ruff
+        args:
+          [
+            "--extend-select",
+            "F401",
+            "--extend-select",
+            "F841",
+            "--fix",
+            "--exit-non-zero-on-fix",
+          ]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v2.3.0
     hooks:
-      - id: check-toml
+      - id: check-yaml
+
+  - repo: https://github.com/repo-helper/pyproject-parser
+    rev: v0.7.0
+    hooks:
+      - id: check-pyproject

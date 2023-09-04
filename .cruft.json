@@ -1,0 +1,23 @@
+{
+  "template": "https://github.com/MartinBernstorff/swift-python-cookiecutter",
+  "commit": "7fdb02999e8596c525377c208ca902645d134f97",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "asent",
+      "package_name": "asent",
+      "friendly_name": "Asent",
+      "author": "Kenneth Enevoldsen",
+      "email": "kennethcenevoldsen@gmail.com",
+      "github_user": "KennethEnevoldsen",
+      "version": "0.0.0",
+      "copyright_year": "2023",
+      "license": "MIT",
+      "_copy_without_render": [
+        "*.github"
+      ],
+      "_template": "https://github.com/MartinBernstorff/swift-python-cookiecutter"
+    }
+  },
+  "directory": null
+}

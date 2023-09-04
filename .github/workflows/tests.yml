@@ -1,3 +1,7 @@
+# This workflow will install Python dependencies, run pytests and run notebooks
+# then it will in python 3.9 (ubuntu-latest) create a badge with the coverage
+# and add it to the PR. This badge will be updated if the PR is updated.
+
 name: Tests
 on:
   push:
@@ -6,74 +10,66 @@ on:
     branches: [main]
 
 jobs:
-  pytest-and-notebooks:
+  pytest:
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.9", "3.8"]
+        os: [ubuntu-latest] #, macos-latest, windows-latest]
+        python-version: ["3.9"] # , "3.10"]
 
     # This allows a subsequently queued workflow run to interrupt previous runs
     concurrency:
-      group: "${{ github.workflow }} - ${{ matrix.python-version}} - ${{ matrix.os }} @ ${{ github.ref }}"
+      group: "${{ github.workflow }}-${{ matrix.python-version}}-${{ matrix.os }} @ ${{ github.ref }}"
       cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache tox
+        uses: actions/cache@v3.2.6
+        id: cache_tox
+        with:
+          path: |
+            .tox
+          key: ${{ runner.os }}-${{ matrix.python-version }}-tests
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: "pip"
-          cache-dependency-path: "**/pyproject.toml"
 
       - name: Install dependencies
         shell: bash
         run: |
-          python -m pip install --upgrade pip
-          # Assumes the package have the tests extra
-          pip install -e ".[tests]"
-          # if there is a ./tests/requirements.txt file then install it
-          if [ -f ./tests/requirements.txt ]; then
-            pip install -r ./tests/requirements.txt
-          fi
+          pip install invoke tox
 
       - name: Run and write pytest
         shell: bash
         run: |
-          set -o pipefail
-          pytest --cov=src --cov-report term-missing | tee pytest-coverage.txt
+          # Specifying two sets of "--pytest-args" is required for invoke to parse it as a list
+          inv test --pytest-args="--durations=0" --pytest-args="--junitxml=pytest.xml --cov-report=term-missing --cov=src/"
+          
 
-      - name: Install dependencies for notebooks
-        shell: bash
-        run: |
-          # Assumes the package have the tutorials extra
-          pip install ".[tutorials]"
-          # if there is a tutorials requirements.txt file then install it
-          if [ -f ./tests/requirements.txt ]; then
-            pip install -r ./docs/tutorials/requirements.txt
-          fi
-
-      - name: Convert and run notebooks
-        shell: bash
-        run: |
-          jupyter nbconvert --to python ./docs/tutorials/*.ipynb
-          for f in docs/tutorials/*.py; do python "$f"; done
-
-      # if it is run on ubuntu-latest, python 3.9, then create the badge
-      - name: Pytest coverage comment
-        # only create the badge once and only if it is not a dependabot or pre-commit-ci
-        # and only if it is a PR
-        if: ${{ (matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9') && (github.actor != 'dependabot[bot]' || github.actor != 'pre-commit-ci[bot]' || github.event_name != 'push') }}
-        id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.43
+      - name: Test report on failures
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        id: test_report_with_annotations
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' &&  github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && (success() || failure()) }} # Do not run for dependabot, run whether tests failed or succeeded
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
+          comment_mode: "failures"
+          files: |
+            pytest.xml
 
-      - name: Check the output coverage
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        shell: bash
-        run: |
-          echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
-          echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
+      - name: Pytest coverage comment
+        id: coverage-comment
+        uses: MishaKav/pytest-coverage-comment@main
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' &&  github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && (success() || failure()) }}
+        with:
+          create-new-comment: false
+          report-only-changed-files: false
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: ./pytest.xml
