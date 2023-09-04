@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.3 (2023-09-04)
+
+### Fix
+
+* Update docs dependencies ([`dce2f58`](https://github.com/KennethEnevoldsen/asent/commit/dce2f58fa25c552314e7766438538db89867091c))
+
+### Documentation
+
+* Lock requirementns ([`bc09b92`](https://github.com/KennethEnevoldsen/asent/commit/bc09b924164a804a42c86f936f66f8ebd4186a24))
+
 ## v0.7.2 (2023-08-08)
 
 ### Fix
