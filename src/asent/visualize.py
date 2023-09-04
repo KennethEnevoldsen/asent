@@ -1,10 +1,12 @@
 from distutils.log import warn
-from typing import Union
+from typing import Tuple, Union
 
 import spacy
 from packaging import version
 from spacy import displacy
 from spacy.tokens import Doc, Span
+
+from asent.data_classes import DocPolarityOutput, SpanPolarityOutput
 
 
 def make_colors(n=10, cmap="RdYlGn"):
@@ -27,26 +29,46 @@ def make_colors(n=10, cmap="RdYlGn"):
 #         display(HTML(f'<p style="color:{color}">{color}</p>'))
 
 
-def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
+def _normalize_doc_input(
+    doc: Union[Span, Doc, DocPolarityOutput, SpanPolarityOutput],
+) -> Tuple[Span, SpanPolarityOutput]:
+    if isinstance(doc, Doc):
+        span = doc[:]
+        pol = span._.polarity
+    elif isinstance(doc, DocPolarityOutput):
+        pol = doc.as_span_polarity()
+        span = pol.span
+    elif isinstance(doc, SpanPolarityOutput):
+        pol = doc
+        span = doc.span
+    else:
+        span = doc
+        # turn span into doc
+        pol = span._.polarity
+
+    return span, pol
+
+
+def visualize_prediction_no_overlap(
+    doc: Union[Span, Doc, DocPolarityOutput, SpanPolarityOutput],
+    cmap="RdYlGn",
+) -> str:
     """Render displaCy visualisation of model prediction of sentiment.
 
     This visualization is similar to visualize_prediction, but it does not allow
     for overlapping spans.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+        doc: The span or document you wish to apply the visualizer
             to.
-        cmap (str, optional): The color map derived from matplotlib. Defaults to
+        cmap: The color map derived from matplotlib. Defaults to
             "RdYlGn".
 
     Returns:
-        str: Rendered HTML markup.
+        Rendered HTML markup.
     """
 
-    if isinstance(doc, Doc):
-        span = doc[:]
-    else:
-        span = doc
+    span, pol = _normalize_doc_input(doc)
 
     thresholds = [t / 10 for t in range(-50, 51)]
     sentiment_colors = make_colors(n=len(thresholds), cmap=cmap)
@@ -55,7 +77,6 @@ def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str
     def __normalize(val: float) -> str:
         return str(max(min(round(val, 1), 5), -5))
 
-    pol = span._.polarity
     t_pols = list(filter(lambda p: p, pol.polarities))
 
     c_spans = [
@@ -85,23 +106,22 @@ def visualize_prediction_no_overlap(doc: Union[Span, Doc], cmap="RdYlGn") -> str
     return html
 
 
-def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
+def visualize_prediction(
+    doc: Union[Span, Doc, SpanPolarityOutput, DocPolarityOutput],
+    cmap="RdYlGn",
+) -> str:
     """Render displaCy visualisation of model prediction of sentiment.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+        doc: The span or document you wish to apply the visualizer
             to.
-        cmap (str, optional): The color map derived from matplotlib. Defaults to
+        cmap: The color map derived from matplotlib. Defaults to
             "RdYlGn".
 
     Returns:
-        str: Rendered HTML markup.
+        Rendered HTML markup.
     """
-
-    if isinstance(doc, Doc):
-        span = doc[:]
-    else:
-        span = doc
+    span, pol = _normalize_doc_input(doc)
 
     thresholds = [t / 10 for t in range(-50, 51)]
     sentiment_colors = make_colors(n=len(thresholds), cmap=cmap)
@@ -110,7 +130,6 @@ def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
     def __normalize(val: float) -> str:
         return str(max(min(round(val, 1), 5), -5))
 
-    pol = span._.polarity
     t_pols = list(filter(lambda p: p, pol.polarities))
 
     c_spans = [
@@ -139,23 +158,22 @@ def visualize_prediction(doc: Union[Span, Doc], cmap="RdYlGn") -> str:
     return html
 
 
-def visualize_analysis(doc: Union[Span, Doc]) -> str:
+def visualize_analysis(
+    doc: Union[Span, Doc, DocPolarityOutput, SpanPolarityOutput],
+) -> str:
     """Render displaCy visualisation of model analysis.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+        doc: The span or document you wish to apply the visualizer
             to.
+        cmap: The color map derived from matplotlib. Defaults to
+            "RdYlGn".
 
     Returns:
-        str: Rendered HTML markup.
+        Rendered HTML markup.
     """
 
-    if isinstance(doc, Doc):
-        span = doc[:]
-    else:
-        span = doc
-
-    pol = span._.polarity
+    span, pol = _normalize_doc_input(doc)
 
     arcs = []
     words = []
@@ -199,24 +217,28 @@ def visualize_analysis(doc: Union[Span, Doc]) -> str:
     return html
 
 
-def visualize(doc: Union[Span, Doc], style: str = "prediction", cmap="RdYlGn") -> str:
+def visualize(
+    doc: Union[Span, Doc, DocPolarityOutput, SpanPolarityOutput],
+    style: str = "prediction",
+    cmap: str = "RdYlGn",
+) -> str:
     """Render displaCy visualisation of  model prediction of sentiment or
     analysis of sentiment.
 
     Args:
-        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer
+        doc: The span or document you wish to apply the visualizer
             to.
-        style (str): A string indicating whether it should visualize
+        style: A string indicating whether it should visualize
             "prediction" or "analysis". "prediction", color codes positive or negative
             spans according to the cmap. "analysis" visualize for each sentimental word
             if it has by negated or intensified a word, and which word.
             If you are looking for the previous visualizer for "prediction", use
             "prediction-no-overlap". Note that this does not allow for overlapping span.
             Thus it can lead to odd results. Defaults to "prediction".
-        cmap (str): The color map derived from matplotlib. Defaults to "RdYlGn".
+        cmap: The color map derived from matplotlib. Defaults to "RdYlGn".
 
     Returns:
-        str: Rendered HTML markup.
+        Rendered HTML markup.
 
     Examples:
         >>> nlp = spacy.load("en_core_web_lg")
