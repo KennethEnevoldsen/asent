@@ -43,11 +43,6 @@ jobs:
         run: |
           pip install invoke tox pyright
 
-      - name: Run static type checker simple
-        run: |
-          pip install -e ".[dev, tests]"
-          pyright src/
-
       - name: Run static type checker
         id: pyright
         continue-on-error: true
