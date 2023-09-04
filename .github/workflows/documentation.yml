@@ -22,6 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ".[docs]"
+          pip install -r docs/tutorials/requirements.txt
 
       - name: Build and Commit
         uses: sphinx-notes/pages@3.0
