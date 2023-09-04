@@ -198,6 +198,7 @@ description: run unit tests
 extras = tests
 use_develop = true
 commands =
+  pip install -r tests/requirements.txt
   pytest -n auto {posargs:test}
 
 [testenv:type]
@@ -206,6 +207,7 @@ extras = tests, dev
 basepython = py39 # Setting these explicitly avoid recreating env if your shell is set to a different version
 use_develop = true
 commands =
+  pip install -r tests/requirements.txt
   pyright src/
 
 [testenv:docs]
@@ -214,5 +216,6 @@ extras = docs
 basepython = py39 # Setting these explicitly avoid recreating env if your shell is set to a different version
 use_develop = true
 commands =
+  pip install -r docs/tutorials/requirements.txt
   sphinx-build -b html docs docs/_build/html
 """
