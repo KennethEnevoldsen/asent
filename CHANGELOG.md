@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.4 (2023-09-04)
+
+### Fix
+
+* Added option ([`75932a8`](https://github.com/KennethEnevoldsen/asent/commit/75932a848902f656b79ff30f6a190feb09f4f1a2))
+
 ## v0.7.3 (2023-09-04)
 
 ### Fix
