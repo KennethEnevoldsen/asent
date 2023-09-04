@@ -8,13 +8,13 @@ from .emoji import LEXICON as E_LEXICON
 LANG = "da"
 
 
-def read_csv_lexicon():
+def read_csv_lexicon() -> dict[str, float]:
     lexicon_file = LEXICON_PATH / f"{LANG}_lexicon_sentida_lemma_v1.csv"
 
-    with open(lexicon_file, encoding="utf-8") as f:
+    with open(lexicon_file, encoding="utf-8") as f:  # noqa
         pairs = filter(lambda x: x, f.read().split("\n")[1:])
         lexicon = {
-            word: float(rating) for word, rating in map(lambda x: x.split(","), pairs)
+            word: float(rating) for word, rating in (x.split(",") for x in pairs)
         }
     return lexicon
 
@@ -86,8 +86,8 @@ lexicons.register(  # store as default
 
 @Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
 def create_da_sentiment_component(nlp: Language, name: str, force: bool) -> Asent:
-    f"""Allows the Danish sentiment to be added to a spaCy pipe using
-    nlp.add_pipe("asent_{LANG}_v1")."""
+    """Allows the Danish sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_da_v1")."""
 
     lex = lexicons.get(f"lexicon_{LANG}_afinn_v1")
     lex.update(E_LEXICON)

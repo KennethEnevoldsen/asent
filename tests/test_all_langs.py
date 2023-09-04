@@ -1,6 +1,5 @@
-import spacy
-
 import asent
+import spacy
 
 
 def test_all_lang_components():

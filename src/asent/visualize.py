@@ -1,5 +1,5 @@
 from distutils.log import warn
-from typing import Tuple, Union
+from typing import Union
 
 import spacy
 from packaging import version
@@ -9,7 +9,7 @@ from spacy.tokens import Doc, Span
 from asent.data_classes import DocPolarityOutput, SpanPolarityOutput
 
 
-def make_colors(n=10, cmap="RdYlGn"):
+def make_colors(n: int = 10, cmap: str = "RdYlGn"):
     """A utility function for creating a stepped color gradient."""
     from pylab import cm, matplotlib
 
@@ -21,17 +21,9 @@ def make_colors(n=10, cmap="RdYlGn"):
         yield matplotlib.colors.rgb2hex(rgba)
 
 
-# def print_colors(HEX: Iterable) -> None:
-#     """An utility function for visualizing a color map"""
-#     from IPython.core.display import HTML, display
-
-#     for color in HEX:
-#         display(HTML(f'<p style="color:{color}">{color}</p>'))
-
-
 def _normalize_doc_input(
     doc: Union[Span, Doc, DocPolarityOutput, SpanPolarityOutput],
-) -> Tuple[Span, SpanPolarityOutput]:
+) -> tuple[Span, SpanPolarityOutput]:
     if isinstance(doc, Doc):
         span = doc[:]
         pol = span._.polarity
@@ -51,7 +43,7 @@ def _normalize_doc_input(
 
 def visualize_prediction_no_overlap(
     doc: Union[Span, Doc, DocPolarityOutput, SpanPolarityOutput],
-    cmap="RdYlGn",
+    cmap: str = "RdYlGn",
 ) -> str:
     """Render displaCy visualisation of model prediction of sentiment.
 
@@ -108,7 +100,7 @@ def visualize_prediction_no_overlap(
 
 def visualize_prediction(
     doc: Union[Span, Doc, SpanPolarityOutput, DocPolarityOutput],
-    cmap="RdYlGn",
+    cmap: str = "RdYlGn",
 ) -> str:
     """Render displaCy visualisation of model prediction of sentiment.
 
@@ -264,11 +256,10 @@ def visualize(
 
     if style.lower() == "prediction":
         return visualize_prediction(doc, cmap=cmap)
-    elif style.lower() == "prediction-no-overlap":
+    if style.lower() == "prediction-no-overlap":
         return visualize_prediction_no_overlap(doc, cmap=cmap)
-    elif style.lower() == "analysis":
+    if style.lower() == "analysis":
         return visualize_analysis(doc)
-    else:
-        raise ValueError(
-            "Invalid style argument, should be either 'analysis' or 'prediction'",
-        )
+    raise ValueError(
+        "Invalid style argument, should be either 'analysis' or 'prediction'",
+    )

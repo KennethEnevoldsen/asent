@@ -1,5 +1,6 @@
 import math
-from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
+from collections.abc import Iterable
+from typing import Callable, Optional, Union
 
 from spacy.tokens import Doc, Span, Token
 
@@ -19,16 +20,16 @@ def make_txt_getter(lemmatize: bool, lowercase: bool) -> Callable[[Token], str]:
     """
 
     def get_lower_lemma(token: Token) -> str:
-        return getattr(token, "lemma_").lower()
+        return token.lemma_.lower()
 
     def get_lemma(token: Token) -> str:
-        return getattr(token, "lemma_")
+        return token.lemma_
 
     def get_lower_txt(token: Token) -> str:
-        return getattr(token, "text").lower()
+        return token.text.lower()
 
     def get_txt(token: Token) -> str:
-        return getattr(token, "text")
+        return token.text
 
     if lemmatize:
         if lowercase:
@@ -60,7 +61,7 @@ def allcap_differential_getter(span: Union[Span, Doc]) -> bool:
 
 
 def make_intensifier_getter(
-    intensifiers: Dict[str, float],
+    intensifiers: dict[str, float],
     lemmatize: bool = True,
     lowercase: bool = True,
 ) -> Callable[[Token], float]:
@@ -97,7 +98,7 @@ def make_intensifier_getter(
 
 
 def make_valance_getter(
-    lexicon: Dict[str, float],
+    lexicon: dict[str, float],
     lemmatize: bool = False,
     lowercase: bool = True,
     cap_differential: float = C_INCR,
@@ -245,13 +246,13 @@ def make_is_negated_getter(
     return is_negated_getter
 
 
-def make_token_polarity_getter(  # noqa: C901
+def make_token_polarity_getter(
     valence_getter: Optional[Callable[[Token], float]] = None,
     is_negated_getter: Optional[Callable[[Token], Union[bool, Optional[Token]]]] = None,
     intensifier_getter: Optional[Callable[[Token], float]] = None,
     negation_scalar: float = N_SCALAR,
-    lookback_intensities: List[float] = [1.0, 0.95, 0.90],
-    **kwargs,
+    lookback_intensities: list[float] = [1.0, 0.95, 0.90],  # noqa
+    **kwargs,  # noqa
 ) -> Callable[[Token], TokenPolarityOutput]:
     """Creates a function (getter) which takes a token and return the polarity
     of the token based upon whether the token valence (sentiment) including
@@ -343,10 +344,7 @@ def make_token_polarity_getter(  # noqa: C901
                         intensifiers.append(prev_token)
                         b = b * lookback_intensities[start_i - 1]
                         start_tok = prev_token.i
-                    if valence > 0:
-                        valence = valence + b
-                    else:
-                        valence = valence - b
+                    valence = valence + b if valence > 0 else valence - b
             is_neg = token._.is_negated
             if is_neg:
                 valence = valence * negation_scalar
@@ -364,16 +362,16 @@ def make_token_polarity_getter(  # noqa: C901
     return token_polarity_getter
 
 
-def normalize(score: float, alpha=15) -> float:
+def normalize(score: float, alpha: float = 15) -> float:
     """Normalize the score to be between -1 and 1 using an alpha that
     approximates the max expected value.
 
     Args:
-        score (float): The score to normalize.
-        alpha (float): The alpha value to use for normalization. Defaults to 15.
+        score: The score to normalize.
+        alpha: The alpha value to use for normalization. Defaults to 15.
 
     Returns:
-        float: The normalized score.
+        The normalized score.
     """
     norm_score = score / math.sqrt((score * score) + alpha)
     if norm_score < -1.0:
@@ -389,7 +387,7 @@ def questionmark_amplification(text: str) -> float:
     qm_count = text.count("?")
     qm_amplifier = 0.0
     if qm_count > 1:
-        if qm_count <= 3:
+        if qm_count <= 3:  # noqa
             # (empirically derived mean sentiment intensity rating increase for
             # question marks)
             qm_amplifier = qm_count * 0.18
@@ -428,7 +426,7 @@ def but_check(
     return sentiment
 
 
-def sift_sentiment_scores(sentiments: Iterable[float]) -> Tuple[float, float, int]:
+def sift_sentiment_scores(sentiments: Iterable[float]) -> tuple[float, float, int]:
     """Separate positive and negative sentiment scores."""
     pos_sum = 0.0
     neg_sum = 0.0
@@ -447,7 +445,7 @@ def sift_sentiment_scores(sentiments: Iterable[float]) -> Tuple[float, float, in
     return pos_sum, neg_sum, neu_count
 
 
-def make_span_polarity_getter(  # noqa: C901
+def make_span_polarity_getter(
     polarity_getter: Optional[Callable[[Token], float]],
     contrastive_conj_getter: Optional[Callable[[Token], bool]],
 ) -> Callable[[Span], SpanPolarityOutput]:
@@ -489,7 +487,7 @@ def make_span_polarity_getter(  # noqa: C901
             + "extension or provide the contrastive_conj_getter.",
         )
 
-    def __extract(polarity: TokenPolarityOutput) -> Tuple[float, Span]:
+    def __extract(polarity: TokenPolarityOutput) -> tuple[float, Span]:
         return polarity.polarity, polarity.span
 
     def __polarity_getter(

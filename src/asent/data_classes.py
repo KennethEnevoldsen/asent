@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import List, Union
-
 from pydantic import BaseModel
 from spacy.tokens import Doc, Span, Token
 
@@ -16,8 +14,8 @@ class TokenPolarityOutput(BaseModel):
     polarity: float
     token: Token
     span: Span
-    negation: Union[Token, None] = None
-    intensifiers: List[Token] = []
+    negation: Token | None = None
+    intensifiers: list[Token] = []
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
@@ -29,28 +27,28 @@ class TokenPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: object):
+    def __lt__(self, other: object) -> bool:
         if not isinstance(other, (TokenPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity < other
 
-    def __eq__(self, other: object):
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, (TokenPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity == other
 
-    def __gt__(self, other: object):
+    def __gt__(self, other: object) -> bool:
         if not isinstance(other, (TokenPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, TokenPolarityOutput):
             other = other.polarity
         return self.polarity > other
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return bool(self.polarity)
 
 
@@ -66,7 +64,7 @@ class SpanPolarityOutput(BaseModel):
     positive: float
     compound: float
     span: Span
-    polarities: List[TokenPolarityOutput]
+    polarities: list[TokenPolarityOutput]
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
@@ -80,7 +78,7 @@ class SpanPolarityOutput(BaseModel):
             ]
         )
 
-    def __lt__(self, other: object):
+    def __lt__(self, other: object) -> bool:
         if not isinstance(other, (SpanPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, SpanPolarityOutput):
@@ -94,7 +92,7 @@ class SpanPolarityOutput(BaseModel):
             other = other.compound
         return self.compound == other
 
-    def __gt__(self, other: object):
+    def __gt__(self, other: object) -> bool:
         if not isinstance(other, (SpanPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, SpanPolarityOutput):
@@ -113,7 +111,7 @@ class DocPolarityOutput(BaseModel):
     positive: float
     compound: float
     doc: Doc
-    polarities: List[SpanPolarityOutput]
+    polarities: list[SpanPolarityOutput]
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
@@ -140,7 +138,7 @@ class DocPolarityOutput(BaseModel):
         )
         return pol
 
-    def __lt__(self, other: object):
+    def __lt__(self, other: object) -> bool:
         if not isinstance(other, (DocPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, DocPolarityOutput):
@@ -154,7 +152,7 @@ class DocPolarityOutput(BaseModel):
             other = other.compound
         return self.compound == other
 
-    def __gt__(self, other: object):
+    def __gt__(self, other: object) -> bool:
         if not isinstance(other, (DocPolarityOutput, float)):
             return NotImplemented
         if isinstance(other, DocPolarityOutput):

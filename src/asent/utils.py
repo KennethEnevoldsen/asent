@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable, Dict, Union
+from typing import Callable, Union
 
 import catalogue
 
@@ -9,7 +9,7 @@ lexicons = catalogue.create("asent", "lexicon", entry_points=True)
 components = catalogue.create("asent", "components", entry_points=True)
 
 
-def register_lexicon(name: str, lexicon: Dict[str, float]) -> None:
+def register_lexicon(name: str, lexicon: dict[str, float]) -> None:
     """Registers a lexicon in asent.lexicons.
 
     Args:
@@ -34,8 +34,8 @@ def register_component(name: str, func: Callable) -> None:
     components.register(name, func=func)
 
 
-def read_lexicon(path: Union[str, Path]) -> Dict[str, float]:
-    with open(path, encoding="utf-8") as f:
+def read_lexicon(path: Union[str, Path]) -> dict[str, float]:
+    with open(path, encoding="utf-8") as f:  # noqa
         lexicon = {}
         for line in f.read().rstrip("\n").split("\n"):
             if not line:

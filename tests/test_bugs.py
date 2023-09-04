@@ -1,8 +1,7 @@
 """Test specifically targeted an bugs."""
 
-import spacy
-
 import asent  # noqa
+import spacy
 
 
 def test_no_negations_and_intensifiers_out_of_sentence():

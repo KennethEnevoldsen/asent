@@ -1,8 +1,6 @@
+import asent
 import pytest
 import spacy
-from spacy.tokens import Doc, Token
-
-import asent
 from asent.getters import (
     make_doc_polarity_getter,
     make_intensifier_getter,
@@ -13,10 +11,11 @@ from asent.getters import (
     make_token_polarity_getter,
     make_valance_getter,
 )
+from spacy.tokens import Doc, Token
 
 
 @pytest.fixture()
-def nlp_dict():
+def nlp_dict() -> dict:
     nlp_en = spacy.blank("en")
     nlp_en.add_pipe("sentencizer")
     nlp_da = spacy.load("da_core_news_sm")
@@ -31,14 +30,20 @@ def nlp_dict():
 
 
 @pytest.mark.parametrize(
-    "example,idx,expected,lang",
+    ("example", "idx", "expected", "lang"),
     [
         ("jeg er glad", -1, "positive", "da"),
         ("jeg er GLAD", -1, "positive", "da"),
         ("jeg er sur", -1, "negative", "da"),
     ],
 )
-def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
+def test_valence_getter(
+    example: str,
+    idx: int,
+    expected: str,
+    lang: str,
+    nlp_dict: dict,
+):
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
@@ -63,13 +68,19 @@ def test_valence_getter(example, idx, expected, lang: str, nlp_dict):
 
 
 @pytest.mark.parametrize(
-    "example,cased_example,idx,lang",
+    ("example", "cased_example", "idx", "lang"),
     [
         ("jeg er glad", "jeg er GLAD", -1, "da"),
         ("jeg er sur", "jeg er SUR", -1, "da"),
     ],
 )
-def test_valence_getter_casing(example, cased_example, idx, lang, nlp_dict):
+def test_valence_getter_casing(
+    example: str,
+    cased_example: str,
+    idx: int,
+    lang: str,
+    nlp_dict: dict,
+):
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
@@ -84,7 +95,7 @@ def test_valence_getter_casing(example, cased_example, idx, lang, nlp_dict):
 
 
 @pytest.mark.parametrize(
-    "example,idx,is_negated,lang",
+    ("example", "idx", "is_negated", "lang"),
     [
         ("jeg er glad", -1, False, "da"),
         ("jeg er GLAD", -1, False, "da"),
@@ -94,7 +105,13 @@ def test_valence_getter_casing(example, cased_example, idx, lang, nlp_dict):
         ("jeg er ikke længere særligt sur", -1, True, "da"),
     ],
 )
-def test_is_negation(example, idx, is_negated, lang: str, nlp_dict):
+def test_is_negation(
+    example: str,
+    idx: int,
+    is_negated: bool,
+    lang: str,
+    nlp_dict: dict,
+):
     nlp = nlp_dict[lang]
     negations = asent.lexicons.get("negations_" + lang + "_v1")
 
@@ -106,7 +123,7 @@ def test_is_negation(example, idx, is_negated, lang: str, nlp_dict):
 
 
 @pytest.mark.parametrize(
-    "example,idx,more_positive_example,more_positive_idx,lang",
+    ("example", "idx", "more_positive_example", "more_positive_idx", "lang"),
     [
         ("jeg er glad", -1, "jeg er GLAD", -1, "da"),
         ("jeg er ikke glad", -1, "jeg er glad", -1, "da"),
@@ -118,7 +135,7 @@ def test_token_polarity(
     more_positive_example: str,
     more_positive_idx: int,
     lang: str,
-    nlp_dict,
+    nlp_dict: dict,
 ):
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
@@ -153,7 +170,7 @@ def test_token_polarity(
 
 
 @pytest.mark.parametrize(
-    "example,expected,lang",
+    ("example", "expected", "lang"),
     [
         ("jeg er glad", "positive", "da"),
         ("jeg er sur", "negative", "da"),
@@ -166,7 +183,7 @@ def test_token_polarity(
         ("ich bin ser gut!", "positive", "de"),
     ],
 )
-def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
+def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict: dict):
     nlp = nlp_dict[lang]
     lexicon = asent.lexicons.get("lexicon_" + lang + "_v1")
 
@@ -209,7 +226,7 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
     doc_polarity_getter = make_doc_polarity_getter(span_polarity_getter)
     Doc.set_extension("polarity", getter=doc_polarity_getter, force=True)
     doc = nlp(example)
-    sent = [s for s in doc.sents][0]  # assuming there is only one sentence
+    sent = list(doc.sents)[0]  # assuming there is only one sentence
     assert doc._.polarity.compound == sent._.polarity.compound
     if expected == "positive":
         assert sent._.polarity.compound > 0
@@ -225,7 +242,7 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict):
 
 
 @pytest.mark.parametrize(
-    "example,more_positive_example,lang",
+    ("example", "more_positive_example", "lang"),
     [
         ("jeg er sur", "jeg er glad", "da"),
         ("jeg er SUR", "jeg er sur", "da"),
@@ -240,7 +257,7 @@ def test_span_polarity_contrast(
     example: str,
     more_positive_example: str,
     lang: str,
-    nlp_dict,
+    nlp_dict: dict,
 ):
     nlp = nlp_dict[lang]
 
@@ -251,7 +268,7 @@ def test_span_polarity_contrast(
 
 
 @pytest.mark.parametrize(
-    "example,expected,lang",
+    ("example", "expected", "lang"),
     [
         ("I am happy", "positive", "en"),
         ("I am very happy", "positive", "en"),
@@ -263,7 +280,7 @@ def test_span_polarity_contrast(
         ("", "neutral", "da"),
     ],
 )
-def test_components(example: str, expected: str, lang: str, nlp_dict):
+def test_components(example: str, expected: str, lang: str, nlp_dict: dict):
     nlp = nlp_dict[lang]
 
     nlp.add_pipe("asent_" + lang + "_v1", config={"force": True})

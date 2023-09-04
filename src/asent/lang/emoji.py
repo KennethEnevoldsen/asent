@@ -4,14 +4,14 @@ import os
 from ..utils import lexicons
 
 
-def read_emoji():
-    path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
+def read_emoji():  # noqa
+    path = os.path.join(  # noqa
+        os.path.dirname(os.path.abspath(__file__)),  # noqa
         "..",
         "lexicons",
         "emoji_v1.json",
     )
-    with open(path) as f:
+    with open(path) as f:  # noqa
         emoji_lexicon = json.load(f)
     return emoji_lexicon
 

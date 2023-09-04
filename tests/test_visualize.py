@@ -1,12 +1,11 @@
-import pytest
-
 import asent
+import pytest
 
 from .test_getters import nlp_dict  # noqa
 
 
 @pytest.mark.parametrize(
-    "example,lang",
+    ("example", "lang"),
     [
         ("I am not very happy", "en"),
         ("jeg er glad", "da"),
@@ -46,5 +45,5 @@ def test_visualize(example: str, lang: str, nlp_dict):  # noqa
     asent.visualize(span_pol, style="analysis")
 
     # error
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError):  # noqa
         asent.visualize(doc[:2], style="invalid")

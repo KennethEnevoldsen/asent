@@ -122,8 +122,8 @@ lexicons.register(f"intensifiers_{LANG}_v1", func=INTENSIFIERS)
 
 @Language.factory(f"asent_{LANG}_v1", default_config={"force": True})
 def create_no_sentiment_component(nlp: Language, name: str, force: bool) -> Asent:
-    f"""Allows the Norwegian sentiment to be added to a spaCy pipe using
-    nlp.add_pipe("asent_{LANG}_v1")."""
+    """Allows the Norwegian sentiment to be added to a spaCy pipe using
+    nlp.add_pipe("asent_no_v1")."""
 
     LEXICON.update(E_LEXICON)
 

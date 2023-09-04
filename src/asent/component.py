@@ -1,6 +1,6 @@
 """Calculation of various readability metrics."""
 
-from typing import Dict, Iterable
+from collections.abc import Iterable
 
 from spacy.language import Language
 from spacy.tokens import Doc, Span, Token
@@ -28,10 +28,10 @@ class Asent:
 
     def __init__(
         self,
-        nlp: Language,
-        lexicon: Dict[str, float],
+        nlp: Language,  # noqa: ARG002
+        lexicon: dict[str, float],
         name: str = "asent",
-        intensifiers: Dict[str, float] = {},
+        intensifiers: dict[str, float] = {},  # noqa
         negations: Iterable[str] = set(),
         contrastive_conjugations: Iterable[str] = set(),
         lowercase: bool = True,
@@ -169,8 +169,8 @@ DEFAULT_CONFIG = {
 def create_asent_component(
     nlp: Language,
     name: str,
-    lexicon: Dict[str, float],
-    intensifiers: Dict[str, float],
+    lexicon: dict[str, float],
+    intensifiers: dict[str, float],
     negations: Iterable[str],
     contrastive_conj: Iterable[str],
     lowercase: bool,

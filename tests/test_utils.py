@@ -17,7 +17,7 @@ def test_components():
     f = asent.components.get("asent_da_v1")
     assert callable(f)
 
-    for i, c in asent.components.get_all().items():
+    for _i, c in asent.components.get_all().items():
         assert callable(c)
 
     asent.register_component("my_custom_comp", lambda doc: doc)
