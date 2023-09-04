@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.1.2 and Furo 2023.03.27 -->
-        <title>asent.visualize - asent 0.7.2 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>asent.visualize - asent 0.7.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -131,7 +131,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.7.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.7.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -231,47 +231,61 @@
 <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 
+<span class="kn">from</span> <span class="nn">asent.data_classes</span> <span class="kn">import</span> <span class="n">DocPolarityOutput</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span>
 
-<span class="k">def</span> <span class="nf">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">make_colors</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RdYlGn&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility function for creating a stepped color gradient.&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>
+    <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>  <span class="c1"># type: ignore</span>
 
     <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+        <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="c1"># rgb2hex accepts rgb or rgba</span>
-        <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 
 
-<span class="c1"># def print_colors(HEX: Iterable) -&gt; None:</span>
-<span class="c1">#     &quot;&quot;&quot;An utility function for visualizing a color map&quot;&quot;&quot;</span>
-<span class="c1">#     from IPython.core.display import HTML, display</span>
+<span class="k">def</span> <span class="nf">_normalize_doc_input</span><span class="p">(</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">DocPolarityOutput</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
+        <span class="n">pol</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">DocPolarityOutput</span><span class="p">):</span>
+        <span class="n">pol</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">as_span_polarity</span><span class="p">()</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="n">pol</span><span class="o">.</span><span class="n">span</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">):</span>
+        <span class="n">pol</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">span</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="c1"># turn span into doc</span>
+        <span class="n">pol</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
 
-<span class="c1">#     for color in HEX:</span>
-<span class="c1">#         display(HTML(f&#39;&lt;p style=&quot;color:{color}&quot;&gt;{color}&lt;/p&gt;&#39;))</span>
+    <span class="k">return</span> <span class="n">span</span><span class="p">,</span> <span class="n">pol</span>
 
 
-<span class="k">def</span> <span class="nf">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">visualize_prediction_no_overlap</span><span class="p">(</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">DocPolarityOutput</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">],</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RdYlGn&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of model prediction of sentiment.</span>
 
 <span class="sd">    This visualization is similar to visualize_prediction, but it does not allow</span>
 <span class="sd">    for overlapping spans.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">        doc: The span or document you wish to apply the visualizer</span>
 <span class="sd">            to.</span>
-<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to</span>
+<span class="sd">        cmap: The color map derived from matplotlib. Defaults to</span>
 <span class="sd">            &quot;RdYlGn&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Rendered HTML markup.</span>
+<span class="sd">        Rendered HTML markup.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span>
+    <span class="n">span</span><span class="p">,</span> <span class="n">pol</span> <span class="o">=</span> <span class="n">_normalize_doc_input</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
     <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">)]</span>
     <span class="n">sentiment_colors</span> <span class="o">=</span> <span class="n">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">thresholds</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
@@ -280,7 +294,6 @@
     <span class="k">def</span> <span class="nf">__normalize</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
 
-    <span class="n">pol</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
     <span class="n">t_pols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="n">pol</span><span class="o">.</span><span class="n">polarities</span><span class="p">))</span>
 
     <span class="n">c_spans</span> <span class="o">=</span> <span class="p">[</span>
@@ -310,23 +323,22 @@
     <span class="k">return</span> <span class="n">html</span>
 
 
-<span class="k">def</span> <span class="nf">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">visualize_prediction</span><span class="p">(</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">,</span> <span class="n">DocPolarityOutput</span><span class="p">],</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RdYlGn&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of model prediction of sentiment.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">        doc: The span or document you wish to apply the visualizer</span>
 <span class="sd">            to.</span>
-<span class="sd">        cmap (str, optional): The color map derived from matplotlib. Defaults to</span>
+<span class="sd">        cmap: The color map derived from matplotlib. Defaults to</span>
 <span class="sd">            &quot;RdYlGn&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Rendered HTML markup.</span>
+<span class="sd">        Rendered HTML markup.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span>
+    <span class="n">span</span><span class="p">,</span> <span class="n">pol</span> <span class="o">=</span> <span class="n">_normalize_doc_input</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
     <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">)]</span>
     <span class="n">sentiment_colors</span> <span class="o">=</span> <span class="n">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">thresholds</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
@@ -335,7 +347,6 @@
     <span class="k">def</span> <span class="nf">__normalize</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
 
-    <span class="n">pol</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
     <span class="n">t_pols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="n">pol</span><span class="o">.</span><span class="n">polarities</span><span class="p">))</span>
 
     <span class="n">c_spans</span> <span class="o">=</span> <span class="p">[</span>
@@ -364,23 +375,22 @@
     <span class="k">return</span> <span class="n">html</span>
 
 
-<span class="k">def</span> <span class="nf">visualize_analysis</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">visualize_analysis</span><span class="p">(</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">DocPolarityOutput</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of model analysis.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">        doc: The span or document you wish to apply the visualizer</span>
 <span class="sd">            to.</span>
+<span class="sd">        cmap: The color map derived from matplotlib. Defaults to</span>
+<span class="sd">            &quot;RdYlGn&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Rendered HTML markup.</span>
+<span class="sd">        Rendered HTML markup.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[:]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span>
-
-    <span class="n">pol</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
+    <span class="n">span</span><span class="p">,</span> <span class="n">pol</span> <span class="o">=</span> <span class="n">_normalize_doc_input</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
     <span class="n">arcs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">words</span> <span class="o">=</span> <span class="p">[]</span>
@@ -424,24 +434,28 @@
     <span class="k">return</span> <span class="n">html</span>
 
 
-<div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlGn&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="visualize"><a class="viewcode-back" href="../../asent.visualize.html#asent.visualize.visualize">[docs]</a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">DocPolarityOutput</span><span class="p">,</span> <span class="n">SpanPolarityOutput</span><span class="p">],</span>
+    <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;prediction&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RdYlGn&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render displaCy visualisation of  model prediction of sentiment or</span>
 <span class="sd">    analysis of sentiment.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Union[Span, Doc]): The span or document you wish to apply the visualizer</span>
+<span class="sd">        doc: The span or document you wish to apply the visualizer</span>
 <span class="sd">            to.</span>
-<span class="sd">        style (str): A string indicating whether it should visualize</span>
+<span class="sd">        style: A string indicating whether it should visualize</span>
 <span class="sd">            &quot;prediction&quot; or &quot;analysis&quot;. &quot;prediction&quot;, color codes positive or negative</span>
 <span class="sd">            spans according to the cmap. &quot;analysis&quot; visualize for each sentimental word</span>
 <span class="sd">            if it has by negated or intensified a word, and which word.</span>
 <span class="sd">            If you are looking for the previous visualizer for &quot;prediction&quot;, use</span>
 <span class="sd">            &quot;prediction-no-overlap&quot;. Note that this does not allow for overlapping span.</span>
 <span class="sd">            Thus it can lead to odd results. Defaults to &quot;prediction&quot;.</span>
-<span class="sd">        cmap (str): The color map derived from matplotlib. Defaults to &quot;RdYlGn&quot;.</span>
+<span class="sd">        cmap: The color map derived from matplotlib. Defaults to &quot;RdYlGn&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Rendered HTML markup.</span>
+<span class="sd">        Rendered HTML markup.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; nlp = spacy.load(&quot;en_core_web_lg&quot;)</span>
@@ -455,7 +469,7 @@
 <span class="sd">        &gt;&gt;&gt; asent.visualize(doc, style=&quot;analysis&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;prediction&quot;</span> <span class="ow">and</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">spacy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+    <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;prediction&quot;</span> <span class="ow">and</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">spacy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
         <span class="s2">&quot;3.3.0&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="n">warn</span><span class="p">(</span>
@@ -467,14 +481,13 @@
 
     <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;prediction&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;prediction-no-overlap&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;prediction-no-overlap&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;analysis&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;analysis&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">visualize_analysis</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid style argument, should be either &#39;analysis&#39; or &#39;prediction&#39;&quot;</span><span class="p">,</span>
-        <span class="p">)</span></div>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;Invalid style argument, should be either &#39;analysis&#39; or &#39;prediction&#39;&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
@@ -514,12 +527,15 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=4856959a"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script src="../../_static/scripts/furo.js?v=2c7c1115"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     </body>
 </html>
