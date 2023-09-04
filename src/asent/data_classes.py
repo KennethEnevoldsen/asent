@@ -126,6 +126,20 @@ class DocPolarityOutput(BaseModel):
             ]
         )
 
+    def as_span_polarity(self) -> SpanPolarityOutput:
+        span = self.doc.doc[:]
+        pol = SpanPolarityOutput(
+            negative=self.negative,
+            positive=self.positive,
+            neutral=self.neutral,
+            compound=self.compound,
+            span=span,
+            polarities=[
+                t_pol for span_pol in self.polarities for t_pol in span_pol.polarities
+            ],
+        )
+        return pol
+
     def __lt__(self, other: object):
         if not isinstance(other, (DocPolarityOutput, float)):
             return NotImplemented

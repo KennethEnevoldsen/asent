@@ -133,10 +133,10 @@ class Asent:
             )
 
         if (not Doc.has_extension("polarity")) or (force is True):
-            doc_pol_getter = make_doc_polarity_getter(span_polarity_getter=None)
+            self.doc_pol_getter = make_doc_polarity_getter(span_polarity_getter=None)
             Doc.set_extension(
                 "polarity",
-                getter=doc_pol_getter,
+                default=None,
                 force=force,
             )
 
@@ -149,6 +149,8 @@ class Asent:
         Returns:
             Doc: A processed spacy Document.
         """
+        pol = self.doc_pol_getter(doc)
+        doc._.polarity = pol
         return doc
 
 
