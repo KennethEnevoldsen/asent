@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          pip install invoke tox
+          pip install invoke tox pyright
 
       - name: Run static type checker simple
         run: |
