@@ -27,9 +27,6 @@ jobs:
           if [ -f ./docs/tutorials/requirements.txt ]; then
             pip install -r ./docs/tutorials/requirements.txt
           fi
-          if [ -f ./docs/requirements.txt ]; then
-            pip install -r ./docs/requirements.txt
-          fi
 
       - name: Build and Commit
         uses: sphinx-notes/pages@2.1
