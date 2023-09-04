@@ -18,7 +18,7 @@ def make_colors(n: int = 10, cmap: str = "RdYlGn"):
     for i in range(cmap.N):  # type: ignore
         rgba = cmap(i)  # type: ignore
         # rgb2hex accepts rgb or rgba
-        yield matplotlib.colors.rgb2hex(rgba)
+        yield matplotlib.colors.rgb2hex(rgba)  # type: ignore
 
 
 def _normalize_doc_input(

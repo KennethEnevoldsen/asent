@@ -54,7 +54,6 @@ documentation = "https://kennethenevoldsen.github.io/asent/"
 [project.optional-dependencies]
 da = ["dacy>=1.1.0"]
 all = ["nltk>=3.6.7"]
-style = ["black>=22.12.0", "pre-commit>=2.20.0", "ruff>=0.0.263", "mypy>=0.991"]
 tests = ["pytest>=7.1.3", "pytest-cov>=3.0.0"]
 docs = [
     "sphinx==5.3.0",
@@ -63,8 +62,12 @@ docs = [
     "sphinxext-opengraph>=0.7.3",
     "sphinx_design>=0.3.0",
     "myst-nb>=0.6.0",
+    "black>=22.12.0",
+    "pre-commit>=2.20.0",
+    "ruff>=0.0.263",
+    "pyright==1.1.325",
+    "jupyter>=1.0.0",
 ]
-tutorials = ["jupyter>=1.0.0"]
 
 [tool.coverage.run]
 omit = ["**/tests/*", "**/_vendorized/*", "**/about.py"]
