@@ -34,7 +34,7 @@ keywords = [
     "aspect-based sentiment analysis",
     "ABSA",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 
 dependencies = ["spacy>=3.0.0", "matplotlib>=3.5.0"]
 
