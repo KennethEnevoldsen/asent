@@ -33,3 +33,6 @@ prodigy/requirements.txt
 # data
 *.pkl
 *.ndjson
+
+# venv
+.venv
