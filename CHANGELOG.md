@@ -2,6 +2,13 @@
 
 
 
+## v0.7.8 (2023-09-18)
+
+### Unknown
+
+* Merge branches &#39;main&#39; and &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`db5bc4a`](https://github.com/KennethEnevoldsen/asent/commit/db5bc4a3e3bb1c57b1889181844266a259300cbc))
+
+
 ## v0.7.7 (2023-09-18)
 
 ### Ci
@@ -17,6 +24,8 @@
 * ci: debugging static type check ([`698143e`](https://github.com/KennethEnevoldsen/asent/commit/698143efe35b719c2b4e1fc590990a0a71701227))
 
 ### Fix
+
+* fix: ran static type check ([`a155574`](https://github.com/KennethEnevoldsen/asent/commit/a155574bd3c4303c73c1582fa6f49bb66a2728db))
 
 * fix: ran static type check ([`bc96a20`](https://github.com/KennethEnevoldsen/asent/commit/bc96a20bdc4ce898f5258efb6f1617eba24cc1df))
 
