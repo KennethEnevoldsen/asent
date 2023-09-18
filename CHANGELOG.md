@@ -2,13 +2,6 @@
 
 
 
-## v0.7.8 (2023-09-18)
-
-### Unknown
-
-* Merge branches &#39;main&#39; and &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`db5bc4a`](https://github.com/KennethEnevoldsen/asent/commit/db5bc4a3e3bb1c57b1889181844266a259300cbc))
-
-
 ## v0.7.7 (2023-09-18)
 
 ### Ci
