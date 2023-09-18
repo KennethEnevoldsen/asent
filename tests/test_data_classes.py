@@ -24,6 +24,13 @@ def test_TokenPolarityOutput(sample_doc: Doc):
     assert t1 < t2
     assert t2 > t1
 
+    # test to and from dict
+    d = t1.to_dict()
+    assert isinstance(d, dict)
+    t3 = TokenPolarityOutput.from_dict(d, sample_doc)
+    assert isinstance(t3, TokenPolarityOutput)
+    assert t1 == t3
+
 
 def test_SpanPolarityOutput(sample_doc: Doc):
     tok = TokenPolarityOutput(polarity=1, token=sample_doc[0], span=sample_doc[:])
@@ -82,3 +89,10 @@ def test_DocPolarityOutput(sample_doc: Doc):
     assert t1 != t2
     assert t1 < t2
     assert t2 > t1
+
+    # test to and from dict
+    d = t1.to_dict()
+    assert isinstance(d, dict)
+    t3 = DocPolarityOutput.from_dict(d, sample_doc)
+    assert isinstance(t3, DocPolarityOutput)
+    assert t1 == t3

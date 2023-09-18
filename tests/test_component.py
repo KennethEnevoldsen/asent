@@ -1,5 +1,6 @@
 import asent
 import spacy
+from asent.data_classes import DocPolarityOutput
 
 
 def test_all_lang_components():
@@ -12,3 +13,14 @@ def test_all_lang_components():
         nlp.add_pipe(comp, config={"force": True})
         nlp.remove_pipe(comp)
         doc = nlp(text)  # noqa
+
+
+def test_multiprocessing():
+    documents = ["I am happy", "I am sad"]
+
+    model = spacy.blank("en")
+    model.add_pipe("sentencizer", first=True)
+    model.add_pipe("asent_en_v1")
+
+    for doc in model.pipe(documents, batch_size=16, n_process=2):
+        assert isinstance(doc._.polarity, DocPolarityOutput)
