@@ -9,7 +9,7 @@ from spacy.tokens import Doc, Span
 from asent.data_classes import DocPolarityOutput, SpanPolarityOutput
 
 
-def make_colors(n: int = 10, cmap: str = "RdYlGn"):
+def make_colors(n: int = 10, cmap: str = "RdYlGn"):  # type: ignore
     """A utility function for creating a stepped color gradient."""
     from pylab import cm, matplotlib  # type: ignore
 
