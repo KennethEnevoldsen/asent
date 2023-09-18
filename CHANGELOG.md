@@ -2,6 +2,25 @@
 
 
 
+## v0.7.7 (2023-09-18)
+
+### Ci
+
+* ci: clean up static type check ci ([`8f3e8df`](https://github.com/KennethEnevoldsen/asent/commit/8f3e8df9c1d7ce45bb6773eb6edaf98e9914d850))
+
+* ci: fix ci for docs ([`69925b2`](https://github.com/KennethEnevoldsen/asent/commit/69925b2306c255119889c0f4493309a03a4b5ff1))
+
+* ci: debug pyright ([`0bb6984`](https://github.com/KennethEnevoldsen/asent/commit/0bb6984d5af407648e06a27c48907558c7897cef))
+
+* ci: debug pyright ([`71f042c`](https://github.com/KennethEnevoldsen/asent/commit/71f042c503efdc2dcc79ea3ee3d02f09e9c3b6ca))
+
+* ci: debugging static type check ([`698143e`](https://github.com/KennethEnevoldsen/asent/commit/698143efe35b719c2b4e1fc590990a0a71701227))
+
+### Fix
+
+* fix: ran static type check ([`bc96a20`](https://github.com/KennethEnevoldsen/asent/commit/bc96a20bdc4ce898f5258efb6f1617eba24cc1df))
+
+
 ## v0.7.6 (2023-09-04)
 
 ### Chore
