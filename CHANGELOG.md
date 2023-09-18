@@ -2,28 +2,6 @@
 
 
 
-## v0.7.9 (2023-09-18)
-
-### Fix
-
-* fix: static type check ([`0c4a0ae`](https://github.com/KennethEnevoldsen/asent/commit/0c4a0ae4211bad1d868685c59c54014cf6339278))
-
-### Unknown
-
-* Merge branch &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`d7bd5a9`](https://github.com/KennethEnevoldsen/asent/commit/d7bd5a9722831dcd74944ea9314b1105deef842b))
-
-
-## v0.7.8 (2023-09-18)
-
-### Ci
-
-* ci: update static type check ([`a728945`](https://github.com/KennethEnevoldsen/asent/commit/a728945fdee8945aeb1587bf8d3cb76d8d12d77d))
-
-### Unknown
-
-* Merge branches &#39;main&#39; and &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`db5bc4a`](https://github.com/KennethEnevoldsen/asent/commit/db5bc4a3e3bb1c57b1889181844266a259300cbc))
-
-
 ## v0.7.7 (2023-09-18)
 
 ### Ci

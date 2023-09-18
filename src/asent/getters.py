@@ -1,5 +1,6 @@
 import math
 from collections.abc import Iterable
+from functools import partial
 from typing import Callable, Optional, Union
 
 from spacy.tokens import Doc, Span, Token
@@ -8,36 +9,40 @@ from .constants import AFTER_BUT_SCALAR, BEFORE_BUT_SCALAR, C_INCR, N_SCALAR
 from .data_classes import DocPolarityOutput, SpanPolarityOutput, TokenPolarityOutput
 
 
+def __get_lower_lemma(token: Token) -> str:
+    return token.lemma_.lower()
+
+
+def __get_lemma(token: Token) -> str:
+    return token.lemma_
+
+
+def __get_lower_txt(token: Token) -> str:
+    return token.text.lower()
+
+
+def __get_txt(token: Token) -> str:
+    return token.text
+
+
 def make_txt_getter(lemmatize: bool, lowercase: bool) -> Callable[[Token], str]:
     """Creates a token getter which return the string of a text string.
 
     Args:
-        lemmatize (bool): Should the token be lemmatized?
-        lowercase (bool): Should the token be lowercased?
+        lemmatize: Should the token be lemmatized?
+        lowercase: Should the token be lowercased?
 
     Returns:
-        Callable[[Token], str]: The getter function
+        The getter function
     """
-
-    def get_lower_lemma(token: Token) -> str:
-        return token.lemma_.lower()
-
-    def get_lemma(token: Token) -> str:
-        return token.lemma_
-
-    def get_lower_txt(token: Token) -> str:
-        return token.text.lower()
-
-    def get_txt(token: Token) -> str:
-        return token.text
 
     if lemmatize:
         if lowercase:
-            return get_lower_lemma
-        return get_lemma
+            return __get_lower_lemma
+        return __get_lemma
     if lowercase:
-        return get_lower_txt
-    return get_txt
+        return __get_lower_txt
+    return __get_txt
 
 
 def allcap_differential_getter(span: Union[Span, Doc]) -> bool:
@@ -60,6 +65,21 @@ def allcap_differential_getter(span: Union[Span, Doc]) -> bool:
     return is_different
 
 
+def __intensifier_scalar_getter(
+    token: Token,
+    t_getter: Callable[[Token], str],
+    intensifiers: dict[str, float],
+) -> float:
+    """Get intensifier score for token."""
+    t = t_getter(token)
+    if t in intensifiers:
+        scalar = intensifiers[t]
+        if token.is_upper and token.doc._.is_cap_diff:
+            scalar += C_INCR
+        return scalar
+    return 0.0
+
+
 def make_intensifier_getter(
     intensifiers: dict[str, float],
     lemmatize: bool = True,
@@ -69,32 +89,53 @@ def make_intensifier_getter(
     return it intensification factor.
 
     Args:
-        intensifiers (Dict[str, float]): A dictionary of intensifiers and multiplication
+        intensifiers: A dictionary of intensifiers and multiplication
             factor.
-        lemmatize (bool): Should it look up in the intensifiers using the lemma?
+        lemmatize: Should it look up in the intensifiers using the lemma?
             Defaults to True.
-        lowercase (bool): Should it look up in the intensifiers using the lowercased
+        lowercase: Should it look up in the intensifiers using the lowercased
             word? Defaults to True.
 
     Returns:
-        Callable[[Token], float]: The getter function
+        The getter function
     """
     t_getter = make_txt_getter(lemmatize, lowercase)
 
     if not Doc.has_extension("is_cap_diff"):
         Doc.set_extension("is_cap_diff", getter=allcap_differential_getter)
 
-    def intensifier_scalar_getter(token: Token) -> float:
-        """Get intensifier score for token."""
-        t = t_getter(token)
-        if t in intensifiers:
-            scalar = intensifiers[t]
-            if token.is_upper and token.doc._.is_cap_diff:
-                scalar += C_INCR
-            return scalar
-        return 0.0
+    return partial(
+        __intensifier_scalar_getter,
+        t_getter=t_getter,
+        intensifiers=intensifiers,
+    )
 
-    return intensifier_scalar_getter
+
+def __valence_getter(
+    token: Token,
+    t_getter: Callable[[Token], str],
+    lexicon: dict[str, float],
+) -> float:
+    t = t_getter(token)
+    if (t in lexicon) and not (
+        Token.has_extension("intensifier") and token._.intensifier
+    ):  # if token isn't a intensifier
+        return lexicon[t]
+    return 0.0
+
+
+def __cap_diff_valence_getter(
+    token: Token,
+    valence_getter: Callable[[Token], float],
+    cap_differential: float,
+) -> float:
+    valence = valence_getter(token)
+    if token.is_upper and token.sent._.is_cap_diff:
+        if valence > 0:
+            valence += cap_differential
+        elif valence < 0:
+            valence -= cap_differential
+    return valence
 
 
 def make_valance_getter(
@@ -107,38 +148,23 @@ def make_valance_getter(
     including the capitalization of the token.
 
     Args:
-        lexicon (Dict[str, float]): The valence scores of the tokens.
-        lemmatize (bool): Should it look up in the lexicon (and intensifiers)
+        lexicon: The valence scores of the tokens.
+        lemmatize: Should it look up in the lexicon (and intensifiers)
             using the lemma? Defaults to True.
-        lowercase (bool): Should it look up in the lexicon (and intensifiers)
+        lowercase: Should it look up in the lexicon (and intensifiers)
             using the lowercased word? Defaults to True.
-        cap_differential (float): Capitalization differential, which is added to the
+        cap_differential: Capitalization differential, which is added to the
             valence of the score it is emphasized using all caps. Defaults to 0.733, an
             emperically derived constant (Hutto and Gilbert, 2014). If None it will not
             be used.
 
     Returns:
-        Callable[[Token], float]: The getter function
+        The getter function
     """
 
     t_getter = make_txt_getter(lemmatize, lowercase)
 
-    def valence_getter(token: Token) -> float:
-        t = t_getter(token)
-        if (t in lexicon) and not (
-            Token.has_extension("intensifier") and token._.intensifier
-        ):  # if token isn't a intensifier
-            return lexicon[t]
-        return 0.0
-
-    def cap_diff_valence_getter(token: Token) -> float:
-        valence = valence_getter(token)
-        if token.is_upper and token.sent._.is_cap_diff:
-            if valence > 0:
-                valence += cap_differential
-            elif valence < 0:
-                valence -= cap_differential
-        return valence
+    v_getter = partial(__valence_getter, t_getter=t_getter, lexicon=lexicon)
 
     if cap_differential:
         if not Span.has_extension("is_cap_diff"):
@@ -147,8 +173,23 @@ def make_valance_getter(
                 getter=allcap_differential_getter,
                 force=True,
             )
-        return cap_diff_valence_getter
-    return valence_getter
+        cap_diff_v_getter = partial(
+            __cap_diff_valence_getter,
+            valence_getter=v_getter,
+            cap_differential=cap_differential,
+        )
+        return cap_diff_v_getter
+    return v_getter
+
+
+def __is_negation(
+    token: Token,
+    t_getter: Callable[[Token], str],
+    negations: Iterable[str],
+) -> bool:
+    """Determine if token is negation words."""
+    t = t_getter(token)
+    return t in negations
 
 
 def make_is_negation_getter(
@@ -160,23 +201,28 @@ def make_is_negation_getter(
     not.
 
     Args:
-        negations (Iterable[str]): An list of negations
-        lemmatize (bool): Should it look up in negations using the lemma? Defaults to
+        negations: An list of negations
+        lemmatize: Should it look up in negations using the lemma? Defaults to
             True.
-        lowercase (bool): Should it look up in negations using the lowercased word?
+        lowercase: Should it look up in negations using the lowercased word?
             Defaults to True.
 
     Returns:
-        Callable[[Token], bool]: A token getter
+        A token getter
     """
     t_getter = make_txt_getter(lemmatize, lowercase)
 
-    def is_negation(token: Token) -> bool:
-        """Determine if token is negation words."""
-        t = t_getter(token)
-        return t in negations
+    return partial(__is_negation, t_getter=t_getter, negations=negations)
 
-    return is_negation
+
+def __is_contrastive_conj(
+    token: Token,
+    t_getter: Callable[[Token], str],
+    contrastive_conjugations: Iterable[str],
+) -> bool:
+    """Determine if token is a contrastive conjugation."""
+    t = t_getter(token)
+    return t in contrastive_conjugations
 
 
 def make_is_contrastive_conj_getter(
@@ -188,24 +234,33 @@ def make_is_contrastive_conj_getter(
     conjugations.
 
     Args:
-        contrastive_conjugations (Iterable[str]): A list of contrastive conjugations.
-        lemmatize (bool): Should you lemmatize before lookup in the contrastive
+        contrastive_conjugations: A list of contrastive conjugations.
+        lemmatize: Should you lemmatize before lookup in the contrastive
             conjugations list? Defaults to True.
-        lowercase (bool): Should you lowercase before lookup in the
+        lowercase: Should you lowercase before lookup in the
             conjugations list? Defaults to True.
 
     Returns:
-        Callable[[Token], bool]: A token getter
+        A token getter
     """
 
     t_getter = make_txt_getter(lemmatize, lowercase)
 
-    def is_contrastive_conj(token: Token) -> bool:
-        """Determine if token is a contrastive conjugation."""
-        t = t_getter(token)
-        return t in contrastive_conjugations
+    return partial(
+        __is_contrastive_conj,
+        t_getter=t_getter,
+        contrastive_conjugations=contrastive_conjugations,
+    )
 
-    return is_contrastive_conj
+
+def __is_negated_getter(token: Token, lookback: int) -> Optional[Token]:
+    """Determine if token is negated."""
+    # don't look back before the sentence start
+    min_token_idx = max(token.sent.start, token.i - lookback)
+    for t in token.doc[min_token_idx : token.i]:
+        if t._.is_negation:
+            return t
+    return None
 
 
 def make_is_negated_getter(
@@ -216,15 +271,15 @@ def make_is_negated_getter(
     the n previous workds are negations.
 
     Args:
-        lookback (int): How many token should it look backwards for negations? Defaults
+        lookback: How many token should it look backwards for negations? Defaults
             to 3 which is emperically derived by Hutto and Gilbert (2014).
-        is_negation_getter (Optional[Callable[[Token], bool]]): A function which given a
+        is_negation_getter: A function which given a
             token return if the token is a negation or not. If None it assumes that
             the token extention "is_negation" is set. If specified overwrites the
             extension. Defualts to None.
 
     Returns:
-        Callable[[Token], bool]: The getter function
+        The getter function
     """
     if is_negation_getter:
         Token.set_extension("is_negation", getter=is_negation_getter, force=True)
@@ -234,16 +289,52 @@ def make_is_negated_getter(
             + " or provide the is_negation_getter.",
         )
 
-    def is_negated_getter(token: Token) -> Optional[Token]:
-        """Determine if token is negated."""
-        # don't look back before the sentence start
-        min_token_idx = max(token.sent.start, token.i - lookback)
-        for t in token.doc[min_token_idx : token.i]:
-            if t._.is_negation:
-                return t
-        return None
+    return partial(__is_negated_getter, lookback=lookback)
 
-    return is_negated_getter
+
+def __token_polarity_getter(
+    token: Token,
+    lookback: int,
+    lookback_intensities: list[float],
+    negation_scalar: float,
+) -> TokenPolarityOutput:
+    valence = token._.valence
+
+    intensifiers = []
+    is_neg = None
+    start_tok = token.i  # only used if span is returned
+    if valence:
+        for start_i in range(1, lookback + 1):
+            # dampen the scalar modifier of preceding words and emoticons
+            # (excluding the ones that immediately preceed the item) based
+            # on their distance from the current item.
+
+            if token.i > start_i:
+                tok_id = token.i - start_i
+                # stop if before sentence start
+                if tok_id < token.sent.start:
+                    break
+
+                prev_token = token.doc[tok_id]
+                b = prev_token._.intensifier
+                if b != 0:
+                    intensifiers.append(prev_token)
+                    b = b * lookback_intensities[start_i - 1]
+                    start_tok = prev_token.i
+                valence = valence + b if valence > 0 else valence - b
+        is_neg = token._.is_negated
+        if is_neg:
+            valence = valence * negation_scalar
+            if isinstance(is_neg, Token) and start_tok > is_neg.i:
+                start_tok = is_neg.i
+
+    return TokenPolarityOutput(
+        polarity=valence,
+        token=token,
+        span=token.doc[start_tok : token.i + 1],
+        negation=is_neg,
+        intensifiers=intensifiers,
+    )
 
 
 def make_token_polarity_getter(
@@ -259,30 +350,30 @@ def make_token_polarity_getter(
     whether is negated and whether it is intensified using an intensifier.
 
     Args:
-        valence_getter (Optional[Callable[[Token], float]]): a function which given a
+        valence_getter: a function which given a
             token return the valence (sentiment) of the token. If None it assumes that
             the the token extention "valence" is set. If specified it overwrites the
             extension. Defualts to None.
-        is_negated_getter (Optional[Callable[[Token], bool]]): A function which given a
+        is_negated_getter: A function which given a
             token return a boolean indicating whether the token is negated. If None it
             assumes that the the token extention "is_negated" is set. If specified it
             overwrites the extension. Defualts to None.
-        intensifier_getter (Optional[Callable[[Token], float]]): A getter which for a
+        intensifier_getter: A getter which for a
             token return 0 if it is not an intensifier or its intensifcation value if it
             is an intensifier. E.g. the token 'especially' might have an value of 0.293
             which increases or decreases the valence of the following word by the
             specified amount. Defaults to None, intensifiers aren't included in the
             analysis of token valence.
-        negation_scalar (float):  Defaults to the emperically derived constant
+        negation_scalar:  Defaults to the emperically derived constant
             -0.74 (Hutto and Gilbert, 2014).
-        lookback_intensities (List[float]): How long to look back for intensifiers
+        lookback_intensities: How long to look back for intensifiers
             (length). Intensities indicate the how much to weight each intensifier.
             Defaults to [1.0, 0.95, 0.90] which is emperically derived
             (Hutto and Gilbert, 2014).
         **kwargs: Additional keyword arguments.
 
     Returns:
-        Callable[[Token], TokenPolarityOutput]: The getter function
+        The getter function
     """
     lookback = len(lookback_intensities)
 
@@ -318,48 +409,12 @@ def make_token_polarity_getter(
             ),
         )
 
-    def token_polarity_getter(
-        token: Token,
-    ) -> TokenPolarityOutput:
-        valence = token._.valence
-
-        intensifiers = []
-        is_neg = None
-        start_tok = token.i  # only used if span is returned
-        if valence:
-            for start_i in range(1, lookback + 1):
-                # dampen the scalar modifier of preceding words and emoticons
-                # (excluding the ones that immediately preceed the item) based
-                # on their distance from the current item.
-
-                if token.i > start_i:
-                    tok_id = token.i - start_i
-                    # stop if before sentence start
-                    if tok_id < token.sent.start:
-                        break
-
-                    prev_token = token.doc[tok_id]
-                    b = prev_token._.intensifier
-                    if b != 0:
-                        intensifiers.append(prev_token)
-                        b = b * lookback_intensities[start_i - 1]
-                        start_tok = prev_token.i
-                    valence = valence + b if valence > 0 else valence - b
-            is_neg = token._.is_negated
-            if is_neg:
-                valence = valence * negation_scalar
-                if isinstance(is_neg, Token) and start_tok > is_neg.i:
-                    start_tok = is_neg.i
-
-        return TokenPolarityOutput(
-            polarity=valence,
-            token=token,
-            span=token.doc[start_tok : token.i + 1],
-            negation=is_neg,
-            intensifiers=intensifiers,
-        )
-
-    return token_polarity_getter
+    return partial(
+        __token_polarity_getter,
+        lookback=lookback,
+        lookback_intensities=lookback_intensities,
+        negation_scalar=negation_scalar,
+    )
 
 
 def normalize(score: float, alpha: float = 15) -> float:
@@ -445,6 +500,57 @@ def sift_sentiment_scores(sentiments: Iterable[float]) -> tuple[float, float, in
     return pos_sum, neg_sum, neu_count
 
 
+def __span_polarity_getter(
+    span: Span,
+    but_check: Callable,
+) -> SpanPolarityOutput:
+    def __extract(polarity: TokenPolarityOutput) -> tuple[float, Span]:
+        return polarity.polarity, polarity.span
+
+    polarities = [t._.polarity for t in span]
+    sentiment, spans = zip(*[__extract(p) for p in polarities])
+    sentiment = but_check(span, list(sentiment))
+    sum_s = float(sum(sentiment))
+
+    if sum_s:
+        # compute and add emphasis from punctuation in text
+        punct_emph_amplifier = 0.0
+        punct_emph_amplifier += questionmark_amplification(span.text)
+        punct_emph_amplifier += exclamation_amplification(span.text)
+        if sum_s > 0:
+            sum_s += punct_emph_amplifier
+        elif sum_s < 0:
+            sum_s -= punct_emph_amplifier
+
+        compound = normalize(sum_s)
+        # discriminate between positive, negative and neutral sentiment scores
+        pos_sum, neg_sum, neu_count = sift_sentiment_scores(sentiment)
+
+        if pos_sum > math.fabs(neg_sum):
+            pos_sum += punct_emph_amplifier
+        elif pos_sum < math.fabs(neg_sum):
+            neg_sum -= punct_emph_amplifier
+
+        total = pos_sum + math.fabs(neg_sum) + neu_count
+        pos = math.fabs(pos_sum / total)
+        neg = math.fabs(neg_sum / total)
+        neu = math.fabs(neu_count / total)
+    else:
+        compound = 0.0
+        pos = 0.0
+        neg = 0.0
+        neu = 0.0
+
+    return SpanPolarityOutput(
+        negative=neg,
+        neutral=neu,
+        positive=pos,
+        compound=compound,
+        span=span,
+        polarities=polarities,
+    )
+
+
 def make_span_polarity_getter(
     polarity_getter: Optional[Callable[[Token], float]],
     contrastive_conj_getter: Optional[Callable[[Token], bool]],
@@ -464,9 +570,8 @@ def make_span_polarity_getter(
             given it overwrites the "is_contrastive_conj" extension. Defaults to None.
 
     Returns:
-        Callable[[Span], SpanPolarityOutput]: A function which for a span return the
-        aggrated polarities. Including accounting for contrastive conjugations (e.g.
-        'but'), exclamationsmarks and questionmarks.
+        A function which for a span return the aggrated polarities. Including accounting
+        for contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.
     """
     if polarity_getter:
         Token.set_extension("polarity", getter=polarity_getter, force=True)
@@ -487,57 +592,33 @@ def make_span_polarity_getter(
             + "extension or provide the contrastive_conj_getter.",
         )
 
-    def __extract(polarity: TokenPolarityOutput) -> tuple[float, Span]:
-        return polarity.polarity, polarity.span
+    return partial(__span_polarity_getter, but_check=but_check)
 
-    def __polarity_getter(
-        span: Span,
-        but_check: Callable = but_check,
-    ) -> SpanPolarityOutput:
-        polarities = [t._.polarity for t in span]
-        sentiment, spans = zip(*[__extract(p) for p in polarities])
-        sentiment = but_check(span, list(sentiment))
-        sum_s = float(sum(sentiment))
 
-        if sum_s:
-            # compute and add emphasis from punctuation in text
-            punct_emph_amplifier = 0.0
-            punct_emph_amplifier += questionmark_amplification(span.text)
-            punct_emph_amplifier += exclamation_amplification(span.text)
-            if sum_s > 0:
-                sum_s += punct_emph_amplifier
-            elif sum_s < 0:
-                sum_s -= punct_emph_amplifier
+def __doc_polarity_getter(
+    doc: Doc,
+) -> DocPolarityOutput:
+    polarities = [sent._.polarity for sent in doc.sents]
+    if polarities:
+        n = len(polarities)
+        negative = sum(p.negative for p in polarities) / n
+        positive = sum(p.positive for p in polarities) / n
+        neutral = sum(p.neutral for p in polarities) / n
+        compound = sum(p.compound for p in polarities) / n
+    else:
+        negative = 0
+        positive = 0
+        neutral = 0
+        compound = 0
 
-            compound = normalize(sum_s)
-            # discriminate between positive, negative and neutral sentiment scores
-            pos_sum, neg_sum, neu_count = sift_sentiment_scores(sentiment)
-
-            if pos_sum > math.fabs(neg_sum):
-                pos_sum += punct_emph_amplifier
-            elif pos_sum < math.fabs(neg_sum):
-                neg_sum -= punct_emph_amplifier
-
-            total = pos_sum + math.fabs(neg_sum) + neu_count
-            pos = math.fabs(pos_sum / total)
-            neg = math.fabs(neg_sum / total)
-            neu = math.fabs(neu_count / total)
-        else:
-            compound = 0.0
-            pos = 0.0
-            neg = 0.0
-            neu = 0.0
-
-        return SpanPolarityOutput(
-            negative=neg,
-            neutral=neu,
-            positive=pos,
-            compound=compound,
-            span=span,
-            polarities=polarities,
-        )
-
-    return __polarity_getter
+    return DocPolarityOutput(
+        negative=negative,
+        positive=positive,
+        neutral=neutral,
+        compound=compound,
+        polarities=polarities,
+        doc=doc,
+    )
 
 
 def make_doc_polarity_getter(
@@ -548,15 +629,14 @@ def make_doc_polarity_getter(
     exclamationsmarks and questionmarks.
 
     Args:
-        span_polarity_getter (Optional[Callable[[Span], float]]):  a function which
+        span_polarity_getter:  a function which
             given a span return the polarity (sentiment) of the span. If None it assumes
             that the the span extention "polarity" is already set. If specified it
             overwrites the extension. Defaults to None.
 
     Returns:
-        Callable[[Doc], DocPolarityOutput]: A function which given a doc return the
-            aggrated polarities. Including accounting for contrastive conjugations (e.g.
-            'but'), exclamationsmarks and questionmarks.
+        A function which given a doc return the aggrated polarities. Including accounting for
+            contrastive conjugations (e.g. 'but'), exclamationsmarks and questionmarks.
     """
 
     if span_polarity_getter:
@@ -567,29 +647,4 @@ def make_doc_polarity_getter(
             + " or provide the span_polarity_getter.",
         )
 
-    def polarity_getter(
-        doc: Doc,
-    ) -> DocPolarityOutput:
-        polarities = [sent._.polarity for sent in doc.sents]
-        if polarities:
-            n = len(polarities)
-            negative = sum(p.negative for p in polarities) / n
-            positive = sum(p.positive for p in polarities) / n
-            neutral = sum(p.neutral for p in polarities) / n
-            compound = sum(p.compound for p in polarities) / n
-        else:
-            negative = 0
-            positive = 0
-            neutral = 0
-            compound = 0
-
-        return DocPolarityOutput(
-            negative=negative,
-            positive=positive,
-            neutral=neutral,
-            compound=compound,
-            polarities=polarities,
-            doc=doc,
-        )
-
-    return polarity_getter
+    return __doc_polarity_getter

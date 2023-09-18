@@ -1,6 +1,5 @@
 """Test specifically targeted an bugs."""
 
-import asent  # noqa
 import spacy
 
 

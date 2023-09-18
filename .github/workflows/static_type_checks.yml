@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          pip install invoke tox
+          pip install invoke tox pyright
 
       - name: Run static type checker
         id: pyright
@@ -92,6 +92,6 @@ jobs:
 
       - name: Show pyright output
         id: fail_run
-        if: ${{steps.pyright.outputs.pyright_failed == 1}}
+        if: ${{steps.pyright.outputs.pyright_failed != 0}}
         run: |
           inv static-type-checks # Rerunning pyright isn't optimal computationally, but typically takes no more than a couple of seconds, and this ensures that the errors are in the failing step

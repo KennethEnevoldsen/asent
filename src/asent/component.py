@@ -1,10 +1,12 @@
 """Calculation of various readability metrics."""
 
 from collections.abc import Iterable
+from typing import Any
 
 from spacy.language import Language
 from spacy.tokens import Doc, Span, Token
 
+from asent.data_classes import DocPolarityOutput
 from asent.getters import (
     make_doc_polarity_getter,
     make_intensifier_getter,
@@ -15,6 +17,19 @@ from asent.getters import (
     make_token_polarity_getter,
     make_valance_getter,
 )
+
+
+def _dynamic_doc_pol_getter(doc: Doc) -> DocPolarityOutput:
+    """A dynamic getter for the doc polarity.
+
+    Args:
+        doc: A spaCy document.
+
+    Returns:
+        A data class representing the polarity of a document.
+    """
+    pol: dict[str, Any] = doc._._polarity
+    return DocPolarityOutput.from_dict(pol, doc=doc)
 
 
 class Asent:
@@ -41,22 +56,20 @@ class Asent:
         """Initialize component.
 
         Args:
-            nlp (Language): A spaCy language pipeline for which to add the component to
-            name (str): The name of the component
-            lexicon (Dict[str, float]): The lexicion used to look up the valence scores
-                of a word.
-            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.
-                {"very": 0.293}). Defaults to {}, indicating no intensifiers is used.
-            negations (Iterable[str]): A list of negations (e..g "not"). Defaults to an
-                empty set indicatin no negations will be used.
-            contrastive_conjugations (Iterable[str]): A list of contrastive
-                conjugations (e.g. "but"). Defaults to empty set indicating no
-                contrastive conjugations will be used.
-            lowercase (bool): Should be text be lowercases before looking up in the
-                lexicons? Defaults to True.
-            lemmatize (bool): Should be text be lemmatized before looking up in the
-                lexicons? Defaults to False.
-            force (bool): Should existing extensions be overwritten? Defaults to False.
+            nlp: A spaCy language pipeline for which to add the component to
+            name: The name of the component
+            lexicon: The lexicion used to look up the valence scores of a word.
+            intensifiers: A dictionary of intensifiers (e.g. {"very": 0.293}).
+                Defaults to {}, indicating no intensifiers is used.
+            negations: A list of negations (e..g "not"). Defaults to an empty set
+                indicatin no negations will be used.
+            contrastive_conjugations: A list of contrastive conjugations (e.g. "but").
+                Defaults to empty set indicating no contrastive conjugations will be used.
+            lowercase: Should be text be lowercases before looking up in the lexicons?
+                Defaults to True.
+            lemmatize: Should be text be lemmatized before looking up in the lexicons?
+                Defaults to False.
+            force: Should existing extensions be overwritten? Defaults to False.
         """
         self.name = name
 
@@ -132,11 +145,18 @@ class Asent:
                 force=force,
             )
 
-        if (not Doc.has_extension("polarity")) or (force is True):
+        if (not Doc.has_extension("_polarity")) or (force is True):
             self.doc_pol_getter = make_doc_polarity_getter(span_polarity_getter=None)
             Doc.set_extension(
-                "polarity",
+                "_polarity",
                 default=None,
+                force=force,
+            )
+
+        if (not Doc.has_extension("polarity")) or (force is True):
+            Doc.set_extension(
+                "polarity",
+                getter=_dynamic_doc_pol_getter,
                 force=force,
             )
 
@@ -144,13 +164,13 @@ class Asent:
         """Run the pipeline component.
 
         Args:
-            doc (Doc): A spaCy document the component should be applied to.
+            doc: A spaCy document the component should be applied to.
 
         Returns:
-            Doc: A processed spacy Document.
+            A processed spacy Document.
         """
         pol = self.doc_pol_getter(doc)
-        doc._.polarity = pol
+        doc._._polarity = pol.to_dict()
         return doc
 
 
@@ -181,23 +201,18 @@ def create_asent_component(
     nlp.add_pipe("asent_v1").
 
     Args:
-        nlp (Language): A spaCy language pipeline to add the component to.
-        name (str): The name of the component.
-        lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a
-            word.
-        intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.
-            {"very": 0.293}).
-        negations (Iterable[str]): A list of negations (e.g. "not").
-        contrastive_conj (Iterable[str]): A list of contrastive conjugations (e.g.
-            "but").
-        lowercase (bool): Should be text be lowercases before looking up in the
-            lexicons?
-        lemmatize (bool): Should be text be lemmatized before looking up in the
-            lexicons?
-        force (bool): Should existing extensions be overwritten?
+        nlp: A spaCy language pipeline to add the component to.
+        name: The name of the component.
+        lexicon: The lexicion used to look up the valence scores of a word.
+        intensifiers: A dictionary of intensifiers (e.g. {"very": 0.293}).
+        negations: A list of negations (e.g. "not").
+        contrastive_conj: A list of contrastive conjugations (e.g. "but").
+        lowercase: Should be text be lowercases before looking up in the lexicons?
+        lemmatize: Should be text be lemmatized before looking up in the lexicons?
+        force: Should existing extensions be overwritten?
 
     Returns:
-        Asent: A sentiment component.
+        A sentiment component.
     """
 
     return Asent(
