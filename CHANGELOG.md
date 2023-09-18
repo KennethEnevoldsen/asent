@@ -2,6 +2,55 @@
 
 
 
+## v0.8.0 (2023-09-18)
+
+### Ci
+
+* ci: clean up after debugging ([`8c7c8cb`](https://github.com/KennethEnevoldsen/asent/commit/8c7c8cb0a7170a4e0f634b59279c9eda3984aef2))
+
+* ci: debug pyright ([`88db793`](https://github.com/KennethEnevoldsen/asent/commit/88db7932c1d524a2a7fd7fa07d2782052ebc9485))
+
+* ci: test pyright ([`f06f307`](https://github.com/KennethEnevoldsen/asent/commit/f06f30776710a7409570549c6db8a9be366bb0a2))
+
+* ci: update static type check ci ([`f3c7235`](https://github.com/KennethEnevoldsen/asent/commit/f3c7235ab6ae78a49814c3f12bd554ede739ce75))
+
+### Fix
+
+* fix: issue with cmap ([`1bbaa6a`](https://github.com/KennethEnevoldsen/asent/commit/1bbaa6a13a38907dffb1d147cf6c75c4b2ec9492))
+
+### Unknown
+
+* Merge pull request #159 from KennethEnevoldsen/add_functionality_for_multiprocessing
+
+Add functionality for multiprocessing ([`93f5b2e`](https://github.com/KennethEnevoldsen/asent/commit/93f5b2e86bacafab761640f4d178eafd39acbec9))
+
+* Merge branch &#39;main&#39; of https://github.com/KennethEnevoldsen/asent into add_functionality_for_multiprocessing ([`ce2a7ff`](https://github.com/KennethEnevoldsen/asent/commit/ce2a7ffcb93fe8f810fa99cd8fb151eb3b8582c4))
+
+
+## v0.7.9 (2023-09-18)
+
+### Fix
+
+* fix: static type check ([`0c4a0ae`](https://github.com/KennethEnevoldsen/asent/commit/0c4a0ae4211bad1d868685c59c54014cf6339278))
+
+### Unknown
+
+* Merge branch &#39;main&#39; into add_functionality_for_multiprocessing ([`7f92e18`](https://github.com/KennethEnevoldsen/asent/commit/7f92e1896e496609586782b1557d5cabde3e93d0))
+
+* Merge branch &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`d7bd5a9`](https://github.com/KennethEnevoldsen/asent/commit/d7bd5a9722831dcd74944ea9314b1105deef842b))
+
+
+## v0.7.8 (2023-09-18)
+
+### Ci
+
+* ci: update static type check ([`a728945`](https://github.com/KennethEnevoldsen/asent/commit/a728945fdee8945aeb1587bf8d3cb76d8d12d77d))
+
+### Unknown
+
+* Merge branches &#39;main&#39; and &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`db5bc4a`](https://github.com/KennethEnevoldsen/asent/commit/db5bc4a3e3bb1c57b1889181844266a259300cbc))
+
+
 ## v0.7.7 (2023-09-18)
 
 ### Ci
@@ -16,11 +65,27 @@
 
 * ci: debugging static type check ([`698143e`](https://github.com/KennethEnevoldsen/asent/commit/698143efe35b719c2b4e1fc590990a0a71701227))
 
+### Feature
+
+* feat: updated pre-commit ([`0e9c61c`](https://github.com/KennethEnevoldsen/asent/commit/0e9c61cbddfaf82260b4849e2a472d4ea563c6a3))
+
 ### Fix
 
 * fix: ran static type check ([`a155574`](https://github.com/KennethEnevoldsen/asent/commit/a155574bd3c4303c73c1582fa6f49bb66a2728db))
 
 * fix: ran static type check ([`bc96a20`](https://github.com/KennethEnevoldsen/asent/commit/bc96a20bdc4ce898f5258efb6f1617eba24cc1df))
+
+* fix: unsure dynamic function is not hidden ([`a3e3d98`](https://github.com/KennethEnevoldsen/asent/commit/a3e3d9840933ab8217be9518cc6287e8146d3437))
+
+* fix: ran static type checks ([`26429fa`](https://github.com/KennethEnevoldsen/asent/commit/26429faec5861a61ae83af112ad6bac444c81147))
+
+* fix: hide component utility function from docs ([`60d3c63`](https://github.com/KennethEnevoldsen/asent/commit/60d3c637742586065af8d07f2573962b942eea6c))
+
+* fix: remove type hints for docstrings ([`341ecdb`](https://github.com/KennethEnevoldsen/asent/commit/341ecdbe6bdc5fca387fb6caff6dab301bb4b0a1))
+
+### Unknown
+
+* add mult. proc functionality ([`d754016`](https://github.com/KennethEnevoldsen/asent/commit/d754016908c4e3c1f1ef538b716ba405c41fd324))
 
 
 ## v0.7.6 (2023-09-04)
