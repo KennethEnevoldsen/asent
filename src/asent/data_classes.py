@@ -67,7 +67,7 @@ class TokenPolarityOutput(BaseModel):
 
     @classmethod
     def from_dict(
-        cls: "TokenPolarityOutput",
+        cls: type["TokenPolarityOutput"],
         obj: dict[str, Any],
         doc: Doc,
     ) -> "TokenPolarityOutput":
@@ -145,7 +145,7 @@ class SpanPolarityOutput(BaseModel):
 
     @classmethod
     def from_dict(
-        cls: "SpanPolarityOutput",
+        cls: type["SpanPolarityOutput"],
         obj: dict[str, Any],
         doc: Doc,
     ) -> "SpanPolarityOutput":
@@ -232,7 +232,7 @@ class DocPolarityOutput(BaseModel):
 
     @classmethod
     def from_dict(
-        cls: "DocPolarityOutput",
+        cls: type["DocPolarityOutput"],
         obj: dict[str, Any],
         doc: Doc,
     ) -> "DocPolarityOutput":
