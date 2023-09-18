@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>asent.visualize - asent 0.7.8 documentation</title>
+        <title>asent.visualize - asent 0.7.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -131,7 +131,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">asent 0.7.8 documentation</div></a>
+      <a href="../../index.html"><div class="brand">asent 0.7.9 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -238,10 +238,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility function for creating a stepped color gradient.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>  <span class="c1"># type: ignore</span>
 
-    <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG # type: ignore</span>
+    <span class="n">_cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG # type: ignore</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
-        <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="n">rgba</span> <span class="o">=</span> <span class="n">_cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="c1"># rgb2hex accepts rgb or rgba</span>
         <span class="k">yield</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 

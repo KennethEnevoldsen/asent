@@ -1,0 +1,62 @@
+Traceback (most recent call last):
+  File "/home/runner/.local/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/.local/lib/python3.10/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/runner/.local/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/runner/.local/lib/python3.10/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/.local/lib/python3.10/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/.local/lib/python3.10/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+doc = nlp("I am not very happy, but aslo not very especially sad")
+asent.visualize(doc, style="prediction")
+
+------------------
+
+----- stderr -----
+The visualization style 'prediction' is not available for spacy version < 3.3.0. Using 'prediction-no-overlap' instead. Note that this does notallow for overlapping span.
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[6], line 2[0m
+[1;32m      1[0m doc [38;5;241m=[39m nlp([38;5;124m"[39m[38;5;124mI am not very happy, but aslo not very especially sad[39m[38;5;124m"[39m)
+[0;32m----> 2[0m [43masent[49m[38;5;241;43m.[39;49m[43mvisualize[49m[43m([49m[43mdoc[49m[43m,[49m[43m [49m[43mstyle[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mprediction[39;49m[38;5;124;43m"[39;49m[43m)[49m
+
+File [0;32m~/.local/lib/python3.10/site-packages/asent/visualize.py:260[0m, in [0;36mvisualize[0;34m(doc, style, cmap)[0m
+[1;32m    258[0m     [38;5;28;01mreturn[39;00m visualize_prediction(doc, cmap[38;5;241m=[39mcmap)
+[1;32m    259[0m [38;5;28;01mif[39;00m style[38;5;241m.[39mlower() [38;5;241m==[39m [38;5;124m"[39m[38;5;124mprediction-no-overlap[39m[38;5;124m"[39m:
+[0;32m--> 260[0m     [38;5;28;01mreturn[39;00m [43mvisualize_prediction_no_overlap[49m[43m([49m[43mdoc[49m[43m,[49m[43m [49m[43mcmap[49m[38;5;241;43m=[39;49m[43mcmap[49m[43m)[49m
+[1;32m    261[0m [38;5;28;01mif[39;00m style[38;5;241m.[39mlower() [38;5;241m==[39m [38;5;124m"[39m[38;5;124manalysis[39m[38;5;124m"[39m:
+[1;32m    262[0m     [38;5;28;01mreturn[39;00m visualize_analysis(doc)
+
+File [0;32m~/.local/lib/python3.10/site-packages/asent/visualize.py:67[0m, in [0;36mvisualize_prediction_no_overlap[0;34m(doc, cmap)[0m
+[1;32m     65[0m thresholds [38;5;241m=[39m [t [38;5;241m/[39m [38;5;241m10[39m [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m [38;5;28mrange[39m([38;5;241m-[39m[38;5;241m50[39m, [38;5;241m51[39m)]
+[1;32m     66[0m sentiment_colors [38;5;241m=[39m make_colors(n[38;5;241m=[39m[38;5;28mlen[39m(thresholds), cmap[38;5;241m=[39mcmap)
+[0;32m---> 67[0m sentiment_color_dict [38;5;241m=[39m {[38;5;28mstr[39m(t): c [38;5;28;01mfor[39;00m c, t [38;5;129;01min[39;00m [38;5;28mzip[39m(sentiment_colors, thresholds)}
+[1;32m     69[0m [38;5;28;01mdef[39;00m [38;5;21m__normalize[39m(val: [38;5;28mfloat[39m) [38;5;241m-[39m[38;5;241m>[39m [38;5;28mstr[39m:
+[1;32m     70[0m     [38;5;28;01mreturn[39;00m [38;5;28mstr[39m([38;5;28mmax[39m([38;5;28mmin[39m([38;5;28mround[39m(val, [38;5;241m1[39m), [38;5;241m5[39m), [38;5;241m-[39m[38;5;241m5[39m))
+
+File [0;32m~/.local/lib/python3.10/site-packages/asent/visualize.py:67[0m, in [0;36m<dictcomp>[0;34m(.0)[0m
+[1;32m     65[0m thresholds [38;5;241m=[39m [t [38;5;241m/[39m [38;5;241m10[39m [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m [38;5;28mrange[39m([38;5;241m-[39m[38;5;241m50[39m, [38;5;241m51[39m)]
+[1;32m     66[0m sentiment_colors [38;5;241m=[39m make_colors(n[38;5;241m=[39m[38;5;28mlen[39m(thresholds), cmap[38;5;241m=[39mcmap)
+[0;32m---> 67[0m sentiment_color_dict [38;5;241m=[39m {[38;5;28mstr[39m(t): c [38;5;28;01mfor[39;00m c, t [38;5;129;01min[39;00m [38;5;28mzip[39m(sentiment_colors, thresholds)}
+[1;32m     69[0m [38;5;28;01mdef[39;00m [38;5;21m__normalize[39m(val: [38;5;28mfloat[39m) [38;5;241m-[39m[38;5;241m>[39m [38;5;28mstr[39m:
+[1;32m     70[0m     [38;5;28;01mreturn[39;00m [38;5;28mstr[39m([38;5;28mmax[39m([38;5;28mmin[39m([38;5;28mround[39m(val, [38;5;241m1[39m), [38;5;241m5[39m), [38;5;241m-[39m[38;5;241m5[39m))
+
+File [0;32m~/.local/lib/python3.10/site-packages/asent/visualize.py:18[0m, in [0;36mmake_colors[0;34m(n, cmap)[0m
+[1;32m     14[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpylab[39;00m [38;5;28;01mimport[39;00m cm, matplotlib  [38;5;66;03m# type: ignore[39;00m
+[1;32m     16[0m _cmap [38;5;241m=[39m cm[38;5;241m.[39mget_cmap(cmap, n)  [38;5;66;03m# PiYG # type: ignore[39;00m
+[0;32m---> 18[0m [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m([43mcmap[49m[38;5;241;43m.[39;49m[43mN[49m):  [38;5;66;03m# type: ignore[39;00m
+[1;32m     19[0m     rgba [38;5;241m=[39m _cmap(i)  [38;5;66;03m# type: ignore[39;00m
+[1;32m     20[0m     [38;5;66;03m# rgb2hex accepts rgb or rgba[39;00m
+
+[0;31mAttributeError[0m: 'str' object has no attribute 'N'
+

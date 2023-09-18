@@ -17,7 +17,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Installation - asent 0.7.8 documentation</title>
+        <title>Installation - asent 0.7.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -143,7 +143,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">asent 0.7.8 documentation</div></a>
+      <a href="../index.html"><div class="brand">asent 0.7.9 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -277,7 +277,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;asent.component.Asent at 0x7fa4c8b6d870&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;asent.component.Asent at 0x7f3f00ae5840&gt;
 </pre></div>
 </div>
 </div>
@@ -446,17 +446,44 @@ polarity=0.0 token=. span=.
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
 </pre></div>
 </div>
-<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">I am 
-<mark class="entity" style="background: #fba15b; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
-    not very happy
-    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-2.2</span>
-</mark>
-, but aslo 
-<mark class="entity" style="background: #a6d96a; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
-    not very especially sad
-    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">2.0</span>
-</mark>
-</div></span></div></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;I am not very happy, but aslo not very especially sad&quot;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;prediction&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/asent/visualize.py:260,</span> in <span class="ni">visualize</span><span class="nt">(doc, style, cmap)</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>     <span class="k">return</span> <span class="n">visualize_prediction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span> <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;prediction-no-overlap&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">260</span>     <span class="k">return</span> <span class="n">visualize_prediction_no_overlap</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span> <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;analysis&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span>     <span class="k">return</span> <span class="n">visualize_analysis</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/asent/visualize.py:67,</span> in <span class="ni">visualize_prediction_no_overlap</span><span class="nt">(doc, cmap)</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">)]</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="n">sentiment_colors</span> <span class="o">=</span> <span class="n">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">thresholds</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">67</span> <span class="n">sentiment_color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sentiment_colors</span><span class="p">,</span> <span class="n">thresholds</span><span class="p">)}</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span> <span class="k">def</span> <span class="nf">__normalize</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/asent/visualize.py:67,</span> in <span class="ni">&lt;dictcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">)]</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="n">sentiment_colors</span> <span class="o">=</span> <span class="n">make_colors</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">thresholds</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">67</span> <span class="n">sentiment_color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sentiment_colors</span><span class="p">,</span> <span class="n">thresholds</span><span class="p">)}</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span> <span class="k">def</span> <span class="nf">__normalize</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/asent/visualize.py:18,</span> in <span class="ni">make_colors</span><span class="nt">(n, cmap)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">matplotlib</span>  <span class="c1"># type: ignore</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">_cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># PiYG # type: ignore</span>
+<span class="ne">---&gt; </span><span class="mi">18</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">rgba</span> <span class="o">=</span> <span class="n">_cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="c1"># rgb2hex accepts rgb or rgba</span>
+
+<span class="ne">AttributeError</span>: &#39;str&#39; object has no attribute &#39;N&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>And if you want more information as to why it obtains the score it does:</p>
 <div class="cell docutils container">
@@ -466,7 +493,7 @@ polarity=0.0 token=. span=.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="20631d2464ae49cfa4056448120c21b5-0" class="displacy" width="925" height="312.0" direction="ltr" style="max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="2e784686ab6b4a6a86b90bae01d2e09f-0" class="displacy" width="925" height="312.0" direction="ltr" style="max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="222.0">
     <tspan class="displacy-word" fill="currentColor" x="50">I</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">0.0</tspan>
@@ -493,17 +520,17 @@ polarity=0.0 token=. span=.
 </text>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-20631d2464ae49cfa4056448120c21b5-0-0" stroke-width="2px" d="M595,177.0 C595,89.5 745.0,89.5 745.0,177.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-0" stroke-width="2px" d="M595,177.0 C595,89.5 745.0,89.5 745.0,177.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-20631d2464ae49cfa4056448120c21b5-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
+        <textPath xlink:href="#arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
     </text>
     <path class="displacy-arrowhead" d="M595,179.0 L587,167.0 603,167.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-20631d2464ae49cfa4056448120c21b5-0-1" stroke-width="2px" d="M420,177.0 C420,2.0 750.0,2.0 750.0,177.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-1" stroke-width="2px" d="M420,177.0 C420,2.0 750.0,2.0 750.0,177.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-20631d2464ae49cfa4056448120c21b5-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">negated by</textPath>
+        <textPath xlink:href="#arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">negated by</textPath>
     </text>
     <path class="displacy-arrowhead" d="M420,179.0 L412,167.0 428,167.0" fill="currentColor"/>
 </g>
@@ -547,7 +574,7 @@ polarity=0.0 token=. span=.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neg=0.391 neu=0.609 pos=0.0 compound=-0.4964
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neg=0.0 neu=0.59 pos=0.41 compound=0.7871
 </pre></div>
 </div>
 </div>
