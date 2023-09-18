@@ -226,7 +226,7 @@ def test_span_doc_polarity(example: str, expected: str, lang: str, nlp_dict: dic
     doc_polarity_getter = make_doc_polarity_getter(span_polarity_getter)
     Doc.set_extension("polarity", getter=doc_polarity_getter, force=True)
     doc = nlp(example)
-    sent = list(doc.sents)[0]  # assuming there is only one sentence
+    sent = next(iter(doc.sents))  # assuming there is only one sentence
     assert doc._.polarity.compound == sent._.polarity.compound
     if expected == "positive":
         assert sent._.polarity.compound > 0
