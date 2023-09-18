@@ -94,5 +94,4 @@ jobs:
         id: fail_run
         if: ${{steps.pyright.outputs.pyright_failed != 0}}
         run: |
-          pyright src/
-          # inv static-type-checks # Rerunning pyright isn't optimal computationally, but typically takes no more than a couple of seconds, and this ensures that the errors are in the failing step
+          inv static-type-checks # Rerunning pyright isn't optimal computationally, but typically takes no more than a couple of seconds, and this ensures that the errors are in the failing step
