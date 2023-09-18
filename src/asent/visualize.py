@@ -15,7 +15,7 @@ def make_colors(n: int = 10, cmap: str = "RdYlGn"):  # type: ignore
 
     _cmap = cm.get_cmap(cmap, n)  # PiYG # type: ignore
 
-    for i in range(cmap.N):  # type: ignore
+    for i in range(_cmap.N):  # type: ignore
         rgba = _cmap(i)  # type: ignore
         # rgb2hex accepts rgb or rgba
         yield matplotlib.colors.rgb2hex(rgba)  # type: ignore
