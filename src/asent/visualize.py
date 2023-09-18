@@ -13,7 +13,7 @@ def make_colors(n: int = 10, cmap: str = "RdYlGn"):
     """A utility function for creating a stepped color gradient."""
     from pylab import cm, matplotlib  # type: ignore
 
-    cmap = cm.get_cmap(cmap, n)  # PiYG
+    cmap = cm.get_cmap(cmap, n)  # PiYG # type: ignore
 
     for i in range(cmap.N):  # type: ignore
         rgba = cmap(i)  # type: ignore
