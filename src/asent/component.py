@@ -23,10 +23,10 @@ def dynamic_doc_pol_getter(doc: Doc) -> DocPolarityOutput:
     """A dynamic getter for the doc polarity.
 
     Args:
-        doc (Doc): A spaCy document.
+        doc: A spaCy document.
 
     Returns:
-        DocPolarityOutput: A data class representing the polarity of a document.
+        A data class representing the polarity of a document.
     """
     pol: dict[str, Any] = doc._._polarity
     return DocPolarityOutput.from_dict(pol, doc=doc)
