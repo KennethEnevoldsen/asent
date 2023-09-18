@@ -43,7 +43,7 @@ def create_xx_sentiment_component(
         + "For more information on how the lexicon was constructed see; Chen, Y., & "
         + "Skiena, S. (2014). Building Sentiment Lexicons for All Major Languages."
     )
-    warn(msg)
+    warn(msg, stacklevel=2)
 
     lex = lexicons.get(f"lexicon_{lang}_chen_skiena_2014_v1.txt")
     lex.update(E_LEXICON)

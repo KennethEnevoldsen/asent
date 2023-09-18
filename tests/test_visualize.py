@@ -1,8 +1,6 @@
 import asent
 import pytest
 
-from .test_getters import nlp_dict  # noqa
-
 
 @pytest.mark.parametrize(
     ("example", "lang"),

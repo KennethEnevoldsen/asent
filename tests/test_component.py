@@ -12,7 +12,7 @@ def test_all_lang_components():
     for comp in asent.components.get_all():
         nlp.add_pipe(comp, config={"force": True})
         nlp.remove_pipe(comp)
-        doc = nlp(text)  # noqa
+        nlp(text)
 
 
 def test_multiprocessing():
