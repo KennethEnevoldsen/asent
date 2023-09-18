@@ -226,10 +226,12 @@
 <span></span><span class="sd">&quot;&quot;&quot;Calculation of various readability metrics.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">,</span> <span class="n">Token</span>
 
+<span class="kn">from</span> <span class="nn">asent.data_classes</span> <span class="kn">import</span> <span class="n">DocPolarityOutput</span>
 <span class="kn">from</span> <span class="nn">asent.getters</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">make_doc_polarity_getter</span><span class="p">,</span>
     <span class="n">make_intensifier_getter</span><span class="p">,</span>
@@ -240,6 +242,19 @@
     <span class="n">make_token_polarity_getter</span><span class="p">,</span>
     <span class="n">make_valance_getter</span><span class="p">,</span>
 <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_dynamic_doc_pol_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocPolarityOutput</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dynamic getter for the doc polarity.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        doc: A spaCy document.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A data class representing the polarity of a document.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pol</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_polarity</span>
+    <span class="k">return</span> <span class="n">DocPolarityOutput</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">pol</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Asent"><a class="viewcode-back" href="../../asent.component.html#asent.component.Asent">[docs]</a><span class="k">class</span> <span class="nc">Asent</span><span class="p">:</span>
@@ -266,22 +281,20 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize component.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            nlp (Language): A spaCy language pipeline for which to add the component to</span>
-<span class="sd">            name (str): The name of the component</span>
-<span class="sd">            lexicon (Dict[str, float]): The lexicion used to look up the valence scores</span>
-<span class="sd">                of a word.</span>
-<span class="sd">            intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.</span>
-<span class="sd">                {&quot;very&quot;: 0.293}). Defaults to {}, indicating no intensifiers is used.</span>
-<span class="sd">            negations (Iterable[str]): A list of negations (e..g &quot;not&quot;). Defaults to an</span>
-<span class="sd">                empty set indicatin no negations will be used.</span>
-<span class="sd">            contrastive_conjugations (Iterable[str]): A list of contrastive</span>
-<span class="sd">                conjugations (e.g. &quot;but&quot;). Defaults to empty set indicating no</span>
-<span class="sd">                contrastive conjugations will be used.</span>
-<span class="sd">            lowercase (bool): Should be text be lowercases before looking up in the</span>
-<span class="sd">                lexicons? Defaults to True.</span>
-<span class="sd">            lemmatize (bool): Should be text be lemmatized before looking up in the</span>
-<span class="sd">                lexicons? Defaults to False.</span>
-<span class="sd">            force (bool): Should existing extensions be overwritten? Defaults to False.</span>
+<span class="sd">            nlp: A spaCy language pipeline for which to add the component to</span>
+<span class="sd">            name: The name of the component</span>
+<span class="sd">            lexicon: The lexicion used to look up the valence scores of a word.</span>
+<span class="sd">            intensifiers: A dictionary of intensifiers (e.g. {&quot;very&quot;: 0.293}).</span>
+<span class="sd">                Defaults to {}, indicating no intensifiers is used.</span>
+<span class="sd">            negations: A list of negations (e..g &quot;not&quot;). Defaults to an empty set</span>
+<span class="sd">                indicatin no negations will be used.</span>
+<span class="sd">            contrastive_conjugations: A list of contrastive conjugations (e.g. &quot;but&quot;).</span>
+<span class="sd">                Defaults to empty set indicating no contrastive conjugations will be used.</span>
+<span class="sd">            lowercase: Should be text be lowercases before looking up in the lexicons?</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            lemmatize: Should be text be lemmatized before looking up in the lexicons?</span>
+<span class="sd">                Defaults to False.</span>
+<span class="sd">            force: Should existing extensions be overwritten? Defaults to False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
@@ -357,11 +370,18 @@
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;polarity&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;_polarity&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">doc_pol_getter</span> <span class="o">=</span> <span class="n">make_doc_polarity_getter</span><span class="p">(</span><span class="n">span_polarity_getter</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
-                <span class="s2">&quot;polarity&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_polarity&quot;</span><span class="p">,</span>
                 <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;polarity&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
+                <span class="s2">&quot;polarity&quot;</span><span class="p">,</span>
+                <span class="n">getter</span><span class="o">=</span><span class="n">_dynamic_doc_pol_getter</span><span class="p">,</span>
                 <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -369,13 +389,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            doc (Doc): A spaCy document the component should be applied to.</span>
+<span class="sd">            doc: A spaCy document the component should be applied to.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Doc: A processed spacy Document.</span>
+<span class="sd">            A processed spacy Document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_pol_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span> <span class="o">=</span> <span class="n">pol</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_polarity</span> <span class="o">=</span> <span class="n">pol</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">doc</span></div>
 
 
@@ -406,23 +426,18 @@
 <span class="sd">    nlp.add_pipe(&quot;asent_v1&quot;).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        nlp (Language): A spaCy language pipeline to add the component to.</span>
-<span class="sd">        name (str): The name of the component.</span>
-<span class="sd">        lexicon (Dict[str, float]): The lexicion used to look up the valence scores of a</span>
-<span class="sd">            word.</span>
-<span class="sd">        intensifiers (Dict[str, float]): A dictionary of intensifiers (e.g.</span>
-<span class="sd">            {&quot;very&quot;: 0.293}).</span>
-<span class="sd">        negations (Iterable[str]): A list of negations (e.g. &quot;not&quot;).</span>
-<span class="sd">        contrastive_conj (Iterable[str]): A list of contrastive conjugations (e.g.</span>
-<span class="sd">            &quot;but&quot;).</span>
-<span class="sd">        lowercase (bool): Should be text be lowercases before looking up in the</span>
-<span class="sd">            lexicons?</span>
-<span class="sd">        lemmatize (bool): Should be text be lemmatized before looking up in the</span>
-<span class="sd">            lexicons?</span>
-<span class="sd">        force (bool): Should existing extensions be overwritten?</span>
+<span class="sd">        nlp: A spaCy language pipeline to add the component to.</span>
+<span class="sd">        name: The name of the component.</span>
+<span class="sd">        lexicon: The lexicion used to look up the valence scores of a word.</span>
+<span class="sd">        intensifiers: A dictionary of intensifiers (e.g. {&quot;very&quot;: 0.293}).</span>
+<span class="sd">        negations: A list of negations (e.g. &quot;not&quot;).</span>
+<span class="sd">        contrastive_conj: A list of contrastive conjugations (e.g. &quot;but&quot;).</span>
+<span class="sd">        lowercase: Should be text be lowercases before looking up in the lexicons?</span>
+<span class="sd">        lemmatize: Should be text be lemmatized before looking up in the lexicons?</span>
+<span class="sd">        force: Should existing extensions be overwritten?</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Asent: A sentiment component.</span>
+<span class="sd">        A sentiment component.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">Asent</span><span class="p">(</span>

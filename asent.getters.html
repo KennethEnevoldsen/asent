@@ -272,21 +272,17 @@ polarities. Including accounting for contrastive conjugations (e.g. ‘but’),
 exclamationsmarks and questionmarks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>span_polarity_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Span</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a function which
+<dd class="field-odd"><p><strong>span_polarity_getter</strong> – a function which
 given a span return the polarity (sentiment) of the span. If None it assumes
 that the the span extention “polarity” is already set. If specified it
 overwrites the extension. Defaults to None.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>A function which given a doc return the</dt><dd><p>aggrated polarities. Including accounting for contrastive conjugations (e.g.
-‘but’), exclamationsmarks and questionmarks.</p>
+<dt>A function which given a doc return the aggrated polarities. Including accounting for</dt><dd><p>contrastive conjugations (e.g. ‘but’), exclamationsmarks and questionmarks.</p>
 </dd>
 </dl>
 </p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Doc], DocPolarityOutput]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -299,19 +295,16 @@ return it intensification factor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>intensifiers</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – A dictionary of intensifiers and multiplication
+<li><p><strong>intensifiers</strong> – A dictionary of intensifiers and multiplication
 factor.</p></li>
-<li><p><strong>lemmatize</strong> (<em>bool</em>) – Should it look up in the intensifiers using the lemma?
+<li><p><strong>lemmatize</strong> – Should it look up in the intensifiers using the lemma?
 Defaults to True.</p></li>
-<li><p><strong>lowercase</strong> (<em>bool</em>) – Should it look up in the intensifiers using the lowercased
+<li><p><strong>lowercase</strong> – Should it look up in the intensifiers using the lowercased
 word? Defaults to True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The getter function</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], float]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -324,18 +317,15 @@ conjugations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>contrastive_conjugations</strong> (<em>Iterable</em><em>[</em><em>str</em><em>]</em>) – A list of contrastive conjugations.</p></li>
-<li><p><strong>lemmatize</strong> (<em>bool</em>) – Should you lemmatize before lookup in the contrastive
+<li><p><strong>contrastive_conjugations</strong> – A list of contrastive conjugations.</p></li>
+<li><p><strong>lemmatize</strong> – Should you lemmatize before lookup in the contrastive
 conjugations list? Defaults to True.</p></li>
-<li><p><strong>lowercase</strong> (<em>bool</em>) – Should you lowercase before lookup in the
+<li><p><strong>lowercase</strong> – Should you lowercase before lookup in the
 conjugations list? Defaults to True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A token getter</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], bool]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -348,9 +338,9 @@ the n previous workds are negations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lookback</strong> (<em>int</em>) – How many token should it look backwards for negations? Defaults
+<li><p><strong>lookback</strong> – How many token should it look backwards for negations? Defaults
 to 3 which is emperically derived by Hutto and Gilbert (2014).</p></li>
-<li><p><strong>is_negation_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – A function which given a
+<li><p><strong>is_negation_getter</strong> – A function which given a
 token return if the token is a negation or not. If None it assumes that
 the token extention “is_negation” is set. If specified overwrites the
 extension. Defualts to None.</p></li>
@@ -358,9 +348,6 @@ extension. Defualts to None.</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The getter function</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], bool]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -373,18 +360,15 @@ not.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>negations</strong> (<em>Iterable</em><em>[</em><em>str</em><em>]</em>) – An list of negations</p></li>
-<li><p><strong>lemmatize</strong> (<em>bool</em>) – Should it look up in negations using the lemma? Defaults to
+<li><p><strong>negations</strong> – An list of negations</p></li>
+<li><p><strong>lemmatize</strong> – Should it look up in negations using the lemma? Defaults to
 True.</p></li>
-<li><p><strong>lowercase</strong> (<em>bool</em>) – Should it look up in negations using the lowercased word?
+<li><p><strong>lowercase</strong> – Should it look up in negations using the lowercased word?
 Defaults to True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A token getter</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], bool]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -409,12 +393,8 @@ given it overwrites the “is_contrastive_conj” extension. Defaults to None.</
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A function which for a span return the
-aggrated polarities. Including accounting for contrastive conjugations (e.g.
-‘but’), exclamationsmarks and questionmarks.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Span], SpanPolarityOutput]</p>
+<dd class="field-even"><p>A function which for a span return the aggrated polarities. Including accounting
+for contrastive conjugations (e.g. ‘but’), exclamationsmarks and questionmarks.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -428,23 +408,23 @@ whether is negated and whether it is intensified using an intensifier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>valence_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a function which given a
+<li><p><strong>valence_getter</strong> – a function which given a
 token return the valence (sentiment) of the token. If None it assumes that
 the the token extention “valence” is set. If specified it overwrites the
 extension. Defualts to None.</p></li>
-<li><p><strong>is_negated_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – A function which given a
+<li><p><strong>is_negated_getter</strong> – A function which given a
 token return a boolean indicating whether the token is negated. If None it
 assumes that the the token extention “is_negated” is set. If specified it
 overwrites the extension. Defualts to None.</p></li>
-<li><p><strong>intensifier_getter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Token</em><em>]</em><em>, </em><em>float</em><em>]</em><em>]</em>) – A getter which for a
+<li><p><strong>intensifier_getter</strong> – A getter which for a
 token return 0 if it is not an intensifier or its intensifcation value if it
 is an intensifier. E.g. the token ‘especially’ might have an value of 0.293
 which increases or decreases the valence of the following word by the
 specified amount. Defaults to None, intensifiers aren’t included in the
 analysis of token valence.</p></li>
-<li><p><strong>negation_scalar</strong> (<em>float</em>) – Defaults to the emperically derived constant
+<li><p><strong>negation_scalar</strong> – Defaults to the emperically derived constant
 -0.74 (Hutto and Gilbert, 2014).</p></li>
-<li><p><strong>lookback_intensities</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – How long to look back for intensifiers
+<li><p><strong>lookback_intensities</strong> – How long to look back for intensifiers
 (length). Intensities indicate the how much to weight each intensifier.
 Defaults to [1.0, 0.95, 0.90] which is emperically derived
 (Hutto and Gilbert, 2014).</p></li>
@@ -453,9 +433,6 @@ Defaults to [1.0, 0.95, 0.90] which is emperically derived
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The getter function</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], TokenPolarityOutput]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -467,15 +444,12 @@ Defaults to [1.0, 0.95, 0.90] which is emperically derived
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lemmatize</strong> (<em>bool</em>) – Should the token be lemmatized?</p></li>
-<li><p><strong>lowercase</strong> (<em>bool</em>) – Should the token be lowercased?</p></li>
+<li><p><strong>lemmatize</strong> – Should the token be lemmatized?</p></li>
+<li><p><strong>lowercase</strong> – Should the token be lowercased?</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The getter function</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -488,12 +462,12 @@ including the capitalization of the token.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lexicon</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – The valence scores of the tokens.</p></li>
-<li><p><strong>lemmatize</strong> (<em>bool</em>) – Should it look up in the lexicon (and intensifiers)
+<li><p><strong>lexicon</strong> – The valence scores of the tokens.</p></li>
+<li><p><strong>lemmatize</strong> – Should it look up in the lexicon (and intensifiers)
 using the lemma? Defaults to True.</p></li>
-<li><p><strong>lowercase</strong> (<em>bool</em>) – Should it look up in the lexicon (and intensifiers)
+<li><p><strong>lowercase</strong> – Should it look up in the lexicon (and intensifiers)
 using the lowercased word? Defaults to True.</p></li>
-<li><p><strong>cap_differential</strong> (<em>float</em>) – Capitalization differential, which is added to the
+<li><p><strong>cap_differential</strong> – Capitalization differential, which is added to the
 valence of the score it is emphasized using all caps. Defaults to 0.733, an
 emperically derived constant (Hutto and Gilbert, 2014). If None it will not
 be used.</p></li>
@@ -501,9 +475,6 @@ be used.</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The getter function</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[Token], float]</p>
 </dd>
 </dl>
 </dd></dl>
