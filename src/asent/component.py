@@ -19,7 +19,7 @@ from asent.getters import (
 )
 
 
-def __dynamic_doc_pol_getter(doc: Doc) -> DocPolarityOutput:
+def _dynamic_doc_pol_getter(doc: Doc) -> DocPolarityOutput:
     """A dynamic getter for the doc polarity.
 
     Args:
@@ -156,7 +156,7 @@ class Asent:
         if (not Doc.has_extension("polarity")) or (force is True):
             Doc.set_extension(
                 "polarity",
-                getter=__dynamic_doc_pol_getter,
+                getter=_dynamic_doc_pol_getter,
                 force=force,
             )
 
