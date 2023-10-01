@@ -65,7 +65,7 @@ docs = [
     "black>=22.12.0",
     "pre-commit>=2.20.0",
     "ruff>=0.0.263",
-    "pyright==1.1.325",
+    "pyright==1.1.329",
     "jupyter>=1.0.0",
 ]
 
