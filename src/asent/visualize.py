@@ -75,6 +75,7 @@ def visualize_prediction_no_overlap(
         {
             "start": tp.span.doc[tp.span.start].idx - span.doc[span.start].idx,
             "end": tp.span.doc[tp.span.end - 1].idx
+            - span.doc[span.start].idx
             + len(tp.span.doc[tp.span.end - 1].text),
             "label": __normalize(tp.polarity),
         }
@@ -126,8 +127,8 @@ def visualize_prediction(
 
     c_spans = [
         {
-            "start_token": tp.span.start,
-            "end_token": tp.span.end,
+            "start_token": tp.span.start - span.start,
+            "end_token": tp.span.end - span.start,
             "label": __normalize(tp.polarity),
         }
         for tp in t_pols
@@ -185,8 +186,8 @@ def visualize_analysis(
                 for intens in t_pol.intensifiers:
                     arcs.append(
                         {
-                            "start": intens.i,
-                            "end": t.i,
+                            "start": intens.i - span.start,
+                            "end": t.i - span.start,
                             "label": "intensified by",
                             "dir": "left",
                         },
