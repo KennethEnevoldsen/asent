@@ -300,6 +300,7 @@
         <span class="p">{</span>
             <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span>
             <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span>
+            <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">idx</span>
             <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">),</span>
             <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
         <span class="p">}</span>
@@ -351,8 +352,8 @@
 
     <span class="n">c_spans</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">&quot;start_token&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
-            <span class="s2">&quot;end_token&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="p">,</span>
+            <span class="s2">&quot;start_token&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+            <span class="s2">&quot;end_token&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
             <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">__normalize</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">polarity</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">tp</span> <span class="ow">in</span> <span class="n">t_pols</span>
@@ -410,8 +411,8 @@
                 <span class="k">for</span> <span class="n">intens</span> <span class="ow">in</span> <span class="n">t_pol</span><span class="o">.</span><span class="n">intensifiers</span><span class="p">:</span>
                     <span class="n">arcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                         <span class="p">{</span>
-                            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">intens</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
-                            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">i</span><span class="p">,</span>
+                            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">intens</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
                             <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;intensified by&quot;</span><span class="p">,</span>
                             <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
                         <span class="p">},</span>
