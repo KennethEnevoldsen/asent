@@ -2,6 +2,96 @@
 
 
 
+## v0.8.1 (2023-11-21)
+
+### Ci
+
+* ci: update cruft ([`7d5ff04`](https://github.com/KennethEnevoldsen/asent/commit/7d5ff045cf99d6112318ba5d6ee370ba4480f853))
+
+### Fix
+
+* fix: Fix sentiment scaling issue with &#34;but&#34; conjunction ([`a6ea377`](https://github.com/KennethEnevoldsen/asent/commit/a6ea3774760bf62974d55eac1a1aec74e38e2367))
+
+### Unknown
+
+* Merge pull request #171 from KennethEnevoldsen/add_analysis
+
+Fix sentiment scaling issue with &#34;but&#34; conjunction ([`0c40613`](https://github.com/KennethEnevoldsen/asent/commit/0c40613b3a13a745fabbb38f55501fdb5fdffd96))
+
+* Merge pull request #170 from KennethEnevoldsen/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`bc598b7`](https://github.com/KennethEnevoldsen/asent/commit/bc598b70497178da036e0bd3417e6c9c9ba92bf8))
+
+* Add makefile with installation, linting, testing,
+and static type checking ([`7bf6e22`](https://github.com/KennethEnevoldsen/asent/commit/7bf6e22f003eb3c97f579fc2e83e9b87679a8fd5))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.5 → v0.1.6](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.5...v0.1.6) ([`b6d6e94`](https://github.com/KennethEnevoldsen/asent/commit/b6d6e94bf5a99e9025382cf54fa4598858f060ac))
+
+* Merge pull request #168 from KennethEnevoldsen/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`9ac45e9`](https://github.com/KennethEnevoldsen/asent/commit/9ac45e9618fc277adca9fcda1c727bd3efd246e8))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.10.1 → 23.11.0](https://github.com/psf/black/compare/23.10.1...23.11.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.4 → v0.1.5](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.4...v0.1.5) ([`304b275`](https://github.com/KennethEnevoldsen/asent/commit/304b275305ae7d908d34f13f8098c594e172caa2))
+
+* Merge pull request #167 from KennethEnevoldsen/add_analysis
+
+Add_analysis ([`373459e`](https://github.com/KennethEnevoldsen/asent/commit/373459ec3a4010d93adf95c215774167bfb5a75c))
+
+* Add sample analysis script for trump speech ([`543d314`](https://github.com/KennethEnevoldsen/asent/commit/543d3142d8e60dbe83b6dba68221386591574a8b))
+
+* Fix visualization bugs in asent module ([`7a51a28`](https://github.com/KennethEnevoldsen/asent/commit/7a51a2826d9575aaeb6921380e88e1682e493bda))
+
+* Merge pull request #166 from KennethEnevoldsen/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`5161a7a`](https://github.com/KennethEnevoldsen/asent/commit/5161a7ad0595f77ff638ce3ac0f64369e25b504e))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.3 → v0.1.4](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.3...v0.1.4) ([`ad45222`](https://github.com/KennethEnevoldsen/asent/commit/ad45222c7f6ed372bbf94cfe8e4e74325ce122da))
+
+* Merge pull request #165 from KennethEnevoldsen/update-cruft
+
+ci - update cruft ([`3528672`](https://github.com/KennethEnevoldsen/asent/commit/3528672c47cddf9fb6a504530e83a16b13f3d114))
+
+* Merge pull request #164 from KennethEnevoldsen/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`9e6bd70`](https://github.com/KennethEnevoldsen/asent/commit/9e6bd708ee1ad09b77a5bffc6bb07a84bf6aab5b))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.10.0 → 23.10.1](https://github.com/psf/black/compare/23.10.0...23.10.1)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.1 → v0.1.3](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.1...v0.1.3) ([`c3fd8bc`](https://github.com/KennethEnevoldsen/asent/commit/c3fd8bc254612efb8013e207e62ad8ea86f5eda1))
+
+* Merge pull request #163 from KennethEnevoldsen/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`b1bb3b7`](https://github.com/KennethEnevoldsen/asent/commit/b1bb3b73757121d956779d6ea9da639a03288ab2))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.9.1 → 23.10.0](https://github.com/psf/black/compare/23.9.1...23.10.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.291 → v0.1.1](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.291...v0.1.1)
+- [github.com/pre-commit/pre-commit-hooks: v4.4.0 → v4.5.0](https://github.com/pre-commit/pre-commit-hooks/compare/v4.4.0...v4.5.0) ([`ae56433`](https://github.com/KennethEnevoldsen/asent/commit/ae5643303a180fbfbe028e1613d3482e3a991bf2))
+
+* Merge pull request #160 from KennethEnevoldsen/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`e142f6e`](https://github.com/KennethEnevoldsen/asent/commit/e142f6e1a0bb8b3533f763ff9e4c3137d57bf442))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.0.287 → v0.0.291](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.287...v0.0.291) ([`dc98c78`](https://github.com/KennethEnevoldsen/asent/commit/dc98c783f0534d0a4089df5f0e520ee4b4d1c3ae))
+
+
 ## v0.8.0 (2023-09-18)
 
 ### Ci
