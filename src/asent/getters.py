@@ -468,16 +468,18 @@ def but_check(
     before_but_scalar: float = BEFORE_BUT_SCALAR,
     after_but_scalar: float = AFTER_BUT_SCALAR,
 ) -> list:
-    contains_but = False
+    but_idx: Optional[int] = None
     for token in span:
         if token._.is_contrastive_conj:
             but_idx = token.i
-            contains_but = True
-    if contains_but is not False:
-        for i, s in enumerate(sentiment[0:but_idx]):  # type: ignore
-            sentiment[i] = s * before_but_scalar
-        for i, s in enumerate(sentiment[but_idx:]):  # type: ignore
-            sentiment[i] = s * after_but_scalar
+            break  # only the first but is considered
+    if but_idx is None:
+        return sentiment
+
+    for i, s in enumerate(sentiment[0:but_idx]):
+        sentiment[i] = s * before_but_scalar
+    for i, s in enumerate(sentiment[but_idx:]):
+        sentiment[i + but_idx] = s * after_but_scalar
     return sentiment
 
 
