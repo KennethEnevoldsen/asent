@@ -250,3 +250,39 @@ You can easily extract the sentence polarity and the document polarity using:
 
 Here we see the normalized score for both the :code:`compound`, or aggregated, polarity as well
 the the neutral :code:`neu`, negative :code:`neg`, and positive :code:`pos`.
+
+Processing mulitple Sentences
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+So far we have only looked at a singular sentence. 
+However most documents contain multiple sentences. 
+Here asent treats each sentence as a separate and then aggregates the polarity across all sentences. 
+This also means that checks for contrastive conjugations and negations are only done within the sentence. 
+This is illustrated in the following figure:
+
+.. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/multi_sentence.png
+  :width: 600
+  :alt: Calculation of document polarity with multiple sentences
+
+We can examine this by looking at the polarity of a document:
+
+.. code-block:: python
+
+   doc = nlp("I am not very happy. I am not very sad.")
+   print(doc._.polarity)
+
+and comparing it to the polarity of the individual sentences:
+
+.. code-block:: text
+
+   neg=0.139 neu=0.619 pos=0.241 compound=0.0098 n_sentences=2
+
+.. code-block:: python
+
+   for sentence in doc.sents:
+      print(sentence._.polarity)
+
+.. code-block:: text
+
+   neg=0.0 neu=0.517 pos=0.483 compound=0.4215 span=Product looks nice.
+   neg=0.278 neu=0.722 pos=0.0 compound=-0.4019 span=However some apps crash from time to time
+

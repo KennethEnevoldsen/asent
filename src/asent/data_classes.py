@@ -175,6 +175,10 @@ class DocPolarityOutput(BaseModel):
     doc: Doc
     polarities: list[SpanPolarityOutput]
 
+    @property
+    def n_sentences(self) -> int:
+        return len(self.polarities)
+
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
             repr(v) if a is None else f"{a}={v!r}"
@@ -183,6 +187,7 @@ class DocPolarityOutput(BaseModel):
                 ("neu", round(self.neutral, 3)),
                 ("pos", round(self.positive, 3)),
                 ("compound", round(self.compound, 4)),
+                ("n_sentences", self.n_sentences),
             ]
         )
 
