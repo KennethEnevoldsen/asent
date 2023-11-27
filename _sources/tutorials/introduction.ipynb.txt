@@ -39,16 +39,24 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/au561649/Github/asent/.venv/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2.0 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n",
+      "  warnings.warn(\n"
+     ]
+    },
+    {
      "data": {
       "text/plain": [
-       "<asent.component.Asent at 0x10b47ad10>"
+       "<asent.component.Asent at 0x2857f1910>"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -74,7 +82,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -195,7 +203,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -227,7 +235,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -265,7 +273,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -372,13 +380,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/html": [
-       "<span class=\"tex2jax_ignore\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:lang=\"en\" id=\"2e784686ab6b4a6a86b90bae01d2e09f-0\" class=\"displacy\" width=\"925\" height=\"312.0\" direction=\"ltr\" style=\"max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr\">\n",
+       "<span class=\"tex2jax_ignore\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:lang=\"en\" id=\"c655753638d049d2912a2bf17af336a5-0\" class=\"displacy\" width=\"925\" height=\"312.0\" direction=\"ltr\" style=\"max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr\">\n",
        "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"222.0\">\n",
        "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"50\">I</tspan>\n",
        "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"50\">0.0</tspan>\n",
@@ -405,17 +413,17 @@
        "</text>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-0\" stroke-width=\"2px\" d=\"M595,177.0 C595,89.5 745.0,89.5 745.0,177.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-c655753638d049d2912a2bf17af336a5-0-0\" stroke-width=\"2px\" d=\"M595,177.0 C595,89.5 745.0,89.5 745.0,177.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-0\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">intensified by</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-c655753638d049d2912a2bf17af336a5-0-0\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">intensified by</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M595,179.0 L587,167.0 603,167.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-1\" stroke-width=\"2px\" d=\"M420,177.0 C420,2.0 750.0,2.0 750.0,177.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-c655753638d049d2912a2bf17af336a5-0-1\" stroke-width=\"2px\" d=\"M420,177.0 C420,2.0 750.0,2.0 750.0,177.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-2e784686ab6b4a6a86b90bae01d2e09f-0-1\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">negated by</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-c655753638d049d2912a2bf17af336a5-0-1\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">negated by</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M420,179.0 L412,167.0 428,167.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
@@ -461,7 +469,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -480,14 +488,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "neg=0.0 neu=0.59 pos=0.41 compound=0.7871\n"
+      "neg=0.391 neu=0.609 pos=0.0 compound=-0.4964 n_sentences=1\n"
      ]
     }
    ],
@@ -506,6 +514,124 @@
   {
    "cell_type": "markdown",
    "metadata": {},
+   "source": [
+    "## Processing mulitple Sentences\n",
+    "So far we have only looked at a singular sentence. However most documents contain multiple sentences. Here asent treats each sentence as a separate and then aggregates the polarity across all sentences. This also means that checks for contrastive conjugations and negations are only done within the sentence. This is illustrated in figure 3.\n",
+    "\n",
+    "<h3 align=\"center\">\n",
+    "<figure>\n",
+    "<img src=\"https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/multi_sentence.png\" width=\"600\" />\n",
+    "</figure>\n",
+    "  <small>\n",
+    "  Figure 3: Calculation of document polarity for mulitple sentences\n",
+    "  </small>\n",
+    "</h3>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can also examine this sentence in practice:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><div class=\"spans\" style=\"line-height: 2.5; direction: ltr\">Product looks \n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    nice\n",
+       "    \n",
+       "<span style=\"background: #b0dd71; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "<span style=\"background: #b0dd71; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "    <span style=\"background: #b0dd71; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px\">\n",
+       "        1.8\n",
+       "    </span>\n",
+       "</span>\n",
+       "\n",
+       "\n",
+       "</span>\n",
+       ". However some apps \n",
+       "<span style=\"font-weight: bold; display: inline-block; position: relative; height: 60px;\">\n",
+       "    crash\n",
+       "    \n",
+       "<span style=\"background: #fdbd6e; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "</span>\n",
+       "\n",
+       "    \n",
+       "<span style=\"background: #fdbd6e; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;\">\n",
+       "    <span style=\"background: #fdbd6e; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px\">\n",
+       "        -1.7\n",
+       "    </span>\n",
+       "</span>\n",
+       "\n",
+       "\n",
+       "</span>\n",
+       "from time to time </div></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "sentence = \"Product looks nice. However some apps crash from time to time\"\n",
+    "doc = nlp(sentence)\n",
+    "asent.visualize(doc, style=\"prediction\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "neg=0.0 neu=0.517 pos=0.483 compound=0.4215 span=Product looks nice.\n",
+      "neg=0.278 neu=0.722 pos=0.0 compound=-0.4019 span=However some apps crash from time to time\n"
+     ]
+    }
+   ],
+   "source": [
+    "for sentence in doc.sents:\n",
+    "    print(sentence._.polarity)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "neg=0.139 neu=0.619 pos=0.241 compound=0.0098 n_sentences=2\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(doc._.polarity)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
    "source": []
   }
  ],
@@ -528,7 +654,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.10.6"
+   "version": "3.9.6"
   },
   "orig_nbformat": 4
  },

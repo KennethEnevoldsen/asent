@@ -281,7 +281,7 @@
   _C._set_default_tensor_type(t)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;asent.component.Asent at 0x7fab327862c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;asent.component.Asent at 0x7f1c3de5e4a0&gt;
 </pre></div>
 </div>
 </div>
@@ -470,7 +470,7 @@ polarity=0.0 token=. span=.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="b48d4fced75d4f3abf55b34409eacce3-0" class="displacy" width="925" height="312.0" direction="ltr" style="max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="b6c518086aaf48b6b581bd06bd404790-0" class="displacy" width="925" height="312.0" direction="ltr" style="max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="222.0">
     <tspan class="displacy-word" fill="currentColor" x="50">I</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">0.0</tspan>
@@ -497,17 +497,17 @@ polarity=0.0 token=. span=.
 </text>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-b48d4fced75d4f3abf55b34409eacce3-0-0" stroke-width="2px" d="M595,177.0 C595,89.5 745.0,89.5 745.0,177.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-b6c518086aaf48b6b581bd06bd404790-0-0" stroke-width="2px" d="M595,177.0 C595,89.5 745.0,89.5 745.0,177.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-b48d4fced75d4f3abf55b34409eacce3-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
+        <textPath xlink:href="#arrow-b6c518086aaf48b6b581bd06bd404790-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
     </text>
     <path class="displacy-arrowhead" d="M595,179.0 L587,167.0 603,167.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-b48d4fced75d4f3abf55b34409eacce3-0-1" stroke-width="2px" d="M420,177.0 C420,2.0 750.0,2.0 750.0,177.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-b6c518086aaf48b6b581bd06bd404790-0-1" stroke-width="2px" d="M420,177.0 C420,2.0 750.0,2.0 750.0,177.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-b48d4fced75d4f3abf55b34409eacce3-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">negated by</textPath>
+        <textPath xlink:href="#arrow-b6c518086aaf48b6b581bd06bd404790-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">negated by</textPath>
     </text>
     <path class="displacy-arrowhead" d="M420,179.0 L412,167.0 428,167.0" fill="currentColor"/>
 </g>
@@ -551,12 +551,74 @@ polarity=0.0 token=. span=.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neg=0.391 neu=0.609 pos=0.0 compound=-0.4964
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neg=0.391 neu=0.609 pos=0.0 compound=-0.4964 n_sentences=1
 </pre></div>
 </div>
 </div>
 </div>
 <p>Here we see the normalized score for both the <code class="docutils literal notranslate"><span class="pre">compound</span></code>, or aggregated, polarity as well the the neutral <code class="docutils literal notranslate"><span class="pre">neu</span></code>, negative <code class="docutils literal notranslate"><span class="pre">neg</span></code>, and positive <code class="docutils literal notranslate"><span class="pre">pos</span></code>.</p>
+</section>
+<section id="processing-mulitple-sentences">
+<h2>Processing mulitple Sentences<a class="headerlink" href="#processing-mulitple-sentences" title="Permalink to this heading">#</a></h2>
+<p>So far we have only looked at a singular sentence. However most documents contain multiple sentences. Here asent treats each sentence as a separate and then aggregates the polarity across all sentences. This also means that checks for contrastive conjugations and negations are only done within the sentence. This is illustrated in figure 3.</p>
+<h3 align="center">
+<figure>
+<img src="https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/multi_sentence.png" width="600" />
+</figure>
+  <small>
+  Figure 3: Calculation of document polarity for mulitple sentences
+  </small>
+</h3><p>We can also examine this sentence in practice:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot;Product looks nice. However some apps crash from time to time&quot;</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+<span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;prediction&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Product looks 
+<mark class="entity" style="background: #b0dd71; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    nice
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">1.8</span>
+</mark>
+. However some apps 
+<mark class="entity" style="background: #fdbd6e; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    crash
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-1.7</span>
+</mark>
+ from time to time</div></span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neg=0.0 neu=0.517 pos=0.483 compound=0.4215 span=Product looks nice.
+neg=0.278 neu=0.722 pos=0.0 compound=-0.4019 span=However some apps crash from time to time
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neg=0.139 neu=0.619 pos=0.241 compound=0.0098 n_sentences=2
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
