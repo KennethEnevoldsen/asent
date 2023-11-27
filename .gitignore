@@ -39,3 +39,5 @@ prodigy/requirements.txt
 
 # development
 .tox/
+test2.py
+.gitignore

@@ -14,3 +14,6 @@ pr:
 	make lint
 	make static-type-check
 	make test
+
+docs-serve:
+	inv docs -v
