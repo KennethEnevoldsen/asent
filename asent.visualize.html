@@ -249,22 +249,28 @@
 <span id="asent-visualize"></span><h2>asent.visualize<a class="headerlink" href="#module-asent.visualize" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="asent.visualize.visualize">
-<span class="sig-prename descclassname"><span class="pre">asent.visualize.</span></span><span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Span</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DocPolarityOutput</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SpanPolarityOutput</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'prediction'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RdYlGn'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/asent/visualize.html#visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.visualize.visualize" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">asent.visualize.</span></span><span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Span</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DocPolarityOutput</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SpanPolarityOutput</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'prediction'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'analysis'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'prediction-no-overlap'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'sentence-prediction'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'prediction'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RdYlGn'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/asent/visualize.html#visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.visualize.visualize" title="Permalink to this definition">#</a></dt>
 <dd><p>Render displaCy visualisation of  model prediction of sentiment or
 analysis of sentiment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>doc</strong> – The span or document you wish to apply the visualizer
-to.</p></li>
-<li><p><strong>style</strong> – A string indicating whether it should visualize
-“prediction” or “analysis”. “prediction”, color codes positive or negative
-spans according to the cmap. “analysis” visualize for each sentimental word
-if it has by negated or intensified a word, and which word.
-If you are looking for the previous visualizer for “prediction”, use
-“prediction-no-overlap”. Note that this does not allow for overlapping span.
-Thus it can lead to odd results. Defaults to “prediction”.</p></li>
-<li><p><strong>cmap</strong> – The color map derived from matplotlib. Defaults to “RdYlGn”.</p></li>
+<li><p><strong>doc</strong> – The span or document you wish to apply the visualizer to.</p></li>
+<li><p><strong>style</strong> – <p>A string indicating whether it should visualize
+“prediction” or “analysis”.</p>
+<ul>
+<li><p>”prediction”, color codes positive or negative spans according to the cmap.</p></li>
+<li><dl class="simple">
+<dt>”analysis” visualize for each sentimental word whether it has been negated or intensified by a word, and which words.</dt><dd><p>it also shows the valence of each word, both raw and taking into account negation and intensification.</p>
+</dd>
+</dl>
+</li>
+<li><p>”sentence-prediction”, same as “prediction” but for each sentence instead of per. word.</p></li>
+</ul>
+<p>If you are looking for the previous visualizer for “prediction”, use “prediction-no-overlap”.
+Note that this does not allow for overlapping spans and thus it can lead to odd results.</p>
+</p></li>
+<li><p><strong>cmap</strong> – The color map derived from matplotlib.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -283,6 +289,23 @@ Thus it can lead to odd results. Defaults to “prediction”.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;analysis&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asent.visualize.visualize_sentence_prediction">
+<span class="sig-prename descclassname"><span class="pre">asent.visualize.</span></span><span class="sig-name descname"><span class="pre">visualize_sentence_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Span</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DocPolarityOutput</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SpanPolarityOutput</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RdYlGn'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/asent/visualize.html#visualize_sentence_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asent.visualize.visualize_sentence_prediction" title="Permalink to this definition">#</a></dt>
+<dd><p>Render displaCy visualisation of model prediction of sentiment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document_obj</strong> – The span or document you wish to apply the visualizer to.</p></li>
+<li><p><strong>cmap</strong> – The color map derived from matplotlib.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rendered HTML markup.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -353,6 +376,7 @@ Thus it can lead to odd results. Defaults to “prediction”.</p></li>
 <li><a class="reference internal" href="#">Visualizers</a><ul>
 <li><a class="reference internal" href="#module-asent.visualize">asent.visualize</a><ul>
 <li><a class="reference internal" href="#asent.visualize.visualize"><code class="docutils literal notranslate"><span class="pre">visualize()</span></code></a></li>
+<li><a class="reference internal" href="#asent.visualize.visualize_sentence_prediction"><code class="docutils literal notranslate"><span class="pre">visualize_sentence_prediction()</span></code></a></li>
 </ul>
 </li>
 </ul>

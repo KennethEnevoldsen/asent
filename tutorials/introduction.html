@@ -281,7 +281,7 @@
   _C._set_default_tensor_type(t)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;asent.component.Asent at 0x7f26dbb6bc70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;asent.component.Asent at 0x7fbf8c7b8580&gt;
 </pre></div>
 </div>
 </div>
@@ -470,7 +470,7 @@ polarity=0.0 token=. span=.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="229ab43c3ba94ad790f84dd043bd8200-0" class="displacy" width="925" height="312.0" direction="ltr" style="max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="a62fc0cc092f4ed38cbe9c9306b3c9d9-0" class="displacy" width="925" height="312.0" direction="ltr" style="max-width: none; height: 312.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="222.0">
     <tspan class="displacy-word" fill="currentColor" x="50">I</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">0.0</tspan>
@@ -497,17 +497,17 @@ polarity=0.0 token=. span=.
 </text>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-229ab43c3ba94ad790f84dd043bd8200-0-0" stroke-width="2px" d="M595,177.0 C595,89.5 745.0,89.5 745.0,177.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-a62fc0cc092f4ed38cbe9c9306b3c9d9-0-0" stroke-width="2px" d="M595,177.0 C595,89.5 745.0,89.5 745.0,177.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-229ab43c3ba94ad790f84dd043bd8200-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
+        <textPath xlink:href="#arrow-a62fc0cc092f4ed38cbe9c9306b3c9d9-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
     </text>
     <path class="displacy-arrowhead" d="M595,179.0 L587,167.0 603,167.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-229ab43c3ba94ad790f84dd043bd8200-0-1" stroke-width="2px" d="M420,177.0 C420,2.0 750.0,2.0 750.0,177.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-a62fc0cc092f4ed38cbe9c9306b3c9d9-0-1" stroke-width="2px" d="M420,177.0 C420,2.0 750.0,2.0 750.0,177.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-229ab43c3ba94ad790f84dd043bd8200-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">negated by</textPath>
+        <textPath xlink:href="#arrow-a62fc0cc092f4ed38cbe9c9306b3c9d9-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">negated by</textPath>
     </text>
     <path class="displacy-arrowhead" d="M420,179.0 L412,167.0 428,167.0" fill="currentColor"/>
 </g>
@@ -573,25 +573,22 @@ polarity=0.0 token=. span=.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot;Product looks nice. However some apps crash from time to time&quot;</span>
 <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
-<span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;prediction&quot;</span><span class="p">)</span>
+<span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;sentence-prediction&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
-</pre></div>
-</div>
-<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Product looks 
-<mark class="entity" style="background: #b0dd71; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
-    nice
-    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">1.8</span>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">
+<mark class="entity" style="background: #a6d96a; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Product looks nice.
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">0.4</span>
 </mark>
-. However some apps 
-<mark class="entity" style="background: #fdbd6e; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
-    crash
-    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-1.7</span>
+ 
+<mark class="entity" style="background: #fdae61; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    However some apps crash from time to time
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-0.4</span>
 </mark>
- from time to time</div></span></div></div>
+</div></span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

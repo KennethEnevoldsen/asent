@@ -3,21 +3,21 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<meta property="og:title" content="Analysis of Trumps Speech" />
+<meta property="og:title" content="An example Analysis" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="tutorials/Analysis_of_trump_speech.html" />
 <meta property="og:site_name" content="asent" />
-<meta property="og:description" content="This pipeline is an educational example of how one can analyse a text using Asent. This pipeline takes a speech form Trump. To analyse the text we will need a spacy pipeline with the asent componen..." />
+<meta property="og:description" content="Analysis of Trumps Speech: Open In Colab This pipeline is an educational example of how one could analyse a text using Asent. For this analysis we use a single speech from Trump. To analyse the tex..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_tutorials_Analysis_of_trump_speech_93c1a707.png" />
-<meta property="og:image:alt" content="This pipeline is an educational example of how one can analyse a text using Asent. This pipeline takes a speech form Trump. To analyse the text we will need..." />
-<meta name="description" content="This pipeline is an educational example of how one can analyse a text using Asent. This pipeline takes a speech form Trump. To analyse the text we will need a spacy pipeline with the asent componen..." />
+<meta property="og:image" content="/_images/social_previews/summary_tutorials_Analysis_of_trump_speech_16c09015.png" />
+<meta property="og:image:alt" content="Analysis of Trumps Speech: Open In Colab This pipeline is an educational example of how one could analyse a text using Asent. For this analysis we use a sing..." />
+<meta name="description" content="Analysis of Trumps Speech: Open In Colab This pipeline is an educational example of how one could analyse a text using Asent. For this analysis we use a single speech from Trump. To analyse the tex..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Analysis of Trumps Speech - asent 0.8.2 documentation</title>
+        <title>An example Analysis - asent 0.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -243,10 +243,13 @@
           </label>
         </div>
         <article role="main">
-          <section id="analysis-of-trumps-speech">
-<h1>Analysis of Trumps Speech<a class="headerlink" href="#analysis-of-trumps-speech" title="Permalink to this heading">#</a></h1>
-<p>This pipeline is an educational example of how one can analyse a text using Asent. This pipeline takes a speech form Trump.</p>
-<div class="cell docutils container">
+          <section id="an-example-analysis">
+<h1>An example Analysis<a class="headerlink" href="#an-example-analysis" title="Permalink to this heading">#</a></h1>
+<section id="analysis-of-trumps-speech">
+<h2>Analysis of Trumps Speech<a class="headerlink" href="#analysis-of-trumps-speech" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://colab.research.google.com/github/kennethenevoldsen/asent/blob/main/docs/tutorials/analysis_of_trump_speech.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>This pipeline is an educational example of how one could analyse a text using Asent. For this analysis we use a single speech from Trump.</p>
+<div class="cell tag_hide-output tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">import</span> <span class="nn">asent</span>
@@ -281,47 +284,12 @@ Last night, at my direction, the United States military su
 </div>
 </div>
 <p>To analyse the text we will need a spacy pipeline with the asent component and a sentencizer:</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-output tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create spacy pipeline:</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">)</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;asent_en_v1&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># create spacy pipeline:</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;asent_en_v1&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/__init__.py:51,</span> in <span class="ni">load</span><span class="nt">(name, vocab, disable, exclude, config)</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="o">*</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">SimpleFrozenDict</span><span class="p">(),</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Load a spaCy model from an installed package or a local path.</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">40</span><span class="sd">     name (str): Package name or model path.</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span><span class="sd">     RETURNS (Language): The loaded nlp object.</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">51</span>     <span class="k">return</span> <span class="n">util</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="n">name</span><span class="p">,</span> <span class="n">vocab</span><span class="o">=</span><span class="n">vocab</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="n">disable</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span>     <span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:427,</span> in <span class="ni">load_model</span><span class="nt">(name, vocab, disable, exclude, config)</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">OLD_MODEL_SHORTCUTS</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span>     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E941</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="n">OLD_MODEL_SHORTCUTS</span><span class="p">[</span><span class="n">name</span><span class="p">]))</span>  <span class="c1"># type: ignore[index]</span>
-<span class="ne">--&gt; </span><span class="mi">427</span> <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E050</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span>
-
-<span class="ne">OSError</span>: [E050] Can&#39;t find model &#39;en_core_web_sm&#39;. It doesn&#39;t seem to be a Python package or a valid path to a data directory.
 </pre></div>
 </div>
 </div>
@@ -334,6 +302,7 @@ Last night, at my direction, the United States military su
 </div>
 </div>
 </div>
+</section>
 <section id="examining-a-sentence">
 <h2>Examining a sentence<a class="headerlink" href="#examining-a-sentence" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -344,403 +313,218 @@ Last night, at my direction, the United States military su
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><div class="spans" style="line-height: 2.5; direction: ltr">
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">
+<mark class="entity" style="background: #d4ed88; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     Well
-    
-<span style="background: #d4ed88; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #d4ed88; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #d4ed88; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        1.1
-    </span>
-</span>
-
-
-</span>
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">1.1</span>
+</mark>
 , 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+<mark class="entity" style="background: #c0e47a; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     thank
-    
-<span style="background: #c0e47a; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #c0e47a; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #c0e47a; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        1.5
-    </span>
-</span>
-
-
-</span>
-you very much . </div></span></div><div class="output text_html"><span class="tex2jax_ignore"><div class="spans" style="line-height: 2.5; direction: ltr">And 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">1.5</span>
+</mark>
+ you very much.</div></span></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">And 
+<mark class="entity" style="background: #abdb6d; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     good
-    
-<span style="background: #abdb6d; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #abdb6d; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #abdb6d; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        1.9
-    </span>
-</span>
-
-
-</span>
-afternoon . 
-
- </div></span></div><div class="output text_html"><span class="tex2jax_ignore"><div class="spans" style="line-height: 2.5; direction: ltr">As President , my highest and 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
-    most
-    
-<span style="background: #feeca0; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #feeca0; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #feeca0; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        -0.6
-    </span>
-</span>
-
-
-</span>
-
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
-    solemn
-    
-<span style="background: #feeca0; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-</span>
-duty is the 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">1.9</span>
+</mark>
+ afternoon.</div></span></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr"></br></br>As President, my highest and 
+<mark class="entity" style="background: #feeca0; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    most solemn
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-0.6</span>
+</mark>
+ duty is the 
+<mark class="entity" style="background: #ecf7a5; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     defense
-    
-<span style="background: #ecf7a5; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #ecf7a5; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #ecf7a5; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        0.5
-    </span>
-</span>
-
-
-</span>
-of our nation and its citizens . 
-
- </div></span></div><div class="output text_html"><span class="tex2jax_ignore"><div class="spans" style="line-height: 2.5; direction: ltr">Last night , at my direction , the 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">0.5</span>
+</mark>
+ of our nation and its citizens.</div></span></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr"></br></br>Last night, at my direction, the 
+<mark class="entity" style="background: #b0dd71; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     United
-    
-<span style="background: #b0dd71; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #b0dd71; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #b0dd71; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        1.8
-    </span>
-</span>
-
-
-</span>
-States military 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">1.8</span>
+</mark>
+ States military 
+<mark class="entity" style="background: #99d369; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     successfully
-    
-<span style="background: #99d369; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #99d369; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #99d369; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        2.2
-    </span>
-</span>
-
-
-</span>
-executed a 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">2.2</span>
+</mark>
+ executed a 
+<mark class="entity" style="background: #93d168; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     flawless
-    
-<span style="background: #93d168; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #93d168; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #93d168; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        2.3
-    </span>
-</span>
-
-
-</span>
-precision 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">2.3</span>
+</mark>
+ precision 
+<mark class="entity" style="background: #fef0a5; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     strike
-    
-<span style="background: #fef0a5; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #fef0a5; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #fef0a5; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        -0.5
-    </span>
-</span>
-
-
-</span>
-that 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-0.5</span>
+</mark>
+ that 
+<mark class="entity" style="background: #e64e35; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     killed
-    
-<span style="background: #e64e35; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #e64e35; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #e64e35; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        -3.5
-    </span>
-</span>
-
-
-</span>
-the 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-3.5</span>
+</mark>
+ the 
+<mark class="entity" style="background: #f4faaf; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     number
-    
-<span style="background: #f4faaf; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #f4faaf; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #f4faaf; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        0.3
-    </span>
-</span>
-
-
-</span>
-- one 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">0.3</span>
+</mark>
+-one 
+<mark class="entity" style="background: #e0422f; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     terrorist
-    
-<span style="background: #e0422f; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #e0422f; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #e0422f; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        -3.7
-    </span>
-</span>
-
-
-</span>
-anywhere in the world , Qasem Soleimani . 
-
- </div></span></div><div class="output text_html"><span class="tex2jax_ignore"><div class="spans" style="line-height: 2.5; direction: ltr">Soleimani was plotting imminent and 
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-3.7</span>
+</mark>
+ anywhere in the world, Qasem Soleimani.</div></span></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr"></br></br>Soleimani was plotting imminent and 
+<mark class="entity" style="background: #f57446; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     sinister
-    
-<span style="background: #f57446; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #f57446; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #f57446; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        -2.9
-    </span>
-</span>
-
-
-</span>
-
-<span style="font-weight: bold; display: inline-block; position: relative; height: 60px;">
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-2.9</span>
+</mark>
+ 
+<mark class="entity" style="background: #fdb365; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     attacks
-    
-<span style="background: #fdb365; top: 40px; height: 4px; left: -1px; width: calc(100% + 2px); position: absolute;">
-</span>
-
-    
-<span style="background: #fdb365; top: 40px; height: 4px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; left: -1px; width: calc(100% + 2px); position: absolute;">
-    <span style="background: #fdb365; z-index: 10; color: #000; top: -0.5em; padding: 2px 3px; position: absolute; font-size: 0.6em; font-weight: bold; line-height: 1; border-radius: 3px">
-        -1.9
-    </span>
-</span>
-
-
-</span>
-on American diplomats and military personnel , but we caught him in the act and terminated him . 
-
- </div></span></div></div>
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">-1.9</span>
+</mark>
+ on American diplomats and military personnel, but we caught him in the act and terminated him.</div></span></div></div>
 </div>
-<p>If we want to take a closer look as a specific sentence we can use the analysis visualization:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="o">.</span><span class="n">polarities</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[TokenPolarityOutput(polarity=0.0, token=As, span=As),
- TokenPolarityOutput(polarity=0.0, token=President, span=President),
- TokenPolarityOutput(polarity=0.0, token=,, span=,),
- TokenPolarityOutput(polarity=0.0, token=my, span=my),
- TokenPolarityOutput(polarity=0.0, token=highest, span=highest),
- TokenPolarityOutput(polarity=0.0, token=and, span=and),
- TokenPolarityOutput(polarity=0.0, token=most, span=most),
- TokenPolarityOutput(polarity=-0.593, token=solemn, span=most solemn),
- TokenPolarityOutput(polarity=0.0, token=duty, span=duty),
- TokenPolarityOutput(polarity=0.0, token=is, span=is),
- TokenPolarityOutput(polarity=0.0, token=the, span=the),
- TokenPolarityOutput(polarity=0.5, token=defense, span=defense),
- TokenPolarityOutput(polarity=0.0, token=of, span=of),
- TokenPolarityOutput(polarity=0.0, token=our, span=our),
- TokenPolarityOutput(polarity=0.0, token=nation, span=nation),
- TokenPolarityOutput(polarity=0.0, token=and, span=and),
- TokenPolarityOutput(polarity=0.0, token=its, span=its),
- TokenPolarityOutput(polarity=0.0, token=citizens, span=citizens),
- TokenPolarityOutput(polarity=0.0, token=., span=.),
- TokenPolarityOutput(polarity=0.0, token=
- 
- , span=
- 
- )]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<p>If we want to take a closer look as a specific sentence we can use the analysis visualization.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;analysis&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="0bfc5f4a5a534106aec2b21d0394eee1-0" class="displacy" width="3550" height="224.5" direction="ltr" style="max-width: none; height: 224.5px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="d61821fbb1064e1fa6e5b5d0bc689c8b-0" class="displacy" width="3550" height="224.5" direction="ltr" style="max-width: none; height: 224.5px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="50">As</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="50">
+
+</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="225">President</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="225">As</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="225">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="400">,</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="400">President</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="400">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="575">my</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="575">,</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="575">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="750">highest</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="750">my</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="750">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="925">and</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="925">highest</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="925">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="1100">most</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="1100">and</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1100">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="1275">solemn</tspan>
-    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1275">-0.6 (-0.3)</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="1275">most</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1275">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="1450">duty</tspan>
-    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1450">0.0</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="1450">solemn</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1450">-0.6 (-0.3)</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="1625">is</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="1625">duty</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1625">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="1800">the</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="1800">is</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1800">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="1975">defense</tspan>
-    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1975">0.5 (0.5)</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="1975">the</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1975">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="2150">of</tspan>
-    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="2150">0.0</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="2150">defense</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="2150">0.5 (0.5)</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="2325">our</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="2325">of</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="2325">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="2500">nation</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="2500">our</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="2500">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="2675">and</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="2675">nation</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="2675">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="2850">its</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="2850">and</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="2850">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="3025">citizens</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="3025">its</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="3025">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="3200">.</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="3200">citizens</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="3200">0.0</tspan>
 </text>
 
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="134.5">
-    <tspan class="displacy-word" fill="currentColor" x="3375">
-
-</tspan>
+    <tspan class="displacy-word" fill="currentColor" x="3375">.</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="3375">0.0</tspan>
 </text>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-0bfc5f4a5a534106aec2b21d0394eee1-0-0" stroke-width="2px" d="M1120,89.5 C1120,2.0 1275.0,2.0 1275.0,89.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d61821fbb1064e1fa6e5b5d0bc689c8b-0-0" stroke-width="2px" d="M1295,89.5 C1295,2.0 1450.0,2.0 1450.0,89.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-0bfc5f4a5a534106aec2b21d0394eee1-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
+        <textPath xlink:href="#arrow-d61821fbb1064e1fa6e5b5d0bc689c8b-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">intensified by</textPath>
     </text>
-    <path class="displacy-arrowhead" d="M1120,91.5 L1112,79.5 1128,79.5" fill="currentColor"/>
+    <path class="displacy-arrowhead" d="M1295,91.5 L1287,79.5 1303,79.5" fill="currentColor"/>
 </g>
 </svg></span></div></div>
+</details>
 </div>
 <p>Already here we get quite a lot of information? Which opens up for a bunch of questions:</p>
 <ul class="simple">
@@ -752,6 +536,7 @@ on American diplomats and military personnel , but we caught him in the act and 
 </section>
 <section id="extracting-polarities">
 <h1>Extracting polarities<a class="headerlink" href="#extracting-polarities" title="Permalink to this heading">#</a></h1>
+<p>To extract the polarity from a sentence we can simply use the <code class="docutils literal notranslate"><span class="pre">._.polarity</span></code> attribute to get teh polarity of the sentence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span>
@@ -759,13 +544,14 @@ on American diplomats and military personnel , but we caught him in the act and 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SpanPolarityOutput(neg=0.076, neu=0.853, pos=0.071, compound=-0.024, span=As President, my highest and most solemn duty is the defense of our nation and its citizens.
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SpanPolarityOutput(neg=0.076, neu=0.853, pos=0.071, compound=-0.024, span=
 
-)
+As President, my highest and most solemn duty is the defense of our nation and its citizens.)
 </pre></div>
 </div>
 </div>
 </div>
+<p>Then assuming we want the compound (average) polarity we can simply extract it as so:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># extracting polarity from one sentence:</span>
@@ -780,12 +566,19 @@ on American diplomats and military personnel , but we caught him in the act and 
 </div>
 </div>
 </div>
+<p>For all the documents we can thus do:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polarity pr. sentence</span>
 <span class="n">polarities</span> <span class="o">=</span> <span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">polarity</span><span class="o">.</span><span class="n">compound</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
-
-<span class="c1"># Plot polarities</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can then plot the polarities using matplotlib:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot polarities</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">polarities</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Polarity of Trump&#39;s speech&quot;</span><span class="p">)</span>
@@ -798,22 +591,18 @@ on American diplomats and military personnel , but we caught him in the act and 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Polarity&#39;)
 </pre></div>
 </div>
-<img alt="../_images/205b881502cb776b3224fffc9ffa4b530574ee0ead5c964a013b6a5f22b52300.png" src="../_images/205b881502cb776b3224fffc9ffa4b530574ee0ead5c964a013b6a5f22b52300.png" />
+<img alt="../_images/94dcaf8fd298410683a4356eb5c75a63ee2964e96a3bda16a65b021a2907b27c.png" src="../_images/94dcaf8fd298410683a4356eb5c75a63ee2964e96a3bda16a65b021a2907b27c.png" />
 </div>
 </div>
 <section id="analysis">
 <h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this heading">#</a></h2>
 <p>What do we see from this plot? We see that the Trumps speech consistently varies from positive to negative. For example:</p>
 <blockquote>
-<div><p>Under my leadership, America’s policy is unambiguous:</p>
+<div><p>“Under my leadership, America’s policy is unambiguous:
+To terrorists who harm or intend to harm any American, we will find you; we will eliminate you.
+We will always protect our diplomats, service members, all Americans, and our allies.”</p>
 </div></blockquote>
-<blockquote>
-<div><p>To terrorists who harm or intend to harm any American, we will find you; we will eliminate you.</p>
-</div></blockquote>
-<blockquote>
-<div><p>We will always protect our diplomats, service members, all Americans, and our allies.</p>
-</div></blockquote>
-<p>Q: Does this match with your subjective reading of the speech?</p>
+<p>Does this match with your subjective reading of the speech?</p>
 <p>Other analyses we could take a look is:</p>
 <ul class="simple">
 <li><p>extraction of positive/negative words</p></li>
@@ -824,6 +613,7 @@ on American diplomats and military personnel , but we caught him in the act and 
 </section>
 <section id="improving-the-plot-optional">
 <h2>Improving the plot (optional)<a class="headerlink" href="#improving-the-plot-optional" title="Permalink to this heading">#</a></h2>
+<p>In the following I do a bit of work to improve the visualization.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a horizontal line at y=0 to indicate neutrality</span>
@@ -852,7 +642,7 @@ on American diplomats and military personnel , but we caught him in the act and 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7cc4f28c8a497df6b103345dffa684a27cc2d2f3cca73071c88f4e70393300b7.png" src="../_images/7cc4f28c8a497df6b103345dffa684a27cc2d2f3cca73071c88f4e70393300b7.png" />
+<img alt="../_images/ae363f77ec429dfd63caa30cf973f62562367a98028db4358a02bfb241576cea.png" src="../_images/ae363f77ec429dfd63caa30cf973f62562367a98028db4358a02bfb241576cea.png" />
 </div>
 </div>
 </section>
@@ -902,7 +692,8 @@ on American diplomats and military personnel , but we caught him in the act and 
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Analysis of Trumps Speech</a><ul>
+<li><a class="reference internal" href="#">An example Analysis</a><ul>
+<li><a class="reference internal" href="#analysis-of-trumps-speech">Analysis of Trumps Speech</a></li>
 <li><a class="reference internal" href="#examining-a-sentence">Examining a sentence</a></li>
 </ul>
 </li>
