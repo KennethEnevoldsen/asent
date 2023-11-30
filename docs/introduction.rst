@@ -286,3 +286,18 @@ and comparing it to the polarity of the individual sentences:
    neg=0.0 neu=0.517 pos=0.483 compound=0.4215 span=Product looks nice.
    neg=0.278 neu=0.722 pos=0.0 compound=-0.4019 span=However some apps crash from time to time
 
+or we can visualize it:
+
+.. code-block:: python
+
+   asent.visualize(doc, style="sentence-prediction")
+
+.. .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_sentence_prediction.png
+..    :width: 600
+..    :alt: Model prediction with multiple sentences
+
+..  using local fle:
+
+.. image:: img/model_sentence_prediction.png
+  :width: 600
+  :alt: Model prediction with multiple sentences
