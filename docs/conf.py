@@ -17,7 +17,7 @@ from asent.about import __version__
 
 project = "asent"
 author = "Kenneth Enevoldsen"
-github_user = "KenethEnevoldsen"
+github_user = "KennethEnevoldsen"
 repo_url = f"https://github.com/{github_user}/{project}"
 
 # The full version, including alpha/beta/rc tags
