@@ -273,18 +273,93 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+Collecting sv-udv25-swedishtalbanken-trf==any
+  Downloading https://huggingface.co/explosion/sv_udv25_swedishtalbanken_trf/resolve/main/sv_udv25_swedishtalbanken_trf-any-py3-none-any.whl (850.0 MB)
+     |████████████████████████████████| 850.0 MB 13 kB/s 
+?25hCollecting spacy-transformers&lt;1.2.0,&gt;=1.1.3
+  Downloading spacy_transformers-1.1.3-py2.py3-none-any.whl (51 kB)
+     |████████████████████████████████| 51 kB 37 kB/s 
+?25hRequirement already satisfied: spacy&lt;3.3.0,&gt;=3.2.1 in /home/coder/.local/lib/python3.7/site-packages (from sv-udv25-swedishtalbanken-trf==any) (3.2.1)
+Collecting spacy-experimental&lt;0.3.0,&gt;=0.2.0
+  Downloading spacy_experimental-0.2.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (281 kB)
+     |████████████████████████████████| 281 kB 9.8 MB/s
+?25hCollecting transformers&lt;4.13.0,&gt;=3.4.0
+  Downloading transformers-4.12.5-py3-none-any.whl (3.1 MB)
+     |████████████████████████████████| 3.1 MB 31.3 MB/s 
+?25hCollecting torch&gt;=1.6.0
+  Downloading torch-1.10.1-cp37-cp37m-manylinux1_x86_64.whl (881.9 MB)
+     |████████████████████████████████| 881.9 MB 39 kB/s 
+?25hCollecting spacy-alignments&lt;1.0.0,&gt;=0.7.2
+  Downloading spacy_alignments-0.8.4-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.1 MB)
+     |████████████████████████████████| 1.1 MB 37.2 MB/s 
+?25hRequirement already satisfied: srsly&lt;3.0.0,&gt;=2.4.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy-transformers&lt;1.2.0,&gt;=1.1.3-&gt;sv-udv25-swedishtalbanken-trf==any) (2.4.2)
+Requirement already satisfied: spacy-legacy&lt;3.1.0,&gt;=3.0.8 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (3.0.8)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.13.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2.24.0)
+Requirement already satisfied: jinja2 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2.11.2)
+Requirement already satisfied: spacy-loggers&lt;2.0.0,&gt;=1.0.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.0.1)
+Requirement already satisfied: wasabi&lt;1.1.0,&gt;=0.8.1 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (0.9.0)
+Requirement already satisfied: preshed&lt;3.1.0,&gt;=3.0.2 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (3.0.6)
+Requirement already satisfied: langcodes&lt;4.0.0,&gt;=3.2.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (3.3.0)
+Requirement already satisfied: blis&lt;0.8.0,&gt;=0.4.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (0.7.5)
+Requirement already satisfied: catalogue&lt;2.1.0,&gt;=2.0.6 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2.0.6)
+Requirement already satisfied: packaging&gt;=20.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (20.4)
+Requirement already satisfied: numpy&gt;=1.15.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.19.1)
+Requirement already satisfied: typing-extensions&lt;4.0.0.0,&gt;=3.7.4; python_version &lt; &quot;3.8&quot; in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (3.10.0.2)
+Requirement already satisfied: pydantic!=1.8,!=1.8.1,&lt;1.9.0,&gt;=1.7.4 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.8.2)
+Requirement already satisfied: typer&lt;0.5.0,&gt;=0.3.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (0.4.0)
+Requirement already satisfied: pathy&gt;=0.3.5 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (0.6.1)
+Requirement already satisfied: cymem&lt;2.1.0,&gt;=2.0.2 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2.0.6)
+Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.38.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (4.49.0)
+Requirement already satisfied: murmurhash&lt;1.1.0,&gt;=0.28.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.0.6)
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (40.8.0)
+Requirement already satisfied: thinc&lt;8.1.0,&gt;=8.0.12 in /home/coder/.local/lib/python3.7/site-packages (from spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (8.0.13)
+Collecting regex!=2019.12.17
+  Downloading regex-2021.11.10-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (749 kB)
+     |████████████████████████████████| 749 kB 44.3 MB/s 
+?25hCollecting filelock
+  Downloading filelock-3.4.2-py3-none-any.whl (9.9 kB)
+Requirement already satisfied: pyyaml&gt;=5.1 in /home/coder/.local/lib/python3.7/site-packages (from transformers&lt;4.13.0,&gt;=3.4.0-&gt;spacy-transformers&lt;1.2.0,&gt;=1.1.3-&gt;sv-udv25-swedishtalbanken-trf==any) (5.3.1)
+Collecting sacremoses
+  Downloading sacremoses-0.0.46-py3-none-any.whl (895 kB)
+     |████████████████████████████████| 895 kB 90.7 MB/s 
+?25hRequirement already satisfied: importlib-metadata; python_version &lt; &quot;3.8&quot; in /home/coder/.local/lib/python3.7/site-packages (from transformers&lt;4.13.0,&gt;=3.4.0-&gt;spacy-transformers&lt;1.2.0,&gt;=1.1.3-&gt;sv-udv25-swedishtalbanken-trf==any) (1.7.0)
+Collecting tokenizers&lt;0.11,&gt;=0.10.1
+  Downloading tokenizers-0.10.3-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (3.3 MB)
+     |████████████████████████████████| 3.3 MB 81.5 MB/s 
+?25hCollecting huggingface-hub&lt;1.0,&gt;=0.1.0
+  Downloading huggingface_hub-0.2.1-py3-none-any.whl (61 kB)
+     |████████████████████████████████| 61 kB 78 kB/s 
+?25hRequirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /home/coder/.local/lib/python3.7/site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.25.10)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /home/coder/.local/lib/python3.7/site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (3.0.4)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /home/coder/.local/lib/python3.7/site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2020.6.20)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /home/coder/.local/lib/python3.7/site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2.10)
+Requirement already satisfied: MarkupSafe&gt;=0.23 in /home/coder/.local/lib/python3.7/site-packages (from jinja2-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.1.1)
+Requirement already satisfied: zipp&gt;=0.5; python_version &lt; &quot;3.8&quot; in /home/coder/.local/lib/python3.7/site-packages (from catalogue&lt;2.1.0,&gt;=2.0.6-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (3.1.0)
+Requirement already satisfied: six in /usr/lib/python3/dist-packages (from packaging&gt;=20.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (1.12.0)
+Requirement already satisfied: pyparsing&gt;=2.0.2 in /home/coder/.local/lib/python3.7/site-packages (from packaging&gt;=20.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (2.4.7)
+Requirement already satisfied: click&lt;9.0.0,&gt;=7.1.1 in /home/coder/.local/lib/python3.7/site-packages (from typer&lt;0.5.0,&gt;=0.3.0-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (7.1.2)
+Requirement already satisfied: smart-open&lt;6.0.0,&gt;=5.0.0 in /home/coder/.local/lib/python3.7/site-packages (from pathy&gt;=0.3.5-&gt;spacy&lt;3.3.0,&gt;=3.2.1-&gt;sv-udv25-swedishtalbanken-trf==any) (5.2.1)
+Requirement already satisfied: joblib in /home/coder/.local/lib/python3.7/site-packages (from sacremoses-&gt;transformers&lt;4.13.0,&gt;=3.4.0-&gt;spacy-transformers&lt;1.2.0,&gt;=1.1.3-&gt;sv-udv25-swedishtalbanken-trf==any) (0.16.0)
+Installing collected packages: regex, filelock, sacremoses, tokenizers, huggingface-hub, transformers, torch, spacy-alignments, spacy-transformers, spacy-experimental, sv-udv25-swedishtalbanken-trf
+<span class=" -Color -Color-Red">ERROR: After October 2020 you may experience errors when installing or updating packages. This is because pip will change the way that it resolves dependency conflicts.</span>
+
+<span class=" -Color -Color-Red">We recommend you use --use-feature=2020-resolver to test your packages with the new resolver before it becomes the default.</span>
+
+<span class=" -Color -Color-Red">huggingface-hub 0.2.1 requires packaging&gt;=20.9, but you&#39;ll have packaging 20.4 which is incompatible.</span>
+Successfully installed filelock-3.4.2 huggingface-hub-0.2.1 regex-2021.11.10 sacremoses-0.0.46 spacy-alignments-0.8.4 spacy-experimental-0.2.0 spacy-transformers-1.1.3 sv-udv25-swedishtalbanken-trf-0.0.1 tokenizers-0.10.3 torch-1.10.1 transformers-4.12.5
+<span class=" -Color -Color-Yellow">WARNING: You are using pip version 20.2.3; however, version 21.3.1 is available.</span>
+<span class=" -Color -Color-Yellow">You should consider upgrading via the &#39;/usr/bin/python3.7 -m pip install --upgrade pip&#39; command.</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;sv_udv25_swedishtalbanken_trf&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/torch/__init__.py:614: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:451.)
-  _C._set_default_tensor_type(t)
 </pre></div>
 </div>
 </div>
@@ -334,15 +409,15 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;sällan&#39;,
- &#39;varken&#39;,
- &#39;ingenstans&#39;,
- &#39;aldrig&#39;,
- &#39;nej&#39;,
- &#39;trots&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;varken&#39;,
+ &#39;sällan&#39;,
+ &#39;ingenting&#39;,
  &#39;utan&#39;,
  &#39;inte&#39;,
- &#39;ingenting&#39;,
+ &#39;aldrig&#39;,
+ &#39;ingenstans&#39;,
+ &#39;nej&#39;,
+ &#39;trots&#39;,
  &#39;ingen&#39;]
 </pre></div>
 </div>
@@ -365,7 +440,47 @@
  (&#39;bestämt&#39;, 0.293),
  (&#39;djupt&#39;, 0.293),
  (&#39;effing&#39;, 0.293),
- (&#39;enorm&#39;, 0.293)]
+ (&#39;enorm&#39;, 0.293),
+ (&#39;enormt&#39;, 0.293),
+ (&#39;framförallt&#39;, 0.293),
+ (&#39;speciellt&#39;, 0.293),
+ (&#39;exceptionell&#39;, 0.293),
+ (&#39;exceptionellt&#39;, 0.293),
+ (&#39;extrem&#39;, 0.293),
+ (&#39;extremt&#39;, 0.293),
+ (&#39;ytterst&#39;, 0.293),
+ (&#39;fantastiskt&#39;, 0.293),
+ (&#39;flipping&#39;, 0.293),
+ (&#39;flippin&#39;, 0.293),
+ (&#39;frackin&#39;, 0.293),
+ (&#39;fracking&#39;, 0.293),
+ (&#39;fricking&#39;, 0.293),
+ (&#39;frickin&#39;, 0.293),
+ (&#39;frigging&#39;, 0.293),
+ (&#39;friggin&#39;, 0.293),
+ (&#39;fullt&#39;, 0.293),
+ (&#39;fuckin&#39;, 0.293),
+ (&#39;fucking&#39;, 0.293),
+ (&#39;fuggin&#39;, 0.293),
+ (&#39;fugging&#39;, 0.293),
+ (&#39;mycket&#39;, 0.293),
+ (&#39;hella&#39;, 0.293),
+ (&#39;högt&#39;, 0.293),
+ (&#39;högst&#39;, 0.293),
+ (&#39;intensivt&#39;, 0.293),
+ (&#39;sjukt&#39;, 0.293),
+ (&#39;mestadels&#39;, 0.293),
+ (&#39;mer&#39;, 0.293),
+ (&#39;mest&#39;, 0.293),
+ (&#39;särskilt&#39;, 0.293),
+ (&#39;enbart&#39;, 0.293),
+ (&#39;ganska&#39;, 0.293),
+ (&#39;anmärkningsvärt&#39;, 0.293),
+ (&#39;så&#39;, 0.293),
+ (&#39;väsentligen&#39;, 0.293),
+ (&#39;genomgående&#39;, 0.293),
+ (&#39;total&#39;, 0.293),
+ (&#39;grundligt&#39;, 0.293)]
 </pre></div>
 </div>
 </div>
@@ -393,11 +508,6 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/torch/amp/autocast_mode.py:250: UserWarning: User provided device_type of &#39;cuda&#39;, but CUDA is not available. Disabling
-  warnings.warn(
-The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
-</pre></div>
-</div>
 <div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Jag är 
 <mark class="entity" style="background: #66bd63; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     enormt lycklig
@@ -424,11 +534,6 @@ The visualization style &#39;prediction&#39; is not available for spacy version 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/torch/amp/autocast_mode.py:250: UserWarning: User provided device_type of &#39;cuda&#39;, but CUDA is not available. Disabling
-  warnings.warn(
-The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
-</pre></div>
-</div>
 <div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Jag är 
 <mark class="entity" style="background: #fa9a58; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     inte glad
@@ -451,7 +556,7 @@ The visualization style &#39;prediction&#39; is not available for spacy version 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="sv" id="65098a73771b4ad99722605488a84a09-0" class="displacy" width="2325" height="574.5" direction="ltr" style="max-width: none; height: 574.5px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="sv" id="9a3ea9fb85d848269efd979836e5a61c-0" class="displacy" width="2325" height="574.5" direction="ltr" style="max-width: none; height: 574.5px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="484.5">
     <tspan class="displacy-word" fill="currentColor" x="50">Jag</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">PRON</tspan>
@@ -518,97 +623,97 @@ The visualization style &#39;prediction&#39; is not available for spacy version 
 </text>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-0" stroke-width="2px" d="M70,439.5 C70,177.0 565.0,177.0 565.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-0" stroke-width="2px" d="M70,439.5 C70,177.0 565.0,177.0 565.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M70,441.5 L62,429.5 78,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-1" stroke-width="2px" d="M245,439.5 C245,264.5 560.0,264.5 560.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-1" stroke-width="2px" d="M245,439.5 C245,264.5 560.0,264.5 560.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cop</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cop</textPath>
     </text>
     <path class="displacy-arrowhead" d="M245,441.5 L237,429.5 253,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-2" stroke-width="2px" d="M420,439.5 C420,352.0 555.0,352.0 555.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-2" stroke-width="2px" d="M420,439.5 C420,352.0 555.0,352.0 555.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
     </text>
     <path class="displacy-arrowhead" d="M420,441.5 L412,429.5 428,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-3" stroke-width="2px" d="M770,439.5 C770,89.5 1445.0,89.5 1445.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-3" stroke-width="2px" d="M770,439.5 C770,89.5 1445.0,89.5 1445.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cc</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cc</textPath>
     </text>
     <path class="displacy-arrowhead" d="M770,441.5 L762,429.5 778,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-4" stroke-width="2px" d="M945,439.5 C945,177.0 1440.0,177.0 1440.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-4" stroke-width="2px" d="M945,439.5 C945,177.0 1440.0,177.0 1440.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M945,441.5 L937,429.5 953,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-5" stroke-width="2px" d="M1120,439.5 C1120,264.5 1435.0,264.5 1435.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-5" stroke-width="2px" d="M1120,439.5 C1120,264.5 1435.0,264.5 1435.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">aux</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">aux</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1120,441.5 L1112,429.5 1128,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-6" stroke-width="2px" d="M1295,439.5 C1295,352.0 1430.0,352.0 1430.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-6" stroke-width="2px" d="M1295,439.5 C1295,352.0 1430.0,352.0 1430.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-6" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-6" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1295,441.5 L1287,429.5 1303,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-7" stroke-width="2px" d="M595,439.5 C595,2.0 1450.0,2.0 1450.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-7" stroke-width="2px" d="M595,439.5 C595,2.0 1450.0,2.0 1450.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-7" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">conj</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-7" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">conj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1450.0,441.5 L1458.0,429.5 1442.0,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-8" stroke-width="2px" d="M1645,439.5 C1645,177.0 2140.0,177.0 2140.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-8" stroke-width="2px" d="M1645,439.5 C1645,177.0 2140.0,177.0 2140.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-8" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">mark</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-8" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">mark</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1645,441.5 L1637,429.5 1653,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-9" stroke-width="2px" d="M1820,439.5 C1820,264.5 2135.0,264.5 2135.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-9" stroke-width="2px" d="M1820,439.5 C1820,264.5 2135.0,264.5 2135.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-9" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-9" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1820,441.5 L1812,429.5 1828,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-10" stroke-width="2px" d="M1995,439.5 C1995,352.0 2130.0,352.0 2130.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-10" stroke-width="2px" d="M1995,439.5 C1995,352.0 2130.0,352.0 2130.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-10" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cop</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-10" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cop</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1995,441.5 L1987,429.5 2003,429.5" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-65098a73771b4ad99722605488a84a09-0-11" stroke-width="2px" d="M1470,439.5 C1470,89.5 2145.0,89.5 2145.0,439.5" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-9a3ea9fb85d848269efd979836e5a61c-0-11" stroke-width="2px" d="M1470,439.5 C1470,89.5 2145.0,89.5 2145.0,439.5" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-65098a73771b4ad99722605488a84a09-0-11" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">ccomp</textPath>
+        <textPath xlink:href="#arrow-9a3ea9fb85d848269efd979836e5a61c-0-11" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">ccomp</textPath>
     </text>
     <path class="displacy-arrowhead" d="M2145.0,441.5 L2153.0,429.5 2137.0,429.5" fill="currentColor"/>
 </g>
@@ -803,9 +908,6 @@ ledsen 	 -2.1 False - inte
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The visualization style &#39;prediction&#39; is not available for spacy version &lt; 3.3.0. Using &#39;prediction-no-overlap&#39; instead. Note that this does notallow for overlapping span.
-</pre></div>
-</div>
 <div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Jag är 
 <mark class="entity" style="background: #fa9a58; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
     inte glad
