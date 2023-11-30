@@ -27,7 +27,7 @@ The documentation consists of three parts:
    installation
    introduction
    customizing
-   tutorials/analysis_of_trump_speech
+   tutorials/analysis_of_a_speech
    languages
 
   
