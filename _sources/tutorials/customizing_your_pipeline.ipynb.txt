@@ -1,0 +1,937 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<a href=\"https://github.com/kennethenevoldsen/asent\"><img src=\"https://github.com/KennethEnevoldsen/asent/blob/main/docs/img/logo_black_font.png?raw=true\" width=\"300\" /></a>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Installation\n",
+    "Before we start we should install asent this can be done simply by commenting out the following lines:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#!pip install asent"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Tutorial: Creating and Customizing your Pipeline\n",
+    "\n",
+    "Asent is build using a series of extension attributes on the spaCy classes, `Doc`, `Token` and `Span`. This allow you to switch out the parts and also improve on  one component at a time. In this tutorial we will move you through how to customize your own pipeline. This will first include a quick approach using the `Asent` component to implement a Swedish pipeline and then we will customize the way the pipeline checks if a word is negated.\n",
+    "\n",
+    "> To read more about the custom spaCy extensions check out their [documentation](https://kennethenevoldsen.github.io/asent/languages/index.html).\n",
+    "\n",
+    "Before we start we will need a spaCy pipeline for Swedish. However, SpaCy only supply an experimental version for Swedish, which we will use here, but I recommend also checking out the model by [the Swedish royal library](https://github.com/Kungbib/swedish-spacy).\n",
+    "\n",
+    "> *Note* this version requires a GPU and torch>=1.9.0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Defaulting to user installation because normal site-packages is not writeable\n",
+      "Collecting sv-udv25-swedishtalbanken-trf==any\n",
+      "  Downloading https://huggingface.co/explosion/sv_udv25_swedishtalbanken_trf/resolve/main/sv_udv25_swedishtalbanken_trf-any-py3-none-any.whl (850.0 MB)\n",
+      "\u001b[K     |████████████████████████████████| 850.0 MB 13 kB/s \n",
+      "\u001b[?25hCollecting spacy-transformers<1.2.0,>=1.1.3\n",
+      "  Downloading spacy_transformers-1.1.3-py2.py3-none-any.whl (51 kB)\n",
+      "\u001b[K     |████████████████████████████████| 51 kB 37 kB/s \n",
+      "\u001b[?25hRequirement already satisfied: spacy<3.3.0,>=3.2.1 in /home/coder/.local/lib/python3.7/site-packages (from sv-udv25-swedishtalbanken-trf==any) (3.2.1)\n",
+      "Collecting spacy-experimental<0.3.0,>=0.2.0\n",
+      "  Downloading spacy_experimental-0.2.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (281 kB)\n",
+      "\u001b[K     |████████████████████████████████| 281 kB 9.8 MB/s\n",
+      "\u001b[?25hCollecting transformers<4.13.0,>=3.4.0\n",
+      "  Downloading transformers-4.12.5-py3-none-any.whl (3.1 MB)\n",
+      "\u001b[K     |████████████████████████████████| 3.1 MB 31.3 MB/s \n",
+      "\u001b[?25hCollecting torch>=1.6.0\n",
+      "  Downloading torch-1.10.1-cp37-cp37m-manylinux1_x86_64.whl (881.9 MB)\n",
+      "\u001b[K     |████████████████████████████████| 881.9 MB 39 kB/s \n",
+      "\u001b[?25hCollecting spacy-alignments<1.0.0,>=0.7.2\n",
+      "  Downloading spacy_alignments-0.8.4-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.1 MB)\n",
+      "\u001b[K     |████████████████████████████████| 1.1 MB 37.2 MB/s \n",
+      "\u001b[?25hRequirement already satisfied: srsly<3.0.0,>=2.4.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy-transformers<1.2.0,>=1.1.3->sv-udv25-swedishtalbanken-trf==any) (2.4.2)\n",
+      "Requirement already satisfied: spacy-legacy<3.1.0,>=3.0.8 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (3.0.8)\n",
+      "Requirement already satisfied: requests<3.0.0,>=2.13.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2.24.0)\n",
+      "Requirement already satisfied: jinja2 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2.11.2)\n",
+      "Requirement already satisfied: spacy-loggers<2.0.0,>=1.0.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.0.1)\n",
+      "Requirement already satisfied: wasabi<1.1.0,>=0.8.1 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (0.9.0)\n",
+      "Requirement already satisfied: preshed<3.1.0,>=3.0.2 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (3.0.6)\n",
+      "Requirement already satisfied: langcodes<4.0.0,>=3.2.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (3.3.0)\n",
+      "Requirement already satisfied: blis<0.8.0,>=0.4.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (0.7.5)\n",
+      "Requirement already satisfied: catalogue<2.1.0,>=2.0.6 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2.0.6)\n",
+      "Requirement already satisfied: packaging>=20.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (20.4)\n",
+      "Requirement already satisfied: numpy>=1.15.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.19.1)\n",
+      "Requirement already satisfied: typing-extensions<4.0.0.0,>=3.7.4; python_version < \"3.8\" in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (3.10.0.2)\n",
+      "Requirement already satisfied: pydantic!=1.8,!=1.8.1,<1.9.0,>=1.7.4 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.8.2)\n",
+      "Requirement already satisfied: typer<0.5.0,>=0.3.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (0.4.0)\n",
+      "Requirement already satisfied: pathy>=0.3.5 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (0.6.1)\n",
+      "Requirement already satisfied: cymem<2.1.0,>=2.0.2 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2.0.6)\n",
+      "Requirement already satisfied: tqdm<5.0.0,>=4.38.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (4.49.0)\n",
+      "Requirement already satisfied: murmurhash<1.1.0,>=0.28.0 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.0.6)\n",
+      "Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (40.8.0)\n",
+      "Requirement already satisfied: thinc<8.1.0,>=8.0.12 in /home/coder/.local/lib/python3.7/site-packages (from spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (8.0.13)\n",
+      "Collecting regex!=2019.12.17\n",
+      "  Downloading regex-2021.11.10-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (749 kB)\n",
+      "\u001b[K     |████████████████████████████████| 749 kB 44.3 MB/s \n",
+      "\u001b[?25hCollecting filelock\n",
+      "  Downloading filelock-3.4.2-py3-none-any.whl (9.9 kB)\n",
+      "Requirement already satisfied: pyyaml>=5.1 in /home/coder/.local/lib/python3.7/site-packages (from transformers<4.13.0,>=3.4.0->spacy-transformers<1.2.0,>=1.1.3->sv-udv25-swedishtalbanken-trf==any) (5.3.1)\n",
+      "Collecting sacremoses\n",
+      "  Downloading sacremoses-0.0.46-py3-none-any.whl (895 kB)\n",
+      "\u001b[K     |████████████████████████████████| 895 kB 90.7 MB/s \n",
+      "\u001b[?25hRequirement already satisfied: importlib-metadata; python_version < \"3.8\" in /home/coder/.local/lib/python3.7/site-packages (from transformers<4.13.0,>=3.4.0->spacy-transformers<1.2.0,>=1.1.3->sv-udv25-swedishtalbanken-trf==any) (1.7.0)\n",
+      "Collecting tokenizers<0.11,>=0.10.1\n",
+      "  Downloading tokenizers-0.10.3-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (3.3 MB)\n",
+      "\u001b[K     |████████████████████████████████| 3.3 MB 81.5 MB/s \n",
+      "\u001b[?25hCollecting huggingface-hub<1.0,>=0.1.0\n",
+      "  Downloading huggingface_hub-0.2.1-py3-none-any.whl (61 kB)\n",
+      "\u001b[K     |████████████████████████████████| 61 kB 78 kB/s \n",
+      "\u001b[?25hRequirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /home/coder/.local/lib/python3.7/site-packages (from requests<3.0.0,>=2.13.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.25.10)\n",
+      "Requirement already satisfied: chardet<4,>=3.0.2 in /home/coder/.local/lib/python3.7/site-packages (from requests<3.0.0,>=2.13.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (3.0.4)\n",
+      "Requirement already satisfied: certifi>=2017.4.17 in /home/coder/.local/lib/python3.7/site-packages (from requests<3.0.0,>=2.13.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2020.6.20)\n",
+      "Requirement already satisfied: idna<3,>=2.5 in /home/coder/.local/lib/python3.7/site-packages (from requests<3.0.0,>=2.13.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2.10)\n",
+      "Requirement already satisfied: MarkupSafe>=0.23 in /home/coder/.local/lib/python3.7/site-packages (from jinja2->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.1.1)\n",
+      "Requirement already satisfied: zipp>=0.5; python_version < \"3.8\" in /home/coder/.local/lib/python3.7/site-packages (from catalogue<2.1.0,>=2.0.6->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (3.1.0)\n",
+      "Requirement already satisfied: six in /usr/lib/python3/dist-packages (from packaging>=20.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (1.12.0)\n",
+      "Requirement already satisfied: pyparsing>=2.0.2 in /home/coder/.local/lib/python3.7/site-packages (from packaging>=20.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (2.4.7)\n",
+      "Requirement already satisfied: click<9.0.0,>=7.1.1 in /home/coder/.local/lib/python3.7/site-packages (from typer<0.5.0,>=0.3.0->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (7.1.2)\n",
+      "Requirement already satisfied: smart-open<6.0.0,>=5.0.0 in /home/coder/.local/lib/python3.7/site-packages (from pathy>=0.3.5->spacy<3.3.0,>=3.2.1->sv-udv25-swedishtalbanken-trf==any) (5.2.1)\n",
+      "Requirement already satisfied: joblib in /home/coder/.local/lib/python3.7/site-packages (from sacremoses->transformers<4.13.0,>=3.4.0->spacy-transformers<1.2.0,>=1.1.3->sv-udv25-swedishtalbanken-trf==any) (0.16.0)\n",
+      "Installing collected packages: regex, filelock, sacremoses, tokenizers, huggingface-hub, transformers, torch, spacy-alignments, spacy-transformers, spacy-experimental, sv-udv25-swedishtalbanken-trf\n",
+      "\u001b[31mERROR: After October 2020 you may experience errors when installing or updating packages. This is because pip will change the way that it resolves dependency conflicts.\n",
+      "\n",
+      "We recommend you use --use-feature=2020-resolver to test your packages with the new resolver before it becomes the default.\n",
+      "\n",
+      "huggingface-hub 0.2.1 requires packaging>=20.9, but you'll have packaging 20.4 which is incompatible.\u001b[0m\n",
+      "Successfully installed filelock-3.4.2 huggingface-hub-0.2.1 regex-2021.11.10 sacremoses-0.0.46 spacy-alignments-0.8.4 spacy-experimental-0.2.0 spacy-transformers-1.1.3 sv-udv25-swedishtalbanken-trf-0.0.1 tokenizers-0.10.3 torch-1.10.1 transformers-4.12.5\n",
+      "\u001b[33mWARNING: You are using pip version 20.2.3; however, version 21.3.1 is available.\n",
+      "You should consider upgrading via the '/usr/bin/python3.7 -m pip install --upgrade pip' command.\u001b[0m\n"
+     ]
+    }
+   ],
+   "source": [
+    "# !pip install https://huggingface.co/explosion/sv_udv25_swedishtalbanken_trf/resolve/main/sv_udv25_swedishtalbanken_trf-any-py3-none-any.whl\n",
+    "# note this model is quite big so it can take a while"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import spacy\n",
+    "\n",
+    "nlp = spacy.load(\"sv_udv25_swedishtalbanken_trf\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Creating the pipeline\n",
+    "A large part of the customization is made simple using the `Asent` component. Here we will implement the Swedish asent pipeline. For this, we need a dictionary of rated words and potentially a list of intensifiers, negation and contrastive conjunctions - however, these are not mandatory.\n",
+    "\n",
+    "We can extract these using the `lexicons.get` function:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from asent import lexicons\n",
+    "\n",
+    "rated_words = lexicons.get(\"lexicon_sv_v1\")\n",
+    "negations = lexicons.get(\"negations_sv_v1\")\n",
+    "intensifiers = lexicons.get(\"intensifiers_sv_v1\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Before we move on, let us check what each of these contains. Let us start with the `rated_words`; this is a dictionary which contains words as well as a human rating of how positive/negative each of them are: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[('motbjudande', -3.1),\n",
+       " ('avskyr', -2.9),\n",
+       " ('förmågor', 1.0),\n",
+       " ('förmåga', 1.3),\n",
+       " ('ombord', 0.1),\n",
+       " ('frånvarande', -1.1),\n",
+       " ('frikänna', 1.6),\n",
+       " ('befrias', 1.5),\n",
+       " ('frikänner', 1.6),\n",
+       " ('missbruk', -3.2)]"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "list(rated_words.items())[140:150]  # the start of the dictionary is mostly emoticons"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "`negations` is simply a list or a set of words, which is considered negations:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['varken',\n",
+       " 'sällan',\n",
+       " 'ingenting',\n",
+       " 'utan',\n",
+       " 'inte',\n",
+       " 'aldrig',\n",
+       " 'ingenstans',\n",
+       " 'nej',\n",
+       " 'trots',\n",
+       " 'ingen']"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "list(negations)[:10]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Finally, `intensifiers` is a dictionary of words such intensifies the valence of another words (e.g. \"very\"). It is associated with an score on how much it intensifies to following word. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[('absolut', 0.293),\n",
+       " ('otroligt', 0.293),\n",
+       " ('väldigt', 0.293),\n",
+       " ('helt', 0.293),\n",
+       " ('betydande', 0.293),\n",
+       " ('betydligt', 0.293),\n",
+       " ('bestämt', 0.293),\n",
+       " ('djupt', 0.293),\n",
+       " ('effing', 0.293),\n",
+       " ('enorm', 0.293),\n",
+       " ('enormt', 0.293),\n",
+       " ('framförallt', 0.293),\n",
+       " ('speciellt', 0.293),\n",
+       " ('exceptionell', 0.293),\n",
+       " ('exceptionellt', 0.293),\n",
+       " ('extrem', 0.293),\n",
+       " ('extremt', 0.293),\n",
+       " ('ytterst', 0.293),\n",
+       " ('fantastiskt', 0.293),\n",
+       " ('flipping', 0.293),\n",
+       " ('flippin', 0.293),\n",
+       " ('frackin', 0.293),\n",
+       " ('fracking', 0.293),\n",
+       " ('fricking', 0.293),\n",
+       " ('frickin', 0.293),\n",
+       " ('frigging', 0.293),\n",
+       " ('friggin', 0.293),\n",
+       " ('fullt', 0.293),\n",
+       " ('fuckin', 0.293),\n",
+       " ('fucking', 0.293),\n",
+       " ('fuggin', 0.293),\n",
+       " ('fugging', 0.293),\n",
+       " ('mycket', 0.293),\n",
+       " ('hella', 0.293),\n",
+       " ('högt', 0.293),\n",
+       " ('högst', 0.293),\n",
+       " ('intensivt', 0.293),\n",
+       " ('sjukt', 0.293),\n",
+       " ('mestadels', 0.293),\n",
+       " ('mer', 0.293),\n",
+       " ('mest', 0.293),\n",
+       " ('särskilt', 0.293),\n",
+       " ('enbart', 0.293),\n",
+       " ('ganska', 0.293),\n",
+       " ('anmärkningsvärt', 0.293),\n",
+       " ('så', 0.293),\n",
+       " ('väsentligen', 0.293),\n",
+       " ('genomgående', 0.293),\n",
+       " ('total', 0.293),\n",
+       " ('grundligt', 0.293)]"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "list(intensifiers.items())[:10]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can now add a sentiment component to the pipeline, using the `Asent` component: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><div class=\"entities\" style=\"line-height: 2.5; direction: ltr\">Jag är \n",
+       "<mark class=\"entity\" style=\"background: #66bd63; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    enormt lycklig\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">3.0</span>\n",
+       "</mark>\n",
+       "</div></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import asent\n",
+    "from asent.component import Asent\n",
+    "\n",
+    "Asent(\n",
+    "    nlp,\n",
+    "    name=\"asent_sv\",\n",
+    "    lexicon=rated_words,\n",
+    "    intensifiers=intensifiers,\n",
+    "    negations=negations,\n",
+    "    lowercase=True,\n",
+    "    lemmatize=False,\n",
+    ")\n",
+    "\n",
+    "# test it out and visualize results\n",
+    "doc = nlp(\"Jag är enormt lycklig\")\n",
+    "asent.visualize(doc)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Do note that i) we specified that the model should lowercase words before looking them up in the dictionary (`lowercase=True`) and ii) it should not lemmatize(`lemmatize=False`) the word. \n",
+    "\n",
+    "This should naturally correspond to the lexicons you are using. If your lexicon contains lemmas then you should lemmatize beforehand, if your lexicon is case sensitive you should not lowercase before the look up."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Customizing your Pipeline\n",
+    "In the following, we will customize our pipeline a bit further. We will especially look at the negations. The current implementation based on [Hutto and Gilbert (2014)](https://ojs.aaai.org/index.php/ICWSM/article/view/14550) assumed that the word is negated if one of the three proceeding words is a negation. This is a simplifying assumption which has been shown to generally work well, however, with spaCy performing a dependency parse and part-of-speech tagging, we can do better!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Examining an example:\n",
+    "First, let us examine an example where it fails:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><div class=\"entities\" style=\"line-height: 2.5; direction: ltr\">Jag är \n",
+       "<mark class=\"entity\" style=\"background: #fa9a58; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    inte glad\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">-2.3</span>\n",
+       "</mark>\n",
+       " men jag skulle inte säga att jag är \n",
+       "<mark class=\"entity\" style=\"background: #fca75e; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    ledsen\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">-2.1</span>\n",
+       "</mark>\n",
+       ".</div></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "doc = nlp(\"Jag är inte glad men jag skulle inte säga att jag är ledsen.\")\n",
+    "# I am not happy but I would not say that I am sad.\n",
+    "\n",
+    "asent.visualize(doc)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:lang=\"sv\" id=\"9a3ea9fb85d848269efd979836e5a61c-0\" class=\"displacy\" width=\"2325\" height=\"574.5\" direction=\"ltr\" style=\"max-width: none; height: 574.5px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr\">\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"50\">Jag</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"50\">PRON</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"225\">är</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"225\">AUX</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"400\">inte</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"400\">PART</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"575\">glad</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"575\">ADJ</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"750\">men</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"750\">CCONJ</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"925\">jag</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"925\">PRON</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"1100\">skulle</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"1100\">AUX</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"1275\">inte</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"1275\">PART</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"1450\">säga</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"1450\">VERB</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"1625\">att</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"1625\">SCONJ</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"1800\">jag</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"1800\">PRON</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"1975\">är</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"1975\">AUX</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"484.5\">\n",
+       "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"2150\">ledsen.</tspan>\n",
+       "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"2150\">ADJ</tspan>\n",
+       "</text>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-0\" stroke-width=\"2px\" d=\"M70,439.5 C70,177.0 565.0,177.0 565.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-0\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nsubj</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M70,441.5 L62,429.5 78,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-1\" stroke-width=\"2px\" d=\"M245,439.5 C245,264.5 560.0,264.5 560.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-1\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">cop</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M245,441.5 L237,429.5 253,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-2\" stroke-width=\"2px\" d=\"M420,439.5 C420,352.0 555.0,352.0 555.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-2\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">advmod</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M420,441.5 L412,429.5 428,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-3\" stroke-width=\"2px\" d=\"M770,439.5 C770,89.5 1445.0,89.5 1445.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-3\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">cc</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M770,441.5 L762,429.5 778,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-4\" stroke-width=\"2px\" d=\"M945,439.5 C945,177.0 1440.0,177.0 1440.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-4\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nsubj</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M945,441.5 L937,429.5 953,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-5\" stroke-width=\"2px\" d=\"M1120,439.5 C1120,264.5 1435.0,264.5 1435.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-5\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">aux</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M1120,441.5 L1112,429.5 1128,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-6\" stroke-width=\"2px\" d=\"M1295,439.5 C1295,352.0 1430.0,352.0 1430.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-6\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">advmod</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M1295,441.5 L1287,429.5 1303,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-7\" stroke-width=\"2px\" d=\"M595,439.5 C595,2.0 1450.0,2.0 1450.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-7\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">conj</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M1450.0,441.5 L1458.0,429.5 1442.0,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-8\" stroke-width=\"2px\" d=\"M1645,439.5 C1645,177.0 2140.0,177.0 2140.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-8\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">mark</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M1645,441.5 L1637,429.5 1653,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-9\" stroke-width=\"2px\" d=\"M1820,439.5 C1820,264.5 2135.0,264.5 2135.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-9\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nsubj</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M1820,441.5 L1812,429.5 1828,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-10\" stroke-width=\"2px\" d=\"M1995,439.5 C1995,352.0 2130.0,352.0 2130.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-10\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">cop</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M1995,441.5 L1987,429.5 2003,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "\n",
+       "<g class=\"displacy-arrow\">\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-9a3ea9fb85d848269efd979836e5a61c-0-11\" stroke-width=\"2px\" d=\"M1470,439.5 C1470,89.5 2145.0,89.5 2145.0,439.5\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
+       "        <textPath xlink:href=\"#arrow-9a3ea9fb85d848269efd979836e5a61c-0-11\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">ccomp</textPath>\n",
+       "    </text>\n",
+       "    <path class=\"displacy-arrowhead\" d=\"M2145.0,441.5 L2153.0,429.5 2137.0,429.5\" fill=\"currentColor\"/>\n",
+       "</g>\n",
+       "</svg></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "from spacy import displacy\n",
+    "\n",
+    "# examine the part-of-speech tags and dependency tree\n",
+    "displacy.render(doc)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "From this we can notice two things:\n",
+    "1) The negation has the [*PART*](https://universaldependencies.org/u/pos/PART.html) part-of-speech tag, indicating that it is a particle, which among other things include negations.\n",
+    "2) The negation is related to other words using the [*advmod*](https://universaldependencies.org/u/dep/advmod.html), and the words we wish negated are \"down the tree\" (or down the arrow if you will) from the negated word.\n",
+    "\n",
+    "We can even go a bit further and examine the morph extension: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Jag \t Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs\n",
+      "är \t Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act\n",
+      "inte \t Polarity=Neg\n",
+      "glad \t Case=Nom|Definite=Ind|Degree=Pos|Gender=Com|Number=Sing\n",
+      "men \t \n",
+      "jag \t Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs\n",
+      "skulle \t Mood=Ind|Tense=Past|VerbForm=Fin|Voice=Act\n",
+      "inte \t Polarity=Neg\n",
+      "säga \t VerbForm=Inf|Voice=Act\n",
+      "att \t \n",
+      "jag \t Case=Nom|Definite=Def|Gender=Com|Number=Sing|PronType=Prs\n",
+      "är \t Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act\n",
+      "ledsen \t Case=Nom|Definite=Ind|Gender=Com|Number=Sing|Tense=Past|VerbForm=Part\n",
+      ". \t \n"
+     ]
+    }
+   ],
+   "source": [
+    "for t in doc:\n",
+    "    print(t, \"\\t\", t.morph)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Where we see that the negation *\"inte\"* is denoted by [*Polarity=Neg*](https://universaldependencies.org/u/feat/Polarity.html#Neg), indicating that it is a negation."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "From this, there are two things we can change. First, instead of looking up the negation, we can examine whether it is a negation or at least that it has the right part-of-speech tag. Second, we can implement a method which checks if a word is negated using the dependency tree."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Morphology and Part-of-Speech for negations\n",
+    "Asent checks if a word is a negation using the `is_negation` token extension. We can see this using:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Jag \t False\n",
+      "är \t False\n",
+      "inte \t True\n",
+      "glad \t False\n",
+      "men \t False\n",
+      "jag \t False\n",
+      "skulle \t False\n",
+      "inte \t True\n",
+      "säga \t False\n",
+      "att \t False\n",
+      "jag \t False\n",
+      "är \t False\n",
+      "ledsen \t False\n",
+      ". \t False\n"
+     ]
+    }
+   ],
+   "source": [
+    "for t in doc:\n",
+    "    print(t, \"\\t\", t._.is_negation)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We will now simply overwrite the extension with one using the morph tag. First, we will create a function which, when applied to a token, returns whether it is a negation. Second, we will overwrite the extensions using the token's `set_extention` method. # Oh, slog lige first/secondly op, og mine \"rettelser\" er også korrekte - men dine var også. Så se bare bort fra dem."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from spacy.tokens import Token\n",
+    "\n",
+    "\n",
+    "def is_negation(token: Token) -> bool:\n",
+    "    \"\"\"checks is token is a negation\n",
+    "\n",
+    "    Args:\n",
+    "        token (Token): A spaCy token\n",
+    "\n",
+    "    Returns:\n",
+    "        bool: a boolean indicating whether the token is a negation\n",
+    "    \"\"\"\n",
+    "    m_dict = token.morph.to_dict()\n",
+    "    return (\n",
+    "        \"Polarity\" in m_dict  # if it has the polarity attribute\n",
+    "        and m_dict[\"Polarity\"] == \"Neg\"\n",
+    "    )  # and it is negative\n",
+    "\n",
+    "\n",
+    "Token.set_extension(\"is_negation\", getter=is_negation, force=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now our negations use the morph tag, which in this case provides the same result, so the result isn't that interesting. What we really want it the second part:\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Using the dependency tree for negations\n",
+    "In the following, we will overwrite the `is_negated` extension used by Asent to check if a word is negated. We can start by examining it:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Jag \t None\n",
+      "är \t None\n",
+      "inte \t None\n",
+      "glad \t inte\n",
+      "men \t inte\n",
+      "jag \t inte\n",
+      "skulle \t None\n",
+      "inte \t None\n",
+      "säga \t inte\n",
+      "att \t inte\n",
+      "jag \t inte\n",
+      "är \t None\n",
+      "ledsen \t None\n",
+      ". \t None\n"
+     ]
+    }
+   ],
+   "source": [
+    "for t in doc:\n",
+    "    print(t, \"\\t\", t._.is_negated)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Noticably, see that *ledsen* is not negated, although it should be, but we also clearly see the three following words after the negation are negated as was expected from the heuristic rule."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from typing import Optional\n",
+    "\n",
+    "\n",
+    "def is_negated(token: Token) -> Optional[Token]:\n",
+    "    \"\"\"checks is token is negated\n",
+    "\n",
+    "    Args:\n",
+    "        token (Token): A spaCy token\n",
+    "\n",
+    "    Returns:\n",
+    "        Optional[Token]: return the negation if the token is negated\n",
+    "    \"\"\"\n",
+    "    # only check if a word is negated if it is rated (it is not meaningful to do otherwise)\n",
+    "    if token._.valence:\n",
+    "        for c in token.children:\n",
+    "            # if the token is modified by a negation\n",
+    "            if c.dep_ == \"advmod\" and c._.is_negation:\n",
+    "                return c\n",
+    "        # or if its head it negated:\n",
+    "        for c in token.head.children:\n",
+    "            if c.dep_ == \"advmod\" and c._.is_negation:\n",
+    "                return c\n",
+    "\n",
+    "\n",
+    "Token.set_extension(\"is_negated\", getter=is_negated, force=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Jag \t 0.0 False - None\n",
+      "är \t 0.0 False - None\n",
+      "inte \t 0.0 True - None\n",
+      "glad \t 3.1 False - inte\n",
+      "men \t 0.0 False - None\n",
+      "jag \t 0.0 False - None\n",
+      "skulle \t 0.0 False - None\n",
+      "inte \t 0.0 True - None\n",
+      "säga \t 0.0 False - None\n",
+      "att \t 0.0 False - None\n",
+      "jag \t 0.0 False - None\n",
+      "är \t 0.0 False - None\n",
+      "ledsen \t -2.1 False - inte\n",
+      ". \t 0.0 False - None\n"
+     ]
+    }
+   ],
+   "source": [
+    "for t in doc:\n",
+    "    print(t, \"\\t\", t._.valence, t._.is_negation, \"-\", t._.is_negated)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><div class=\"entities\" style=\"line-height: 2.5; direction: ltr\">Jag är \n",
+       "<mark class=\"entity\" style=\"background: #fa9a58; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    inte glad\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">-2.3</span>\n",
+       "</mark>\n",
+       " men jag skulle \n",
+       "<mark class=\"entity\" style=\"background: #bae277; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    inte säga att jag är ledsen\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">1.6</span>\n",
+       "</mark>\n",
+       ".</div></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "TokenPolarityOutput(polarity=1.554, token=ledsen, span=inte säga att jag är ledsen)"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "asent.visualize(doc)\n",
+    "doc[-2]._.polarity"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Exercise\n",
+    "You will notice that there is no contrastive conjugation for Swedish, but that the part-of-speech tags do include a tag for it (CCONJ). Overwrite the `is_contrastive_conj` extension to include contrastive conjugations."
+   ]
+  }
+ ],
+ "metadata": {
+  "interpreter": {
+   "hash": "4bf26e8f1c179b01cb59a2d6823fb6cd29f134e7c953e081ed300474f231d990"
+  },
+  "kernelspec": {
+   "display_name": "Python 3.7.3 64-bit",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.12"
+  },
+  "orig_nbformat": 4
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
