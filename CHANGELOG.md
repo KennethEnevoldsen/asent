@@ -2,6 +2,18 @@
 
 
 
+## v0.8.2 (2023-11-27)
+
+### Fix
+
+* fix: Added additonal documentation to multi sent
+processing ([`95fb837`](https://github.com/KennethEnevoldsen/asent/commit/95fb8375c03dd4530adef34c3bb5d4ddbedbf24f))
+
+### Unknown
+
+* Added docs serve to makefile ([`cd72fe8`](https://github.com/KennethEnevoldsen/asent/commit/cd72fe8d246e7c5034f17eb4a0b0459936f1112b))
+
+
 ## v0.8.1 (2023-11-21)
 
 ### Ci
