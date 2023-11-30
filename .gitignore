@@ -15,3 +15,11 @@ docs/_build/*
 
 # mac
 .DS_Store
+.venv/
+
+Benchmarks
+test2.py
+*.pkl
+prodigy
+*.egg-info
+*.tox
