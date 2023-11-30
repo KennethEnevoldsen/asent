@@ -4,8 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# An example Analysis\n",
-    "## Analysis of Trumps Speech\n",
+    "## Analysis of a speech\n",
     "\n",
     "[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/kennethenevoldsen/asent/blob/main/docs/tutorials/analysis_of_trump_speech.ipynb)\n",
     "\n",
@@ -124,7 +123,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Examining a sentence"
+    "### Examining a sentence"
    ]
   },
   {
@@ -474,7 +473,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Extracting polarities\n",
+    "### Extracting polarities\n",
     "\n",
     "To extract the polarity from a sentence we can simply use the `._.polarity` attribute to get teh polarity of the sentence:"
    ]
@@ -593,7 +592,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Analysis\n",
+    "### Analysis\n",
     "\n",
     "What do we see from this plot? We see that the Trumps speech consistently varies from positive to negative. For example:\n",
     "\n",
@@ -619,7 +618,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Improving the plot (optional)\n",
+    "### Improving the plot (optional)\n",
     "In the following I do a bit of work to improve the visualization."
    ]
   },

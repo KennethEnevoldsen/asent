@@ -21,7 +21,7 @@ The documentation consists of three parts:
 - **API references** contains the documentation of each function and public class.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    :caption: Getting started
 
    installation

@@ -292,12 +292,6 @@ or we can visualize it:
 
    asent.visualize(doc, style="sentence-prediction")
 
-.. .. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_sentence_prediction.png
-..    :width: 600
-..    :alt: Model prediction with multiple sentences
-
-..  using local fle:
-
-.. image:: img/model_sentence_prediction.png
-  :width: 600
-  :alt: Model prediction with multiple sentences
+.. image:: https://raw.githubusercontent.com/KennethEnevoldsen/asent/main/docs/img/model_sentence_prediction.png
+   :width: 600
+   :alt: Model prediction with multiple sentences
