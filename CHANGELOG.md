@@ -2,6 +2,21 @@
 
 
 
+## v0.8.3 (2023-11-30)
+
+### Documentation
+
+* docs: Added example analysis of speech ([`15f6799`](https://github.com/KennethEnevoldsen/asent/commit/15f6799653d18779b1e36b30064c1045ccc68ea2))
+
+### Fix
+
+* fix: Added sentence-prediction visualizer ([`444bdb6`](https://github.com/KennethEnevoldsen/asent/commit/444bdb64e2fe3bfe14a808d2d505dd13df3f9165))
+
+### Unknown
+
+* Merge branch &#39;main&#39; of https://github.com/KennethEnevoldsen/asent ([`392370d`](https://github.com/KennethEnevoldsen/asent/commit/392370dab5e14617d08ffd628b2fb98ba91d6f90))
+
+
 ## v0.8.2 (2023-11-27)
 
 ### Fix
