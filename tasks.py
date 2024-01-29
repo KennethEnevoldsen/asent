@@ -15,7 +15,6 @@ inv --list
 If you do not wish to use invoke you can simply delete this file.
 """
 
-
 import platform
 import re
 import shutil
