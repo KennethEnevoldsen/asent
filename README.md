@@ -5,9 +5,6 @@
 [![PyPI version](https://badge.fury.io/py/asent.svg)](https://pypi.org/project/asent/)
 [![python version](https://img.shields.io/badge/Python-%3E=3.9-blue)](https://github.com/kennethenevoldsen/asent)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
-[![github actions pytest](https://github.com/kennethenevoldsen/asent/actions/workflows/tests.yml/badge.svg)](https://github.com/kennethenevoldsen/asent/actions)
-[![github actions docs](https://github.com/kennethenevoldsen/asent/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/asent/)
-[![pip downloads](https://img.shields.io/pypi/dm/asent.svg)](https://pypi.org/project/asent/)
 
 
 Asent is a rule-based sentiment analysis library for Python made using [SpaCy](https://spacy.io). 
