@@ -1,0 +1,68 @@
+Traceback (most recent call last):
+  File "/home/runner/.local/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+for i in range(5):
+    asent.visualize(sentences[i])
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mImportError[39m                               Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[5][39m[32m, line 2[39m
+[32m      1[39m [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m([32m5[39m):
+[32m----> [39m[32m2[39m     [43masent[49m[43m.[49m[43mvisualize[49m[43m([49m[43msentences[49m[43m[[49m[43mi[49m[43m][49m[43m)[49m
+
+[36mFile [39m[32m~/.local/lib/python3.12/site-packages/asent/visualize.py:310[39m, in [36mvisualize[39m[34m(doc, style, cmap)[39m
+[32m    307[39m     style_ = [33m"[39m[33mprediction-no-overlap[39m[33m"[39m
+[32m    309[39m [38;5;28;01mif[39;00m style_ == [33m"[39m[33mprediction[39m[33m"[39m:
+[32m--> [39m[32m310[39m     [38;5;28;01mreturn[39;00m [43mvisualize_prediction[49m[43m([49m[43mdoc[49m[43m,[49m[43m [49m[43mcmap[49m[43m=[49m[43mcmap[49m[43m)[49m
+[32m    311[39m [38;5;28;01mif[39;00m style_ == [33m"[39m[33mprediction-no-overlap[39m[33m"[39m:
+[32m    312[39m     [38;5;28;01mreturn[39;00m visualize_prediction_no_overlap(doc, cmap=cmap)
+
+[36mFile [39m[32m~/.local/lib/python3.12/site-packages/asent/visualize.py:140[39m, in [36mvisualize_prediction[39m[34m(document_obj, cmap)[39m
+[32m    124[39m c_spans = [
+[32m    125[39m     {
+[32m    126[39m         [33m"[39m[33mstart_token[39m[33m"[39m: tp.span.start - span.start,
+[32m   (...)[39m[32m    130[39m     [38;5;28;01mfor[39;00m tp [38;5;129;01min[39;00m t_pols
+[32m    131[39m ]
+[32m    132[39m ex = [
+[32m    133[39m     {
+[32m    134[39m         [33m"[39m[33mtext[39m[33m"[39m: span.text,
+[32m   (...)[39m[32m    137[39m     },
+[32m    138[39m ]
+[32m--> [39m[32m140[39m html = [43mdisplacy[49m[43m.[49m[43mrender[49m[43m([49m
+[32m    141[39m [43m    [49m[43mex[49m[43m,[49m
+[32m    142[39m [43m    [49m[43mstyle[49m[43m=[49m[33;43m"[39;49m[33;43mspan[39;49m[33;43m"[39;49m[43m,[49m
+[32m    143[39m [43m    [49m[43mmanual[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m,[49m
+[32m    144[39m [43m    [49m[43moptions[49m[43m=[49m[43m{[49m[33;43m"[39;49m[33;43mcolors[39;49m[33;43m"[39;49m[43m:[49m[43m [49m[43msentiment_color_dict[49m[43m}[49m[43m,[49m
+[32m    145[39m [43m[49m[43m)[49m
+[32m    147[39m [38;5;28;01mreturn[39;00m html
+
+[36mFile [39m[32m~/.local/lib/python3.12/site-packages/spacy/displacy/__init__.py:69[39m, in [36mrender[39m[34m(docs, style, page, minify, jupyter, options, manual)[39m
+[32m     65[39m     html = RENDER_WRAPPER(html)
+[32m     66[39m [38;5;28;01mif[39;00m jupyter [38;5;129;01mor[39;00m (jupyter [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m is_in_jupyter()):
+[32m     67[39m     [38;5;66;03m# return HTML rendered by IPython display()[39;00m
+[32m     68[39m     [38;5;66;03m# See #4840 for details on span wrapper to disable mathjax[39;00m
+[32m---> [39m[32m69[39m     [38;5;28;01mfrom[39;00m [34;01mIPython[39;00m[34;01m.[39;00m[34;01mcore[39;00m[34;01m.[39;00m[34;01mdisplay[39;00m [38;5;28;01mimport[39;00m HTML, display
+[32m     71[39m     [38;5;28;01mreturn[39;00m display(HTML([33m'[39m[33m<span class=[39m[33m"[39m[33mtex2jax_ignore[39m[33m"[39m[33m>[39m[38;5;132;01m{}[39;00m[33m</span>[39m[33m'[39m.format(html)))
+[32m     72[39m [38;5;28;01mreturn[39;00m html
+
+[31mImportError[39m: cannot import name 'display' from 'IPython.core.display' (/home/runner/.local/lib/python3.12/site-packages/IPython/core/display.py)
+
